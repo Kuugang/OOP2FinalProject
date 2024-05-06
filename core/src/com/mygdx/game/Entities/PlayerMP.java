@@ -12,10 +12,7 @@ public class PlayerMP extends Player {
 
     public PlayerMP(String username, double x, double y, InetAddress ipAddress, int port) {
         this(username, x, y);
-        this.x = x;
-        this.y = y;
         this.ipAddress = ipAddress;
         this.port = port;
     }
-
 }

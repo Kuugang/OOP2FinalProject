@@ -2,6 +2,9 @@ package com.mygdx.game.Entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.BattleRoyaleGame;
 import com.mygdx.game.Network.Packets.Packet02Move;
@@ -9,34 +12,42 @@ import com.mygdx.game.ScreenConfig;
 
 public class Player {
     public String username;
-    public double x, y; //Location
     public float speed;
-    public Rectangle playerBounds; // Parameter
+    public Sprite spritePlayer;
+    public float rotationSpeed;
 
     public Player(String username, double x, double y) {
         this.username = username;
-        this.x = x;
-        this.y = y;
         speed = 100;
-        playerBounds = new Rectangle((float) x, (float) y, ScreenConfig.tileSize, ScreenConfig.tileSize);
+        spritePlayer = new Sprite(new Texture(Gdx.files.internal("Hull_01.png")));
+        spritePlayer.setSize(ScreenConfig.tileSize, ScreenConfig.tileSize);
+        spritePlayer.setPosition((float) x, (float) y);
+        spritePlayer.setOrigin(spritePlayer.getWidth() / 2, spritePlayer.getHeight() / 2);
+        rotationSpeed = 10;
     }
 
     public void update(){
         if(Gdx.input.isKeyPressed(Input.Keys.W)){
-            this.y += this.speed * Gdx.graphics.getDeltaTime();
+            float dx = (float) (Math.cos(Math.toRadians(spritePlayer.getRotation() + 90)) * speed * Gdx.graphics.getDeltaTime()),
+            dy = (float) (Math.sin(Math.toRadians(spritePlayer.getRotation() + 90)) * speed * Gdx.graphics.getDeltaTime());
+            spritePlayer.setX(dx + spritePlayer.getX());
+            spritePlayer.setY(dy + spritePlayer.getY());
         }
         if(Gdx.input.isKeyPressed(Input.Keys.S)){
-            this.y -= this.speed * Gdx.graphics.getDeltaTime();
+            float dx = (float) (Math.cos(Math.toRadians(spritePlayer.getRotation() + 90)) * speed * Gdx.graphics.getDeltaTime()),
+                    dy = (float) (Math.sin(Math.toRadians(spritePlayer.getRotation() + 90)) * speed * Gdx.graphics.getDeltaTime());
+            spritePlayer.setX(-dx + spritePlayer.getX());
+            spritePlayer.setY(-dy + spritePlayer.getY());
         }
         if(Gdx.input.isKeyPressed(Input.Keys.D)){
-            this.x += this.speed * Gdx.graphics.getDeltaTime();
+            spritePlayer.rotate(rotationSpeed);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.A)){
-            this.x -= this.speed * Gdx.graphics.getDeltaTime();
+            spritePlayer.rotate(-rotationSpeed);
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)){
-            Packet02Move packet02Move = new Packet02Move(this.username, (int) this.x, (int)this.y);
+            Packet02Move packet02Move = new Packet02Move(this.username, (int) spritePlayer.getX(), (int) spritePlayer.getX());
             packet02Move.writeData(BattleRoyaleGame.gameClient);
         }
     }
@@ -46,10 +57,26 @@ public class Player {
     }
 
     public double getX() {
-        return x;
+        return spritePlayer.getX();
     }
 
     public double getY() {
-        return y;
+        return spritePlayer.getY();
+    }
+
+    public void setX(double x) {
+        spritePlayer.setX((float) x);
+    }
+
+    public void setY(double y) {
+        spritePlayer.setY((float) y);
+    }
+
+    public float getWidth() {
+        return spritePlayer.getWidth();
+    }
+
+    public float getHeight() {
+        return spritePlayer.getHeight();
     }
 }

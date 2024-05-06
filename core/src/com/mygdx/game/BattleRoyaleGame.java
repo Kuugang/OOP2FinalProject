@@ -14,7 +14,7 @@ public class BattleRoyaleGame extends Game {
 	public void create () {
 		batch = new SpriteBatch();
 		font = new BitmapFont();
-		gameClient = new GameClient("127.0.0.1");
+		gameClient = new GameClient("hosting-ensures.gl.at.ply.gg");
 		gameClient.start();
 		this.setScreen(new MainMenu(this));
 	}

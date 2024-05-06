@@ -22,7 +22,6 @@ public class GameScreen implements Screen {
     public static Player player;
     OrthographicCamera camera;
     public BattleRoyaleGame game;
-    public Texture playerImage;
 
     public Texture test;
     public static HashMap<String, PlayerMP> otherPlayers; //<username, OtherPlayer Class>
@@ -38,7 +37,6 @@ public class GameScreen implements Screen {
         camera.setToOrtho(false, ScreenConfig.screenWidth, ScreenConfig.screenHeight);
 
         otherPlayers = new HashMap<>();
-        playerImage = new Texture(Gdx.files.internal("drop.png"));
         test = new Texture(Gdx.files.internal("test.png"));
     }
 
@@ -55,27 +53,23 @@ public class GameScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
-        game.font.draw(game.batch, player.getUsername(), (float) player.x + 50, (float) player.y + 50);
-        game.batch.draw(playerImage, (float) player.x, (float) player.y,
-                player.playerBounds.width, player.playerBounds.height);
 
-//        game.batch.sha
-////        game.batch.draw(test, (float) player.x, (float) player.y, player.playerBounds.width, player.playerBounds.height);
+        game.font.draw(game.batch, player.getUsername(), player.spritePlayer.getX() + 50,
+                player.spritePlayer.getY() + 50);
+        player.spritePlayer.draw(game.batch);
 
         if(!otherPlayers.isEmpty())
             for(Map.Entry<String, PlayerMP> otherPlayerEntry : otherPlayers.entrySet()){
                 PlayerMP otherPlayer = otherPlayerEntry.getValue();
-                game.font.draw(game.batch, otherPlayer.getUsername(), (float) otherPlayer.x + 50,
-                        (float) otherPlayer.y + 50);
-                game.batch.draw(playerImage, (float) otherPlayer.x, (float) otherPlayer.y,
-                        otherPlayer.playerBounds.width, otherPlayer.playerBounds.height);
+                game.font.draw(game.batch, otherPlayer.getUsername(), (float) otherPlayer.getX() + 50,
+                        (float) otherPlayer.getY() + 50);
+                otherPlayer.spritePlayer.draw(game.batch);
             }
         //UPDATE
         game.batch.end();
 
         player.update();
 
-        System.out.println(Gdx.input.getX() + " " + Gdx.input.getY());
     }
 
     @Override

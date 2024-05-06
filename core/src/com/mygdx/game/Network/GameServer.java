@@ -68,11 +68,6 @@ public class GameServer extends Thread {
                 packet = new Packet02Move(data);
                 this.handleMove(((Packet02Move) packet));
                 break;
-
-//            case INPUT:
-//                packet = new Packet03Input(data);
-//                System.out.println(((Packet03Input) packet).getInput());
-//                break;
         }
     }
 
@@ -91,7 +86,7 @@ public class GameServer extends Thread {
                 alreadyConnected = true;
             }else{
                 //send data to client that another player has joined
-                Packet00Login packetUser = new Packet00Login(p.username, p.x, p.y);
+                Packet00Login packetUser = new Packet00Login(p.username, p.getX(), p.getY());
                 sendData(packet.getData(), p.ipAddress, p.port);
 //                packet = new Packet00Login(p.getUsername(), p.x, p.y, packet.getTime());
                 sendData(packetUser.getData(), player.ipAddress, player.port);
@@ -150,8 +145,8 @@ public class GameServer extends Thread {
         if (getPlayerMP(packet.getUsername()) != null) {
             int index = getPlayerMPIndex(packet.getUsername());
             PlayerMP player = this.connectedPlayers.get(index);
-            player.x = packet.getX();
-            player.y = packet.getY();
+            player.setX(packet.getX());
+            player.setY(packet.getY());
             packet.writeData(this);
         }
     }

@@ -79,8 +79,8 @@ public class GameClient extends Thread {
                 double serverX = ((Packet02Move) packet).getX();
                 double serverY = ((Packet02Move) packet).getY();
 
-                player.x = serverX;
-                player.y = serverY;
+                player.setX(serverX);
+                player.setY(serverY);
                 break;
         }
     }
