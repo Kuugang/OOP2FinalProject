@@ -17,17 +17,17 @@ public class MapManager {
     public MapManager(){
         tiledMapRenderer = new OrthogonalTiledMapRenderer(null);
         maps.put("room", new Room().setMap("Game2D/Maps/HOUSE/HIS_HOUSE.tmx"));
-//        maps.put("GLE202", new GLE202().setMap("Game2D/Maps/GLE202 ROOM/GLE202_ROOM.tmx"));
+        maps.put("GLE202", new GLE202().setMap("Game2D/Maps/GLE202 ROOM/GLE202.tmx"));
 //        maps.put("GYM", new GLE202().setMap("Game2D/Maps/GYM/GYM.tmx"));
-        maps.put("FINAL_NGE_ROOM", new GLE202().setMap("Game2D/Maps/NGE ROOM/FINAL_NGE_ROOM.tmx"));
-        maps.put("LIBRARY", new GLE202().setMap("Game2D/Maps/LIBRARY/LIBRARY.tmx"));
+//        maps.put("FINAL_NGE_ROOM", new GLE202().setMap("Game2D/Maps/NGE ROOM/FINAL_NGE_ROOM.tmx"));
+//        maps.put("LIBRARY", new GLE202().setMap("Game2D/Maps/LIBRARY/LIBRARY.tmx"));
 //        maps.put("NGE_EXTERIOR", new GLE202().setMap("Game2D/Maps/EXTERIOR-20240511T113900Z-001/EXTERIOR/NGE_F.tmx"));
-        maps.put("TEST_GLE", new GLE202().setMap("Game2D/Maps/GLE202 ROOM/TEST_GLE.tmx"));
+//        maps.put("TEST_GLE", new GLE202().setMap("Game2D/Maps/GLE202 ROOM/TEST_GLE.tmx"));
     }
 
     public void dispatchMap(String mapName){
+        //ADD DIALOGS
         GameMap map = maps.get(mapName);
-
         if(map != null){
             Gdx.app.postRunnable(() -> {
                 if(currentMap != null) {

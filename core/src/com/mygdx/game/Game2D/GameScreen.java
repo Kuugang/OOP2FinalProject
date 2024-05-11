@@ -46,11 +46,11 @@ public class GameScreen implements Screen {
         Gdx.input.setInputProcessor(inputHandler);
         player = new Player(username);
 
-//        mapManager.dispatchMap("room");
+        mapManager.dispatchMap("room");
 //        mapManager.dispatchMap("GLE202");
 //        mapManager.dispatchMap("GYM");
 //        mapManager.dispatchMap("FINAL_NGE_ROOM");
-        mapManager.dispatchMap("LIBRARY");
+//        mapManager.dispatchMap("LIBRARY");
 //        mapManager.dispatchMap("NGE_EXTERIOR");
 //        mapManager.dispatchMap("TEST_GLE");
     }

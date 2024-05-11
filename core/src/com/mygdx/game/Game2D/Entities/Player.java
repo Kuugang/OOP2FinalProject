@@ -51,7 +51,7 @@ public class Player extends Entity {
     float stateTime = 0F;
     Body boxBody;
     public Player(String username){
-        textureAtlas = new TextureAtlas(Gdx.files.internal("atlas/player.atlas"));
+        textureAtlas = new TextureAtlas(Gdx.files.internal("atlas/leo.atlas"));
 
         upAnimation = new Animation<>(0.10f, textureAtlas.findRegions("move_up"));
         downAnimation = new Animation<>(0.10f, textureAtlas.findRegions("move_down"));
