@@ -36,7 +36,7 @@ public class MapManager {
                 }
                 tiledMapRenderer.setMap(map.getTiledMap());
                 currentMap = map;
-                map.setCollisions();
+                currentMap.setCollisions();
             });
         }
     }

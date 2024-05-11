@@ -21,7 +21,7 @@ public abstract class GameMap {
     MapLayer collisionObjectLayer;
     MapLayer exitCollisionsLayer;
     MapObjects objectsCollisions;
-    MapObjects exits;
+    MapObjects exits = new MapObjects();
     ArrayList <Body> bodies = new ArrayList<>();
 
     public GameMap setMap(String path){
@@ -30,14 +30,16 @@ public abstract class GameMap {
     }
 
     public void setCollisions(){
+        System.out.println("WTF");
         collisionObjectLayer = map.getLayers().get("collisions");
         exitCollisionsLayer = map.getLayers().get("exits");
 
-        if(exitCollisionsLayer == null)return;
-        if(collisionObjectLayer == null)return;
+        if(collisionObjectLayer == null && exitCollisionsLayer == null)return;
+//        if(collisionObjectLayer == null)return;
 
         objectsCollisions = collisionObjectLayer.getObjects();
-        exits = exitCollisionsLayer.getObjects();
+//        exits = exitCollisionsLayer.getObjects();
+        System.out.println(objectsCollisions.getCount());
 
 
         for (MapObject object : exits) {
@@ -63,7 +65,6 @@ public abstract class GameMap {
 
                 Fixture fixture = collisionBody.createFixture(fixtureDef);
                 fixture.setUserData(new AbstractMap.SimpleEntry<>("exit", "GLE202"));
-
                 bodies.add(collisionBody);
             }
         }
