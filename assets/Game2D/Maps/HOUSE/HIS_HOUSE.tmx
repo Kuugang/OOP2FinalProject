@@ -20,10 +20,10 @@
 533,534,535,536,537,538,539,540,541,542,543,544,545,546
 </data>
  </layer>
- <objectgroup id="3" name="exits">
+ <objectgroup id="3" name="Exit">
   <object id="1" x="96" y="416" width="288" height="56"/>
  </objectgroup>
- <objectgroup id="4" name="collisions">
+ <objectgroup id="4" name="Collision">
   <object id="2" x="96" y="128">
    <polygon points="0,0 0,-128 -96,-128 -96,0"/>
   </object>

@@ -1,6 +1,7 @@
 package com.mygdx.game.Game2D.Entities;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -88,18 +89,16 @@ public class Player extends Entity {
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(100, 100);
         boxBody = world.createBody(bodyDef);
+        boxBody.setLinearDamping(50f);
 
         PolygonShape dynamicBox = new PolygonShape();
         dynamicBox.setAsBox(sprite.getWidth()  /3, sprite.getHeight() / 8);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = dynamicBox;
-        fixtureDef.density = 0f;
-        fixtureDef.friction = 0f;
 
         Fixture fixture = boxBody.createFixture(fixtureDef);
         fixture.setUserData("player");
-        boxBody.setLinearDamping(10f);
         Player.username = username;
     }
 
@@ -108,39 +107,26 @@ public class Player extends Entity {
         isMoving = InputHandler.A || InputHandler.S || InputHandler.W || InputHandler.D;
         sprite.setPosition(boxBody.getPosition().x - sprite.getWidth() / 2, boxBody.getPosition().y - sprite.getHeight() / 7);
 
-        if(InputHandler.A){
+        if(Gdx.input.isKeyPressed(Input.Keys.A)){
             direction = Direction.LEFT;
             boxBody.applyLinearImpulse(new Vector2(-speed, 0), boxBody.getWorldCenter(), true);
         }
 
-        if(InputHandler.D){
+        if(Gdx.input.isKeyPressed(Input.Keys.D)){
             direction = Direction.RIGHT;
             boxBody.applyLinearImpulse(new Vector2(speed, 0), boxBody.getWorldCenter(), true);
         }
 
-        if(InputHandler.W){
+        if(Gdx.input.isKeyPressed(Input.Keys.W)){
             direction = Direction.UP;
-
-            if(InputHandler.D) {
-                boxBody.applyLinearImpulse(new Vector2(-speed * 0.3F, speed *  0.7F), boxBody.getWorldCenter(), true);
-            }else if(InputHandler.A) {
-                boxBody.applyLinearImpulse(new Vector2(speed * 0.3F, speed *  0.7F), boxBody.getWorldCenter(), true);
-            }else{
-                boxBody.applyLinearImpulse(new Vector2(0, speed), boxBody.getWorldCenter(), true);
-            }
+            boxBody.applyLinearImpulse(new Vector2(0, speed), boxBody.getWorldCenter(), true);
         }
-        if(InputHandler.S){
+        if(Gdx.input.isKeyPressed(Input.Keys.S)){
             direction = Direction.DOWN;
-            if(InputHandler.D) {
-                boxBody.applyLinearImpulse(new Vector2(-speed * 0.3F, -speed * 0.7F), boxBody.getWorldCenter(), true);
-            }else if(InputHandler.A) {
-                boxBody.applyLinearImpulse(new Vector2(speed * 0.3F, -speed * 0.7F), boxBody.getWorldCenter(), true);
-            }else{
-                boxBody.applyLinearImpulse(new Vector2(0 , -speed), boxBody.getWorldCenter(), true);
-            }
+            boxBody.applyLinearImpulse(new Vector2(0 , -speed), boxBody.getWorldCenter(), true);
         }
-
     }
+
     public void render(){
         stateTime += Gdx.graphics.getDeltaTime();
 
@@ -170,6 +156,14 @@ public class Player extends Entity {
         batch.begin();
     }
 
+    public void setPosition(Vector2 position){
+        this.boxBody.setTransform(position, 0);
+    }
+
+    public void setDirection(Direction direction){
+        this.direction = direction;
+    }
+
     public float getX(){
         return sprite.getX() + sprite.getWidth() / 2;
     }
@@ -185,4 +179,5 @@ public class Player extends Entity {
     public float getHeight(){
         return sprite.getHeight();
     }
+
 }

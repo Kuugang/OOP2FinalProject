@@ -1,10 +1,13 @@
 package com.mygdx.game.Game2D.Listeners;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Game2D.GameScreen;
+import com.mygdx.game.Game2D.World.ExitMap;
 
 import java.util.AbstractMap;
 import java.util.Objects;
+import java.util.Vector;
 
 public class GameCollisionListener implements ContactListener {
     @Override
@@ -15,12 +18,10 @@ public class GameCollisionListener implements ContactListener {
         Object objectB = fixtureB.getUserData();
 
         if(fixtureA.getUserData() == null || fixtureB.getUserData() == null)return;
-        if (objectA.equals("player") || objectB.equals("player")) {
-            if (objectA instanceof AbstractMap.SimpleEntry<?,?> || objectB instanceof AbstractMap.SimpleEntry<?,?>) {
-                AbstractMap.SimpleEntry<String, String> entry = (AbstractMap.SimpleEntry<String, String>) objectB;
-                if(Objects.equals(entry.getKey(), "exit")){
-                    GameScreen.mapManager.dispatchMap(entry.getValue());
-                }
+
+        if(objectA.equals("player")){
+            if(objectB instanceof ExitMap exitMap){
+                GameScreen.mapManager.dispatchMap(exitMap.nextMap, exitMap.playerPosition, exitMap.playerDirection);
             }
         }
     }

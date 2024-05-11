@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Game2D.Entities.Player;
 import com.mygdx.game.Game2D.Handlers.InputHandler;
 import com.mygdx.game.Game2D.Listeners.GameCollisionListener;
+import com.mygdx.game.Game2D.States.Direction;
 import com.mygdx.game.Game2D.World.GameMap;
 import com.mygdx.game.Game2D.World.MapManager;
 import com.mygdx.game.ScreenConfig;
@@ -28,7 +30,6 @@ public class GameScreen implements Screen {
     public static Player player;
     public static OrthographicCamera camera;
     public static TiledMap map;
-    public OrthogonalTiledMapRenderer tiledMapRenderer;
     static InputHandler inputHandler = new InputHandler();
     public static World world;
     private final Box2DDebugRenderer debugRenderer;
@@ -38,6 +39,7 @@ public class GameScreen implements Screen {
 
         world = new World(new Vector2(0, 0), true);
         world.setContactListener(new GameCollisionListener());
+
         debugRenderer = new Box2DDebugRenderer();
 
         camera = new OrthographicCamera();
@@ -46,8 +48,13 @@ public class GameScreen implements Screen {
         Gdx.input.setInputProcessor(inputHandler);
         player = new Player(username);
 
+        Pixmap pm = new Pixmap(Gdx.files.internal("cursor_image.png"));
+        Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 0, 0));
+        pm.dispose();
+
+        mapManager.dispatchMap("room", new Vector2(11 * ScreenConfig.originalTileSize, 9 * ScreenConfig.originalTileSize), Direction.DOWN);
 //        mapManager.dispatchMap("room");
-        mapManager.dispatchMap("GLE202");
+//        mapManager.dispatchMap("GLE202");
 //        mapManager.dispatchMap("GYM");
 //        mapManager.dispatchMap("FINAL_NGE_ROOM");
 //        mapManager.dispatchMap("LIBRARY");
@@ -63,23 +70,23 @@ public class GameScreen implements Screen {
     //ideally update entites then draw entities
     @Override
     public void render(float delta) {
+        ScreenUtils.clear(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         camera.position.set(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2, 0);
         camera.zoom = 0.5F;
         camera.update();
         world.step(1/60f, 6, 2);
 
         // Clear screen
-        ScreenUtils.clear(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // Render tilemap
+        batch.setProjectionMatrix(camera.combined);
+
         mapManager.update();
+
         player.update();
 
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
-        player.render();
-        batch.end();
         debugRenderer.render(world, camera.combined);
     }
 
