@@ -6,13 +6,11 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Game2D.States.Direction;
-import com.mygdx.game.Game2D.World.ExitMap;
+import com.mygdx.game.Game2D.World.MapExit;
 import com.mygdx.game.Game2D.World.GameMap;
 import com.mygdx.game.ScreenConfig;
 
-import java.util.AbstractMap;
-
-import static com.mygdx.game.Game2D.GameScreen.world;
+import static com.mygdx.game.Game2D.Screens.GameScreen.world;
 
 public class Room extends GameMap {
     @Override
@@ -43,7 +41,7 @@ public class Room extends GameMap {
                 fixtureDef.friction = 1.0f;
 
                 Fixture fixture = collisionBody.createFixture(fixtureDef);
-                fixture.setUserData(new ExitMap("GLE202", new Vector2(3 * ScreenConfig.originalTileSize, ScreenConfig.originalTileSize), Direction.UP));
+                fixture.setUserData(new MapExit("GLE202", new Vector2(3 * ScreenConfig.originalTileSize, ScreenConfig.originalTileSize), Direction.UP));
                 bodies.add(collisionBody);
             }
         }

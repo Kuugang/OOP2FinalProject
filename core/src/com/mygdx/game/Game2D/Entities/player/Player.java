@@ -1,4 +1,4 @@
-package com.mygdx.game.Game2D.Entities;
+package com.mygdx.game.Game2D.Entities.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -6,25 +6,17 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.MapObjects;
-import com.badlogic.gdx.maps.objects.PolygonMapObject;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.mygdx.game.Game2D.GameScreen;
+import com.mygdx.game.Game2D.Entities.Entity;
+import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Handlers.InputHandler;
 import com.mygdx.game.Game2D.Inventory.Inventory;
 import com.mygdx.game.Game2D.States.Direction;
 import com.mygdx.game.ScreenConfig;
 
 
-import static com.mygdx.game.Game2D.Game2D.batch;
-import static com.mygdx.game.Game2D.Game2D.shape;
-import static com.mygdx.game.Game2D.GameScreen.*;
+import static com.mygdx.game.Game2D.Screens.GameScreen.*;
 
 public class Player extends Entity {
     //Making the fields static because of the assumption that there's no other player beside ourselves
@@ -51,7 +43,8 @@ public class Player extends Entity {
     TextureRegion frame;
     float stateTime = 0F;
     Body boxBody;
-    public Player(String username){
+    public Player(Game2D game){
+        this.game = game;
         textureAtlas = new TextureAtlas(Gdx.files.internal("atlas/leo.atlas"));
 
         upAnimation = new Animation<>(0.10f, textureAtlas.findRegions("move_up"));
@@ -146,14 +139,7 @@ public class Player extends Entity {
             }
         }
         sprite.setRegion(frame);
-        sprite.draw(batch);
-
-        batch.end();
-        shape.setProjectionMatrix(camera.combined);
-        shape.begin(ShapeRenderer.ShapeType.Line);
-
-        shape.end();
-        batch.begin();
+        sprite.draw(game.getBatch());
     }
 
     public void setPosition(Vector2 position){

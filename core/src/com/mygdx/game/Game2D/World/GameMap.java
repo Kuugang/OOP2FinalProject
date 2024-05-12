@@ -1,8 +1,5 @@
 package com.mygdx.game.Game2D.World;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
@@ -11,14 +8,10 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.physics.box2d.*;
-import com.mygdx.game.Game2D.Game2D;
-import com.mygdx.game.Game2D.GameScreen;
-import com.mygdx.game.ScreenConfig;
 
 import java.util.ArrayList;
 
-import static com.mygdx.game.Game2D.Game2D.shape;
-import static com.mygdx.game.Game2D.GameScreen.*;
+import static com.mygdx.game.Game2D.Screens.GameScreen.*;
 import static com.mygdx.game.Game2D.World.MapManager.tiledMapRenderer;
 
 public abstract class GameMap {

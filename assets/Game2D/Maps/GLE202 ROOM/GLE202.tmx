@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="21">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="30">
  <tileset firstgid="1" name="ROOM_BUILDER" tilewidth="32" tileheight="32" tilecount="8284" columns="76">
   <image source="../../(IMAGES) TILES/ROOM_BUILDER.png" width="2432" height="3488"/>
  </tileset>
@@ -70,6 +70,24 @@
   </object>
   <object id="20" x="513.909" y="588.182">
    <polygon points="0,0 26,0 26,-44.1818 0,-44.1818"/>
+  </object>
+  <object id="21" x="128" y="490">
+   <polygon points="0,0 0,12.3333 320,12.3333 320,0"/>
+  </object>
+  <object id="22" x="512.013" y="490.11">
+   <polygon points="0,0 0,12.3333 320,12.3333 320,0"/>
+  </object>
+  <object id="25" x="127.333" y="235.667">
+   <polygon points="0,0 0,12.3333 320,12.3333 320,0"/>
+  </object>
+  <object id="26" x="128" y="363.667">
+   <polygon points="0,0 0,12.3333 320,12.3333 320,0"/>
+  </object>
+  <object id="28" x="512.125" y="362.375">
+   <polygon points="0,0 0,12.3333 320,12.3333 320,0"/>
+  </object>
+  <object id="29" x="512.125" y="234.25">
+   <polygon points="0,0 0,12.3333 320,12.3333 320,0"/>
   </object>
  </objectgroup>
  <layer id="1" name="LAYER1" width="30" height="20">
