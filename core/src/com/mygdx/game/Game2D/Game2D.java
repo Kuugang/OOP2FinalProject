@@ -9,7 +9,7 @@ import com.mygdx.game.Game2D.Screens.GameScreen;
 import com.mygdx.game.Game2D.Screens.MenuScreen;
 
 public class Game2D extends Game {
-    private SpriteBatch batch;
+    public static SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
     public GameScreen gameScreen;
     public MenuScreen menuScreen;
@@ -28,10 +28,6 @@ public class Game2D extends Game {
     @Override
     public void render() {
         super.render();
-    }
-
-    public SpriteBatch getBatch() {
-        return batch;
     }
 
     public ShapeRenderer getShapeRenderer() {

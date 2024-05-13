@@ -33,9 +33,7 @@ public class Game1 extends BaseScreen {
         game.getShapeRenderer().circle(100, 100, 10);
         game.getShapeRenderer().end();
 
-        if(Gdx.input.isButtonPressed(0)){
-            game.setScreen(new TransitionScreenOLD(this, game.gameScreen, game));
-        }
+
     }
 
     @Override

@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.physics.box2d.*;
+import com.mygdx.game.Game2D.Entities.NPC.NPC;
 
 import java.util.ArrayList;
 
@@ -21,11 +22,14 @@ public abstract class GameMap {
     public MapLayer exitLayer;
     public MapObjects exitMapObjects = new MapObjects();
     public ArrayList <Body> bodies = new ArrayList<>();
+    public ArrayList<NPC> npc = new ArrayList<>();
 
     public GameMap setMap(String path) {
         this.map = new TmxMapLoader().load(path);
+
         return this;
     }
+
 
     public abstract void setExits();
 
@@ -53,7 +57,7 @@ public abstract class GameMap {
                 shape.set(polygon.getVertices());
                 collisionFixtureDef.shape = shape;
 
-                collisionBody.createFixture(collisionFixtureDef);
+                collisionBody.createFixture(collisionFixtureDef).setUserData("COLLISION");
                 bodies.add(collisionBody);
             }
         }
@@ -72,5 +76,6 @@ public abstract class GameMap {
     public void update() {
         tiledMapRenderer.render();
         player.render();
+
     }
 }

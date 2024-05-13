@@ -5,14 +5,23 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.mygdx.game.Game2D.Entities.NPC.NPC;
+import com.mygdx.game.Game2D.Entities.NPC.Pattern.BoxPattern;
 import com.mygdx.game.Game2D.States.Direction;
 import com.mygdx.game.Game2D.World.MapExit;
 import com.mygdx.game.Game2D.World.GameMap;
 import com.mygdx.game.ScreenConfig;
 
+import static com.mygdx.game.Game2D.Screens.GameScreen.player;
 import static com.mygdx.game.Game2D.Screens.GameScreen.world;
+import static com.mygdx.game.Game2D.World.MapManager.tiledMapRenderer;
 
 public class Room extends GameMap {
+
+    public Room(){
+        npc.add(new NPC(new BoxPattern()));
+    }
+
     @Override
     public void setExits() {
         exitLayer = map.getLayers().get("Exit");
@@ -37,7 +46,7 @@ public class Room extends GameMap {
 
                 FixtureDef fixtureDef = new FixtureDef();
                 fixtureDef.shape = polygonShape;
-                fixtureDef.density = 0f;
+                fixtureDef.density = 1f;
                 fixtureDef.friction = 1.0f;
 
                 Fixture fixture = collisionBody.createFixture(fixtureDef);
@@ -45,5 +54,15 @@ public class Room extends GameMap {
                 bodies.add(collisionBody);
             }
         }
+    }
+
+    @Override
+    public void update() {
+//        super.update();
+        tiledMapRenderer.render();
+        for(NPC n : npc){
+            n.render();
+        }
+        player.render();
     }
 }

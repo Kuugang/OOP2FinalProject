@@ -11,28 +11,29 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Game2D.Entities.player.Player;
 import com.mygdx.game.Game2D.Entities.player.PlayerHUD;
 import com.mygdx.game.Game2D.Game2D;
-import com.mygdx.game.Game2D.Handlers.InputHandler;
 import com.mygdx.game.Game2D.Listeners.GameCollisionListener;
 import com.mygdx.game.Game2D.States.Direction;
 import com.mygdx.game.Game2D.World.MapManager;
 import com.mygdx.game.ScreenConfig;
+
+import static com.mygdx.game.Game2D.Game2D.batch;
 
 public class GameScreen extends BaseScreen {
     public Game2D game;
     public static Player player;
     public static OrthographicCamera camera;
     public static TiledMap map;
-    static InputHandler inputHandler = new InputHandler();
     public static World world;
     private final Box2DDebugRenderer debugRenderer;
     public MapManager mapManager;
     private OrthographicCamera hudCamera;
     private PlayerHUD playerHUD;
+
     public GameScreen(Game2D game) {
         super(game);
         this.game = game;
         world = new World(new Vector2(0, 0), true);
-        mapManager = new MapManager(game);
+        mapManager = new MapManager();
         world.setContactListener(new GameCollisionListener(game, this, mapManager));
 
         debugRenderer = new Box2DDebugRenderer();
@@ -40,8 +41,7 @@ public class GameScreen extends BaseScreen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, ScreenConfig.screenWidth, ScreenConfig.screenHeight);
 
-        Gdx.input.setInputProcessor(inputHandler);
-        player = new Player(game);
+        player = new Player();
         mapManager.dispatchMap("room", new Vector2(11 * ScreenConfig.originalTileSize, 9 * ScreenConfig.originalTileSize), Direction.DOWN);
 
         hudCamera = new OrthographicCamera();
@@ -64,12 +64,12 @@ public class GameScreen extends BaseScreen {
         camera.update();
         world.step(1/60f, 6, 2);
 
-        game.getBatch().setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(camera.combined);
         mapManager.update();
         player.update();
 
         playerHUD.render(delta);
-//        debugRenderer.render(world, camera.combined);
+        debugRenderer.render(world, camera.combined);
     }
 
     @Override

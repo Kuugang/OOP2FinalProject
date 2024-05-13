@@ -15,6 +15,8 @@ import com.mygdx.game.Game2D.status.PlayerPortrait;
 
 import java.util.ArrayList;
 
+import static com.mygdx.game.Game2D.Game2D.batch;
+
 
 public class MenuScreen extends BaseScreen {
 
@@ -135,8 +137,8 @@ public class MenuScreen extends BaseScreen {
     @Override
     public void render(float delta) {
         stateTime += Gdx.graphics.getDeltaTime();
-        game.getBatch().begin();
-        game.getBatch().end();
+        batch.begin();
+        batch.end();
 
 //        if (!resourceManager.isOptionScreen() && !resourceManager.isMenuNewGameScreen() && !resourceManager.isMenuLoadGameScreen()) {
             menuStage.act(delta);

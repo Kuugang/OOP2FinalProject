@@ -17,15 +17,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.mygdx.game.Game2D.Game2D.batch;
 import static com.mygdx.game.Game2D.Screens.GameScreen.*;
 
 public class MapManager {
     public static OrthogonalTiledMapRenderer tiledMapRenderer;
     Map<String, GameMap> maps = new HashMap<>();
     GameMap currentMap;
-    Game2D game;
-    public MapManager(Game2D game){
-        this.game = game;
+
+    public MapManager(){
         tiledMapRenderer = new OrthogonalTiledMapRenderer(null);
         maps.put("room", new Room().setMap("Game2D/Maps/HOUSE/HIS_HOUSE.tmx"));
         maps.put("GLE202", new GLE202().setMap("Game2D/Maps/GLE202 ROOM/GLE202.tmx"));
@@ -63,11 +63,11 @@ public class MapManager {
     public void update() {
         ScreenUtils.clear(0, 0, 0, 1);
 
-        game.getBatch().begin();
+        batch.begin();
         tiledMapRenderer.setView(camera);
         if (currentMap != null) {
             currentMap.update();
         }
-        game.getBatch().end();
+        batch.end();
     }
 }
