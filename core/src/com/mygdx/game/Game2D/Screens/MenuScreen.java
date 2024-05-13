@@ -34,21 +34,28 @@ public class MenuScreen extends BaseScreen {
 //        portrait.setPosition(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f, Align.center); // Adjust position as needed
 //        menuStage.addActor(portrait);
 //        Gdx.input.setInputProcessor(menuStage);
-
-        menuTable = createTable();
+menuTable = createTable();
+menuTable.setFillParent(true);
+menuTable.bottom().padBottom(20);
 
 //        handleBackground();
         handlePlayButton();
         handleMultiplayerButton();
-//        handleLoadButton();
+        handleLoadButton();
 //        handleOptionButton();
         handleExitButton();
     }
 
     private void handlePlayButton() {
-        createButton("Play", 0, menuTable.getHeight()/10, menuTable);
 
-        Actor newButton = menuTable.getCells().get(0).getActor();
+       Actor newButton =  createImageButton("new_button", 0, 0,  menuTable);
+        newButton.setSize(40,40);
+
+
+//        createButton("Play", 0, menuTable.getHeight()/10, menuTable);
+//        Actor newButton = menuTable.getCells().get(0).getActor();
+
+
         newButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent even, float x, float y) {
@@ -64,9 +71,8 @@ public class MenuScreen extends BaseScreen {
     }
 
     private void handleMultiplayerButton(){
-        createButton("Multiplayer", 0, menuTable.getHeight() /9, menuTable);
-
-        Actor multiPlayerButton = menuTable.getCells().get(1).getActor();
+        Actor multiPlayerButton =  createImageButton("online_button", 0, 0, menuTable);
+//        Actor multiPlayerButton = menuTable.getCells().get(1).getActor();
 
         multiPlayerButton.addListener(new ClickListener() {
             @Override
@@ -83,9 +89,9 @@ public class MenuScreen extends BaseScreen {
     }
 
     private void handleExitButton() {
-        createButton("Exit", 0, menuTable.getHeight()/8, menuTable);
-
-        Actor exitButton = menuTable.getCells().get(2).getActor();
+//        createButton("Exit", 0, menuTable.getHeight()/8, menuTable);
+        Actor exitButton =  createImageButton("exit_button", 0, 0,  menuTable);
+//        Actor exitButton = menuTable.getCells().get(2).getActor();
         exitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent even, float x, float y) {
@@ -114,8 +120,9 @@ public class MenuScreen extends BaseScreen {
 
 
     private void handleLoadButton() {
-        createButton("Load Game", 0, menuTable.getHeight()/15, menuTable);
-
+//        createButton("Load Game", 0, menuTable.getHeight()/15, menuTable);
+        Actor loadButton = createImageButton("load_button", 0, 0,   menuTable);
+            loadButton.setSize(64, 48);
 //        Actor loadButton = menuTable.getCells().get(1).getActor();
 //        loadButton.addListener(new ClickListener() {
 //            @Override
