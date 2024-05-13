@@ -1,6 +1,7 @@
-package com.mygdx.game.Game2D.Quest;
+package com.mygdx.game.Game2D.Manager;
 
-import java.util.ArrayList;
+import com.mygdx.game.Game2D.Quest.Quest;
+
 import java.util.Comparator;
 import java.util.PriorityQueue;
 

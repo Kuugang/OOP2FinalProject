@@ -33,7 +33,7 @@ public class ResourceManager {
 //    public static TextureAtlas ITEMS_TEXTURE_ATLAS = new TextureAtlas(ITEMS_TEXTURE_ATLAS_PATH);
 
     // STATUS
-    private final static String STATUSUI_TEXTURE_ATLAS_PATH = "assets/skins/statusui.atlas";
+    private final static String STATUSUI_TEXTURE_ATLAS_PATH = "skins/statusui.atlas";
     private final static String STATUS_UI_SKIN_PATH = "skins/statusui.json";
     public static TextureAtlas STATUS_UI_TEXTURE_ATLAS = new TextureAtlas(STATUSUI_TEXTURE_ATLAS_PATH);
     public static Skin STATUS_UI_SKIN = new Skin(Gdx.files.internal(STATUS_UI_SKIN_PATH), STATUS_UI_TEXTURE_ATLAS);
@@ -74,12 +74,12 @@ public class ResourceManager {
 //        assetManager.finishLoading();
 //
         atlas = assetManager.get("atlas/textures.atlas", TextureAtlas.class);
-        cursor = new Pixmap(Gdx.files.internal("assets/tool/cursor.png"));
+        cursor = new Pixmap(Gdx.files.internal("tool/cursor.png"));
 //
 //        // IMAGES
 //        backgroundSheet = assetManager.get("asset/background/natureBackground_frames_sheet.png");
 //        battleBackgroundMeadow = assetManager.get("asset/background/battleBackground_meadow.png");
-        cursor = new Pixmap(Gdx.files.internal("assets/tool/cursor.png"));
+//        cursor = new Pixmap(Gdx.files.internal("assets/tool/cursor.png"));
 
         // BUTTON
         button = atlas.findRegion("play_button").split(80, 40);
@@ -88,7 +88,7 @@ public class ResourceManager {
         pixel10 = new BitmapFont(Gdx.files.internal("fonts/pixel.fnt"), atlas.findRegion("pixel"), false);
 
 //        // SETTINGS
-        skin = new Skin(Gdx.files.internal("assets/data/uiskin.json"));
+        skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 //
 //        // ENTITIES
 //        heroWalkUp = assetManager.get("entities/hero/hero_1_walking_up.png");

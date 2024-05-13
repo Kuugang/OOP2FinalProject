@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Game2D.Entities.NPC.NPC;
-import com.mygdx.game.Game2D.Entities.NPC.Pattern.BoxPattern;
 import com.mygdx.game.Game2D.States.Direction;
 import com.mygdx.game.Game2D.World.MapExit;
 import com.mygdx.game.Game2D.World.GameMap;
@@ -19,7 +18,7 @@ import static com.mygdx.game.Game2D.World.MapManager.tiledMapRenderer;
 public class Room extends GameMap {
 
     public Room(){
-        npc.add(new NPC(new BoxPattern()));
+        npc.add(new NPC(3));
     }
 
     @Override
