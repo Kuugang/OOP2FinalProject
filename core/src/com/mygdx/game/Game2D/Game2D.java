@@ -29,8 +29,4 @@ public class Game2D extends Game {
     public ShapeRenderer getShapeRenderer() {
         return shapeRenderer;
     }
-
-    public ResourceManager getResourceManager(){
-        return resourceManager;
-    }
 }

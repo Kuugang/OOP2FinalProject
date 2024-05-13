@@ -23,7 +23,7 @@
  <objectgroup id="3" name="Exit">
   <object id="1" x="96" y="416" width="288" height="56"/>
  </objectgroup>
- <objectgroup id="4" name="Collision">
+ <objectgroup id="4" name="COLLISION_LAYER">
   <object id="2" x="96" y="128">
    <polygon points="0,0 0,-128 -96,-128 -96,0"/>
   </object>

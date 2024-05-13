@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -17,6 +18,8 @@ import com.mygdx.game.Game2D.Screens.transition.effects.TransitionEffect;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.mygdx.game.Game2D.Manager.ResourceManager.MAINMENU_TEXTURE_ATLAS;
 
 
 public class BaseScreen implements Screen{
@@ -34,15 +37,8 @@ public class BaseScreen implements Screen{
 
     public BaseScreen(Game2D game) {
         this.game = game;
-        this.resourceManager = game.getResourceManager();
-
-//        observers = new Array<>();
-//        this.addObserver(AudioManager.getInstance());
+        this.resourceManager = Game2D.resourceManager;
     }
-
-//    public AudioObserver.AudioTypeEvent getMusicTheme() {
-//        return musicTheme;
-//    }
 
     public void setScreenWithTransition(BaseScreen current, BaseScreen next, List<TransitionEffect> transitionEffect) {
         ArrayList<TransitionEffect> effects = new ArrayList<>(transitionEffect);
@@ -67,33 +63,40 @@ public class BaseScreen implements Screen{
         table.row();
     }
 
+    public ImageButton createImageButton(String buttonName, float posX, float posY, Table table) {
+        TextureRegion buttonRegion = MAINMENU_TEXTURE_ATLAS.findRegion(buttonName);
+
+        if (buttonRegion == null) {
+            Gdx.app.error("createImageButton", "Region not found for button: " + buttonName);
+            return null;
+        }
+
+//
+//        int newWidth = (int) (buttonRegion.getRegionWidth() * 50 );
+//        int newHeight = (int) (buttonRegion.getRegionHeight() * 50);
+//
+//        // Set the new size for the TextureRegion
+//        buttonRegion.setRegionWidth(newWidth);
+//        buttonRegion.setRegionHeight(newHeight);
+
+        ImageButton.ImageButtonStyle buttonStyle = new ImageButton.ImageButtonStyle();
+        buttonStyle.imageUp = new TextureRegionDrawable(buttonRegion); // Set the image for the button
+
+        ImageButton button = new ImageButton(buttonStyle);
+
+
+        button.setPosition(posX, posY);
+
+        table.add(button).pad(10); // Adjust padding as needed
+
+        return button;
+    }
+
     public Table createTable() {
         Table table = new Table();
         table.setBounds(0,0, (float) Gdx.graphics.getWidth(), (float) Gdx.graphics.getHeight());
         return table;
     }
-
-//    @Override
-//    public void addObserver(AudioObserver audioObserver) {
-//        observers.add(audioObserver);
-//    }
-
-//    @Override
-//    public void removeObserver(AudioObserver audioObserver) {
-//        observers.removeValue(audioObserver, true);
-//    }
-
-//    @Override
-//    public void removeAllObservers() {
-//        observers.removeAll(observers, true);
-//    }
-
-//    @Override
-//    public void notify(AudioObserver.AudioCommand command, AudioObserver.AudioTypeEvent event) {
-//        for(AudioObserver observer: observers){
-//            observer.onNotify(command, event);
-//        }
-//    }
 
     @Override
     public void show() {

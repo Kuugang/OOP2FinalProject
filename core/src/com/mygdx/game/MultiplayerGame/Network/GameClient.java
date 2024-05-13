@@ -68,19 +68,20 @@ public class GameClient extends Thread {
                 GameScreen.otherPlayers.remove(((Packet01Disconnect) packet).getUsername());
                 break;
             case MOVE:
-                packet = new Packet02Move(data);
 
-                if(Objects.equals(((Packet02Move) packet).getUsername(), GameScreen.player.getUsername()))
-                    return;
-
-                String username = ((Packet02Move) packet).getUsername();
-                PlayerMP player = GameScreen.otherPlayers.get(username);
-
-                float serverX = ((Packet02Move) packet).getX();
-                float serverY = ((Packet02Move) packet).getY();
-
-                player.setX(serverX);
-                player.setY(serverY);
+//                packet = new Packet02Move(data);
+//
+//                if(Objects.equals(((Packet02Move) packet).getUsername(), GameScreen.player.getUsername()))
+//                    return;
+//
+//                String username = ((Packet02Move) packet).getUsername();
+//                PlayerMP player = GameScreen.otherPlayers.get(username);
+//
+//                float serverX = ((Packet02Move) packet).getX();
+//                float serverY = ((Packet02Move) packet).getY();
+//
+//                player.setX(serverX);
+//                player.setY(serverY);
 
                 break;
         }

@@ -57,11 +57,11 @@ public class Room extends GameMap {
 
     @Override
     public void update() {
-//        super.update();
-        tiledMapRenderer.render();
-        for(NPC n : npc){
-            n.render();
-        }
-        player.render();
+        super.update();
+//        tiledMapRenderer.render();
+//        for(NPC n : npc){
+//            n.render();
+//        }
+//        player.render();
     }
 }

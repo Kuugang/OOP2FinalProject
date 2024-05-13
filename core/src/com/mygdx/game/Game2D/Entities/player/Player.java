@@ -2,20 +2,17 @@ package com.mygdx.game.Game2D.Entities.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Game2D.Entities.Entity;
-import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Inventory.Inventory;
 import com.mygdx.game.Game2D.States.Direction;
 import com.mygdx.game.ScreenConfig;
 
 import static com.mygdx.game.Game2D.Game2D.batch;
-
+import static com.mygdx.game.Game2D.Game2D.resourceManager;
 import static com.mygdx.game.Game2D.Screens.GameScreen.*;
 
 public class Player extends Entity {
@@ -28,46 +25,16 @@ public class Player extends Entity {
     public int agility;
     public Inventory inventory;
 
-    TextureAtlas textureAtlas;
-    Animation<TextureRegion> upAnimation;
-    Animation<TextureRegion> downAnimation;
-    Animation<TextureRegion> leftAnimation;
-    Animation<TextureRegion> rightAnimation;
-    Animation<TextureRegion> idleUpAnimation;
-    Animation<TextureRegion> idleDownAnimation;
-    Animation<TextureRegion> idleLeftAnimation;
-    Animation<TextureRegion> idleRightAnimation;
     public boolean isMoving = false;
     TextureRegion frame;
     float stateTime = 0F;
     Body boxBody;
     public Player(){
-        textureAtlas = new TextureAtlas(Gdx.files.internal("atlas/leo.atlas"));
-
-        upAnimation = new Animation<>(0.10f, textureAtlas.findRegions("move_up"));
-        downAnimation = new Animation<>(0.10f, textureAtlas.findRegions("move_down"));
-        leftAnimation = new Animation<>(0.10f, textureAtlas.findRegions("move_left"));
-        rightAnimation = new Animation<>(0.10f, textureAtlas.findRegions("move_right"));
-
-        idleUpAnimation = new Animation<>(0.10f, textureAtlas.findRegions("idle_up"));
-        idleDownAnimation = new Animation<>(0.10f, textureAtlas.findRegions("idle_down"));
-        idleLeftAnimation = new Animation<>(0.10f, textureAtlas.findRegions("idle_left"));
-        idleRightAnimation = new Animation<>(0.10f, textureAtlas.findRegions("idle_right"));
-
-        upAnimation.setPlayMode(Animation.PlayMode.NORMAL);
-        downAnimation.setPlayMode(Animation.PlayMode.NORMAL);
-        leftAnimation.setPlayMode(Animation.PlayMode.NORMAL);
-        rightAnimation.setPlayMode(Animation.PlayMode.NORMAL);
-
-        idleUpAnimation.setPlayMode(Animation.PlayMode.NORMAL);
-        idleDownAnimation.setPlayMode(Animation.PlayMode.NORMAL);
-        idleLeftAnimation.setPlayMode(Animation.PlayMode.NORMAL);
-        idleRightAnimation.setPlayMode(Animation.PlayMode.NORMAL);
 
         direction = Direction.DOWN;
-        frame = idleDownAnimation.getKeyFrame(0);
+        frame = resourceManager.idleDownAnimation.getKeyFrame(0);
 
-        sprite = new Sprite(rightAnimation.getKeyFrame(0));
+        sprite = new Sprite(resourceManager.rightAnimation.getKeyFrame(0));
         x = (float) Gdx.graphics.getWidth() / 2;
         y = (float) Gdx.graphics.getHeight() / 2;
 
@@ -120,20 +87,19 @@ public class Player extends Entity {
 
     public void render(){
         stateTime += Gdx.graphics.getDeltaTime();
-
         if(isMoving){
             switch (direction) {
-                case UP -> frame = upAnimation.getKeyFrame(stateTime, true);
-                case DOWN -> frame = downAnimation.getKeyFrame(stateTime, true);
-                case LEFT -> frame = leftAnimation.getKeyFrame(stateTime, true);
-                case RIGHT -> frame = rightAnimation.getKeyFrame(stateTime, true);
+                case UP -> frame = resourceManager.upAnimation.getKeyFrame(stateTime, true);
+                case DOWN -> frame = resourceManager.downAnimation.getKeyFrame(stateTime, true);
+                case LEFT -> frame = resourceManager.leftAnimation.getKeyFrame(stateTime, true);
+                case RIGHT -> frame = resourceManager.rightAnimation.getKeyFrame(stateTime, true);
             }
         }else{
             switch (direction) {
-                case UP -> frame = idleUpAnimation.getKeyFrame(stateTime, true);
-                case DOWN -> frame = idleDownAnimation.getKeyFrame(stateTime, true);
-                case LEFT -> frame = idleLeftAnimation.getKeyFrame(stateTime, true);
-                case RIGHT -> frame = idleRightAnimation.getKeyFrame(stateTime, true);
+                case UP -> frame = resourceManager.idleUpAnimation.getKeyFrame(stateTime, true);
+                case DOWN -> frame = resourceManager.idleDownAnimation.getKeyFrame(stateTime, true);
+                case LEFT -> frame = resourceManager.idleLeftAnimation.getKeyFrame(stateTime, true);
+                case RIGHT -> frame = resourceManager.idleRightAnimation.getKeyFrame(stateTime, true);
             }
         }
         sprite.setRegion(frame);

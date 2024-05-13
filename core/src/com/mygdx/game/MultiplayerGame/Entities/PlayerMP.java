@@ -1,5 +1,7 @@
 package com.mygdx.game.MultiplayerGame.Entities;
 
+import com.mygdx.game.Game2D.Entities.player.Player;
+
 import java.net.InetAddress;
 
 public class PlayerMP extends Player {
@@ -7,7 +9,7 @@ public class PlayerMP extends Player {
     public int port;
 
     public PlayerMP(String username, float x, float y) {
-        super(username, x, y);
+//        super(username, x, y);
     }
 
     public PlayerMP(String username, float x, float y, InetAddress ipAddress, int port) {

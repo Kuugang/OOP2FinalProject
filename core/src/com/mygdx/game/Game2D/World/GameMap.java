@@ -34,10 +34,9 @@ public abstract class GameMap {
     public abstract void setExits();
 
     public void setCollisions(){
-        collisionLayer = map.getLayers().get("Collision");
+        collisionLayer = map.getLayers().get("COLLISION_LAYER");
 
         if(collisionLayer == null)return;
-//        if(collisionObjectLayer == null)return;
 
         collisionMapObjects = collisionLayer.getObjects();
 
@@ -74,8 +73,7 @@ public abstract class GameMap {
     }
 
     public void update() {
-        tiledMapRenderer.render();
-        player.render();
-
+//        tiledMapRenderer.render();
+//        player.render();
     }
 }
