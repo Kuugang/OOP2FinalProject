@@ -10,7 +10,7 @@ public class Game2D extends Game {
     public static SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
     public MenuScreen menuScreen;
-    private ResourceManager resourceManager;
+    public static ResourceManager resourceManager;
 
     @Override
     public void create() {

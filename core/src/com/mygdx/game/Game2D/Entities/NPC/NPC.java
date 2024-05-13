@@ -160,31 +160,29 @@ public class NPC extends Entity {
             movement.nextDirection();
         }
 
-        if(movement.atEnd()){
+        if(movement.atEnd())
            newMovement();
-        }
 
         sprite.setPosition(boxBody.getPosition().x - sprite.getWidth() / 2, boxBody.getPosition().y -
                 sprite.getHeight() / 7);
         stateTime += Gdx.graphics.getDeltaTime();
 
         if(isMoving)
-            switch (direction) {
-                case UP -> frame = upAnimation.getKeyFrame(stateTime, true);
-                case DOWN -> frame = downAnimation.getKeyFrame(stateTime, true);
-                case LEFT -> frame = leftAnimation.getKeyFrame(stateTime, true);
-                case RIGHT -> frame = rightAnimation.getKeyFrame(stateTime, true);
-            }
-        else{
-            switch (direction) {
-                case UP -> frame = idleUpAnimation.getKeyFrame(stateTime, true);
-                case DOWN -> frame = idleDownAnimation.getKeyFrame(stateTime, true);
-                case LEFT -> frame = idleLeftAnimation.getKeyFrame(stateTime, true);
-                case RIGHT -> frame = idleRightAnimation.getKeyFrame(stateTime, true);
-            }
-        }
+            animation(upAnimation, downAnimation, leftAnimation, rightAnimation);
+        else
+            animation(idleUpAnimation, idleDownAnimation, idleLeftAnimation, idleRightAnimation);
+
         sprite.setRegion(frame);
         sprite.draw(batch);
     }
 
+    private void animation(Animation<TextureRegion> upAnimation, Animation<TextureRegion> downAnimation,
+                           Animation<TextureRegion> leftAnimation, Animation<TextureRegion> rightAnimation) {
+        switch (direction) {
+            case UP -> frame = upAnimation.getKeyFrame(stateTime, true);
+            case DOWN -> frame = downAnimation.getKeyFrame(stateTime, true);
+            case LEFT -> frame = leftAnimation.getKeyFrame(stateTime, true);
+            case RIGHT -> frame = rightAnimation.getKeyFrame(stateTime, true);
+        }
+    }
 }
