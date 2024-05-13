@@ -34,15 +34,8 @@ public class BaseScreen implements Screen{
 
     public BaseScreen(Game2D game) {
         this.game = game;
-        this.resourceManager = game.getResourceManager();
-
-//        observers = new Array<>();
-//        this.addObserver(AudioManager.getInstance());
+        this.resourceManager = Game2D.resourceManager;
     }
-
-//    public AudioObserver.AudioTypeEvent getMusicTheme() {
-//        return musicTheme;
-//    }
 
     public void setScreenWithTransition(BaseScreen current, BaseScreen next, List<TransitionEffect> transitionEffect) {
         ArrayList<TransitionEffect> effects = new ArrayList<>(transitionEffect);
@@ -72,28 +65,6 @@ public class BaseScreen implements Screen{
         table.setBounds(0,0, (float) Gdx.graphics.getWidth(), (float) Gdx.graphics.getHeight());
         return table;
     }
-
-//    @Override
-//    public void addObserver(AudioObserver audioObserver) {
-//        observers.add(audioObserver);
-//    }
-
-//    @Override
-//    public void removeObserver(AudioObserver audioObserver) {
-//        observers.removeValue(audioObserver, true);
-//    }
-
-//    @Override
-//    public void removeAllObservers() {
-//        observers.removeAll(observers, true);
-//    }
-
-//    @Override
-//    public void notify(AudioObserver.AudioCommand command, AudioObserver.AudioTypeEvent event) {
-//        for(AudioObserver observer: observers){
-//            observer.onNotify(command, event);
-//        }
-//    }
 
     @Override
     public void show() {

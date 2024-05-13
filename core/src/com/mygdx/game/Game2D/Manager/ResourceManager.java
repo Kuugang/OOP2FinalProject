@@ -8,6 +8,7 @@ import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -59,10 +60,46 @@ public class ResourceManager {
 
     private static AssetManager assetManager = new AssetManager();
 
+
+    public TextureAtlas textureAtlas;
+    public Animation<TextureRegion> upAnimation;
+    public Animation<TextureRegion> downAnimation;
+    public Animation<TextureRegion> leftAnimation;
+    public Animation<TextureRegion> rightAnimation;
+    public Animation<TextureRegion> idleUpAnimation;
+    public Animation<TextureRegion> idleDownAnimation;
+    public Animation<TextureRegion> idleLeftAnimation;
+    public Animation<TextureRegion> idleRightAnimation;
+
+
     public ResourceManager() {
         // ATLAS
         assetManager.load("atlas/textures.atlas", TextureAtlas.class);
         assetManager.finishLoading();
+
+        TextureAtlas playerTextureAtlas = new TextureAtlas(Gdx.files.internal("atlas/leo.atlas"));
+        upAnimation = new Animation<>(0.10f, playerTextureAtlas.findRegions("move_up"));
+        downAnimation = new Animation<>(0.10f, playerTextureAtlas.findRegions("move_down"));
+        leftAnimation = new Animation<>(0.10f, playerTextureAtlas.findRegions("move_left"));
+        rightAnimation = new Animation<>(0.10f, playerTextureAtlas.findRegions("move_right"));
+
+        idleUpAnimation = new Animation<>(0.10f, playerTextureAtlas.findRegions("idle_up"));
+        idleDownAnimation = new Animation<>(0.10f, playerTextureAtlas.findRegions("idle_down"));
+        idleLeftAnimation = new Animation<>(0.10f, playerTextureAtlas.findRegions("idle_left"));
+        idleRightAnimation = new Animation<>(0.10f, playerTextureAtlas.findRegions("idle_right"));
+
+        upAnimation.setPlayMode(Animation.PlayMode.NORMAL);
+        downAnimation.setPlayMode(Animation.PlayMode.NORMAL);
+        leftAnimation.setPlayMode(Animation.PlayMode.NORMAL);
+        rightAnimation.setPlayMode(Animation.PlayMode.NORMAL);
+
+        idleUpAnimation.setPlayMode(Animation.PlayMode.NORMAL);
+        idleDownAnimation.setPlayMode(Animation.PlayMode.NORMAL);
+        idleLeftAnimation.setPlayMode(Animation.PlayMode.NORMAL);
+        idleRightAnimation.setPlayMode(Animation.PlayMode.NORMAL);
+
+
+
 
 //        // IMAGES
 //        assetManager.load("asset/background/natureBackground_frames_sheet.png", Texture.class);

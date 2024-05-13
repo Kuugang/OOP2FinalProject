@@ -16,7 +16,7 @@
   </tile>
  </tileset>
  <tileset firstgid="10085" source="../../TSX FILES/TABLESxJAIL.tsx"/>
- <objectgroup id="3" name="Collision">
+ <objectgroup id="3" name="COLLISION_LAYER">
   <object id="1" x="32" y="0">
    <polygon points="0,0 0,608 -32,608 -32,0"/>
   </object>

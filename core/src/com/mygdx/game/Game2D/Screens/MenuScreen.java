@@ -39,37 +39,53 @@ public class MenuScreen extends BaseScreen {
 
 //        handleBackground();
         handlePlayButton();
+        handleMultiplayerButton();
 //        handleLoadButton();
 //        handleOptionButton();
         handleExitButton();
     }
 
-//    private void handleBackground() {
-//        int nbRow = 7;
-//        int nbCol = 7;
-//        AnimationManager animationManager = new AnimationManager();
-//
-//        Texture backgroundSheet = resourceManager.backgroundSheet;
-//
-//        TextureRegion[][] tmp = animationManager.setTextureRegionsDouble(backgroundSheet,
-//                backgroundSheet.getWidth() / nbCol,
-//                backgroundSheet.getHeight() / nbRow);
-//
-//        TextureRegion[] flowFrames = new TextureRegion[nbCol * nbRow];
-//        int index = 0;
-//        for (int i = 0; i < nbRow; i++) {
-//            for (int j = 0; j < nbCol; j++) {
-//                flowFrames[index++] = tmp[i][j];
-//            }
-//        }
-//
-//        flowAnimation = animationManager.setAnimation(flowFrames);
-//    }
+    private void handlePlayButton() {
+        createButton("Play", 0, menuTable.getHeight()/10, menuTable);
+
+        Actor newButton = menuTable.getCells().get(0).getActor();
+        newButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent even, float x, float y) {
+                ArrayList<TransitionEffect> effects = new ArrayList<>();
+                effects.add(new FadeOutTransitionEffect(1F));
+                setScreenWithTransition(
+                        (BaseScreen) game.getScreen(),
+                        new GameScreen(game),
+                        effects
+                );
+            }
+        });
+    }
+
+    private void handleMultiplayerButton(){
+        createButton("Multiplayer", 0, menuTable.getHeight() /9, menuTable);
+
+        Actor multiPlayerButton = menuTable.getCells().get(1).getActor();
+
+        multiPlayerButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent even, float x, float y) {
+                ArrayList<TransitionEffect> effects = new ArrayList<>();
+                effects.add(new FadeOutTransitionEffect(1F));
+                setScreenWithTransition(
+                        (BaseScreen) game.getScreen(),
+                        new GameScreen(game),
+                        effects
+                );
+            }
+        });
+    }
 
     private void handleExitButton() {
-        createButton("Exit", 0, menuTable.getHeight()/9, menuTable);
+        createButton("Exit", 0, menuTable.getHeight()/8, menuTable);
 
-        Actor exitButton = menuTable.getCells().get(1).getActor();
+        Actor exitButton = menuTable.getCells().get(2).getActor();
         exitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent even, float x, float y) {
@@ -77,6 +93,7 @@ public class MenuScreen extends BaseScreen {
             }
         });
     }
+
 
     private void handleOptionButton() {
 //        createButton("Options", 0, menuTable.getHeight()/10, menuTable);
@@ -94,23 +111,7 @@ public class MenuScreen extends BaseScreen {
 //        });
     }
 
-    private void handlePlayButton() {
-        createButton("Play", 0, menuTable.getHeight()/10, menuTable);
 
-        Actor newButton = menuTable.getCells().get(0).getActor();
-        newButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent even, float x, float y) {
-                ArrayList<TransitionEffect> effects = new ArrayList<>();
-                effects.add(new FadeOutTransitionEffect(1F));
-                setScreenWithTransition(
-                    (BaseScreen) game.getScreen(),
-                    new GameScreen(game),
-                    effects
-                );
-            }
-        });
-    }
 
     private void handleLoadButton() {
         createButton("Load Game", 0, menuTable.getHeight()/15, menuTable);

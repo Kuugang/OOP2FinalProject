@@ -1,7 +1,6 @@
 package com.mygdx.game.Game2D;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
@@ -13,7 +12,7 @@ public class Game2D extends Game {
     private ShapeRenderer shapeRenderer;
     public GameScreen gameScreen;
     public MenuScreen menuScreen;
-    private ResourceManager resourceManager;
+    public static ResourceManager resourceManager;
     @Override
     public void create() {
         batch = new SpriteBatch();
@@ -32,9 +31,5 @@ public class Game2D extends Game {
 
     public ShapeRenderer getShapeRenderer() {
         return shapeRenderer;
-    }
-
-    public ResourceManager getResourceManager(){
-        return resourceManager;
     }
 }

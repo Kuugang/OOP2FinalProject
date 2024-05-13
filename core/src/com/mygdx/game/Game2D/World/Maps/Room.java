@@ -19,7 +19,7 @@ import static com.mygdx.game.Game2D.World.MapManager.tiledMapRenderer;
 public class Room extends GameMap {
 
     public Room(){
-        npc.add(new NPC(new BoxPattern()));
+//        npc.add(new NPC(new BoxPattern()));
     }
 
     @Override
@@ -58,11 +58,11 @@ public class Room extends GameMap {
 
     @Override
     public void update() {
-//        super.update();
-        tiledMapRenderer.render();
-        for(NPC n : npc){
-            n.render();
-        }
-        player.render();
+        super.update();
+//        tiledMapRenderer.render();
+//        for(NPC n : npc){
+//            n.render();
+//        }
+//        player.render();
     }
 }

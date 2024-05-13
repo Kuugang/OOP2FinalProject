@@ -16,6 +16,7 @@ import java.util.List;
 
 public class GameServer extends Thread {
     private DatagramSocket socket;
+//    private List<PlayerMP> connectedPlayers = new ArrayList<>();
     private List<PlayerMP> connectedPlayers = new ArrayList<>();
 
     public GameServer() {
@@ -110,14 +111,15 @@ public class GameServer extends Thread {
     }
 
     public int getPlayerMPIndex(String username) {
-        int index = 0;
-        for (PlayerMP player : this.connectedPlayers) {
-            if (player.getUsername().equals(username)) {
-                break;
-            }
-            index++;
-        }
-        return index;
+//        int index = 0;
+//        for (PlayerMP player : this.connectedPlayers) {
+//            if (player.getUsername().equals(username)) {
+//                break;
+//            }
+//            index++;
+//
+//        return index;
+        return 0;
     }
 
     public void sendData(byte[] data, InetAddress ipAddress, int port){
@@ -137,11 +139,11 @@ public class GameServer extends Thread {
     }
 
     public PlayerMP getPlayerMP(String username) {
-        for (PlayerMP player : this.connectedPlayers) {
-            if (player.getUsername().equals(username)) {
-                return player;
-            }
-        }
+//        for (PlayerMP player : this.connectedPlayers) {
+//            if (player.getUsername().equals(username)) {
+//                return player;
+//            }
+//        }
         return null;
     }
 
@@ -152,8 +154,8 @@ public class GameServer extends Thread {
             PlayerMP player = this.connectedPlayers.get(index);
 //            player.x = packet.getX();
 //            player.y = packet.getY();
-            player.setX(packet.getX());
-            player.setY(packet.getY());
+//            player.setX(packet.getX());
+//            player.setY(packet.getY());
             packet.writeData(this);
         }
     }

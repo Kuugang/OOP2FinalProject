@@ -53,38 +53,38 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        //DRAW
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        camera.position.set(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2, 0);
-        camera.update();
-        batch.setProjectionMatrix(camera.combined);
-        renderer.setView(camera);
-        renderer.render();
-
-        batch.begin();
-        for (Bullet bullet : Player.playersBullets) {
-            bullet.draw();
-        }
-        player.draw();
-
-
-        if(!otherPlayers.isEmpty())
-            for(Map.Entry<String, PlayerMP> otherPlayerEntry : otherPlayers.entrySet()){
-                PlayerMP otherPlayer = otherPlayerEntry.getValue();
-                BattleRoyaleGame.font.draw(batch, otherPlayer.getUsername(), otherPlayer.x + 50,
-                        otherPlayer.y + 50);
-                otherPlayer.draw();
-            }
-
-        batch.end();
-
-
-        //UPDATE
-        for (Bullet bullet : Player.playersBullets) {
-            bullet.update();
-        }
-        player.update();
+//        //DRAW
+//        Gdx.gl.glClearColor(0, 0, 0, 1);
+//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//        camera.position.set(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2, 0);
+//        camera.update();
+//        batch.setProjectionMatrix(camera.combined);
+//        renderer.setView(camera);
+//        renderer.render();
+//
+//        batch.begin();
+//        for (Bullet bullet : Player.playersBullets) {
+//            bullet.draw();
+//        }
+//        player.draw();
+//
+//
+//        if(!otherPlayers.isEmpty())
+//            for(Map.Entry<String, PlayerMP> otherPlayerEntry : otherPlayers.entrySet()){
+//                PlayerMP otherPlayer = otherPlayerEntry.getValue();
+//                BattleRoyaleGame.font.draw(batch, otherPlayer.getUsername(), otherPlayer.x + 50,
+//                        otherPlayer.y + 50);
+//                otherPlayer.draw();
+//            }
+//
+//        batch.end();
+//
+//
+//        //UPDATE
+//        for (Bullet bullet : Player.playersBullets) {
+//            bullet.update();
+//        }
+//        player.update();
     }
 
     public static Vector2 getMouse(){

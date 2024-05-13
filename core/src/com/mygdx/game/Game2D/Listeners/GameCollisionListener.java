@@ -1,5 +1,6 @@
 package com.mygdx.game.Game2D.Listeners;
 
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Game2D.Entities.NPC.NPC;
@@ -17,9 +18,9 @@ import java.util.ArrayList;
 
 public class GameCollisionListener implements ContactListener {
     Game2D game;
-    BaseScreen screen;
+    Screen screen;
     MapManager mapManager;
-    public GameCollisionListener(Game2D game, BaseScreen screen, MapManager mapManager){
+    public GameCollisionListener(Game2D game, Screen screen, MapManager mapManager){
         this.game = game;
         this.screen = screen;
         this.mapManager = mapManager;
