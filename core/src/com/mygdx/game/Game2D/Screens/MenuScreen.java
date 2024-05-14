@@ -46,7 +46,6 @@ public class MenuScreen extends BaseScreen {
     private void handlePlayButton() {
         Actor newButton =  createImageButton("new_button", 0, 0,  menuTable);
         newButton.setSize(40,40);
-
         newButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent even, float x, float y) {
@@ -64,10 +63,8 @@ public class MenuScreen extends BaseScreen {
         });
     }
 
-
     private void handleMultiplayerButton(){
         Actor multiPlayerButton =  createImageButton("online_button", 0, 0, menuTable);
-
         multiPlayerButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent even, float x, float y) {

@@ -1,6 +1,4 @@
 package com.mygdx.game.Game2D.Entities.NPC.Pattern;
-
-
 import com.mygdx.game.Game2D.Entities.Entity;
 
 public class StayPattern extends Pattern{

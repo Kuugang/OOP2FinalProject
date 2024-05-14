@@ -25,8 +25,6 @@ public class Game2D extends Game {
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
         resourceManager = ResourceManager.getInstance();
-//        gameScreen = new GameScreen(this);
-        resourceManager = new ResourceManager();
         menuScreen = new MenuScreen(this);
         this.setScreen(menuScreen);
     }
