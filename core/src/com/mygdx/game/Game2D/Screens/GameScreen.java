@@ -8,30 +8,29 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Entities.player.Player;
 import com.mygdx.game.Game2D.Entities.player.PlayerHUD;
 import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Listeners.GameCollisionListener;
-import com.mygdx.game.Game2D.States.Direction;
 import com.mygdx.game.Game2D.World.MapManager;
 import com.mygdx.game.ScreenConfig;
 
 import static com.mygdx.game.Game2D.Game2D.batch;
 
 public class GameScreen extends BaseScreen {
-    public Game2D game;
+    public static Game2D game;
     public static Player player;
     public static OrthographicCamera camera;
     public static TiledMap map;
     public static World world;
     private final Box2DDebugRenderer debugRenderer;
-    public MapManager mapManager;
-    private OrthographicCamera hudCamera;
-    private PlayerHUD playerHUD;
-
+    public static MapManager mapManager;
+    private final PlayerHUD PLAYER_HUD;
     public GameScreen(Game2D game) {
         super(game);
-        this.game = game;
+        GameScreen.game = game;
+
         world = new World(new Vector2(0, 0), true);
         mapManager = new MapManager();
         world.setContactListener(new GameCollisionListener(game, this, mapManager));
@@ -41,12 +40,13 @@ public class GameScreen extends BaseScreen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, ScreenConfig.screenWidth, ScreenConfig.screenHeight);
 
-        player = new Player();
-        mapManager.dispatchMap("room", new Vector2(11 * ScreenConfig.originalTileSize, 9 * ScreenConfig.originalTileSize), Direction.DOWN);
+        player = new Player(Game2D.username, new Vector2(11 * ScreenConfig.originalTileSize, 9 * ScreenConfig.originalTileSize), Entity.Direction.DOWN);
 
-        hudCamera = new OrthographicCamera();
+        mapManager.dispatchMap("ROOM", new Vector2(11 * ScreenConfig.originalTileSize, 9 * ScreenConfig.originalTileSize), Entity.Direction.DOWN);
+
+        OrthographicCamera hudCamera = new OrthographicCamera();
         hudCamera.setToOrtho(false, ScreenConfig.screenWidth, ScreenConfig.screenHeight);
-        playerHUD = new PlayerHUD(hudCamera, player, mapManager);
+        PLAYER_HUD = new PlayerHUD(hudCamera, player, mapManager);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class GameScreen extends BaseScreen {
         mapManager.update();
         player.update();
 
-        playerHUD.render(delta);
+        PLAYER_HUD.render(delta);
         debugRenderer.render(world, camera.combined);
     }
 

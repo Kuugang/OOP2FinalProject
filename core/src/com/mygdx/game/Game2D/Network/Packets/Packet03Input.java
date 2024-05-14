@@ -1,4 +1,4 @@
-package com.mygdx.game.MultiplayerGame.Network.Packets;//package org.example.net.Packets;
+package com.mygdx.game.Game2D.Network.Packets;//package org.example.net.Packets;
 //
 //import org.example.net.GameServer;
 //import org.example.net.GameClient;

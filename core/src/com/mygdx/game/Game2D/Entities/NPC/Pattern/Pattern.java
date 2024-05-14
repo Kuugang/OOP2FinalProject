@@ -1,17 +1,25 @@
 package com.mygdx.game.Game2D.Entities.NPC.Pattern;
 
-import com.mygdx.game.Game2D.States.Direction;
+
+import com.mygdx.game.Game2D.Entities.Entity;
 
 import java.util.ArrayList;
 
 public abstract class Pattern {
     int i;
-    ArrayList<Direction> directions;
-    Direction currentDirection;
-
-    public Pattern() {
+    ArrayList<Entity.Direction> directions;
+    Entity.Direction currentDirection;
+    int length;
+    public Pattern(int length) {
         directions = new ArrayList<>();
         i = 0;
+
+        this.length = length;
+
+        setDirection();
+
+        setCurrentDirection();
+
     }
 
     protected abstract void setDirection();
@@ -21,16 +29,24 @@ public abstract class Pattern {
     }
 
     public void nextDirection() {
-        if(i == directions.size() - 1)
-            i = 0;
-        else
-            i++;
-        System.out.println(i);
+        if(atEnd()) i = 0;
+        else i++;
 
         currentDirection = directions.get(i);
     }
 
-    public Direction getCurrentDirection() {
+    public Entity.Direction getCurrentDirection() {
         return currentDirection;
     }
+
+    public boolean atEnd(){
+        return i == length - 1;
+    }
+
+    public void nextStateDirection() {
+        Entity.Direction checkPoint = currentDirection;
+        while(checkPoint == getCurrentDirection())
+            nextDirection();
+    }
+
 }

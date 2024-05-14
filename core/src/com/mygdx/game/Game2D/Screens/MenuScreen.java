@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Screens.transition.effects.FadeOutTransitionEffect;
 import com.mygdx.game.Game2D.Screens.transition.effects.TransitionEffect;
-import com.mygdx.game.Game2D.status.PlayerPortrait;
 
 import java.util.ArrayList;
 
@@ -24,7 +23,6 @@ public class MenuScreen extends BaseScreen {
     private Stage menuStage = new Stage();
     private Animation<TextureRegion> flowAnimation;
     private float stateTime;
-    PlayerPortrait portrait;
 
     public MenuScreen(Game2D game) {
         super(game);
@@ -34,39 +32,41 @@ public class MenuScreen extends BaseScreen {
 //        portrait.setPosition(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f, Align.center); // Adjust position as needed
 //        menuStage.addActor(portrait);
 //        Gdx.input.setInputProcessor(menuStage);
-
         menuTable = createTable();
+        menuTable.setFillParent(true);
+        menuTable.bottom().padBottom(20);
 
-//        handleBackground();
         handlePlayButton();
+        handleLoadButton();
         handleMultiplayerButton();
-//        handleLoadButton();
-//        handleOptionButton();
+        handleLoadButton();
         handleExitButton();
     }
 
     private void handlePlayButton() {
-        createButton("Play", 0, menuTable.getHeight()/10, menuTable);
+        Actor newButton =  createImageButton("new_button", 0, 0,  menuTable);
+        newButton.setSize(40,40);
 
-        Actor newButton = menuTable.getCells().get(0).getActor();
         newButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent even, float x, float y) {
                 ArrayList<TransitionEffect> effects = new ArrayList<>();
-                effects.add(new FadeOutTransitionEffect(1F));
+                effects.add(new FadeOutTransitionEffect(0.5F));
+
+
+
                 setScreenWithTransition(
-                        (BaseScreen) game.getScreen(),
-                        new GameScreen(game),
+                        (BaseScreen)game.getScreen(),
+                        new MenuNewGameScreen(game, (BaseScreen)game.getScreen(), resourceManager),
                         effects
                 );
             }
         });
     }
 
-    private void handleMultiplayerButton(){
-        createButton("Multiplayer", 0, menuTable.getHeight() /9, menuTable);
 
-        Actor multiPlayerButton = menuTable.getCells().get(1).getActor();
+    private void handleMultiplayerButton(){
+        Actor multiPlayerButton =  createImageButton("online_button", 0, 0, menuTable);
 
         multiPlayerButton.addListener(new ClickListener() {
             @Override
@@ -75,7 +75,7 @@ public class MenuScreen extends BaseScreen {
                 effects.add(new FadeOutTransitionEffect(1F));
                 setScreenWithTransition(
                         (BaseScreen) game.getScreen(),
-                        new GameScreen(game),
+                        new MenuNewMultiplayerScreen(game, (BaseScreen) game.getScreen(), resourceManager),
                         effects
                 );
             }
@@ -83,9 +83,7 @@ public class MenuScreen extends BaseScreen {
     }
 
     private void handleExitButton() {
-        createButton("Exit", 0, menuTable.getHeight()/8, menuTable);
-
-        Actor exitButton = menuTable.getCells().get(2).getActor();
+        Actor exitButton =  createImageButton("exit_button", 0, 0,  menuTable);
         exitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent even, float x, float y) {
@@ -112,10 +110,9 @@ public class MenuScreen extends BaseScreen {
     }
 
 
-
     private void handleLoadButton() {
-        createButton("Load Game", 0, menuTable.getHeight()/15, menuTable);
-
+        Actor loadButton = createImageButton("load_button", 0, 0,   menuTable);
+        loadButton.setSize(64, 48);
 //        Actor loadButton = menuTable.getCells().get(1).getActor();
 //        loadButton.addListener(new ClickListener() {
 //            @Override
@@ -138,13 +135,13 @@ public class MenuScreen extends BaseScreen {
     @Override
     public void render(float delta) {
         stateTime += Gdx.graphics.getDeltaTime();
+
         batch.begin();
+        //TODO ADD BACKGROUND HERE
         batch.end();
 
-//        if (!resourceManager.isOptionScreen() && !resourceManager.isMenuNewGameScreen() && !resourceManager.isMenuLoadGameScreen()) {
-            menuStage.act(delta);
-            menuStage.draw();
-//        }
+        menuStage.act(delta);
+        menuStage.draw();
     }
 
     @Override

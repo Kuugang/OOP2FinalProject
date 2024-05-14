@@ -1,10 +1,9 @@
-package com.mygdx.game.MultiplayerGame.Network.Packets;
+package com.mygdx.game.Game2D.Network.Packets;
 
-import com.mygdx.game.MultiplayerGame.Network.GameClient;
-import com.mygdx.game.MultiplayerGame.Network.GameServer;
+import com.mygdx.game.Game2D.Network.GameClient;
+import com.mygdx.game.Game2D.Network.GameServer;
 
 public class Packet01Disconnect extends Packet {
-
     private String username;
 
     public Packet01Disconnect(byte[] data) {

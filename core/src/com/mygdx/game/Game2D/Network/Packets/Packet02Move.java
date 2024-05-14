@@ -1,15 +1,14 @@
-package com.mygdx.game.MultiplayerGame.Network.Packets;
+package com.mygdx.game.Game2D.Network.Packets;
 
-import com.mygdx.game.MultiplayerGame.Network.GameClient;
-import com.mygdx.game.MultiplayerGame.Network.GameServer;
+import com.mygdx.game.Game2D.Entities.Entity;
+import com.mygdx.game.Game2D.Network.GameClient;
+import com.mygdx.game.Game2D.Network.GameServer;
 
 public class Packet02Move extends Packet {
     private String username;
     private float x, y;
-
-    private int numSteps = 0;
-    private boolean isMoving;
-    private int movingDir = 1;
+    private Entity.Direction direction;
+    private String map;
 
     public Packet02Move(byte[] data) {
         super(02);
@@ -17,13 +16,17 @@ public class Packet02Move extends Packet {
         this.username = dataArray[0];
         this.x = Float.parseFloat(dataArray[1]);
         this.y = Float.parseFloat(dataArray[2]);
+        this.direction = Entity.Direction.valueOf(dataArray[3]);
+        this.map = dataArray[4];
     }
 
-    public Packet02Move(String username, int x, int y) {
+    public Packet02Move(String username, float x, float y, Entity.Direction direction, String map) {
         super(02);
         this.username = username;
         this.x = x;
         this.y = y;
+        this.direction = direction;
+        this.map = map;
     }
 
     @Override
@@ -38,7 +41,15 @@ public class Packet02Move extends Packet {
 
     @Override
     public byte[] getData() {
-        return ("02" + this.username + "," + this.x + "," + this.y + "," + "0").getBytes();
+        return ("02" + this.username + "," + this.x + "," + this.y + "," + this.direction + "," + this.map).getBytes();
+    }
+
+    public Entity.Direction getDirection() {
+        return direction;
+    }
+
+    public String getMap() {
+        return map;
     }
 
     public String getUsername() {

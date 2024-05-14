@@ -1,14 +1,13 @@
 package com.mygdx.game.Game2D.Entities.NPC.Pattern;
 
-import com.mygdx.game.Game2D.States.Direction;
 
-import java.util.Arrays;
-import java.util.Collection;
+import com.mygdx.game.Game2D.Entities.Entity;
+
 
 public class BoxPattern extends Pattern {
 
     public BoxPattern() {
-        super();
+        super(3);
 
         setDirection();
 
@@ -18,12 +17,12 @@ public class BoxPattern extends Pattern {
     @Override
     protected void setDirection() {
         for(int i = 0; i < 1; i++)
-            directions.add(Direction.LEFT);
+            directions.add(Entity.Direction.LEFT);
         for(int i = 0; i < 1; i++)
-            directions.add(Direction.DOWN);
+            directions.add(Entity.Direction.DOWN);
         for(int i = 0; i < 1; i++)
-            directions.add(Direction.RIGHT);
+            directions.add(Entity.Direction.RIGHT);
         for(int i = 0; i < 1; i++)
-            directions.add(Direction.UP);
+            directions.add(Entity.Direction.UP);
     }
 }
