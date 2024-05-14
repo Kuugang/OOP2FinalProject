@@ -97,6 +97,7 @@ public class NPC extends Entity {
             boxBody.applyLinearImpulse(new Vector2(0, speed), boxBody.getWorldCenter(), true);
             direction = Direction.UP;
             movementCounter++;
+
         }else if(movement.getCurrentDirection() == Direction.DOWN){
             isMoving = true;
             boxBody.applyLinearImpulse(new Vector2(0, -speed), boxBody.getWorldCenter(), true);
@@ -116,6 +117,11 @@ public class NPC extends Entity {
             isMoving = false;
             movementCounter++;
         }
+/*        if(currentX == boxBody.getPosition().x && currentY == boxBody.getPosition().y && isMoving) {
+            newMovement();
+
+            System.out.println("New Movement");
+        }*/
     }
 
     public void newMovement(){
@@ -152,19 +158,22 @@ public class NPC extends Entity {
         move();
         if(movement.getCurrentDirection() == Direction.STAY)
             movement.nextDirection();
-        else if((movement.getCurrentDirection() == Direction.LEFT || movement.getCurrentDirection() == Direction.RIGHT)
-                && (int)boxBody.getPosition().x % ScreenConfig.tileSize == 0){
-            movement.nextDirection();
-        }else if((movement.getCurrentDirection() == Direction.UP || movement.getCurrentDirection() == Direction.DOWN)
-            && (int)boxBody.getPosition().y % ScreenConfig.tileSize == 0){
+        else if(((movement.getCurrentDirection() == Direction.LEFT || movement.getCurrentDirection() == Direction.RIGHT)
+                && (int)boxBody.getPosition().x % ScreenConfig.tileSize == 0) || ((movement.getCurrentDirection() ==
+                Direction.UP || movement.getCurrentDirection() == Direction.DOWN)
+                && (int)boxBody.getPosition().y % ScreenConfig.tileSize == 0)){
             movement.nextDirection();
         }
 
         if(movement.atEnd())
            newMovement();
-
+        float currentX = sprite.getX(), currentY = sprite.getY();
         sprite.setPosition(boxBody.getPosition().x - sprite.getWidth() / 2, boxBody.getPosition().y -
                 sprite.getHeight() / 7);
+
+        if(currentX == sprite.getX() && currentY == sprite.getY() && isMoving)
+            newMovement();
+
         stateTime += Gdx.graphics.getDeltaTime();
 
         if(isMoving)

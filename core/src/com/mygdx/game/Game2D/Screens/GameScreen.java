@@ -61,6 +61,7 @@ public class GameScreen extends BaseScreen {
         camera.zoom = 0.5F;
         //update camera in individual maps
         camera.position.set(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2, 0);
+
         camera.update();
         world.step(1/60f, 6, 2);
 

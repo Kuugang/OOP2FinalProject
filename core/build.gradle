@@ -1,6 +1,5 @@
-//sourceCompatibility = JavaVersion.VERSION_20;
-sourceCompatibility = 1.20;
-//targetCompatibility = JavaVersion.VERSION_20;
+sourceCompatibility = JavaVersion.VERSION_21;
+targetCompatibility = JavaVersion.VERSION_21;
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 sourceSets.main.java.srcDirs = [ "src/" ]
