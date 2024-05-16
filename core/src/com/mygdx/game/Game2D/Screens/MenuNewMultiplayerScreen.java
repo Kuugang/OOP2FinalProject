@@ -6,13 +6,12 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
 import com.mygdx.game.Game2D.Network.GameClient;
-import com.mygdx.game.Game2D.Network.Packets.Packet00Login;
 import com.mygdx.game.Game2D.Screens.transition.effects.FadeOutTransitionEffect;
 import com.mygdx.game.Game2D.Screens.transition.effects.TransitionEffect;
+import com.mygdx.game.Game2D.World.World;
 
 import java.util.ArrayList;
 
@@ -84,8 +83,8 @@ public class MenuNewMultiplayerScreen extends BaseScreen {
 
                 game.setGameClient(new GameClient(ipAddress));
                 game.getGameClient().start();
-                Game2D.isMultiplayer = true;
-                Game2D.username = username;
+                World.isMultiplayer = true;
+                World.username = username;
 
                 ArrayList<TransitionEffect> effects = new ArrayList<>();
                 effects.add(new FadeOutTransitionEffect(1F));

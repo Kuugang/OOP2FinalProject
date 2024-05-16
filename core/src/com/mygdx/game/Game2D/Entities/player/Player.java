@@ -2,8 +2,10 @@ package com.mygdx.game.Game2D.Entities.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -18,6 +20,7 @@ import com.mygdx.game.Game2D.World.Collision;
 
 import static com.mygdx.game.Game2D.Game2D.*;
 import static com.mygdx.game.Game2D.Screens.GameScreen.*;
+import static com.mygdx.game.Game2D.World.World.isMultiplayer;
 
 public class Player extends Entity {
     public String username;
@@ -32,10 +35,8 @@ public class Player extends Entity {
     float stateTime = 0F;
     public Body boxBody;
 
-    private static final short PLAYER_CATEGORY = 0x0001;
-    private static final short WALL_CATEGORY = 0x0002;
-    private static final short ENEMY_CATEGORY = 0x0004;
-    private static final short OTHER_CATEGORY = 0x0008;
+
+
 
     public Player(String username, Vector2 position, Entity.Direction direction){
         this.x = position.x;
@@ -82,6 +83,7 @@ public class Player extends Entity {
     public void update(){
         isMoving = Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.S) ||
             Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.W);
+        //TODO FIX SENDING PACKETS
         if(Gdx.input.isKeyPressed(Input.Keys.A)){
             direction = Direction.LEFT;
             boxBody.applyLinearImpulse(new Vector2(-speed, 0), boxBody.getWorldCenter(), true);
@@ -119,6 +121,9 @@ public class Player extends Entity {
         }
     }
 
+    float timePerCharacter = 0.1f; // Time (in seconds) between each character display
+    float elapsedTime = 0f;
+    int charactersToDisplay = 0;
     public void render(){
         stateTime += Gdx.graphics.getDeltaTime();
         if(isMoving){
@@ -140,6 +145,40 @@ public class Player extends Entity {
         sprite.setRegion(frame);
         sprite.draw(batch);
         isMoving = false;
+
+
+
+
+        String dialogText = "Hello World";
+        BitmapFont font = resourceManager.pixel10;
+        GlyphLayout layout = new GlyphLayout(font, dialogText);
+        float textX = sprite.getX() + (sprite.getWidth() - layout.width) / 2;
+        float textY = sprite.getY() + sprite.getHeight() + 20;
+
+        float bgWidth = layout.width + 10;
+        float bgHeight = layout.height + 10;
+
+        batch.setColor(1, 1, 1, 0.9f);
+        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        pixmap.setColor(1, 1, 1, 1);
+        pixmap.drawPixel(0, 0);
+        Texture texture = new Texture(pixmap);
+        texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        texture.setWrap(Texture.TextureWrap.ClampToEdge, Texture.TextureWrap.ClampToEdge);
+        batch.draw(texture, textX - 5, textY - 5, bgWidth, bgHeight);
+
+        font.setColor(0, 0, 0, 1);
+
+        String partialText = dialogText.substring(0, charactersToDisplay);
+        font.draw(batch, partialText, textX, textY + 5);
+
+        if (elapsedTime < dialogText.length() * timePerCharacter) {
+            elapsedTime += Gdx.graphics.getDeltaTime();
+            charactersToDisplay = (int) (elapsedTime / timePerCharacter);
+        }
+
+        batch.setColor(Color.WHITE);
+        font.setColor(Color.WHITE);
     }
 
     public void setPosition(Vector2 position){

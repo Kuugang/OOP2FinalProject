@@ -16,8 +16,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.mygdx.game.Game2D.Game2D.batch;
-import static com.mygdx.game.Game2D.Game2D.isMultiplayer;
 import static com.mygdx.game.Game2D.Screens.GameScreen.*;
+import static com.mygdx.game.Game2D.World.World.isMultiplayer;
 
 public class MapManager {
     public static OrthogonalTiledMapRenderer tiledMapRenderer;

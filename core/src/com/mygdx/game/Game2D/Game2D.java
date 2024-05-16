@@ -15,10 +15,6 @@ public class Game2D extends Game {
     public MenuScreen menuScreen;
     public static ResourceManager resourceManager;
     private GameClient gameClient;
-    public static boolean isMultiplayer = false;
-
-    //TODO TEMPORARY
-    public static String username;
 
     @Override
     public void create() {

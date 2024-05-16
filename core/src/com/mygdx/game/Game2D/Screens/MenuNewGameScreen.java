@@ -15,6 +15,7 @@ import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
 import com.mygdx.game.Game2D.Screens.transition.effects.FadeOutTransitionEffect;
 import com.mygdx.game.Game2D.Screens.transition.effects.TransitionEffect;
+import com.mygdx.game.Game2D.World.World;
 
 import java.util.ArrayList;
 
@@ -74,7 +75,7 @@ public class MenuNewGameScreen extends BaseScreen {
 
     private void handlePlayButton() {
         createButton("Play", 0, newTable.getHeight()/9, newTable);
-
+        World.username = profileText.getText();
         Actor playButton = newTable.getCells().get(0).getActor();
         bottomTable.add(playButton).padRight(50);
         playButton.addListener(new ClickListener() {
