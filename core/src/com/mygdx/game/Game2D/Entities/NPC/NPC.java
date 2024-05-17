@@ -11,10 +11,12 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Entities.NPC.Pattern.Pattern;
 import com.mygdx.game.Game2D.Entities.NPC.Pattern.*;
+import com.mygdx.game.Game2D.Screens.GameScreen;
 import com.mygdx.game.Game2D.World.CollisionType;
 import com.mygdx.game.ScreenConfig;
 
 import static com.mygdx.game.Game2D.Game2D.batch;
+import static com.mygdx.game.Game2D.Screens.GameScreen.gameState;
 import static com.mygdx.game.Game2D.Screens.GameScreen.world;
 
 public class NPC extends Entity {
@@ -153,6 +155,8 @@ public class NPC extends Entity {
     }
 
     public NPC render(){
+        if(gameState == GameScreen.GameState.PAUSED)
+            return this;
         move();
         if(movement.getCurrentDirection() == Direction.STAY)
             movement.nextDirection();
