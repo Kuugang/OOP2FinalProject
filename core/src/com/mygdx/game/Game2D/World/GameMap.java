@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.mygdx.game.Game2D.Screens.GameScreen.player;
 import static com.mygdx.game.Game2D.Screens.GameScreen.world;
 import static com.mygdx.game.Game2D.World.MapManager.otherPlayers;
 import static com.mygdx.game.Game2D.World.MapManager.tiledMapRenderer;
@@ -64,7 +63,7 @@ public abstract class GameMap {
                 PolygonShape shape = new PolygonShape();
                 shape.set(polygon.getVertices());
                 collisionFixtureDef.shape = shape;
-                collisionFixtureDef.filter.categoryBits = Collision.WALL.getValue();
+                collisionFixtureDef.filter.categoryBits = CollisionType.WALL.getValue();
 
                 collisionBody.createFixture(collisionFixtureDef).setUserData("COLLISION");
                 bodies.add(collisionBody);

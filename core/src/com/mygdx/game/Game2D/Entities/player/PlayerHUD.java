@@ -27,7 +27,10 @@ public class PlayerHUD implements Screen, StatusObserver {
     private MapManager mapManager;
 
     private Actor stageKeyboardFocus;
+    public float defaultHeight = 0;
+    public float defaultWidth = 0;
 
+    //TODO Fix HUD to move when screen is scaling
     public PlayerHUD(Camera cameraHUD, Entity entityPlayer, MapManager mapMgr) {
         player = entityPlayer;
         mapManager = mapMgr;
@@ -40,6 +43,9 @@ public class PlayerHUD implements Screen, StatusObserver {
         statusUI = new StatusUI();
         statusUI.setVisible(true);
         statusUI.setPosition(0, Gdx.graphics.getHeight() - statusUI.getHeight());
+
+        defaultHeight = Gdx.graphics.getHeight();
+        defaultWidth = Gdx.graphics.getWidth();
         statusUI.setKeepWithinStage(false);
         statusUI.setMovable(false);
 

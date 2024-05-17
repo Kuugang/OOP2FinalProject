@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Entities.NPC.Pattern.Pattern;
 import com.mygdx.game.Game2D.Entities.NPC.Pattern.*;
-import com.mygdx.game.Game2D.World.Collision;
+import com.mygdx.game.Game2D.World.CollisionType;
 import com.mygdx.game.ScreenConfig;
 
 import static com.mygdx.game.Game2D.Game2D.batch;
@@ -83,8 +83,8 @@ public class NPC extends Entity {
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = dynamicBox;
-        fixtureDef.filter.categoryBits = Collision.NPC.getValue();
-        fixtureDef.filter.maskBits = Collision.WALL.getValue();  // Collides with walls only
+        fixtureDef.filter.categoryBits = CollisionType.NPC.getValue();
+        fixtureDef.filter.maskBits = CollisionType.WALL.getValue();  // Collides with walls only
 
         Fixture fixture = boxBody.createFixture(fixtureDef);
         fixture.setUserData(this);
@@ -149,9 +149,10 @@ public class NPC extends Entity {
                 }
             }
         }
+
     }
 
-    public void render(){
+    public NPC render(){
         move();
         if(movement.getCurrentDirection() == Direction.STAY)
             movement.nextDirection();
@@ -177,9 +178,11 @@ public class NPC extends Entity {
 
         sprite.setRegion(frame);
         sprite.draw(batch);
+
+        return this;
     }
 
-    private void animation(Animation<TextureRegion> upAnimation, Animation<TextureRegion> downAnimation,
+    private NPC animation(Animation<TextureRegion> upAnimation, Animation<TextureRegion> downAnimation,
                            Animation<TextureRegion> leftAnimation, Animation<TextureRegion> rightAnimation) {
         switch (direction) {
             case UP -> frame = upAnimation.getKeyFrame(stateTime, true);
@@ -187,5 +190,6 @@ public class NPC extends Entity {
             case LEFT -> frame = leftAnimation.getKeyFrame(stateTime, true);
             case RIGHT -> frame = rightAnimation.getKeyFrame(stateTime, true);
         }
+        return this;
     }
 }

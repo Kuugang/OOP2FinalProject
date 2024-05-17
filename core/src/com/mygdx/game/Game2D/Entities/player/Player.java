@@ -6,17 +6,15 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Game2D.Entities.Entity;
-import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Inventory.Inventory;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
 import com.mygdx.game.Game2D.Network.Packets.Packet00Login;
 import com.mygdx.game.Game2D.Network.Packets.Packet02Move;
 import com.mygdx.game.Game2D.Screens.GameScreen;
-import com.mygdx.game.Game2D.World.Collision;
+import com.mygdx.game.Game2D.World.CollisionType;
 
 import static com.mygdx.game.Game2D.Game2D.*;
 import static com.mygdx.game.Game2D.Screens.GameScreen.*;
@@ -68,8 +66,8 @@ public class Player extends Entity {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = dynamicBox;
 
-        fixtureDef.filter.categoryBits = Collision.PLAYER.getValue();
-        fixtureDef.filter.maskBits = Collision.WALL.getValue();
+        fixtureDef.filter.categoryBits = CollisionType.PLAYER.getValue();
+        fixtureDef.filter.maskBits = CollisionType.WALL.getValue();
 
         Fixture fixture = boxBody.createFixture(fixtureDef);
         fixture.setUserData(this);
