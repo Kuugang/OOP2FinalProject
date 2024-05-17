@@ -6,7 +6,7 @@
  <tileset firstgid="547" source="../../TSX FILES/Gym_preview_32x32.tsx"/>
  <tileset firstgid="832" source="../../TSX FILES/Room_Builder_32x32.tsx"/>
  <tileset firstgid="9116" source="../../TSX FILES/FULL_INTERIOR.tsx"/>
- <tileset firstgid="26140" source="../../TSX FILES/HIS_HOUSE(gym:cr).tsx"/>
+ <tileset firstgid="26140" source="../../TSX FILES/HIS_HOUSE(gymCR).tsx"/>
  <layer id="1" name="FLOORING AND WALLS" width="40" height="14">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -208,7 +208,7 @@
   <object id="115" x="101" y="96" width="20" height="20"/>
   <object id="116" x="36" y="260" width="21" height="16"/>
  </objectgroup>
- <layer id="6" name="ALL" width="40" height="14" visible="0">
+ <layer id="6" name="ALL" width="40" height="14">
   <data encoding="csv">
 26140,26141,26142,26143,26144,26145,26146,26147,26148,26149,26150,26151,26152,26153,26154,26155,26156,26157,26158,26159,26160,26161,26162,26163,26164,26165,26166,26167,26168,26169,26170,26171,26172,26173,26174,26175,26176,26177,26178,26179,
 26180,26181,26182,26183,26184,26185,26186,26187,26188,26189,26190,26191,26192,26193,26194,26195,26196,26197,26198,26199,26200,26201,26202,26203,26204,26205,26206,26207,26208,26209,26210,26211,26212,26213,26214,26215,26216,26217,26218,26219,
