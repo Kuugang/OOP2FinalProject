@@ -1,6 +1,8 @@
 package com.mygdx.game.Game2D.Screens;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -29,7 +31,8 @@ public class GameScreen extends BaseScreen {
     private final Box2DDebugRenderer debugRenderer;
     public static MapManager mapManager;
     private final PlayerHUD PLAYER_HUD;
-    private static GameState gameState;
+    public static GameState gameState;
+    public static PauseScreen pauseScreen;
 
     public GameScreen(Game2D game) {
         super(game);
@@ -50,6 +53,28 @@ public class GameScreen extends BaseScreen {
         hudCamera.setToOrtho(false, ScreenConfig.screenWidth, ScreenConfig.screenHeight);
         PLAYER_HUD = new PlayerHUD(hudCamera, player, mapManager);
         debugRenderer = new Box2DDebugRenderer();
+
+
+
+
+
+        //Initialize GameState
+        gameState = gameState.RUNNING;
+
+        //PauseScreen
+        pauseScreen = new PauseScreen(this, game);
+
+
+
+        //Handle multiple input
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(pauseScreen);
+        inputMultiplexer.addProcessor(pauseScreen.getStage());
+        inputMultiplexer.addProcessor(stage);
+
+        Gdx.input.setInputProcessor(inputMultiplexer);
+
+
     }
 
     @Override
@@ -61,8 +86,12 @@ public class GameScreen extends BaseScreen {
     public void render(float delta) {
         if (gameState == GameState.PAUSED) {
             PLAYER_HUD.render(delta);
+            pauseScreen.getStage().act(delta);
+            pauseScreen.getStage().draw();
+
             return;
         }
+
 
         ScreenUtils.clear(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -142,6 +171,16 @@ public class GameScreen extends BaseScreen {
         private static float aspectRatio;
     }
 
+
+    public static GameState getGameState() {
+        return gameState;
+    }
+
+    public GameState setGameState(GameState gameState) {
+        this.gameState = gameState;
+
+        return gameState;
+    }
     public enum GameState {
         SAVING,
         LOADING,

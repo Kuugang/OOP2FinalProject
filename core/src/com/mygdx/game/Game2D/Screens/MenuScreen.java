@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Screens.transition.effects.FadeOutTransitionEffect;
 import com.mygdx.game.Game2D.Screens.transition.effects.TransitionEffect;
@@ -131,6 +132,8 @@ public class MenuScreen extends BaseScreen {
 
     @Override
     public void render(float delta) {
+        ScreenUtils.clear(0,0,0,1);
+
         stateTime += Gdx.graphics.getDeltaTime();
 
         batch.begin();
