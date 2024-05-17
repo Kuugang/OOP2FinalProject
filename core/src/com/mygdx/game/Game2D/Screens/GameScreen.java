@@ -1,7 +1,6 @@
 package com.mygdx.game.Game2D.Screens;
 
 import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
@@ -14,7 +13,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Entities.player.Player;
-import com.mygdx.game.Game2D.Entities.player.PlayerHUD;
 import com.mygdx.game.Game2D.Entities.player.PlayerHUD2;
 import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Listeners.GameCollisionListener;
@@ -32,7 +30,6 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
     public static World world;
     private final Box2DDebugRenderer debugRenderer;
     public static MapManager mapManager;
-//    private final PlayerHUD PLAYER_HUD;
     public static GameState gameState;
     public static PauseScreen pauseScreen;
 
@@ -59,10 +56,6 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
 //        PLAYER_HUD = new PlayerHUD(hudCamera, player, mapManager);
         PLAYER_HUD = new PlayerHUD2(player);
         debugRenderer = new Box2DDebugRenderer();
-
-
-
-
 
         //Initialize GameState
         gameState = gameState.RUNNING;
@@ -129,6 +122,8 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
         PLAYER_HUD.resize((int) VIEWPORT.physicalWidth, (int) VIEWPORT.physicalHeight);
         setupViewport(15, 15);
         viewport.update(width, height);
+        viewport.setWorldHeight(Gdx.graphics.getHeight());
+        viewport.setWorldWidth(Gdx.graphics.getWidth());
     }
 
     @Override
