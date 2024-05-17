@@ -34,7 +34,7 @@ public class MenuScreen extends BaseScreen {
 //        menuStage.addActor(portrait);
 //        Gdx.input.setInputProcessor(menuStage);
         menuTable = createTable();
-        menuTable.setFillParent(true);
+        menuTable.setFillParent(false);
         menuTable.bottom().padBottom(20);
 
         handlePlayButton();
@@ -45,8 +45,8 @@ public class MenuScreen extends BaseScreen {
     }
 
     private void handlePlayButton() {
-        Actor newButton =  createImageButton("new_button", 0, 0,  menuTable);
-        newButton.setSize(40,40);
+        Actor newButton =  createImageButton("new_button",  menuTable);
+        newButton.setSize(20,20);
         newButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent even, float x, float y) {
@@ -62,10 +62,11 @@ public class MenuScreen extends BaseScreen {
                 );
             }
         });
+
     }
 
     private void handleMultiplayerButton(){
-        Actor multiPlayerButton =  createImageButton("online_button", 0, 0, menuTable);
+        Actor multiPlayerButton =  createImageButton("online_button", menuTable);
         multiPlayerButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent even, float x, float y) {
@@ -81,7 +82,7 @@ public class MenuScreen extends BaseScreen {
     }
 
     private void handleExitButton() {
-        Actor exitButton =  createImageButton("exit_button", 0, 0,  menuTable);
+        Actor exitButton =  createImageButton("exit_button",  menuTable);
         exitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent even, float x, float y) {
@@ -109,7 +110,7 @@ public class MenuScreen extends BaseScreen {
 
 
     private void handleLoadButton() {
-        Actor loadButton = createImageButton("load_button", 0, 0,   menuTable);
+        Actor loadButton = createImageButton("load_button",   menuTable);
         loadButton.setSize(64, 48);
 //        Actor loadButton = menuTable.getCells().get(1).getActor();
 //        loadButton.addListener(new ClickListener() {

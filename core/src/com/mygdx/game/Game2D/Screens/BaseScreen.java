@@ -58,6 +58,8 @@ public class BaseScreen implements Screen{
         TextureRegionDrawable imageUp = new TextureRegionDrawable(playButtons[0][0]);
         TextureRegionDrawable imageDown = new TextureRegionDrawable(playButtons[1][0]);
 
+
+
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle(imageUp, imageDown, null, pixel10);
         TextButton button = new TextButton(buttonName, buttonStyle);
         button.getLabel().setColor(new Color(79 / 255.f, 79 / 255.f, 117 / 255.f, 1));
@@ -66,7 +68,7 @@ public class BaseScreen implements Screen{
         table.row();
     }
 
-    public ImageButton createImageButton(String buttonName, float posX, float posY, Table table) {
+    public ImageButton createImageButton(String buttonName, Table table) {
         TextureRegion buttonRegion = MAINMENU_TEXTURE_ATLAS.findRegion(buttonName);
 
         if (buttonRegion == null) {
@@ -82,13 +84,24 @@ public class BaseScreen implements Screen{
 //        buttonRegion.setRegionWidth(newWidth);
 //        buttonRegion.setRegionHeight(newHeight);
 
+
+
+        int newWidth = (int) (buttonRegion.getRegionWidth() * 0.1f);
+        int newHeight = (int) (buttonRegion.getRegionHeight() * 0.1f);
+
+        TextureRegion scaledButtonRegion = new TextureRegion(buttonRegion);
+        scaledButtonRegion.setRegionWidth(newWidth);
+        scaledButtonRegion.setRegionHeight(newHeight);
+
         ImageButton.ImageButtonStyle buttonStyle = new ImageButton.ImageButtonStyle();
         buttonStyle.imageUp = new TextureRegionDrawable(buttonRegion); // Set the image for the button
+        buttonStyle.imageUp.setMinWidth(200);
+        buttonStyle.imageUp.setMinHeight(150);
+
 
         ImageButton button = new ImageButton(buttonStyle);
 
 
-        button.setPosition(posX, posY);
 
         table.add(button).pad(10); // Adjust padding as needed
 
