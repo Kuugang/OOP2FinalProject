@@ -9,11 +9,14 @@ import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Game2D.Entities.Entity;
+import com.mygdx.game.Game2D.Entities.NPC.Pattern.Pattern;
 import com.mygdx.game.Game2D.Entities.NPC.Pattern.*;
-import com.mygdx.game.Game2D.States.Direction;
+import com.mygdx.game.Game2D.Screens.GameScreen;
+import com.mygdx.game.Game2D.World.CollisionType;
 import com.mygdx.game.ScreenConfig;
 
 import static com.mygdx.game.Game2D.Game2D.batch;
+import static com.mygdx.game.Game2D.Screens.GameScreen.gameState;
 import static com.mygdx.game.Game2D.Screens.GameScreen.world;
 
 public class NPC extends Entity {
@@ -78,10 +81,12 @@ public class NPC extends Entity {
         boxBody.setLinearDamping(50f);
 
         PolygonShape dynamicBox = new PolygonShape();
-        dynamicBox.setAsBox(sprite.getWidth()  /3, sprite.getHeight() / 8);
+        dynamicBox.setAsBox(sprite.getWidth() / 3, sprite.getHeight() / 8);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = dynamicBox;
+        fixtureDef.filter.categoryBits = CollisionType.NPC.getValue();
+        fixtureDef.filter.maskBits = CollisionType.WALL.getValue();  // Collides with walls only
 
         Fixture fixture = boxBody.createFixture(fixtureDef);
         fixture.setUserData(this);
@@ -147,14 +152,17 @@ public class NPC extends Entity {
                     movementCounter = 0;
                 }
                 case 4 -> {
-                    movement = new StayPattern(length * speed);
+                    movement = new StayPattern((int) (length * speed));
                     movementCounter = 0;
                 }
             }
         }
+
     }
 
-    public void render(){
+    public NPC render(){
+        if(gameState == GameScreen.GameState.PAUSED)
+            return this;
         move();
         if(movement.getCurrentDirection() == Direction.STAY)
             movement.nextDirection();
@@ -183,9 +191,11 @@ public class NPC extends Entity {
 
         sprite.setRegion(frame);
         sprite.draw(batch);
+
+        return this;
     }
 
-    private void animation(Animation<TextureRegion> upAnimation, Animation<TextureRegion> downAnimation,
+    private NPC animation(Animation<TextureRegion> upAnimation, Animation<TextureRegion> downAnimation,
                            Animation<TextureRegion> leftAnimation, Animation<TextureRegion> rightAnimation) {
         switch (direction) {
             case UP -> frame = upAnimation.getKeyFrame(stateTime, true);
@@ -193,5 +203,6 @@ public class NPC extends Entity {
             case LEFT -> frame = leftAnimation.getKeyFrame(stateTime, true);
             case RIGHT -> frame = rightAnimation.getKeyFrame(stateTime, true);
         }
+        return this;
     }
 }

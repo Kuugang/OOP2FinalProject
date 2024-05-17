@@ -1,7 +1,8 @@
-package com.mygdx.game.MultiplayerGame.Network.Packets;
+package com.mygdx.game.Game2D.Network.Packets;
 
-import com.mygdx.game.MultiplayerGame.Network.GameClient;
-import com.mygdx.game.MultiplayerGame.Network.GameServer;
+import com.mygdx.game.Game2D.Network.GameClient;
+import com.mygdx.game.Game2D.Network.GameServer;
+
 public abstract class Packet {
 
     public static enum PacketTypes{

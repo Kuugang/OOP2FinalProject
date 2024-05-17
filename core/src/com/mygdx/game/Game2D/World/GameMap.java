@@ -9,14 +9,19 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Game2D.Entities.NPC.NPC;
+import com.mygdx.game.Game2D.Entities.PlayerMP;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Objects;
 
-import static com.mygdx.game.Game2D.Screens.GameScreen.*;
+import static com.mygdx.game.Game2D.Screens.GameScreen.world;
+import static com.mygdx.game.Game2D.World.MapManager.otherPlayers;
 import static com.mygdx.game.Game2D.World.MapManager.tiledMapRenderer;
 
 public abstract class GameMap {
-    public TiledMap map;
+    public TiledMap tiledMap;
+    public String mapName;
     MapLayer collisionLayer;
     MapObjects collisionMapObjects;
     public MapLayer exitLayer;
@@ -25,16 +30,19 @@ public abstract class GameMap {
     public ArrayList<NPC> npc = new ArrayList<>();
 
     public GameMap setMap(String path) {
-        this.map = new TmxMapLoader().load(path);
-
+        this.tiledMap = new TmxMapLoader().load(path);
         return this;
     }
 
+    public GameMap setMapName(String mapName){
+        this.mapName = mapName;
+        return this;
+    }
 
     public abstract void setExits();
 
     public void setCollisions(){
-        collisionLayer = map.getLayers().get("COLLISION_LAYER");
+        collisionLayer = this.tiledMap.getLayers().get("COLLISION_LAYER");
 
         if(collisionLayer == null)return;
 
@@ -55,6 +63,7 @@ public abstract class GameMap {
                 PolygonShape shape = new PolygonShape();
                 shape.set(polygon.getVertices());
                 collisionFixtureDef.shape = shape;
+                collisionFixtureDef.filter.categoryBits = CollisionType.WALL.getValue();
 
                 collisionBody.createFixture(collisionFixtureDef).setUserData("COLLISION");
                 bodies.add(collisionBody);
@@ -63,7 +72,7 @@ public abstract class GameMap {
     }
 
     public TiledMap getTiledMap(){
-        return map;
+        return tiledMap;
     }
 
     public void dispose(){
@@ -73,7 +82,20 @@ public abstract class GameMap {
     }
 
     public void update() {
-//        tiledMapRenderer.render();
-//        player.render();
+        tiledMapRenderer.render();
+
+        for (Map.Entry<String, PlayerMP> entry : otherPlayers.entrySet()) {
+            PlayerMP playerMP = entry.getValue();
+
+            System.out.println(playerMP.map);
+            System.out.println(this.mapName);
+            if(Objects.equals(playerMP.map, this.mapName)){
+                System.out.println("PLAYER WHAT NOT ");
+                if(!playerMP.isCollisionSet){
+                    playerMP.setCollision(playerMP.x, playerMP.y);
+                }
+                entry.getValue().render();
+            }
+        }
     }
 }

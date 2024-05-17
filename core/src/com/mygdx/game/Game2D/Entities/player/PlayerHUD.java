@@ -15,7 +15,6 @@ import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.status.StatusObserver;
 import com.mygdx.game.Game2D.status.StatusUI;
 import com.mygdx.game.Game2D.World.MapManager;
-import com.mygdx.game.ScreenConfig;
 
 public class PlayerHUD implements Screen, StatusObserver {
 
@@ -28,9 +27,10 @@ public class PlayerHUD implements Screen, StatusObserver {
     private MapManager mapManager;
 
     private Actor stageKeyboardFocus;
+    public float defaultHeight = 0;
+    public float defaultWidth = 0;
 
-    private static final String INVENTORY_FULL = "Your inventory is full!";
-
+    //TODO Fix HUD to move when screen is scaling
     public PlayerHUD(Camera cameraHUD, Entity entityPlayer, MapManager mapMgr) {
         player = entityPlayer;
         mapManager = mapMgr;
@@ -38,66 +38,22 @@ public class PlayerHUD implements Screen, StatusObserver {
         stage = new Stage(viewport);
         stageKeyboardFocus = stage.getKeyboardFocus();
 
-//        observers = new Array<>();
-
         json = new Json();
 
         statusUI = new StatusUI();
         statusUI.setVisible(true);
-        statusUI.setPosition(0,Gdx.graphics.getHeight() - statusUI.getHeight());
+        statusUI.setPosition(0, Gdx.graphics.getHeight() - statusUI.getHeight());
+
+        defaultHeight = Gdx.graphics.getHeight();
+        defaultWidth = Gdx.graphics.getWidth();
         statusUI.setKeepWithinStage(false);
         statusUI.setMovable(false);
-
-//        inventoryUI = new InventoryUI();
-//        inventoryUI.setKeepWithinStage(false);
-//        inventoryUI.setMovable(false);
-//        inventoryUI.setVisible(false);
-//        inventoryUI.setPosition(statusUI.getWidth(), 0);
-//
-//        conversationUI = new ConversationUI();
-//        conversationUI.setMovable(true);
-//        conversationUI.setVisible(false);
-//        conversationUI.setPosition(stage.getWidth() / 2, 0);
-//        conversationUI.setWidth(stage.getWidth() / 2);
-//        conversationUI.setHeight(stage.getHeight() / 2);
-//
-//        notificationUI = new ConversationUI();
-//        notificationUI.removeActor(notificationUI.findActor("scrollPane"));
-//        notificationUI.getCloseButton().setVisible(false);
-//        notificationUI.getCloseButton().setTouchable(Touchable.disabled);
-//        notificationUI.setTitle("");
-//        notificationUI.setMovable(false);
-//        notificationUI.setVisible(false);
-//        notificationUI.setPosition(0, 0);
-//        notificationUI.setWidth(stage.getWidth());
-//        notificationUI.setHeight(stage.getHeight() / 5);
-//        notificationUI.addListener(new ClickListener() {
-//            @Override
-//            public void clicked(InputEvent event, float x, float y) {
-//                notificationUI.setVisible(false);
-//                statusUI.setVisible(true);
-//            }
-//        });
-//
-//        storeInventoryUI = new StoreInventoryUI();
-//        storeInventoryUI.setMovable(false);
-//        storeInventoryUI.setVisible(false);
-//        storeInventoryUI.setPosition(0, 0);
-//
-//        questUI = new QuestUI();
-//        questUI.setMovable(false);
-//        questUI.setVisible(false);
-//        questUI.setKeepWithinStage(false);
-//        questUI.setPosition(0, stage.getHeight() / 2);
-//        questUI.setWidth(stage.getWidth());
-//        questUI.setHeight(stage.getHeight() / 2);
 
         stage.addActor(statusUI);
 
         statusUI.validate();
 
-        //Observers
-//        player.registerObserver(this);
+        // Observers
         statusUI.addObserver(this);
     }
 
@@ -109,7 +65,6 @@ public class PlayerHUD implements Screen, StatusObserver {
         return statusUI;
     }
 
-
     private void setInputUI(Window ui) {
         if (ui.isVisible()) {
             Gdx.input.setInputProcessor(stage);
@@ -117,7 +72,6 @@ public class PlayerHUD implements Screen, StatusObserver {
             stage.setKeyboardFocus(stageKeyboardFocus);
             InputMultiplexer inputMultiplexer = new InputMultiplexer();
             inputMultiplexer.addProcessor(stage);
-//            inputMultiplexer.addProcessor(player.getInputProcessor());
             Gdx.input.setInputProcessor(inputMultiplexer);
         }
     }
@@ -135,6 +89,8 @@ public class PlayerHUD implements Screen, StatusObserver {
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
+        statusUI.setPosition(0, height - statusUI.getHeight());
+        statusUI.validate();
     }
 
     @Override

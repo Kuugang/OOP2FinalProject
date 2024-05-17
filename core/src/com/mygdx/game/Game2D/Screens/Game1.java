@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
 
+import static com.mygdx.game.Game2D.Game2D.shapeRenderer;
 import static com.mygdx.game.Game2D.Screens.GameScreen.camera;
 
 public class Game1 extends BaseScreen {
@@ -27,11 +28,11 @@ public class Game1 extends BaseScreen {
         ScreenUtils.clear(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        game.getShapeRenderer().setProjectionMatrix(camera.combined);
-        game.getShapeRenderer().begin(ShapeRenderer.ShapeType.Filled);
-        game.getShapeRenderer().setColor(Color.BLUE);
-        game.getShapeRenderer().circle(100, 100, 10);
-        game.getShapeRenderer().end();
+        shapeRenderer.setProjectionMatrix(camera.combined);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(Color.BLUE);
+        shapeRenderer.circle(100, 100, 10);
+        shapeRenderer.end();
 
 
     }

@@ -17,7 +17,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class ResourceManager {
-
+    public static ResourceManager instance = null;
     protected boolean isOptionScreen;
     protected boolean isMenuNewGameScreen;
     protected boolean isMenuLoadGameScreen;
@@ -50,7 +50,7 @@ public class ResourceManager {
     public TextureRegion[][] button;
 
     // FONT
-    public BitmapFont pixel10;
+    public static BitmapFont pixel10;
 
     // SETTINGS
     public static Skin skin;
@@ -129,6 +129,13 @@ public class ResourceManager {
 //
 //        // ENTITIES
 //        heroWalkUp = assetManager.get("entities/hero/hero_1_walking_up.png");
+    }
+
+    public static ResourceManager getInstance(){
+        if(instance == null){
+            instance = new ResourceManager();
+        }
+        return instance;
     }
 
     public boolean isOptionScreen() {
