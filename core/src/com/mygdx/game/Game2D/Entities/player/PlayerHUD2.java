@@ -47,27 +47,27 @@ public class PlayerHUD2 {
         table.left();
 
         Table playerTable = new Table();
-        playerTable.add(playerPortrait).size(50).align(Align.left);
+        playerTable.add(playerPortrait).size(50).align(Align.left).padLeft(10);
 
         table.add(playerTable).align(Align.left);
 
         Table table2 = new Table();
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = ResourceManager.pixel10;
-        labelStyle.fontColor = Color.BLUE;
+        labelStyle.fontColor = Color.BLACK;
 
 
         // name label
         nameLabel = new Label("Character Name", labelStyle);
-        nameLabel.setFontScale(2);
+        nameLabel.setFontScale(2.5f);
         table2.add(nameLabel).align(Align.left).size(10);
         table2.row();
 
 
         // Add day label
         dayLabel = new Label("Day: Monday", labelStyle);
-        dayLabel.setFontScale(2);
-        table2.add(dayLabel).align(Align.left).size(10).padTop(10);
+        dayLabel.setFontScale(2.5f);
+        table2.add(dayLabel).align(Align.left).size(10).padTop(15);
 
 
         table2.padLeft(30);
@@ -89,7 +89,7 @@ public class PlayerHUD2 {
 //        table.add(table3).align(Align.left);
 
 
-        table.setSize(300, 100);
+        table.setSize(350, 100);
         stage.addActor(table);
 
         table.setPosition(10, Gdx.graphics.getHeight() - table.getHeight() - 10);

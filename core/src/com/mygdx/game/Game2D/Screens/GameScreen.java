@@ -90,7 +90,7 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
     @Override
     public void render(float delta) {
         if (gameState == GameState.PAUSED) {
-//            PLAYER_HUD.render(delta);
+            PLAYER_HUD.render(delta);
             pauseScreen.getStage().act(delta);
             pauseScreen.getStage().draw();
 
