@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -45,11 +46,13 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
 
         camera = new OrthographicCamera();
         viewport = new FitViewport(ScreenConfig.screenWidth, ScreenConfig.screenHeight, camera);
-        setupViewport(15, 15);
+        setupViewport(ScreenConfig.screenWidth, ScreenConfig.screenHeight);
 
-        player = new Player(username, new Vector2(11 * ScreenConfig.originalTileSize, 9 * ScreenConfig.originalTileSize), Entity.Direction.DOWN);
+        player = new Player(username, new Vector2(11 * ScreenConfig.originalTileSize,
+                9 * ScreenConfig.originalTileSize), Entity.Direction.DOWN);
 
-        mapManager.dispatchMap("ROOM", new Vector2(11 * ScreenConfig.originalTileSize, 9 * ScreenConfig.originalTileSize), Entity.Direction.DOWN);
+        mapManager.dispatchMap("ROOM", new Vector2(11 * ScreenConfig.originalTileSize,
+                9 * ScreenConfig.originalTileSize), Entity.Direction.DOWN);
 
         OrthographicCamera hudCamera = new OrthographicCamera();
         hudCamera.setToOrtho(false, ScreenConfig.screenWidth, ScreenConfig.screenHeight);
@@ -58,7 +61,7 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
         debugRenderer = new Box2DDebugRenderer();
 
         //Initialize GameState
-        gameState = gameState.RUNNING;
+        gameState = GameState.RUNNING;
 
         //PauseScreen
         pauseScreen = new PauseScreen(this, game);
@@ -96,7 +99,14 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
         camera.zoom = 0.5F;
 
         //TODO update camera in individual maps
+/*
+        if(player.y / ScreenConfig.originalTileSize + (ScreenConfig.maxScreenCol / 2F) > mapManager.currentMap.worldHeight ) {
+            camera.position.set(player.getX() + player.getWidth() / 2, (mapManager.currentMap.worldHeight * ScreenConfig.originalTileSize) - (ScreenConfig.maxScreenCol / 2F), 0);
+        }else if(player.y / ScreenConfig.originalTileSize - (ScreenConfig.maxScreenCol / 2F) > 0 ){
+            camera.position.set(player.getX() + player.getWidth() / 2, (ScreenConfig.maxScreenCol * ScreenConfig.originalTileSize) / 2F, 0);
+        }*/
         camera.position.set(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2, 0);
+
 
         camera.update();
         //
@@ -119,11 +129,9 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
 
     @Override
     public void resize(int width, int height) {
-        PLAYER_HUD.resize((int) VIEWPORT.physicalWidth, (int) VIEWPORT.physicalHeight);
-        setupViewport(15, 15);
         viewport.update(width, height);
-        viewport.setWorldHeight(Gdx.graphics.getHeight());
-        viewport.setWorldWidth(Gdx.graphics.getWidth());
+        viewport.setWorldHeight(Gdx.graphics.getHeight() * 1.3F);
+        viewport.setWorldWidth(Gdx.graphics.getWidth() * 1.3F);
     }
 
     @Override
@@ -133,16 +141,11 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
 
     @Override
     public void pause() {
-        PauseScreen.show();
+
     }
 
     @Override
     public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
 
     }
 
@@ -152,11 +155,9 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
     }
 
     private static void setupViewport(int width, int height) {
-        VIEWPORT.virtualWidth = width;
-        VIEWPORT.virtualHeight = height;
 
-        VIEWPORT.viewportWidth = VIEWPORT.virtualWidth;
-        VIEWPORT.viewportHeight = VIEWPORT.virtualHeight;
+        VIEWPORT.viewportWidth = VIEWPORT.virtualWidth = width;
+        VIEWPORT.viewportHeight = VIEWPORT.virtualHeight = height;
 
         VIEWPORT.physicalWidth = Gdx.graphics.getWidth();
         VIEWPORT.physicalHeight = Gdx.graphics.getHeight();

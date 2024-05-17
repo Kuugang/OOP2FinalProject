@@ -35,11 +35,8 @@ public class PlayerHUD2 {
     public PlayerHUD2(Player player) {
         stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
 
-
         playerPortrait = new PlayerPortrait();
 
-        //Set position
-        playerPortrait.setPosition(10, 10);
 
         Table table = new Table();
         table.pad(10);
@@ -117,7 +114,6 @@ public void setNameLabelText(String text) {
     }
 
     public void resize(int width, int height) {
-
         stage.getViewport().update(width, height, true);
     }
 

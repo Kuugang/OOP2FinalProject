@@ -40,7 +40,6 @@ public class MenuScreen extends BaseScreen {
         handlePlayButton();
         handleLoadButton();
         handleMultiplayerButton();
-        handleLoadButton();
         handleExitButton();
     }
 

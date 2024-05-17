@@ -23,7 +23,7 @@ public class MapManager {
     public static OrthogonalTiledMapRenderer tiledMapRenderer;
     private final Map<String, GameMap> maps = new HashMap<>();
     public static Map<String, PlayerMP> otherPlayers = new HashMap<>();
-    GameMap currentMap;
+    public GameMap currentMap;
 
     public MapManager(){
         tiledMapRenderer = new OrthogonalTiledMapRenderer(null);
@@ -40,6 +40,10 @@ public class MapManager {
         //ADD DIALOGS
         GameMap map = maps.get(mapName);
         if (map != null) {
+            map.setWorldWidth(map.getTiledMap().getProperties().get("width", Integer.class))
+                    .setWorldHeight(map.getTiledMap().getProperties().get("height", Integer.class));
+
+
             player.setCollision(playerPosition.x, playerPosition.y);
             player.setDirection(playerDirection);
             player.setMap(mapName);

@@ -28,6 +28,7 @@ public abstract class GameMap {
     public MapObjects exitMapObjects = new MapObjects();
     public ArrayList <Body> bodies = new ArrayList<>();
     public ArrayList<NPC> npc = new ArrayList<>();
+    public int worldWidth, worldHeight;
 
     public GameMap setMap(String path) {
         this.tiledMap = new TmxMapLoader().load(path);
@@ -36,6 +37,16 @@ public abstract class GameMap {
 
     public GameMap setMapName(String mapName){
         this.mapName = mapName;
+        return this;
+    }
+
+    public GameMap setWorldWidth(int worldWidth){
+        this.worldWidth = worldWidth;
+        return this;
+    }
+
+    public GameMap setWorldHeight(int worldHeight){
+        this.worldHeight = worldHeight;
         return this;
     }
 
@@ -80,6 +91,7 @@ public abstract class GameMap {
             world.destroyBody(body);
         }
     }
+
 
     public void update() {
         tiledMapRenderer.render();

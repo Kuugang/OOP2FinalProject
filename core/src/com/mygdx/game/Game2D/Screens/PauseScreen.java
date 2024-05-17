@@ -3,6 +3,7 @@ package com.mygdx.game.Game2D.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Manager.SaveManager;
@@ -17,14 +19,14 @@ import com.mygdx.game.Game2D.Manager.SaveManager;
 import static com.mygdx.game.Game2D.Manager.ResourceManager.pixel10;
 import static com.mygdx.game.Game2D.Screens.GameScreen.player;
 
-public class PauseScreen implements InputProcessor {
+public class PauseScreen implements InputProcessor, Screen {
     private Stage stage;
     private static boolean isPaused = false;
     private Skin skin;
     private static GameScreen gameScreen;
 
     public PauseScreen(GameScreen gameScreen, Game2D game) {
-        this.gameScreen = gameScreen;
+        PauseScreen.gameScreen = gameScreen;
         this.stage = new Stage(new ScreenViewport());
         this.skin = new Skin(Gdx.files.internal("data/uiskin.json")); // You need a skin file
 
@@ -82,12 +84,39 @@ public class PauseScreen implements InputProcessor {
 
     }
 
+    @Override
+    public void render(float delta) {
+        ScreenUtils.clear(0,0,0,1);
+        stage.act(delta);
+        stage.draw();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void dispose() {
+
+    }
+
     private void resumeGame() {
         isPaused = false;
         gameScreen.setGameState(GameScreen.GameState.RUNNING);
     }
 
-    public static void show() {
+    public void show() {
         gameScreen.setGameState(GameScreen.GameState.PAUSED);
         isPaused = true;
     }
