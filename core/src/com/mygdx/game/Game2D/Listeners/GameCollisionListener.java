@@ -29,15 +29,9 @@ public class GameCollisionListener implements ContactListener {
         Object objectB = fixtureB.getUserData();
         if(fixtureA.getUserData() == null || fixtureB.getUserData() == null)return;
 
-        if(objectA instanceof Player) {
-            if (objectB instanceof MapExit) {
-                mapManager.dispatchMap("GLE202", new Vector2(3 * ScreenConfig.originalTileSize, ScreenConfig.originalTileSize), Entity.Direction.UP);
-            }
-        }
-
         if(objectA instanceof Player){
-            if(objectB instanceof MapExit){
-                mapManager.dispatchMap("GLE202", new Vector2(3 * ScreenConfig.originalTileSize, ScreenConfig.originalTileSize), Entity.Direction.UP);
+            if(objectB instanceof MapExit mapExit){
+                mapManager.dispatchMap(mapExit);
             }
         }
 

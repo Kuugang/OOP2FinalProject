@@ -17,6 +17,7 @@ import com.mygdx.game.Game2D.Entities.player.Player;
 import com.mygdx.game.Game2D.Entities.player.PlayerHUD2;
 import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Listeners.GameCollisionListener;
+import com.mygdx.game.Game2D.World.MapExit;
 import com.mygdx.game.Game2D.World.MapManager;
 import com.mygdx.game.ScreenConfig;
 
@@ -51,8 +52,7 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
         player = new Player(username, new Vector2(11 * ScreenConfig.originalTileSize,
                 9 * ScreenConfig.originalTileSize), Entity.Direction.DOWN);
 
-        mapManager.dispatchMap("ROOM", new Vector2(11 * ScreenConfig.originalTileSize,
-                9 * ScreenConfig.originalTileSize), Entity.Direction.DOWN);
+        mapManager.dispatchMap(new MapExit("ROOM", new Vector2(11 * ScreenConfig.originalTileSize, 9 * ScreenConfig.originalTileSize), Entity.Direction.DOWN));
 
         OrthographicCamera hudCamera = new OrthographicCamera();
         hudCamera.setToOrtho(false, ScreenConfig.screenWidth, ScreenConfig.screenHeight);

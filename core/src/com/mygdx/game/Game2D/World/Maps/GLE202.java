@@ -17,8 +17,8 @@ public class GLE202 extends GameMap {
         int[] backgroundLayers = { 0, 1, 2, 3};
         int[] foregroundLayers = { 4 };
 
-        player.render();
         tiledMapRenderer.render(backgroundLayers);
+        player.render();
         tiledMapRenderer.render(foregroundLayers);
     }
 }

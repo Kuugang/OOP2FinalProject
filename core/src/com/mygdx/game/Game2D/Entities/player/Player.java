@@ -49,7 +49,7 @@ public class Player extends Entity {
         packet.writeData(GameScreen.game.getGameClient());
     }
 
-    public void setCollision(float x, float y) {
+    public void setCollision() {
         ResourceManager resourceManager = ResourceManager.getInstance();
 
         frame = resourceManager.idleDownAnimation.getKeyFrame(0);
@@ -59,6 +59,7 @@ public class Player extends Entity {
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         boxBody = world.createBody(bodyDef);
         boxBody.setLinearDamping(50f);
+        boxBody.setTransform(0, 0, 0);
 
         PolygonShape dynamicBox = new PolygonShape();
         dynamicBox.setAsBox(sprite.getWidth() / 3, sprite.getHeight() / 8);
@@ -67,14 +68,16 @@ public class Player extends Entity {
         fixtureDef.shape = dynamicBox;
 
         fixtureDef.filter.categoryBits = CollisionType.PLAYER.getValue();
-        fixtureDef.filter.maskBits = CollisionType.WALL.getValue();
+        fixtureDef.filter.maskBits = (short) (CollisionType.WALL.getValue() | CollisionType.EXIT.getValue());
 
         Fixture fixture = boxBody.createFixture(fixtureDef);
         fixture.setUserData(this);
-
-        boxBody.setTransform(x, y, 0);
-
         isCollisionSet = true;
+    }
+
+    public void setPosition(float x, float y){
+        if(!isCollisionSet)setCollision();
+        boxBody.setTransform(x, y, 0);
     }
 
 
@@ -146,8 +149,7 @@ public class Player extends Entity {
 
 
 
-
-        String dialogText = "Hello World";
+        String dialogText = "JAMES ACABAL PRESENT";
         BitmapFont font = resourceManager.pixel10;
         GlyphLayout layout = new GlyphLayout(font, dialogText);
         float textX = sprite.getX() + (sprite.getWidth() - layout.width) / 2;

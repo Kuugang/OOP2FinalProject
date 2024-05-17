@@ -36,24 +36,24 @@ public class MapManager {
 //        maps.put("TEST_GLE", new GLE202().setMap("Game2D/Maps/GLE202 ROOM/TEST_GLE.tmx"));
     }
 
-    public void dispatchMap(String mapName, Vector2 playerPosition, Entity.Direction playerDirection) {
+    public void dispatchMap(MapExit mapExit) {
         //ADD DIALOGS
-        GameMap map = maps.get(mapName);
+        GameMap map = maps.get(mapExit.nextMap);
         if (map != null) {
             map.setWorldWidth(map.getTiledMap().getProperties().get("width", Integer.class))
                     .setWorldHeight(map.getTiledMap().getProperties().get("height", Integer.class));
 
 
-            player.setCollision(playerPosition.x, playerPosition.y);
-            player.setDirection(playerDirection);
-            player.setMap(mapName);
-            if(isMultiplayer)player.login();
 
             Gdx.app.postRunnable(() -> {
                 if (currentMap != null) {
                     currentMap.dispose();
                     tiledMapRenderer.getMap().dispose();
                 }
+
+                player.setDirection(mapExit.playerDirection);
+                player.setMap(mapExit.nextMap);
+                player.setPosition(mapExit.playerPosition.x, mapExit.playerPosition.y);
 
                 ArrayList<TransitionEffect> effects = new ArrayList<>();
                 effects.add(new FadeOutTransitionEffect(1f));

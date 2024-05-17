@@ -96,18 +96,20 @@ public abstract class GameMap {
     public void update() {
         tiledMapRenderer.render();
 
-        for (Map.Entry<String, PlayerMP> entry : otherPlayers.entrySet()) {
-            PlayerMP playerMP = entry.getValue();
-
-            System.out.println(playerMP.map);
-            System.out.println(this.mapName);
-            if(Objects.equals(playerMP.map, this.mapName)){
-                System.out.println("PLAYER WHAT NOT ");
-                if(!playerMP.isCollisionSet){
-                    playerMP.setCollision(playerMP.x, playerMP.y);
-                }
-                entry.getValue().render();
-            }
-        }
+        //TODO FOR MULTIPLAYER
+//        for (Map.Entry<String, PlayerMP> entry : otherPlayers.entrySet()) {
+//            PlayerMP playerMP = entry.getValue();
+//
+//            System.out.println(playerMP.map);
+//            System.out.println(this.mapName);
+//
+//            if(Objects.equals(playerMP.map, this.mapName)){
+//                System.out.println("PLAYER WHAT NOT ");
+//                if(!playerMP.isCollisionSet){
+//                    playerMP.setCollision();
+//                }
+//                entry.getValue().render();
+//            }
+//        }
     }
 }
