@@ -50,7 +50,7 @@ public class ResourceManager {
     public TextureRegion[][] button;
 
     // FONT
-    public BitmapFont pixel10;
+    public static BitmapFont pixel10;
 
     // SETTINGS
     public static Skin skin;

@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Entities.player.Player;
 import com.mygdx.game.Game2D.Entities.player.PlayerHUD;
+import com.mygdx.game.Game2D.Entities.player.PlayerHUD2;
 import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Listeners.GameCollisionListener;
 import com.mygdx.game.Game2D.World.MapManager;
@@ -30,9 +31,12 @@ public class GameScreen extends BaseScreen {
     public static World world;
     private final Box2DDebugRenderer debugRenderer;
     public static MapManager mapManager;
-    private final PlayerHUD PLAYER_HUD;
+//    private final PlayerHUD PLAYER_HUD;
     public static GameState gameState;
     public static PauseScreen pauseScreen;
+
+
+    private final PlayerHUD2 PLAYER_HUD;
 
     public GameScreen(Game2D game) {
         super(game);
@@ -51,7 +55,8 @@ public class GameScreen extends BaseScreen {
 
         OrthographicCamera hudCamera = new OrthographicCamera();
         hudCamera.setToOrtho(false, ScreenConfig.screenWidth, ScreenConfig.screenHeight);
-        PLAYER_HUD = new PlayerHUD(hudCamera, player, mapManager);
+//        PLAYER_HUD = new PlayerHUD(hudCamera, player, mapManager);
+        PLAYER_HUD = new PlayerHUD2();
         debugRenderer = new Box2DDebugRenderer();
 
 
@@ -85,7 +90,7 @@ public class GameScreen extends BaseScreen {
     @Override
     public void render(float delta) {
         if (gameState == GameState.PAUSED) {
-            PLAYER_HUD.render(delta);
+//            PLAYER_HUD.render(delta);
             pauseScreen.getStage().act(delta);
             pauseScreen.getStage().draw();
 
