@@ -4,7 +4,7 @@
  <tileset firstgid="183" source="../../TSX FILES/Generic_Home_1_Layer_2_32x32.tsx"/>
  <tileset firstgid="365" source="../../TSX FILES/Generic_Home_1_Layer_1_32x32.tsx"/>
  <tileset firstgid="547" source="../../TSX FILES/Gym_preview_32x32.tsx"/>
- <tileset firstgid="832" source="../../../../../FINAL TILES/TILESETS/Room_Builder_32x32.tsx"/>
+ <tileset firstgid="832" source="../../TSX FILES/Room_Builder_32x32.tsx"/>
  <tileset firstgid="9116" source="../../TSX FILES/FULL_INTERIOR.tsx"/>
  <layer id="1" name="FLOORING AND WALLS" width="40" height="14">
   <data encoding="csv">
