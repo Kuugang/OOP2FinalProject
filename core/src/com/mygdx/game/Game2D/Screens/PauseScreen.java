@@ -13,16 +13,23 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Game2D.Game2D;
 
+import static com.mygdx.game.Game2D.Manager.ResourceManager.pixel10;
+
 public class PauseScreen implements InputProcessor {
     private Stage stage;
-    private boolean isPaused = false;
+    private static boolean isPaused = false;
     private Skin skin;
-    private GameScreen gameScreen;
+    private static GameScreen gameScreen;
 
     public PauseScreen(GameScreen gameScreen, Game2D game) {
         this.gameScreen = gameScreen;
         this.stage = new Stage(new ScreenViewport());
         this.skin = new Skin(Gdx.files.internal("data/uiskin.json")); // You need a skin file
+
+        //Change font of the pausecreen
+        skin.getFont("default-font").dispose();
+        skin.add("default-font",pixel10);
+
 
         Label pauseLabel = new Label("Game Paused", skin);
         TextButton resumeButton = new TextButton("Resume", skin);
@@ -73,7 +80,7 @@ public class PauseScreen implements InputProcessor {
         gameScreen.setGameState(GameScreen.GameState.RUNNING);
     }
 
-    public void show() {
+    public static void show() {
         gameScreen.setGameState(GameScreen.GameState.PAUSED);
         isPaused = true;
     }

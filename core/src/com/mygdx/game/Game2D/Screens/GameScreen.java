@@ -1,5 +1,6 @@
 package com.mygdx.game.Game2D.Screens;
 
+import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -23,7 +24,7 @@ import com.mygdx.game.ScreenConfig;
 import static com.mygdx.game.Game2D.Game2D.batch;
 import static com.mygdx.game.Game2D.World.World.username;
 
-public class GameScreen extends BaseScreen {
+public class GameScreen extends BaseScreen implements ApplicationListener {
     public static Game2D game;
     public static Player player;
     public static OrthographicCamera camera;
@@ -119,6 +120,11 @@ public class GameScreen extends BaseScreen {
     }
 
     @Override
+    public void create() {
+
+    }
+
+    @Override
     public void resize(int width, int height) {
         PLAYER_HUD.resize((int) VIEWPORT.physicalWidth, (int) VIEWPORT.physicalHeight);
         setupViewport(15, 15);
@@ -126,8 +132,13 @@ public class GameScreen extends BaseScreen {
     }
 
     @Override
-    public void pause() {
+    public void render() {
 
+    }
+
+    @Override
+    public void pause() {
+        PauseScreen.show();
     }
 
     @Override
