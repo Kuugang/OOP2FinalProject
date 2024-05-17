@@ -12,8 +12,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Game2D.Game2D;
+import com.mygdx.game.Game2D.Manager.SaveManager;
 
 import static com.mygdx.game.Game2D.Manager.ResourceManager.pixel10;
+import static com.mygdx.game.Game2D.Screens.GameScreen.player;
 
 public class PauseScreen implements InputProcessor {
     private Stage stage;
@@ -69,7 +71,12 @@ public class PauseScreen implements InputProcessor {
         saveButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //Save game
+                SaveManager saveManager = new SaveManager();
+
+                saveManager.savePlayerPosition(player.getX(), player.getY());
+                saveManager.saveUserDetails(player.getUsername());
+                saveManager.saveMap(player.map);
+                saveManager.saveLevel(1); // TODO Level or Day
             }
         });
 

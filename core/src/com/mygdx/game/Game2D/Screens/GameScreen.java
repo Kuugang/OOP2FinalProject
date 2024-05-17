@@ -57,7 +57,7 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
         OrthographicCamera hudCamera = new OrthographicCamera();
         hudCamera.setToOrtho(false, ScreenConfig.screenWidth, ScreenConfig.screenHeight);
 //        PLAYER_HUD = new PlayerHUD(hudCamera, player, mapManager);
-        PLAYER_HUD = new PlayerHUD2();
+        PLAYER_HUD = new PlayerHUD2(player);
         debugRenderer = new Box2DDebugRenderer();
 
 

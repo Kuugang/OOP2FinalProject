@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
 import com.mygdx.game.Game2D.status.PlayerPortrait;
 
@@ -31,7 +32,7 @@ public class PlayerHUD2 {
     private Label mapLabel;
 
 
-    public PlayerHUD2() {
+    public PlayerHUD2(Player player) {
         stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
 
 
@@ -58,7 +59,7 @@ public class PlayerHUD2 {
 
 
         // name label
-        nameLabel = new Label("Character Name", labelStyle);
+        nameLabel = new Label(player.username, labelStyle);
         nameLabel.setFontScale(2.5f);
         table2.add(nameLabel).align(Align.left).size(10);
         table2.row();
