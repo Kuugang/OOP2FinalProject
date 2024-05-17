@@ -70,9 +70,8 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
         //PauseScreen
         pauseScreen = new PauseScreen(this, game);
 
-
-
         //Handle multiple input
+        //TODO ADD PLAYERHUD input
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(pauseScreen);
         inputMultiplexer.addProcessor(pauseScreen.getStage());

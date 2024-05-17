@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -18,6 +19,8 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
 import com.mygdx.game.Game2D.status.PlayerPortrait;
+
+import static com.mygdx.game.Game2D.Manager.ResourceManager.skin;
 
 public class PlayerHUD2 {
 
@@ -71,10 +74,25 @@ public class PlayerHUD2 {
 
 
         table.add(table2).align(Align.left);
+
+
+
+//        //TODO Make HUD interactable
+//        TextButton inventoryButton = new TextButton("Inventory", skin); // Assuming you have a skin
+//        TextButton profileButton = new TextButton("Profile", skin);
+//
+//        Table table3 = new Table();
+//        table3.add(inventoryButton).align(Align.left).size(10).padTop(10);
+//        table3.add(profileButton).align(Align.left).size(10).padTop(10);
+//
+
+//        table.add(table3).align(Align.left);
+
+
         table.setSize(300, 100);
         stage.addActor(table);
 
-        table.setPosition(0, Gdx.graphics.getHeight() - table.getHeight());
+        table.setPosition(10, Gdx.graphics.getHeight() - table.getHeight() - 10);
     }
 
 
