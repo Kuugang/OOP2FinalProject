@@ -123,16 +123,6 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
         PLAYER_HUD.render(delta);
         debugRenderer.render(world, camera.combined);
 
-
-        if(Gdx.input.isTouched()){
-            int touchX = Gdx.input.getX();
-            int touchY = Gdx.input.getY();
-
-            for(Entity entity : mapManager.currentMap.npcs){
-                float spriteX = entity.sprite.getX();
-
-            }
-        }
     }
 
     @Override

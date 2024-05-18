@@ -117,6 +117,11 @@ public class Player extends Entity {
                 packet.writeData(GameScreen.game.getGameClient());
             }
         }
+        if(Gdx.input.isKeyPressed(Input.Keys.E)){
+            for(Entity e: mapManager.currentMap.npcs){
+
+            }
+        }
     }
 
     public void render(){
@@ -136,7 +141,8 @@ public class Player extends Entity {
                 case RIGHT -> frame = resourceManager.idleRightAnimation.getKeyFrame(stateTime, true);
             }
         }
-        sprite.setPosition(boxBody.getPosition().x - sprite.getWidth() / 2, boxBody.getPosition().y - sprite.getHeight() / 7);
+        sprite.setPosition(boxBody.getPosition().x - sprite.getWidth() / 2,
+                boxBody.getPosition().y - sprite.getHeight() / 7);
         sprite.setRegion(frame);
         sprite.draw(batch);
         isMoving = false;

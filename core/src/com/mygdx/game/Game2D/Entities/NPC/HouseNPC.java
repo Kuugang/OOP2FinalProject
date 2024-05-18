@@ -172,6 +172,7 @@ public class HouseNPC extends Entity {
 
         if(movement.atEnd())
            newMovement();
+
         float currentX = sprite.getX(), currentY = sprite.getY();
         sprite.setPosition(boxBody.getPosition().x - sprite.getWidth() / 2, boxBody.getPosition().y -
                 sprite.getHeight() / 7);
