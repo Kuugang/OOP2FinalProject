@@ -30,12 +30,15 @@ public class PlayerHUD2 {
     private Label nameLabel;
     private Label dayLabel;
     private Label mapLabel;
+    private int defaultWidth;
+    private int defaultHeight;
 
 
     public PlayerHUD2(Player player) {
         stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
-
         playerPortrait = new PlayerPortrait();
+        defaultWidth = 350;
+        defaultHeight = 100;
 
 
         Table table = new Table();
@@ -49,21 +52,24 @@ public class PlayerHUD2 {
 
         table.add(playerTable).align(Align.left);
 
+
+
+        //Nested Table for rowspan
         Table table2 = new Table();
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = ResourceManager.pixel10;
         labelStyle.fontColor = Color.BLACK;
 
 
-        // name label
+        // Name label
         nameLabel = new Label(player.username, labelStyle);
         nameLabel.setFontScale(2.5f);
         table2.add(nameLabel).align(Align.left).size(10);
         table2.row();
 
 
-        // Add day label
-        dayLabel = new Label("Day: Monday", labelStyle);
+        // Add day label TODO Dynamic Day
+        dayLabel = new Label("Day: Monday" , labelStyle);
         dayLabel.setFontScale(2.5f);
         table2.add(dayLabel).align(Align.left).size(10).padTop(15);
 
@@ -83,14 +89,17 @@ public class PlayerHUD2 {
 //        table3.add(inventoryButton).align(Align.left).size(10).padTop(10);
 //        table3.add(profileButton).align(Align.left).size(10).padTop(10);
 //
-
 //        table.add(table3).align(Align.left);
 
 
-        table.setSize(350, 100);
+        table.setSize(defaultWidth, defaultHeight);
         stage.addActor(table);
 
+
+        // x = 10 for margin and - 10 for y margin
         table.setPosition(10, Gdx.graphics.getHeight() - table.getHeight() - 10);
+
+
     }
 
 

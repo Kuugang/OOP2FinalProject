@@ -48,12 +48,13 @@ public class BaseScreen implements Screen{
 
         Screen transitionScreen = new TransitionScreen(game, current, next, effects);
         game.setScreen(transitionScreen);
+
     }
 
-    public void createButton(String buttonName, float posX, float posY, Table table) {
+    public TextButton createButton(String buttonName) {
         TextureRegion[][] playButtons = resourceManager.button;
 
-        BitmapFont pixel10 = resourceManager.pixel10;
+        BitmapFont pixel10 =  ResourceManager.pixel10;
 
         TextureRegionDrawable imageUp = new TextureRegionDrawable(playButtons[0][0]);
         TextureRegionDrawable imageDown = new TextureRegionDrawable(playButtons[1][0]);
@@ -64,8 +65,7 @@ public class BaseScreen implements Screen{
         TextButton button = new TextButton(buttonName, buttonStyle);
         button.getLabel().setColor(new Color(79 / 255.f, 79 / 255.f, 117 / 255.f, 1));
 
-        table.add(button).padLeft(posX).padTop(posY);
-        table.row();
+        return button;
     }
 
     public ImageButton createImageButton(String buttonName, Table table) {

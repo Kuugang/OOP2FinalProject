@@ -99,9 +99,8 @@ public class MenuLoadGameScreen extends BaseScreen {
 //    }
 
     private void handleLoadBackButton() {
-        createButton("Back",0, loadTable.getHeight()/5, loadTable);
+        Actor backButton = createButton("Back");
 
-        Actor backButton = loadTable.getCells().get(1).getActor();
         bottomTable.add(backButton);
         backButton.addListener(new ClickListener() {
             @Override

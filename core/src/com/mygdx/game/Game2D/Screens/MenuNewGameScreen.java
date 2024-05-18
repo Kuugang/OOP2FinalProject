@@ -22,9 +22,7 @@ import java.util.ArrayList;
 public class MenuNewGameScreen extends BaseScreen {
 
 
-    private Table newTable;
-    private Table topTable;
-    private Table bottomTable;
+    private Table menuNewGameTable;
     private Stage newStage = new Stage();
     private TextField profileText;
     private Dialog overwriteDialog;
@@ -40,25 +38,31 @@ public class MenuNewGameScreen extends BaseScreen {
 
         Label profileName = new Label("Enter Profile Name: ", ResourceManager.skin);
         profileText = new TextField("Leo", ResourceManager.skin);
+
         profileText.setMaxLength(20);
 
-        newTable = createTable();
+        menuNewGameTable = createTable();
+        menuNewGameTable.pad(10);
+        menuNewGameTable = createTable();
+        menuNewGameTable.setFillParent(true);
+        menuNewGameTable.add(profileName).center();
+        menuNewGameTable.add(profileText).center();
 
-        topTable = createTable();
-        topTable.setFillParent(true);
-        topTable.add(profileName).center();
-        topTable.add(profileText).center();
-
-        bottomTable = createTable();
-        bottomTable.setWidth(Gdx.graphics.getWidth());
-        bottomTable.setHeight(Gdx.graphics.getHeight()/2f);
-        bottomTable.center();
+        menuNewGameTable.row();
 
         createOverwriteDialog();
-        handlePlayButton();
-        handleNewBackButton();
+        menuNewGameTable.add(handlePlayButton()).padRight(10).padTop(10);
+        menuNewGameTable.add(handleNewBackButton()).padRight(10);
         handleOverwriteButton();
         handleCancelButton();
+
+
+//        bottomTable = createTable();
+//        bottomTable.setWidth(Gdx.graphics.getWidth());
+//        bottomTable.setHeight(Gdx.graphics.getHeight()/2f);
+//        bottomTable.center();
+
+
 
     }
 
@@ -73,11 +77,9 @@ public class MenuNewGameScreen extends BaseScreen {
         overwriteDialog.row();
     }
 
-    private void handlePlayButton() {
-        createButton("Play", 0, newTable.getHeight()/9, newTable);
+    private Actor handlePlayButton() {
+        Actor playButton = createButton("Play");
         World.username = profileText.getText();
-        Actor playButton = newTable.getCells().get(0).getActor();
-        bottomTable.add(playButton).padRight(50);
         playButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent even, float x, float y) {
@@ -85,52 +87,50 @@ public class MenuNewGameScreen extends BaseScreen {
                 setScreenWithTransition((BaseScreen)game.getScreen(), new GameScreen(game), new ArrayList<>());
             }
         });
+
+        return playButton;
     }
 
-    private void handleNewBackButton() {
-        createButton("Back",0, newTable.getHeight()/5, newTable);
-
-        Actor backButton = newTable.getCells().get(1).getActor();
-        bottomTable.add(backButton);
+    private Actor handleNewBackButton() {
+        Actor backButton = createButton("Back");
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent even, float x, float y) {
                 setScreenWithTransition((BaseScreen) game.getScreen(), previousScreen, new ArrayList<>());
             }
         });
+
+        return backButton;
     }
 
-    private void handleOverwriteButton() {
-        createButton("Overwrite",0, newTable.getHeight()/5, newTable);
-
-        Actor overwriteButton = newTable.getCells().get(2).getActor();
-        overwriteDialog.button((Button) overwriteButton).bottom().left();
+    private Actor handleOverwriteButton() {
+        Actor overwriteButton = createButton("Overwrite");
+        World.username = profileText.getText();
         overwriteButton.addListener(new ClickListener() {
             @Override
             public void clicked (InputEvent event, float x, float y) {
                 game.setGameScreen(new GameScreen(game));
             }
         });
+
+
+        return overwriteButton;
     }
 
-    private void handleCancelButton() {
-        createButton("Cancel",0, newTable.getHeight()/5, newTable);
-
-        Actor cancelButton = newTable.getCells().get(3).getActor();
-        overwriteDialog.button((Button) cancelButton).bottom().right();
+    private Actor handleCancelButton() {
+        Actor cancelButton = createButton("Cancel");
         cancelButton.addListener(new ClickListener() {
             @Override
             public void clicked (InputEvent event, float x, float y) {
                 overwriteDialog.hide();
             }
         });
+        return cancelButton;
     }
 
     @Override
     public void show() {
-        newStage.addActor(newTable);
-        newStage.addActor(topTable);
-        newStage.addActor(bottomTable);
+        newStage.addActor(menuNewGameTable);
         Gdx.input.setInputProcessor(newStage);
     }
 
@@ -150,7 +150,6 @@ public class MenuNewGameScreen extends BaseScreen {
     @Override
     public void dispose() {
         super.dispose();
-        newTable.remove();
     }
 
     @Override

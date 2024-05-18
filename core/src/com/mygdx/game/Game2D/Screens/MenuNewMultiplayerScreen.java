@@ -63,9 +63,9 @@ public class MenuNewMultiplayerScreen extends BaseScreen {
     }
 
     private void handlePlayButton() {
-        createButton("Play", 0, newTable.getHeight()/9, newTable);
 
-        Actor playButton = newTable.getCells().get(0).getActor();
+        Actor playButton = createButton("Play");
+
         bottomTable.add(playButton).padRight(50);
         playButton.addListener(new ClickListener() {
             @Override
@@ -99,9 +99,8 @@ public class MenuNewMultiplayerScreen extends BaseScreen {
     }
 
     private void handleNewBackButton() {
-        createButton("Back",0, newTable.getHeight()/5, newTable);
 
-        Actor backButton = newTable.getCells().get(1).getActor();
+        Actor backButton = createButton("Back");
         bottomTable.add(backButton);
         backButton.addListener(new ClickListener() {
             @Override
