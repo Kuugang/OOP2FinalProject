@@ -1,15 +1,12 @@
 package com.mygdx.game.Game2D.Listeners;
 
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.mygdx.game.Game2D.Entities.Entity;
-import com.mygdx.game.Game2D.Entities.NPC.NPC;
+import com.mygdx.game.Game2D.Entities.NPC.HouseNPC;
 import com.mygdx.game.Game2D.Entities.player.Player;
 import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.World.MapExit;
 import com.mygdx.game.Game2D.World.MapManager;
-import com.mygdx.game.ScreenConfig;
 
 public class GameCollisionListener implements ContactListener {
     Game2D game;
@@ -35,11 +32,11 @@ public class GameCollisionListener implements ContactListener {
             }
         }
 
-        if(objectA instanceof  NPC){
+        if(objectA instanceof HouseNPC){
             if(objectB == "COLLISION"){
-                ((NPC)objectA).movement.nextDirection();
-                ((NPC)objectA).newMovement();
-                ((NPC)objectA).movement.setCurrentDirection();
+                ((HouseNPC)objectA).movement.nextDirection();
+                ((HouseNPC)objectA).newMovement();
+                ((HouseNPC)objectA).movement.setCurrentDirection();
             }
         }
     }

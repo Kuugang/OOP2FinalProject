@@ -5,5 +5,5 @@ public enum Direction {
     DOWN,
     LEFT,
     RIGHT,
-    STAY //Used for npc's movement
+    STAY //Used for npcs's movement
 }

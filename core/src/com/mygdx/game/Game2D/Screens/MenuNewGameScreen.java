@@ -28,7 +28,6 @@ public class MenuNewGameScreen extends BaseScreen {
     private Dialog overwriteDialog;
     private BaseScreen previousScreen;
     private float stateTime;
-    private Entity player;
 
     public MenuNewGameScreen(Game2D game, BaseScreen previousScreen, ResourceManager resourceManager) {
         super(game);

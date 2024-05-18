@@ -8,15 +8,11 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.physics.box2d.*;
-import com.mygdx.game.Game2D.Entities.NPC.NPC;
-import com.mygdx.game.Game2D.Entities.PlayerMP;
+import com.mygdx.game.Game2D.Entities.Entity;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Objects;
 
 import static com.mygdx.game.Game2D.Screens.GameScreen.world;
-import static com.mygdx.game.Game2D.World.MapManager.otherPlayers;
 import static com.mygdx.game.Game2D.World.MapManager.tiledMapRenderer;
 
 public abstract class GameMap {
@@ -27,7 +23,7 @@ public abstract class GameMap {
     public MapLayer exitLayer;
     public MapObjects exitMapObjects = new MapObjects();
     public ArrayList <Body> bodies = new ArrayList<>();
-    public ArrayList<NPC> npc = new ArrayList<>();
+    public ArrayList<Entity> npcs = new ArrayList<>();
     public int worldWidth, worldHeight;
 
     public GameMap setMap(String path) {

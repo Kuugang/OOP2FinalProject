@@ -19,7 +19,7 @@ import static com.mygdx.game.Game2D.Game2D.batch;
 import static com.mygdx.game.Game2D.Screens.GameScreen.gameState;
 import static com.mygdx.game.Game2D.Screens.GameScreen.world;
 
-public class NPC extends Entity {
+public class HouseNPC extends Entity {
     TextureAtlas textureAtlas;
     Animation<TextureRegion> upAnimation;
     Animation<TextureRegion> downAnimation;
@@ -38,7 +38,7 @@ public class NPC extends Entity {
 
     public Pattern movement;
 
-    public NPC(int length){
+    public HouseNPC(int length){
         direction = Direction.DOWN;
         isMoving = false;
         movementCounter = length;
@@ -122,11 +122,6 @@ public class NPC extends Entity {
             isMoving = false;
             movementCounter++;
         }
-/*        if(currentX == boxBody.getPosition().x && currentY == boxBody.getPosition().y && isMoving) {
-            newMovement();
-
-            System.out.println("New Movement");
-        }*/
     }
 
     public void newMovement(){
@@ -160,10 +155,12 @@ public class NPC extends Entity {
 
     }
 
-    public NPC render(){
+    public HouseNPC render(){
         if(gameState == GameScreen.GameState.PAUSED)
             return this;
+
         move();
+
         if(movement.getCurrentDirection() == Direction.STAY)
             movement.nextDirection();
         else if(((movement.getCurrentDirection() == Direction.LEFT || movement.getCurrentDirection() == Direction.RIGHT)
@@ -195,8 +192,8 @@ public class NPC extends Entity {
         return this;
     }
 
-    private NPC animation(Animation<TextureRegion> upAnimation, Animation<TextureRegion> downAnimation,
-                           Animation<TextureRegion> leftAnimation, Animation<TextureRegion> rightAnimation) {
+    private HouseNPC animation(Animation<TextureRegion> upAnimation, Animation<TextureRegion> downAnimation,
+                               Animation<TextureRegion> leftAnimation, Animation<TextureRegion> rightAnimation) {
         switch (direction) {
             case UP -> frame = upAnimation.getKeyFrame(stateTime, true);
             case DOWN -> frame = downAnimation.getKeyFrame(stateTime, true);

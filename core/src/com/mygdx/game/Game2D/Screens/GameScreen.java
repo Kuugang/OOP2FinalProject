@@ -34,15 +34,14 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
     public static MapManager mapManager;
     public static GameState gameState;
     public static PauseScreen pauseScreen;
-
-
+    public static InputMultiplexer inputMultiplexer;
     private final PlayerHUD2 PLAYER_HUD;
 
     public GameScreen(Game2D game) {
         super(game);
         GameScreen.game = game;
+        inputMultiplexer = new InputMultiplexer();
         world = new World(new Vector2(0, 0), true);
-        mapManager = new MapManager();
         world.setContactListener(new GameCollisionListener(game, this, mapManager));
 
         camera = new OrthographicCamera();
@@ -52,7 +51,10 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
         player = new Player(username, new Vector2(11 * ScreenConfig.originalTileSize,
                 9 * ScreenConfig.originalTileSize), Entity.Direction.DOWN);
 
-        mapManager.dispatchMap(new MapExit("ROOM", new Vector2(11 * ScreenConfig.originalTileSize, 9 * ScreenConfig.originalTileSize), Entity.Direction.DOWN));
+        mapManager = new MapManager();
+
+        mapManager.dispatchMap(new MapExit("ROOM", new Vector2(11 * ScreenConfig.originalTileSize,
+                9 * ScreenConfig.originalTileSize), Entity.Direction.DOWN));
 
         OrthographicCamera hudCamera = new OrthographicCamera();
         hudCamera.setToOrtho(false, ScreenConfig.screenWidth, ScreenConfig.screenHeight);
@@ -68,14 +70,12 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
 
         //Handle multiple input
         //TODO ADD PLAYERHUD input
-        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+
         inputMultiplexer.addProcessor(pauseScreen);
         inputMultiplexer.addProcessor(pauseScreen.getStage());
         inputMultiplexer.addProcessor(stage);
 
         Gdx.input.setInputProcessor(inputMultiplexer);
-
-
     }
 
     @Override
@@ -112,7 +112,6 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
 
 
         camera.update();
-        //
 
         //PHYSICS
         world.step(1/60f, 6, 2);
@@ -123,6 +122,17 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
 
         PLAYER_HUD.render(delta);
         debugRenderer.render(world, camera.combined);
+
+
+        if(Gdx.input.isTouched()){
+            int touchX = Gdx.input.getX();
+            int touchY = Gdx.input.getY();
+
+            for(Entity entity : mapManager.currentMap.npcs){
+                float spriteX = entity.sprite.getX();
+
+            }
+        }
     }
 
     @Override

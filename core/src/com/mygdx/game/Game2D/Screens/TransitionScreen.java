@@ -15,7 +15,7 @@ public class TransitionScreen extends BaseScreen {
     ArrayList<TransitionEffect> transitionEffects;
 
     TransitionScreen(Game2D game, BaseScreen current, BaseScreen next, ArrayList<TransitionEffect> transitionEffects) {
-        super((Game2D) game);
+        super(game);
         this.current = current;
         this.next = next;
         this.transitionEffects = transitionEffects;

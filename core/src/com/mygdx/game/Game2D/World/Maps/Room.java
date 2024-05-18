@@ -6,20 +6,23 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Game2D.Entities.Entity;
-import com.mygdx.game.Game2D.Entities.NPC.NPC;
+import com.mygdx.game.Game2D.Entities.NPC.HouseNPC;
 import com.mygdx.game.Game2D.World.CollisionType;
 import com.mygdx.game.Game2D.World.MapExit;
 import com.mygdx.game.Game2D.World.GameMap;
 import com.mygdx.game.ScreenConfig;
 
-import static com.mygdx.game.Game2D.Screens.GameScreen.player;
-import static com.mygdx.game.Game2D.Screens.GameScreen.world;
+import static com.mygdx.game.Game2D.Screens.GameScreen.*;
 import static com.mygdx.game.Game2D.World.MapManager.tiledMapRenderer;
 
 public class Room extends GameMap {
 
     public Room(){
-        npc.add(new NPC(3));
+        npcs.add(new HouseNPC(3));
+
+        npcs.forEach(npc -> inputMultiplexer.addProcessor(npc));
+
+        player.setDialogue("Looks like i’ve got my first mission. I can’t be late on my first day!");
     }
 
     @Override
@@ -52,7 +55,8 @@ public class Room extends GameMap {
                 fixtureDef.filter.maskBits = CollisionType.PLAYER.getValue();
 
                 Fixture fixture = collisionBody.createFixture(fixtureDef);
-                fixture.setUserData(new MapExit("GLE202", new Vector2(3 * ScreenConfig.originalTileSize, ScreenConfig.originalTileSize), Entity.Direction.UP));
+                fixture.setUserData(new MapExit("GLE202",
+                        new Vector2(3 * ScreenConfig.originalTileSize, ScreenConfig.originalTileSize), Entity.Direction.UP));
                 bodies.add(collisionBody);
             }
         }
@@ -62,8 +66,10 @@ public class Room extends GameMap {
     public void update() {
         super.update();
         tiledMapRenderer.render();
-        for(NPC n : npc){
-            n.render();
+        for(Entity n : npcs){
+            if(n instanceof HouseNPC){
+                ((HouseNPC) n).render();
+            }
         }
         player.render();
     }

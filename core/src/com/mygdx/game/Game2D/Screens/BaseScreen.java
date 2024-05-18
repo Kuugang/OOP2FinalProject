@@ -48,7 +48,6 @@ public class BaseScreen implements Screen{
 
         Screen transitionScreen = new TransitionScreen(game, current, next, effects);
         game.setScreen(transitionScreen);
-
     }
 
     public TextButton createButton(String buttonName) {

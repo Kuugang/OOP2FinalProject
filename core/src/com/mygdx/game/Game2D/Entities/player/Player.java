@@ -33,9 +33,6 @@ public class Player extends Entity {
     float stateTime = 0F;
     public Body boxBody;
 
-
-
-
     public Player(String username, Vector2 position, Entity.Direction direction){
         this.x = position.x;
         this.y = position.y;
@@ -76,10 +73,10 @@ public class Player extends Entity {
     }
 
     public void setPosition(float x, float y){
-        if(!isCollisionSet)setCollision();
+        if(!isCollisionSet)
+            setCollision();
         boxBody.setTransform(x, y, 0);
     }
-
 
     public void update(){
         isMoving = Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.S) ||
@@ -122,9 +119,6 @@ public class Player extends Entity {
         }
     }
 
-    float timePerCharacter = 0.1f; // Time (in seconds) between each character display
-    float elapsedTime = 0f;
-    int charactersToDisplay = 0;
     public void render(){
         stateTime += Gdx.graphics.getDeltaTime();
         if(isMoving){
@@ -147,38 +141,7 @@ public class Player extends Entity {
         sprite.draw(batch);
         isMoving = false;
 
-
-
-        String dialogText = "JAMES ACABAL PRESENT";
-        BitmapFont font = resourceManager.pixel10;
-        GlyphLayout layout = new GlyphLayout(font, dialogText);
-        float textX = sprite.getX() + (sprite.getWidth() - layout.width) / 2;
-        float textY = sprite.getY() + sprite.getHeight() + 20;
-
-        float bgWidth = layout.width + 10;
-        float bgHeight = layout.height + 10;
-
-        batch.setColor(1, 1, 1, 0.9f);
-        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-        pixmap.setColor(1, 1, 1, 1);
-        pixmap.drawPixel(0, 0);
-        Texture texture = new Texture(pixmap);
-        texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        texture.setWrap(Texture.TextureWrap.ClampToEdge, Texture.TextureWrap.ClampToEdge);
-        batch.draw(texture, textX - 5, textY - 5, bgWidth, bgHeight);
-
-        font.setColor(0, 0, 0, 1);
-
-        String partialText = dialogText.substring(0, charactersToDisplay);
-        font.draw(batch, partialText, textX, textY + 5);
-
-        if (elapsedTime < dialogText.length() * timePerCharacter) {
-            elapsedTime += Gdx.graphics.getDeltaTime();
-            charactersToDisplay = (int) (elapsedTime / timePerCharacter);
-        }
-
-        batch.setColor(Color.WHITE);
-        font.setColor(Color.WHITE);
+        doDialogue();
     }
 
     public void setPosition(Vector2 position){
