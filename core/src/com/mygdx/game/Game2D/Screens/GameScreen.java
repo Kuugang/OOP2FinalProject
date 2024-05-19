@@ -6,7 +6,6 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -108,10 +107,7 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
         }else if(player.y / ScreenConfig.originalTileSize - (ScreenConfig.maxScreenCol / 2F) > 0 ){
             camera.position.set(player.getX() + player.getWidth() / 2, (ScreenConfig.maxScreenCol * ScreenConfig.originalTileSize) / 2F, 0);
         }*/
-        camera.position.set(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2, 0);
 
-
-        camera.update();
 
         //PHYSICS
         world.step(1/60f, 6, 2);
@@ -119,6 +115,9 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
         batch.setProjectionMatrix(camera.combined);
         mapManager.update();
         player.update();
+
+        camera.position.set(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2, 0);
+        camera.update();
 
         PLAYER_HUD.render(delta);
         debugRenderer.render(world, camera.combined);

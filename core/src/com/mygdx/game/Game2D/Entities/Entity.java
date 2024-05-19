@@ -9,10 +9,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.mygdx.game.Game2D.Entities.NPC.NPC;
 import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
 
 import static com.mygdx.game.Game2D.Game2D.batch;
+import static com.mygdx.game.Game2D.Screens.GameScreen.player;
 
 public class Entity implements InputProcessor {
     public float x, y;
@@ -21,6 +24,7 @@ public class Entity implements InputProcessor {
     public float speed;
     public Direction direction;
     protected Game2D game;
+    public Body boxBody;
 
     public enum Direction {
         UP,
@@ -53,14 +57,14 @@ public class Entity implements InputProcessor {
         this.map = map;
     }
 
-    float timePerCharacter = 0.1f; // Time (in seconds) between each character display
-    float elapsedTime = 0f;
-    int charactersToDisplay = 0;
-    String dialogue;
-    public boolean finishedDialoue = false;
+    private float timePerCharacter = 0.1f; // Time (in seconds) between each character display
+    private float elapsedTime = 0f;
+    private int charactersToDisplay = 0;
+    private String dialogue;
+    public boolean finishedDialogue = true;
 
     public void doDialogue(){
-        if(!finishedDialoue){
+        if(!finishedDialogue){
             BitmapFont font = ResourceManager.pixel10;
             GlyphLayout layout = new GlyphLayout(font, dialogue);
             float textX = sprite.getX() + (sprite.getWidth() - layout.width) / 2;
@@ -83,26 +87,72 @@ public class Entity implements InputProcessor {
             String partialText = dialogue.substring(0, charactersToDisplay);
             font.draw(batch, partialText, textX, textY + 5);
 
-            if (elapsedTime < dialogue.length() * timePerCharacter) {
+            if (elapsedTime < dialogue.length() * timePerCharacter + 3) {
                 elapsedTime += Gdx.graphics.getDeltaTime();
                 charactersToDisplay = (int) (elapsedTime / timePerCharacter);
-            }else
-                finishedDialoue = true;
+                if(charactersToDisplay > dialogue.length())
+                    charactersToDisplay = dialogue.length();
+
+                if(this instanceof NPC)
+                    redirection((NPC) this, dialogue.length() - charactersToDisplay + 1);
+            }else {
+                finishedDialogue = true;
+                if(this instanceof NPC){
+                    ((NPC) this).newMovement();
+                    ((NPC)this).movement.setCurrentDirection();
+                }
+            }
 
             batch.setColor(Color.WHITE);
             font.setColor(Color.WHITE);
+
         }
     }
 
-    public void setDialogue(String dialogue){
+    public void redirection(NPC npc, int length){
+        float npcX = npc.getX(), npcY = npc.getY();
+        float playerX = player.getX(), playerY = player.getY();
+
+        if(playerY > npcY) {
+            if(npc.direction == Direction.UP)
+                return;
+            npc.direction = Direction.UP;
+        }else if(playerX < npcX) {
+            if(npc.direction == Direction.LEFT)
+                return;
+            npc.direction = Direction.LEFT;
+        }else if(playerX > npcX) {
+            if(npc.direction == Direction.RIGHT)
+                return;
+            npc.direction = Direction.RIGHT;
+        }else{
+            if(npc.direction == Direction.DOWN)
+                return;
+            npc.direction = Direction.DOWN;
+        }
+
+        npc.setToStay(length);
+    }
+
+    public Entity setDialogue(String dialogue){
         this.dialogue = dialogue;
-        finishedDialoue = false;
-        elapsedTime = 0f;
+        finishedDialogue = false;
         charactersToDisplay = 0;
+        elapsedTime = 0f;
+
+        return this;
+    }
+
+    public float getX(){
+        return boxBody == null ? 0 : boxBody.getPosition().x;
+    }
+
+    public float getY(){
+        return boxBody == null ? 0 : boxBody.getPosition().y;
     }
 
     public void stopDialogue(){
-        finishedDialoue = true;
+        finishedDialogue = true;
     }
 
     @Override
@@ -122,7 +172,6 @@ public class Entity implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        System.out.println("Clicked");
         return screenX > sprite.getX() && screenX < sprite.getX() + sprite.getWidth() &&
                 screenY > sprite.getY() && screenY < sprite.getY() + sprite.getHeight();
     }
