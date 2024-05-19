@@ -8,10 +8,7 @@ import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Entities.PlayerMP;
 import com.mygdx.game.Game2D.Screens.transition.effects.FadeOutTransitionEffect;
 import com.mygdx.game.Game2D.Screens.transition.effects.TransitionEffect;
-import com.mygdx.game.Game2D.World.Maps.GLE202;
-import com.mygdx.game.Game2D.World.Maps.GLE_CR;
-import com.mygdx.game.Game2D.World.Maps.NGE_CR;
-import com.mygdx.game.Game2D.World.Maps.Room;
+import com.mygdx.game.Game2D.World.Maps.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,9 +32,10 @@ public class MapManager {
 //        maps.put("FINAL_NGE_ROOM", new GLE202().setMap("Game2D/Maps/NGE ROOM/FINAL_NGE_ROOM.tmx"));
 //        maps.put("LIBRARY", new GLE202().setMap("Game2D/Maps/LIBRARY/LIBRARY.tmx"));
 //        maps.put("NGE_EXTERIOR", new GLE202().setMap("Game2D/Maps/EXTERIOR-20240511T113900Z-001/EXTERIOR/NGE_F.tmx"));
-//        maps.put("TEST_GLE", new GLE202().setMap("Game2D/Maps/GLE202 ROOM/TEST_GLE.tmx"));
+        maps.put("NGE_ROOM", new NGE_ROOM().setMap("Game2D/Maps/NGE ROOM/FINAL_NGE_ROOM.tmx").setMapName("NGE_ROOM"));
         maps.put("GLE_CR", new GLE_CR().setMap("Game2D/Maps/COMMON CR/GLE_CR.tmx").setMapName("GLE_CR"));
         maps.put("NGE_CR", new NGE_CR().setMap("Game2D/Maps/COMMON CR/NGE_CR.tmx").setMapName("NGE_CR"));
+        maps.put("TEST", new TEST().setMap("Game2D/Maps/NGE HALLWAY STUDY AREA/test.tmx").setMapName("TEST"));
     }
 
     public void dispatchMap(MapExit mapExit) {
