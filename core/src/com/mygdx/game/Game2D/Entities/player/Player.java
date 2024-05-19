@@ -2,10 +2,8 @@ package com.mygdx.game.Game2D.Entities.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Game2D.Entities.Entity;
@@ -31,7 +29,7 @@ public class Player extends Entity {
     public boolean isMoving = false;
     TextureRegion frame;
     float stateTime = 0F;
-    public Body boxBody;
+    public float interactionDistance = 40; //Maximum distance when interacting with other entities
 
     public Player(String username, Vector2 position, Entity.Direction direction){
         this.x = position.x;
@@ -42,7 +40,8 @@ public class Player extends Entity {
     }
 
     public void login(){
-        Packet00Login packet = new Packet00Login(username, boxBody.getPosition().x, boxBody.getPosition().y, direction, this.map);
+        Packet00Login packet = new Packet00Login(username, boxBody.getPosition().x,
+                boxBody.getPosition().y, direction, this.map);
         packet.writeData(GameScreen.game.getGameClient());
     }
 
@@ -51,6 +50,7 @@ public class Player extends Entity {
 
         frame = resourceManager.idleDownAnimation.getKeyFrame(0);
         sprite = new Sprite(resourceManager.rightAnimation.getKeyFrame(0));
+        sprite.setOrigin(sprite.getWidth() / 2, sprite.getHeight() / 2);
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -117,11 +117,32 @@ public class Player extends Entity {
                 packet.writeData(GameScreen.game.getGameClient());
             }
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.E)){
-            for(Entity e: mapManager.currentMap.npcs){
+    }
 
-            }
-        }
+
+
+    private boolean withinInteractionRange(Sprite player, Sprite entity){
+        float entitySpriteX = entity.getX(), entitySpriteY = entity.getY();
+        float playerSpriteX = player.getX(), playerSpriteY = player.getY();
+
+        Rectangle playerRectangle;
+        Rectangle entityRectangle = new Rectangle(entitySpriteX, entitySpriteY - entity.getHeight(),
+                entity.getWidth(), entity.getHeight());
+
+        if(direction == Direction.LEFT)
+             playerRectangle = new Rectangle(playerSpriteX - interactionDistance,
+                     playerSpriteY - player.getHeight(), player.getWidth(), player.getHeight());
+        else if(direction == Direction.RIGHT)
+            playerRectangle = new Rectangle(playerSpriteX, playerSpriteY - player.getHeight()
+                    , player.getWidth() + interactionDistance, player.getHeight());
+        else if(direction == Direction.UP)
+            playerRectangle = new Rectangle(playerSpriteX, playerSpriteY - player.getHeight(), player.getWidth()
+                    , player.getHeight() + interactionDistance);
+        else
+            playerRectangle = new Rectangle(playerSpriteX, playerSpriteY - player.getHeight() - interactionDistance
+                    , player.getWidth(), player.getHeight());
+
+        return playerRectangle.overlaps(entityRectangle);
     }
 
     public void render(){
@@ -147,6 +168,15 @@ public class Player extends Entity {
         sprite.draw(batch);
         isMoving = false;
 
+        if(Gdx.input.isKeyPressed(Input.Keys.F))
+            for(Entity e: mapManager.currentMap.npcs)
+                if(withinInteractionRange(sprite, e.sprite))
+                    e.setDialogue("Louise Batig Nawong");
+
+        for(Entity e: mapManager.currentMap.npcs)
+            if(!e.finishedDialogue)
+                e.doDialogue();
+
         doDialogue();
     }
 
@@ -167,19 +197,6 @@ public class Player extends Entity {
     public Player setIsMoving(boolean isMoving){
         this.isMoving = isMoving;
         return this;
-    }
-
-
-    public float getX(){
-//        return boxBody.getPosition().x - sprite.getWidth() / 2;
-        if(boxBody == null)return 0;
-        return  boxBody.getPosition().x;
-    }
-
-    public float getY(){
-//        return boxBody.getPosition().y - sprite.getHeight() / 7;
-        if(boxBody == null)return 0;
-        return  boxBody.getPosition().y;
     }
 
     public float getWidth(){

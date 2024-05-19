@@ -10,6 +10,7 @@ public abstract class Pattern {
     ArrayList<Entity.Direction> directions;
     Entity.Direction currentDirection;
     int length;
+
     public Pattern(int length) {
         directions = new ArrayList<>();
         i = 0;
@@ -19,7 +20,6 @@ public abstract class Pattern {
         setDirection();
 
         setCurrentDirection();
-
     }
 
     protected abstract void setDirection();
@@ -29,7 +29,9 @@ public abstract class Pattern {
     }
 
     public void nextDirection() {
-        if(atEnd()) i = 0;
+        if(atEnd())
+            i = 0;
+
         else i++;
 
         currentDirection = directions.get(i);
@@ -42,11 +44,4 @@ public abstract class Pattern {
     public boolean atEnd(){
         return i == length - 1;
     }
-
-    public void nextStateDirection() {
-        Entity.Direction checkPoint = currentDirection;
-        while(checkPoint == getCurrentDirection())
-            nextDirection();
-    }
-
 }

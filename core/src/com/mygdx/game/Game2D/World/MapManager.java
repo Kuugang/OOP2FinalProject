@@ -2,9 +2,7 @@ package com.mygdx.game.Game2D.World;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Entities.PlayerMP;
 import com.mygdx.game.Game2D.Screens.transition.effects.FadeOutTransitionEffect;
 import com.mygdx.game.Game2D.Screens.transition.effects.TransitionEffect;
@@ -19,7 +17,6 @@ import java.util.Map;
 
 import static com.mygdx.game.Game2D.Game2D.batch;
 import static com.mygdx.game.Game2D.Screens.GameScreen.*;
-import static com.mygdx.game.Game2D.World.World.isMultiplayer;
 
 public class MapManager {
     public static OrthogonalTiledMapRenderer tiledMapRenderer;
@@ -44,10 +41,6 @@ public class MapManager {
         //ADD DIALOGS
         GameMap map = maps.get(mapExit.nextMap);
         if (map != null) {
-            map.setWorldWidth(map.getTiledMap().getProperties().get("width", Integer.class))
-                    .setWorldHeight(map.getTiledMap().getProperties().get("height", Integer.class));
-
-
 
             Gdx.app.postRunnable(() -> {
                 if (currentMap != null) {

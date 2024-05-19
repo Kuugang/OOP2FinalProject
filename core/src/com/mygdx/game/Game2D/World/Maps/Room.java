@@ -22,7 +22,8 @@ public class Room extends GameMap {
 
         npcs.forEach(npc -> inputMultiplexer.addProcessor(npc));
 
-        player.setDialogue("Looks like i’ve got my first mission. I can’t be late on my first day!");
+//        player.setDialogue("Looks like i’ve got my first mission. I can’t be late on my first day!");
+        player.setDialogue("Cool and normal");
     }
 
     @Override
