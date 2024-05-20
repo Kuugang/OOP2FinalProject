@@ -32,7 +32,7 @@ public class MapManager {
         maps.put("NGE_ROOM", new NGE_ROOM().setMap("Game2D/Maps/NGE ROOM/FINAL_NGE_ROOM.tmx").setMapName("NGE_ROOM"));
         maps.put("GLE_CR", new GLE_CR().setMap("Game2D/Maps/COMMON CR/GLE_CR.tmx").setMapName("GLE_CR"));
         maps.put("NGE_CR", new NGE_CR().setMap("Game2D/Maps/COMMON CR/NGE_CR.tmx").setMapName("NGE_CR"));
-        maps.put("TEST", new TEST().setMap("Game2D/Maps/NGE HALLWAY STUDY AREA/test.tmx").setMapName("TEST"));
+        maps.put("NGE_HALL", new NGE_HALL_FINAL().setMap("Game2D/Maps/NGE HALLWAY STUDY AREA/NGE_HALL_FINAL.tmx").setMapName("NGE_HALL"));
     }
 
     public void dispatchMap(MapExit mapExit) {
