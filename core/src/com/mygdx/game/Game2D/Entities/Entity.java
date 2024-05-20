@@ -26,6 +26,10 @@ public class Entity implements InputProcessor {
     protected Game2D game;
     public Body boxBody;
 
+    public Sprite getSprite() {
+        return sprite;
+    }
+
     public enum Direction {
         UP,
         RIGHT,
@@ -47,6 +51,17 @@ public class Entity implements InputProcessor {
                 return UP;
             }
         }
+
+        public static Direction fromString(String direction) {
+            if (direction != null) {
+                try {
+                    return Direction.valueOf(direction.toUpperCase());
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Invalid direction: " + direction);
+                }
+            }
+            return null;
+        }
     }
 
     public enum State {
@@ -64,7 +79,8 @@ public class Entity implements InputProcessor {
     public boolean finishedDialogue = true;
 
     public void doDialogue(){
-        if(!finishedDialogue){
+        if(!finishedDialogue) {
+            batch.begin();
             BitmapFont font = ResourceManager.pixel10;
             GlyphLayout layout = new GlyphLayout(font, dialogue);
             float textX = sprite.getX() + (sprite.getWidth() - layout.width) / 2;
@@ -105,7 +121,7 @@ public class Entity implements InputProcessor {
 
             batch.setColor(Color.WHITE);
             font.setColor(Color.WHITE);
-
+            batch.end();
         }
     }
 
