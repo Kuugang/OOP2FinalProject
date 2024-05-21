@@ -31,6 +31,9 @@ public class MapManager {
 
         maps.put("RTL_ACCOUNTING", new RTL_ACCOUNTING().setMap("Game2D/Maps/ACCOUNTING RTL/RTL_ACCOUNTING.tmx").setMapName("RTL_ACCOUNTING"));
         maps.put("RTL_THIRD", new RTL_THIRD().setMap("Game2D/Maps/RTL THIRD FLOOR/RTL_THIRD.tmx").setMapName("RTL_THIRD"));
+        maps.put("RTL_ROOMDAA", new RTL_THIRD().setMap("Game2D/Maps/RTL ROOM/RTL_ROOMDAA.tmx").setMapName("RTL_THIRDDAA"));
+        maps.put("RTL_ROOMMATH", new RTL_THIRD().setMap("Game2D/Maps/RTL ROOM/RTL_ROOMMATH.tmx").setMapName("RTL_THIRDMATH"));
+
 
     }
 
