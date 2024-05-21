@@ -20,14 +20,14 @@ public class Room extends GameMap {
     public Room(){
         npcs.add(new HouseNPC(3));
         npcs.forEach(npc -> inputMultiplexer.addProcessor(npc));
-        player.setDialogue("Cool and normal");
+        player.setDialogue();
     }
 
     @Override
     public void update() {
-        player.render();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
+        player.render();
         for(Entity n : npcs){
             if(n instanceof HouseNPC){
                 ((HouseNPC) n).render();

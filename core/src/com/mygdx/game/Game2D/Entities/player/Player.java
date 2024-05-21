@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Game2D.Entities.Entity;
+import com.mygdx.game.Game2D.Entities.NPC.NPC;
 import com.mygdx.game.Game2D.Inventory.Inventory;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
 import com.mygdx.game.Game2D.Network.Packets.Packet00Login;
@@ -14,6 +15,9 @@ import com.mygdx.game.Game2D.Network.Packets.Packet02Move;
 import com.mygdx.game.Game2D.Screens.GameScreen;
 import com.mygdx.game.Game2D.World.CollisionType;
 import com.mygdx.game.ScreenConfig;
+
+import java.lang.reflect.Array;
+import java.util.List;
 
 import static com.mygdx.game.Game2D.Game2D.*;
 import static com.mygdx.game.Game2D.Screens.GameScreen.*;
@@ -39,6 +43,12 @@ public class Player extends Entity {
         this.username = username;
         this.direction = direction;
         speed = 150F;
+
+        dialogues.addAll(List.of(new String[]{
+                "Cool and Normal",
+                "Zed Gamay Oten",
+                "OOP lezgow"
+        }));
     }
 
     public void login(){
@@ -175,10 +185,10 @@ public class Player extends Entity {
 
         if(Gdx.input.isKeyPressed(Input.Keys.F))
             for(Entity e: mapManager.currentMap.npcs)
-                if(withinInteractionRange(sprite, e.sprite))
-                    e.setDialogue("Louise Batig Nawong");
+                if(withinInteractionRange(sprite, e.sprite) && e.finishedDialogue)
+                    e.setDialogue();
 
-        for(Entity e: mapManager.currentMap.npcs)
+        for(NPC e: mapManager.currentMap.npcs)
             if(!e.finishedDialogue)
                 e.doDialogue();
 

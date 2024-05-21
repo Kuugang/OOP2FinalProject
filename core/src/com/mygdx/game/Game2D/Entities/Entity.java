@@ -9,10 +9,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.Game2D.Entities.NPC.NPC;
 import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
+
+import java.util.ArrayList;
 
 import static com.mygdx.game.Game2D.Game2D.batch;
 import static com.mygdx.game.Game2D.Screens.GameScreen.player;
@@ -25,6 +28,11 @@ public class Entity implements InputProcessor {
     public Direction direction;
     protected Game2D game;
     public Body boxBody;
+    protected ArrayList<String> dialogues;
+
+    public Entity(){
+        dialogues = new ArrayList<>();
+    }
 
     public Sprite getSprite() {
         return sprite;
@@ -148,6 +156,15 @@ public class Entity implements InputProcessor {
         }
 
         npc.setToStay(length);
+    }
+
+    public Entity setDialogue(){
+        RandomXS128 random = new RandomXS128();
+        return setDialogue(dialogues.get(Math.abs(random.nextInt() % dialogues.size())));
+    }
+
+    public Entity setDialogue(int index){
+        return setDialogue(dialogues.get(index));
     }
 
     public Entity setDialogue(String dialogue){

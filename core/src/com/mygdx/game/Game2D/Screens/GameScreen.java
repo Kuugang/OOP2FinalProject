@@ -52,8 +52,7 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
 
 
         mapManager = new MapManager();
-        mapManager.dispatchMap(new MapExit("RTL_THIRD", new Vector2(65 * ScreenConfig.originalTileSize, 10 * ScreenConfig.originalTileSize), Entity.Direction.UP));
-//        mapManager.dispatchMap(new MapExit("ROOM", new Vector2(10 * ScreenConfig.originalTileSize, 10 * ScreenConfig.originalTileSize), Entity.Direction.UP));
+        mapManager.dispatchMap(new MapExit("ROOM", new Vector2(10 * ScreenConfig.originalTileSize, 10 * ScreenConfig.originalTileSize), Entity.Direction.UP));
 //        mapManager.dispatchMap(new MapExit("GLE202", new Vector2(2 * ScreenConfig.originalTileSize, 3 * ScreenConfig.originalTileSize), Entity.Direction.UP));
 
         OrthographicCamera hudCamera = new OrthographicCamera();
@@ -96,7 +95,7 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
 
         ScreenUtils.clear(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        camera.zoom = 0.5F; // DEFAULT NATO IS 0.5F
+        camera.zoom = 0.5F;
 
         //PHYSICS
         world.step(1/60f, 6, 2);
