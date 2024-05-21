@@ -15,6 +15,8 @@ import com.mygdx.game.Game2D.Screens.GameScreen;
 import com.mygdx.game.Game2D.World.CollisionType;
 import com.mygdx.game.ScreenConfig;
 
+import java.util.ArrayList;
+
 import static com.mygdx.game.Game2D.Game2D.batch;
 import static com.mygdx.game.Game2D.Screens.GameScreen.gameState;
 import static com.mygdx.game.Game2D.Screens.GameScreen.world;

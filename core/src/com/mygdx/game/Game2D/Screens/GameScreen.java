@@ -52,8 +52,7 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
 
 
         mapManager = new MapManager();
-        mapManager.dispatchMap(new MapExit("RTL_ACCOUNTING", new Vector2(2 * ScreenConfig.originalTileSize, 2 * ScreenConfig.originalTileSize), Entity.Direction.UP));
-//        mapManager.dispatchMap(new MapExit("ROOM", new Vector2(10 * ScreenConfig.originalTileSize, 10 * ScreenConfig.originalTileSize), Entity.Direction.UP));
+        mapManager.dispatchMap(new MapExit("ROOM", new Vector2(10 * ScreenConfig.originalTileSize, 10 * ScreenConfig.originalTileSize), Entity.Direction.UP));
 //        mapManager.dispatchMap(new MapExit("GLE202", new Vector2(2 * ScreenConfig.originalTileSize, 3 * ScreenConfig.originalTileSize), Entity.Direction.UP));
 
         OrthographicCamera hudCamera = new OrthographicCamera();

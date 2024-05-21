@@ -10,8 +10,6 @@ public class RTL_ACCOUNTING extends GameMap {
 
     @Override
     public void update() {
-        int[] backgroundLayers = { 0 };
-        int[] foregroundLayers = {  };
 
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
