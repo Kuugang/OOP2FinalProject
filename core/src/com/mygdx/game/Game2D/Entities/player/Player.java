@@ -13,6 +13,7 @@ import com.mygdx.game.Game2D.Network.Packets.Packet00Login;
 import com.mygdx.game.Game2D.Network.Packets.Packet02Move;
 import com.mygdx.game.Game2D.Screens.GameScreen;
 import com.mygdx.game.Game2D.World.CollisionType;
+import com.mygdx.game.ScreenConfig;
 
 import static com.mygdx.game.Game2D.Game2D.*;
 import static com.mygdx.game.Game2D.Screens.GameScreen.*;
@@ -27,6 +28,7 @@ public class Player extends Entity {
     public int agility;
     public Inventory inventory;
     public boolean isMoving = false;
+    private Vector2 lastMapPosition;
     TextureRegion frame;
     float stateTime = 0F;
     public float interactionDistance = 40; //Maximum distance when interacting with other entities
@@ -162,10 +164,13 @@ public class Player extends Entity {
                 case RIGHT -> frame = resourceManager.idleRightAnimation.getKeyFrame(stateTime, true);
             }
         }
+
         sprite.setPosition(boxBody.getPosition().x - sprite.getWidth() / 2,
                 boxBody.getPosition().y - sprite.getHeight() / 7);
         sprite.setRegion(frame);
+        batch.begin();
         sprite.draw(batch);
+        batch.end();
         isMoving = false;
 
         if(Gdx.input.isKeyPressed(Input.Keys.F))
@@ -194,9 +199,12 @@ public class Player extends Entity {
         return this;
     }
 
-    public Player setIsMoving(boolean isMoving){
+    public void setIsMoving(boolean isMoving){
         this.isMoving = isMoving;
-        return this;
+    }
+
+    public void setLastMapPosition(Vector2 position){
+        this.lastMapPosition = position;
     }
 
     public float getWidth(){
@@ -208,5 +216,11 @@ public class Player extends Entity {
     }
     public String getUsername(){
         return username;
+    }
+    public Vector2 getLastMapPosition(){
+        return lastMapPosition;
+    }
+    public Direction getDirection(){
+        return this.direction;
     }
 }

@@ -27,7 +27,6 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
     public static Game2D game;
     public static Player player;
     public static OrthographicCamera camera;
-    public static TiledMap map;
     public static World world;
     private final Box2DDebugRenderer debugRenderer;
     public static MapManager mapManager;
@@ -41,7 +40,8 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
         GameScreen.game = game;
         inputMultiplexer = new InputMultiplexer();
         world = new World(new Vector2(0, 0), true);
-        world.setContactListener(new GameCollisionListener(game, this, mapManager));
+
+        world.setContactListener(new GameCollisionListener(game, this));
 
         camera = new OrthographicCamera();
         viewport = new FitViewport(ScreenConfig.screenWidth, ScreenConfig.screenHeight, camera);
@@ -50,10 +50,11 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
         player = new Player(username, new Vector2(11 * ScreenConfig.originalTileSize,
                 9 * ScreenConfig.originalTileSize), Entity.Direction.DOWN);
 
-        mapManager = new MapManager();
 
-        mapManager.dispatchMap(new MapExit("RTL_ACCOUNTING", new Vector2(35 * ScreenConfig.originalTileSize,
-                25 * ScreenConfig.originalTileSize), Entity.Direction.UP));
+        mapManager = new MapManager();
+        mapManager.dispatchMap(new MapExit("NGE_HALL", new Vector2(30 * ScreenConfig.originalTileSize, 41 * ScreenConfig.originalTileSize), Entity.Direction.UP));
+//        mapManager.dispatchMap(new MapExit("ROOM", new Vector2(10 * ScreenConfig.originalTileSize, 10 * ScreenConfig.originalTileSize), Entity.Direction.UP));
+//        mapManager.dispatchMap(new MapExit("GLE202", new Vector2(2 * ScreenConfig.originalTileSize, 3 * ScreenConfig.originalTileSize), Entity.Direction.UP));
 
         OrthographicCamera hudCamera = new OrthographicCamera();
         hudCamera.setToOrtho(false, ScreenConfig.screenWidth, ScreenConfig.screenHeight);
@@ -86,28 +87,16 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
     public void render(float delta) {
 
         //Hud renders regardless of state
-        PLAYER_HUD.render(delta);
         if (gameState == GameState.PAUSED) {
-
             pauseScreen.getStage().act(delta);
             pauseScreen.getStage().draw();
 
             return;
         }
 
-
         ScreenUtils.clear(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.zoom = 0.5F;
-
-        //TODO update camera in individual maps
-/*
-        if(player.y / ScreenConfig.originalTileSize + (ScreenConfig.maxScreenCol / 2F) > mapManager.currentMap.worldHeight ) {
-            camera.position.set(player.getX() + player.getWidth() / 2, (mapManager.currentMap.worldHeight * ScreenConfig.originalTileSize) - (ScreenConfig.maxScreenCol / 2F), 0);
-        }else if(player.y / ScreenConfig.originalTileSize - (ScreenConfig.maxScreenCol / 2F) > 0 ){
-            camera.position.set(player.getX() + player.getWidth() / 2, (ScreenConfig.maxScreenCol * ScreenConfig.originalTileSize) / 2F, 0);
-        }*/
-
 
         //PHYSICS
         world.step(1/60f, 6, 2);
@@ -121,7 +110,6 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
 
         PLAYER_HUD.render(delta);
         debugRenderer.render(world, camera.combined);
-
     }
 
     @Override
