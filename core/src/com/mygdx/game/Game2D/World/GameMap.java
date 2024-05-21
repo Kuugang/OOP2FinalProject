@@ -141,7 +141,6 @@ public abstract class GameMap {
         ScreenUtils.clear(0, 0, 0, 1);
 
         tiledMapRenderer.setView(camera);
-
         for (int i = 0; i < layers; i++) {
             if (tiledMap.getLayers().get(i) == FOREGROUND_LAYER) {
                 break;
@@ -156,23 +155,6 @@ public abstract class GameMap {
                 tiledMapRenderer.render(new int[]{i});
             }
         }
-
-
-
-        //TODO FOR MULTIPLAYER
-//        for (Map.Entry<String, PlayerMP> entry : otherPlayers.entrySet()) {
-//            PlayerMP playerMP = entry.getValue();
-//
-//            System.out.println(playerMP.map);
-//            System.out.println(this.mapName);
-//
-//            if(Objects.equals(playerMP.map, this.mapName)){
-//                System.out.println("PLAYER WHAT NOT ");
-//                if(!playerMP.isCollisionSet){
-//                    playerMP.setCollision();
-//                }
-//                entry.getValue().render();
-//            }
-//        }
+        tiledMapRenderer.render();
     }
 }

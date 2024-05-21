@@ -194,7 +194,10 @@ public class NPC extends Entity {
             animation(idleUpAnimation, idleDownAnimation, idleLeftAnimation, idleRightAnimation);
 
         sprite.setRegion(frame);
+
+        batch.begin();
         sprite.draw(batch);
+        batch.end();
 
         return this;
     }
