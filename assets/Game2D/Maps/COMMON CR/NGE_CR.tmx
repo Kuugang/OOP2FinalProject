@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="15" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="42">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="15" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="44">
  <tileset firstgid="1" source="../../TSX FILES/(LAYER 1) NGE_CR.tsx"/>
  <tileset firstgid="151" source="../../TSX FILES/(LAYER 2) NGE_CR.tsx"/>
  <tileset firstgid="301" source="../../TSX FILES/ROOM_BUILDER.tsx"/>
  <tileset firstgid="8585" source="../../TSX FILES/FULL_INTERIOR.tsx"/>
  <tileset firstgid="25609" source="../../TSX FILES/NGE_CR1.tsx"/>
+ <layer id="5" name="Tile Layer 3" width="15" height="10">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,6053,0,0,0,6281,0,0,0,0,0,0,0,
+0,0,0,6129,0,0,0,6357,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
  <layer id="2" name="Tile Layer 2" width="15" height="10">
   <data encoding="csv">
 25609,25610,25611,25612,25613,25614,25615,25616,25617,25618,25619,25620,25621,25622,25623,
@@ -19,6 +33,15 @@
 25744,25745,25746,25747,25748,25749,25750,25751,25752,25753,25754,25755,25756,25757,25758
 </data>
  </layer>
+ <objectgroup id="6" name="EXIT_LAYER">
+  <object id="43" x="-34.5151" y="235.394" width="34.1818" height="53.0909">
+   <properties>
+    <property name="nextMap" value="NGE_HALL"/>
+    <property name="playerDirection" value="DOWN"/>
+    <property name="setLastPosition" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup id="3" name="COLLISION_LAYER">
   <object id="3" x="32" y="0">
    <polygon points="0,0 -32,0 -32,235.667 -0.333333,235.333 0,0"/>
@@ -99,18 +122,4 @@
    <polygon points="0,0 0,35 122.667,35.3333 122.667,0.333333"/>
   </object>
  </objectgroup>
- <layer id="5" name="Tile Layer 3" width="15" height="10">
-  <data encoding="csv">
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,6053,0,0,0,6281,0,0,0,0,0,0,0,
-0,0,0,6129,0,0,0,6357,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-</data>
- </layer>
 </map>

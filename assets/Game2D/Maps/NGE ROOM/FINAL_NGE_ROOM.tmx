@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="18" height="15" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="1">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="18" height="15" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="3">
  <tileset firstgid="1" source="../../TSX FILES/PROJECT_NGE_ROOM_LAYER1.tsx"/>
  <tileset firstgid="271" source="../../TSX FILES/PROJECT_NGE_ROOM1_LAYER2.tsx"/>
  <tileset firstgid="541" source="../../TSX FILES/PROJECT_NGE_ROOM_LAYOUT2.tsx"/>
+ <objectgroup id="4" name="EXIT_LAYER">
+  <object id="2" x="544" y="75.75" width="31.75" height="52.5">
+   <properties>
+    <property name="nextMap" value="NGE_HALL"/>
+    <property name="playerDirection" value="DOWN"/>
+    <property name="setLastPosition" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
  <layer id="1" name="LAYER1" width="18" height="15">
   <data encoding="csv">
 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,

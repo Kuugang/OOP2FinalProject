@@ -33,6 +33,9 @@ public class MapManager {
         maps.put("GLE_CR", new GLE_CR().setMap("Game2D/Maps/COMMON CR/GLE_CR.tmx").setMapName("GLE_CR"));
         maps.put("NGE_CR", new NGE_CR().setMap("Game2D/Maps/COMMON CR/NGE_CR.tmx").setMapName("NGE_CR"));
         maps.put("NGE_HALL", new NGE_HALL_FINAL().setMap("Game2D/Maps/NGE HALLWAY STUDY AREA/NGE_HALL_FINAL.tmx").setMapName("NGE_HALL"));
+
+        maps.put("RTL_ACCOUNTING", new RTL_ACCOUNTING().setMap("Game2D/Maps/ACCOUNTING RTL/RTL_ACCOUNTING.tmx").setMapName("RTL_ACCOUNTING"));
+
     }
 
     public void dispatchMap(MapExit mapExit) {

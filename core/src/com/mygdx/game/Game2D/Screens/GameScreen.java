@@ -52,7 +52,7 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
 
         mapManager = new MapManager();
 
-        mapManager.dispatchMap(new MapExit("NGE_HALL", new Vector2(35 * ScreenConfig.originalTileSize,
+        mapManager.dispatchMap(new MapExit("RTL_ACCOUNTING", new Vector2(35 * ScreenConfig.originalTileSize,
                 25 * ScreenConfig.originalTileSize), Entity.Direction.UP));
 
         OrthographicCamera hudCamera = new OrthographicCamera();
