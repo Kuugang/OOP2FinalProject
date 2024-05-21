@@ -30,6 +30,7 @@ public class MapManager {
         maps.put("NGE_HALL", new NGE_HALL_FINAL().setMap("Game2D/Maps/NGE HALLWAY STUDY AREA/NGE_HALL_FINAL.tmx").setMapName("NGE_HALL"));
 
         maps.put("RTL_ACCOUNTING", new RTL_ACCOUNTING().setMap("Game2D/Maps/ACCOUNTING RTL/RTL_ACCOUNTING.tmx").setMapName("RTL_ACCOUNTING"));
+        maps.put("RTL_THIRD", new RTL_THIRD().setMap("Game2D/Maps/RTL THIRD FLOOR/RTL_THIRD.tmx").setMapName("RTL_THIRD"));
 
     }
 
