@@ -8,14 +8,9 @@ import static com.mygdx.game.Game2D.World.MapManager.tiledMapRenderer;
 public class RTL_ACCOUNTING extends GameMap {
 
     @Override
-    public void setExits() {
-
-    }
-
-    @Override
     public void update() {
-        int[] backgroundLayers = { 0};
-        int[] foregroundLayers = { };
+        int[] backgroundLayers = { 0 };
+        int[] foregroundLayers = {  };
 
         tiledMapRenderer.render(backgroundLayers);
         player.render();
