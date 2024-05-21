@@ -26,11 +26,13 @@ public class Room extends GameMap {
     @Override
     public void update() {
         player.render();
+        tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
         for(Entity n : npcs){
             if(n instanceof HouseNPC){
                 ((HouseNPC) n).render();
             }
         }
+
     }
 }
