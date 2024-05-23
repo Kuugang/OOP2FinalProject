@@ -10,10 +10,12 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.RandomXS128;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.Game2D.Entities.NPC.NPC;
 import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
+import com.mygdx.game.Game2D.World.GameMap;
 
 import java.util.ArrayList;
 
@@ -21,6 +23,7 @@ import static com.mygdx.game.Game2D.Game2D.batch;
 import static com.mygdx.game.Game2D.Screens.GameScreen.player;
 
 public class Entity implements InputProcessor {
+    public Vector2 position;
     public float x, y;
     public Sprite sprite;
     public String map;
@@ -75,9 +78,6 @@ public class Entity implements InputProcessor {
     public enum State {
         IDLE,
         WALKING;
-    }
-    public void setMap(String map){
-        this.map = map;
     }
 
     private float timePerCharacter = 0.1f; // Time (in seconds) between each character display

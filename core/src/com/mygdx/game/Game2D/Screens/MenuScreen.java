@@ -52,8 +52,6 @@ public class MenuScreen extends BaseScreen {
                 ArrayList<TransitionEffect> effects = new ArrayList<>();
                 effects.add(new FadeOutTransitionEffect(0.5F));
 
-
-
                 setScreenWithTransition(
                         (BaseScreen)game.getScreen(),
                         new MenuNewGameScreen(game, (BaseScreen)game.getScreen(), resourceManager),
@@ -111,13 +109,12 @@ public class MenuScreen extends BaseScreen {
     private void handleLoadButton() {
         Actor loadButton = createImageButton("load_button",   menuTable);
         loadButton.setSize(64, 48);
-//        Actor loadButton = menuTable.getCells().get(1).getActor();
-//        loadButton.addListener(new ClickListener() {
-//            @Override
-//            public void clicked(InputEvent even, float x, float y) {
-//                setScreenWithTransition((BaseScreen) game.getScreen(), new MenuLoadGameScreen(game, (BaseScreen) game.getScreen(), resourceManager), new ArrayList<>());
-//            }
-//        });
+        loadButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent even, float x, float y) {
+                setScreenWithTransition((BaseScreen) game.getScreen(), new MenuLoadGameScreen(game, (BaseScreen) game.getScreen(), resourceManager), new ArrayList<>());
+            }
+        });
     }
 
     @Override

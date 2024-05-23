@@ -45,13 +45,4 @@ public class Game2D extends Game {
     public void setGameClient(GameClient gameClient){
         this.gameClient = gameClient;
     }
-
-    public void switchToMainMenuScreen() {
-        // Dispose resources of the current screen if needed
-        if (gameScreen != null) {
-            gameScreen.dispose();
-        }
-
-        setScreen(menuScreen);
-    }
 }

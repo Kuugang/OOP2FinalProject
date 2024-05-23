@@ -15,18 +15,23 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Manager.ProfileManager;
+import com.mygdx.game.Game2D.Screens.transition.effects.FadeOutTransitionEffect;
+import com.mygdx.game.Game2D.Screens.transition.effects.TransitionEffect;
+
+import java.util.ArrayList;
 
 import static com.mygdx.game.Game2D.Game2D.profileManager;
 import static com.mygdx.game.Game2D.Manager.ResourceManager.pixel10;
 import static com.mygdx.game.Game2D.Screens.GameScreen.player;
 
-public class PauseScreen implements InputProcessor, Screen {
+public class PauseScreen extends BaseScreen implements InputProcessor {
     private Stage stage;
     private static boolean isPaused = false;
     private Skin skin;
     private static GameScreen gameScreen;
 
     public PauseScreen(GameScreen gameScreen, Game2D game) {
+        super(game);
         PauseScreen.gameScreen = gameScreen;
         this.stage = new Stage(new ScreenViewport());
         this.skin = new Skin(Gdx.files.internal("data/uiskin.json")); // You need a skin file
@@ -34,7 +39,6 @@ public class PauseScreen implements InputProcessor, Screen {
         //Change font of the pausecreen
         skin.getFont("default-font").dispose();
         skin.add("default-font",pixel10);
-
 
         Label pauseLabel = new Label("Game Paused", skin);
         TextButton resumeButton = new TextButton("Resume", skin);
@@ -66,8 +70,15 @@ public class PauseScreen implements InputProcessor, Screen {
         exitButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //Exit game;
-                game.switchToMainMenuScreen();
+
+                ArrayList<TransitionEffect> effects = new ArrayList<>();
+                effects.add(new FadeOutTransitionEffect(0.5F));
+
+                setScreenWithTransition(
+                        (BaseScreen)game.getScreen(),
+                        new MenuScreen(game),
+                        effects
+                );
 
             }
         });

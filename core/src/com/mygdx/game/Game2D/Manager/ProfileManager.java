@@ -1,20 +1,25 @@
 package com.mygdx.game.Game2D.Manager;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.bullet.collision._btMprSupport_t;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.mygdx.game.Game2D.Entities.player.Player;
+import com.mygdx.game.ScreenConfig;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-//TODO SAVE ON DATABASE TOO
 public class ProfileManager {
     private final Preferences preferences;
-    ArrayList<Player> profiles;
-    public ProfileManager() {
-        preferences = Gdx.app.getPreferences("MyGamePreferences");
+    private ArrayList<Player> profiles;
+    private Player currentPlayer;
 
+    public ProfileManager() {
+        preferences = Gdx.app.getPreferences("OOP2FinalProject");
 
         String profilesJson = preferences.getString("profiles", null);
 
@@ -24,6 +29,12 @@ public class ProfileManager {
             profiles = new ArrayList<>();
         }
     }
+
+    public void addProfile(Player player){
+        profiles.add(player);
+        saveProfiles();
+    }
+
 
     public void saveProfiles() {
         Json jsonParser = new Json();
@@ -47,28 +58,40 @@ public class ProfileManager {
     }
 
     public void saveProfile(Player player) {
-        boolean test = false;
-        for (Player p : profiles) {
-            if (p.equals(player)) {
-//                p.setMap(player.map);
-//                p.setPosition(player.getPosition());
-//                p.setDirection(player.getDirection());
-                test = true;
+        boolean exists = false;
+
+        for (Player p: profiles) {
+            if(Objects.equals(p.username, player.username)) {
+                p.setPosition(new Vector2(player.getPosition().x / ScreenConfig.originalTileSize, player.getPosition().y / ScreenConfig.originalTileSize));
+                p.setDirection(p.getDirection());
+                p.setMap(player.map);
+                exists = true;
                 break;
             }
         }
-        if(!test){
+
+        if (!exists) {
             profiles.add(player);
         }
+
         saveProfiles();
     }
 
-    public Player getProfile(String username){
+    public ArrayList<Player> getProfiles(){
+        return profiles;
+    }
+
+    public void loadProfile(String username){
         for (Player p : profiles) {
-            if (p.username.equals(username)) {
-                return p;
+            if(Objects.equals(p.username, username)){
+                currentPlayer = p;
+                break;
             }
         }
-        return null;
+    }
+
+    public Player getCurrentPlayer() {
+        currentPlayer.setCollision();
+        return currentPlayer;
     }
 }

@@ -13,15 +13,17 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Entities.player.Player;
+import com.mygdx.game.Game2D.Entities.player.Player2;
 import com.mygdx.game.Game2D.Entities.player.PlayerHUD2;
 import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Listeners.GameCollisionListener;
+import com.mygdx.game.Game2D.Manager.ProfileManager;
 import com.mygdx.game.Game2D.World.MapExit;
 import com.mygdx.game.Game2D.World.MapManager;
 import com.mygdx.game.ScreenConfig;
 
 import static com.mygdx.game.Game2D.Game2D.batch;
-import static com.mygdx.game.Game2D.World.World.username;
+import static com.mygdx.game.Game2D.Game2D.profileManager;
 
 public class GameScreen extends BaseScreen implements ApplicationListener {
     public static Game2D game;
@@ -47,21 +49,11 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
         viewport = new FitViewport(ScreenConfig.screenWidth, ScreenConfig.screenHeight, camera);
         setupViewport(ScreenConfig.screenWidth, ScreenConfig.screenHeight);
 
-        player = new Player(username, new Vector2(11 * ScreenConfig.originalTileSize,
-                9 * ScreenConfig.originalTileSize), Entity.Direction.DOWN);
-
+        player = profileManager.getCurrentPlayer();
 
         mapManager = new MapManager();
-//        mapManager.dispatchMap(new MapExit("GLE202", new Vector2(2 * ScreenConfig.originalTileSize, 3 * ScreenConfig.originalTileSize), Entity.Direction.UP));
-//        mapManager.dispatchMap(new MapExit("NGE_HALL", new Vector2(30 * ScreenConfig.originalTileSize, 40 * ScreenConfig.originalTileSize), Entity.Direction.UP));
-//        mapManager.dispatchMap(new MapExit("GLE_CR", new Vector2(2 * ScreenConfig.originalTileSize, ScreenConfig.originalTileSize), Entity.Direction.UP));
-//        mapManager.dispatchMap(new MapExit("GLE_HALLWAY", new Vector2(5 * ScreenConfig.originalTileSize, 6 * ScreenConfig.originalTileSize), Entity.Direction.UP));
-//        mapManager.dispatchMap(new MapExit("NGE_ROOM", new Vector2(4 * ScreenConfig.originalTileSize, 5 * ScreenConfig.originalTileSize), Entity.Direction.UP));
-//        mapManager.dispatchMap(new MapExit("RTL_ACCOUNTING", new Vector2(4 * ScreenConfig.originalTileSize, 5 * ScreenConfig.originalTileSize), Entity.Direction.UP));
-//        mapManager.dispatchMap(new MapExit("RTL_THIRD", new Vector2(73 * ScreenConfig.originalTileSize, 20 * ScreenConfig.originalTileSize), Entity.Direction.UP));
 
-//        mapManager.dispatchMap(new MapExit("RTL_ROOMDAA", new Vector2(3 * ScreenConfig.originalTileSize, 3 * ScreenConfig.originalTileSize), Entity.Direction.UP));
-        mapManager.dispatchMap(new MapExit("RTL_ROOMMATH", new Vector2(3 * ScreenConfig.originalTileSize, 3 * ScreenConfig.originalTileSize), Entity.Direction.UP));
+        mapManager.dispatchMap(new MapExit(player.map, player.position, player.direction));
 
         OrthographicCamera hudCamera = new OrthographicCamera();
         hudCamera.setToOrtho(false, ScreenConfig.screenWidth, ScreenConfig.screenHeight);
@@ -112,8 +104,9 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
         mapManager.update();
         player.update();
 
-        camera.position.set(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2, 0);
+        camera.position.set((player.getPosition().x * ScreenConfig.originalTileSize) +  (player.getWidth() / 2), (player.getPosition().y * ScreenConfig.originalTileSize)  + (player.getHeight() / 2), 0);
         camera.update();
+
 
         PLAYER_HUD.render(delta);
         debugRenderer.render(world, camera.combined);
@@ -195,6 +188,5 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
         LOADING,
         RUNNING,
         PAUSED,
-        GAME_OVER
     }
 }

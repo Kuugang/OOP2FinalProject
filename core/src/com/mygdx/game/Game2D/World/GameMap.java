@@ -87,7 +87,7 @@ public abstract class GameMap {
                         playerY = (float) properties.get("playerY");
                     }
 
-                    MapExit exit = new MapExit(nextMap, new Vector2(playerX * ScreenConfig.originalTileSize, playerY * ScreenConfig.originalTileSize), direction);
+                    MapExit exit = new MapExit(nextMap, new Vector2(playerX, playerY), direction);
 
                     collisionBody.createFixture(exitFixtureDef).setUserData(exit);
                     bodies.add(collisionBody);

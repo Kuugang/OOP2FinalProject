@@ -2,9 +2,11 @@ package com.mygdx.game.Game2D.World;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Game2D.Entities.PlayerMP;
 import com.mygdx.game.Game2D.World.Maps.*;
+import com.mygdx.game.ScreenConfig;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,22 +39,23 @@ public class MapManager {
 
     public void dispatchMap(MapExit mapExit) {
         GameMap map = maps.get(mapExit.nextMap);
-        if (map == null) return;
 
-        Gdx.app.postRunnable(() -> {
-            if (currentMap != null) {
-                currentMap.disposeBodies();
-            }
+        if(map != null){
+            Gdx.app.postRunnable(() -> {
+                if (currentMap != null) {
+                    currentMap.disposeBodies();
+                }
 
-            player.setDirection(mapExit.playerDirection);
-            player.setMap(mapExit.nextMap);
-            player.setPosition(mapExit.playerPosition.x, mapExit.playerPosition.y);
+                player.setDirection(mapExit.playerDirection);
+                player.setMap(mapExit.nextMap);
+                player.setPosition(new Vector2(mapExit.playerPosition.x, mapExit.playerPosition.y));
 
-            tiledMapRenderer.setMap(map.getTiledMap());
-            currentMap = map;
-            currentMap.setCollisions();
-            currentMap.setExits();
-        });
+                tiledMapRenderer.setMap(map.getTiledMap());
+                currentMap = map;
+                currentMap.setCollisions();
+                currentMap.setExits();
+            });
+        }
     }
 
     public void update() {

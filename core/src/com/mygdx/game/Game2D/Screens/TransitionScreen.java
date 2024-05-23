@@ -34,6 +34,7 @@ public class TransitionScreen extends BaseScreen {
 //        }
 
         if (currentTransitionEffect >= transitionEffects.size()) {
+            current.dispose();
             game.setScreen(next);
             return;
         }

@@ -84,7 +84,6 @@ public class MenuNewMultiplayerScreen extends BaseScreen {
                 game.setGameClient(new GameClient(ipAddress));
                 game.getGameClient().start();
                 World.isMultiplayer = true;
-                World.username = username;
 
                 ArrayList<TransitionEffect> effects = new ArrayList<>();
                 effects.add(new FadeOutTransitionEffect(1F));

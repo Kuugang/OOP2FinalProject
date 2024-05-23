@@ -6,24 +6,22 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
 import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Entities.NPC.NPC;
 import com.mygdx.game.Game2D.Inventory.Inventory;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
-import com.mygdx.game.Game2D.Network.Packets.Packet00Login;
-import com.mygdx.game.Game2D.Network.Packets.Packet02Move;
-import com.mygdx.game.Game2D.Screens.GameScreen;
 import com.mygdx.game.Game2D.World.CollisionType;
+import com.mygdx.game.Game2D.World.GameMap;
 import com.mygdx.game.ScreenConfig;
 
-import java.lang.reflect.Array;
 import java.util.List;
 
 import static com.mygdx.game.Game2D.Game2D.*;
 import static com.mygdx.game.Game2D.Screens.GameScreen.*;
-import static com.mygdx.game.Game2D.World.World.isMultiplayer;
 
-public class Player extends Entity {
+public class Player extends Entity implements Json.Serializable {
     public String username;
     public boolean isCollisionSet;
     public int hp;
@@ -37,23 +35,25 @@ public class Player extends Entity {
     float stateTime = 0F;
     public float interactionDistance = 40; //Maximum distance when interacting with other entities
 
-    public Player(String username, Vector2 position, Entity.Direction direction){
-        this.x = position.x;
-        this.y = position.y;
+    public Player(){
+        //IMPORTANT: No argument constructor needed for deserialization
+        setDefaults();
+    }
+
+    public Player(String username, Vector2 position, Entity.Direction direction, String map){
+        this.position = position;
         this.username = username;
         this.direction = direction;
-        speed = 150F;
+        this.map = map;
+        setDefaults();
+    }
 
+    public void setDefaults(){
+        this.speed = 150F;
         dialogues.addAll(List.of(new String[]{
                 "Cool and Normal",
                 "OOP lezgow"
         }));
-    }
-
-    public void login(){
-        Packet00Login packet = new Packet00Login(username, boxBody.getPosition().x,
-                boxBody.getPosition().y, direction, this.map);
-        packet.writeData(GameScreen.game.getGameClient());
     }
 
     public void setCollision() {
@@ -83,11 +83,6 @@ public class Player extends Entity {
         isCollisionSet = true;
     }
 
-    public void setPosition(float x, float y){
-        if(!isCollisionSet)
-            setCollision();
-        boxBody.setTransform(x, y, 0);
-    }
 
     public void update(){
         isMoving = Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.S) ||
@@ -96,38 +91,22 @@ public class Player extends Entity {
         if(Gdx.input.isKeyPressed(Input.Keys.A)){
             direction = Direction.LEFT;
             boxBody.applyLinearImpulse(new Vector2(-speed, 0), boxBody.getWorldCenter(), true);
-            if(isMultiplayer){
-                Packet02Move packet = new Packet02Move(username, getX(), getY(), direction, map);
-                packet.writeData(GameScreen.game.getGameClient());
-            }
         }
         if(Gdx.input.isKeyPressed(Input.Keys.D)){
             direction = Direction.RIGHT;
             boxBody.applyLinearImpulse(new Vector2(speed, 0), boxBody.getWorldCenter(), true);
 
-            if(isMultiplayer){
-                Packet02Move packet = new Packet02Move(username, getX(), getY(), direction, map);
-                packet.writeData(GameScreen.game.getGameClient());
-            }
         }
         if(Gdx.input.isKeyPressed(Input.Keys.W)){
             direction = Direction.UP;
             boxBody.applyLinearImpulse(new Vector2(0, speed), boxBody.getWorldCenter(), true);
 
-            if(isMultiplayer){
-                Packet02Move packet = new Packet02Move(username, getX(), getY(), direction, map);
-                packet.writeData(GameScreen.game.getGameClient());
-            }
         }
         if(Gdx.input.isKeyPressed(Input.Keys.S)){
             direction = Direction.DOWN;
             boxBody.applyLinearImpulse(new Vector2(0 , -speed), boxBody.getWorldCenter(), true);
-
-            if(isMultiplayer){
-                Packet02Move packet = new Packet02Move(username, getX(), getY(), direction, map);
-                packet.writeData(GameScreen.game.getGameClient());
-            }
         }
+        position.set(this.boxBody.getPosition().x / ScreenConfig.originalTileSize, this.boxBody.getPosition().y / ScreenConfig.originalTileSize);
     }
 
 
@@ -176,6 +155,7 @@ public class Player extends Entity {
 
         sprite.setPosition(boxBody.getPosition().x - sprite.getWidth() / 2,
                 boxBody.getPosition().y - sprite.getHeight() / 7);
+
         sprite.setRegion(frame);
         batch.begin();
         sprite.draw(batch);
@@ -194,8 +174,11 @@ public class Player extends Entity {
         doDialogue();
     }
 
+
     public void setPosition(Vector2 position){
-        this.boxBody.setTransform(position, 0);
+        if(!isCollisionSet)
+            setCollision();
+        this.boxBody.setTransform(new Vector2(position.x * ScreenConfig.originalTileSize, position.y * ScreenConfig.originalTileSize), 0);
     }
 
     public Player setDirection(Direction direction){
@@ -210,6 +193,10 @@ public class Player extends Entity {
 
     public void setIsMoving(boolean isMoving){
         this.isMoving = isMoving;
+    }
+
+    public void setMap(String map){
+        this.map = map;
     }
 
     public void setLastMapPosition(Vector2 position){
@@ -231,5 +218,29 @@ public class Player extends Entity {
     }
     public Direction getDirection(){
         return this.direction;
+    }
+
+    public Vector2 getPosition(){
+        return position;
+    }
+
+    public String getMap(){
+        return this.map;
+    }
+
+    @Override
+    public void write(Json json) {
+        json.writeValue("username", username);
+        json.writeValue("position", getPosition());
+        json.writeValue("direction", getDirection());
+        json.writeValue("map", getMap());
+    }
+
+    @Override
+    public void read(Json json, JsonValue jsonData) {
+        username = json.readValue("username", String.class, jsonData);
+        position = json.readValue("position", Vector2.class, jsonData);
+        direction = json.readValue("direction", Entity.Direction.class, jsonData);
+        map = json.readValue("map", String.class, jsonData);
     }
 }

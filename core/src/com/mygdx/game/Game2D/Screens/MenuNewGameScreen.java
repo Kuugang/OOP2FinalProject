@@ -1,6 +1,7 @@
 package com.mygdx.game.Game2D.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -11,7 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Game2D.Entities.Entity;
+import com.mygdx.game.Game2D.Entities.player.Player;
 import com.mygdx.game.Game2D.Game2D;
+import com.mygdx.game.Game2D.Manager.ProfileManager;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
 import com.mygdx.game.Game2D.Screens.transition.effects.FadeOutTransitionEffect;
 import com.mygdx.game.Game2D.Screens.transition.effects.TransitionEffect;
@@ -19,12 +22,14 @@ import com.mygdx.game.Game2D.World.World;
 
 import java.util.ArrayList;
 
+import static com.mygdx.game.Game2D.Game2D.profileManager;
+
 public class MenuNewGameScreen extends BaseScreen {
 
 
     private Table menuNewGameTable;
     private Stage newStage = new Stage();
-    private TextField profileText;
+    private TextField usernameText;
     private Dialog overwriteDialog;
     private BaseScreen previousScreen;
     private float stateTime;
@@ -36,16 +41,16 @@ public class MenuNewGameScreen extends BaseScreen {
         resourceManager.setMenuNewGameScreen(true);
 
         Label profileName = new Label("Enter Profile Name: ", ResourceManager.skin);
-        profileText = new TextField("Leo", ResourceManager.skin);
+        usernameText = new TextField("Leo", ResourceManager.skin);
 
-        profileText.setMaxLength(20);
+        usernameText.setMaxLength(20);
 
         menuNewGameTable = createTable();
         menuNewGameTable.pad(10);
         menuNewGameTable = createTable();
         menuNewGameTable.setFillParent(true);
         menuNewGameTable.add(profileName).center();
-        menuNewGameTable.add(profileText).center();
+        menuNewGameTable.add(usernameText).center();
 
         menuNewGameTable.row();
 
@@ -78,11 +83,13 @@ public class MenuNewGameScreen extends BaseScreen {
 
     private Actor handlePlayButton() {
         Actor playButton = createButton("Play");
-        World.username = profileText.getText();
+
         playButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent even, float x, float y) {
-                previousScreen.dispose();
+                Player player = new Player(usernameText.getText(), new Vector2(17.5F, 10), Entity.Direction.DOWN, "ROOM");
+                profileManager.addProfile(player);
+                profileManager.loadProfile(player.username);
                 setScreenWithTransition((BaseScreen)game.getScreen(), new GameScreen(game), new ArrayList<>());
             }
         });
@@ -104,7 +111,6 @@ public class MenuNewGameScreen extends BaseScreen {
 
     private Actor handleOverwriteButton() {
         Actor overwriteButton = createButton("Overwrite");
-        World.username = profileText.getText();
         overwriteButton.addListener(new ClickListener() {
             @Override
             public void clicked (InputEvent event, float x, float y) {

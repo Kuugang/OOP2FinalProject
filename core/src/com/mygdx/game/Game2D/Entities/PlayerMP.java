@@ -8,9 +8,9 @@ public class PlayerMP extends Player {
     public int port;
 
     public PlayerMP(String username, Vector2 position, Entity.Direction direction, String map, InetAddress ipAddress, int port) {
-        super(username, position, direction);
-        this.map = map;
-        this.ipAddress = ipAddress;
-        this.port = port;
+        super(username, position, direction, map);
+//        this.map = map;
+//        this.ipAddress = ipAddress;
+//        this.port = port;
     }
 }
