@@ -26,6 +26,7 @@ public class MapManager {
 
         maps.put("GLE202", new GLE202().setMap("Game2D/Maps/GLE202 ROOM/GLE202.tmx").setMapName("GLE202"));
         maps.put("GLE_CR", new GLE_CR().setMap("Game2D/Maps/COMMON CR/GLE_CR.tmx").setMapName("GLE_CR"));
+        maps.put("GLE_HALL", new GLE_HALL().setMap("Game2D/Maps/GLE HALLWAY/GLE_HALL.tmx").setMapName("GLE_HALL"));
 
         maps.put("NGE_ROOM", new NGE_ROOM().setMap("Game2D/Maps/NGE ROOM/FINAL_NGE_ROOM.tmx").setMapName("NGE_ROOM"));
         maps.put("NGE_CR", new NGE_CR().setMap("Game2D/Maps/COMMON CR/NGE_CR.tmx").setMapName("NGE_CR"));
