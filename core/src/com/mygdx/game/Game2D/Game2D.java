@@ -3,6 +3,7 @@ package com.mygdx.game.Game2D;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mygdx.game.Game2D.Manager.ProfileManager;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
 import com.mygdx.game.Game2D.Network.GameClient;
 import com.mygdx.game.Game2D.Screens.GameScreen;
@@ -13,6 +14,7 @@ public class Game2D extends Game {
     public static ShapeRenderer shapeRenderer;
     public GameScreen gameScreen;
     public MenuScreen menuScreen;
+    public static ProfileManager profileManager;
     public static ResourceManager resourceManager;
     private GameClient gameClient;
 
@@ -21,6 +23,7 @@ public class Game2D extends Game {
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
         resourceManager = ResourceManager.getInstance();
+        profileManager = new ProfileManager();
         menuScreen = new MenuScreen(this);
         this.setScreen(menuScreen);
     }

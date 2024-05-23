@@ -6,14 +6,4 @@ import static com.mygdx.game.Game2D.Screens.GameScreen.player;
 import static com.mygdx.game.Game2D.World.MapManager.tiledMapRenderer;
 
 public class NGE_ROOM extends GameMap {
-
-//    @Override
-//    public void update() {
-//        int[] backgroundLayers = { 0, 1};
-//        int[] foregroundLayers = { layers - 1};
-//
-//        tiledMapRenderer.render(backgroundLayers);
-//        player.render();
-//        tiledMapRenderer.render(foregroundLayers);
-//    }
 }

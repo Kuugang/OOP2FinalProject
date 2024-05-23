@@ -8,11 +8,4 @@ import static com.mygdx.game.Game2D.World.MapManager.tiledMapRenderer;
 
 public class RTL_ACCOUNTING extends GameMap {
 
-    @Override
-    public void update() {
-
-        tiledMapRenderer.setView(camera);
-        tiledMapRenderer.render();
-        player.render();
-    }
 }

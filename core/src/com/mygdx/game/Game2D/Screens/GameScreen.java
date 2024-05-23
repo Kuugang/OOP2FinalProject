@@ -52,8 +52,16 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
 
 
         mapManager = new MapManager();
-        mapManager.dispatchMap(new MapExit("GLE_HALL", new Vector2(5 * ScreenConfig.originalTileSize, 6 * ScreenConfig.originalTileSize), Entity.Direction.UP));
 //        mapManager.dispatchMap(new MapExit("GLE202", new Vector2(2 * ScreenConfig.originalTileSize, 3 * ScreenConfig.originalTileSize), Entity.Direction.UP));
+//        mapManager.dispatchMap(new MapExit("NGE_HALL", new Vector2(30 * ScreenConfig.originalTileSize, 40 * ScreenConfig.originalTileSize), Entity.Direction.UP));
+//        mapManager.dispatchMap(new MapExit("GLE_CR", new Vector2(2 * ScreenConfig.originalTileSize, ScreenConfig.originalTileSize), Entity.Direction.UP));
+//        mapManager.dispatchMap(new MapExit("GLE_HALLWAY", new Vector2(5 * ScreenConfig.originalTileSize, 6 * ScreenConfig.originalTileSize), Entity.Direction.UP));
+//        mapManager.dispatchMap(new MapExit("NGE_ROOM", new Vector2(4 * ScreenConfig.originalTileSize, 5 * ScreenConfig.originalTileSize), Entity.Direction.UP));
+//        mapManager.dispatchMap(new MapExit("RTL_ACCOUNTING", new Vector2(4 * ScreenConfig.originalTileSize, 5 * ScreenConfig.originalTileSize), Entity.Direction.UP));
+//        mapManager.dispatchMap(new MapExit("RTL_THIRD", new Vector2(73 * ScreenConfig.originalTileSize, 20 * ScreenConfig.originalTileSize), Entity.Direction.UP));
+
+//        mapManager.dispatchMap(new MapExit("RTL_ROOMDAA", new Vector2(3 * ScreenConfig.originalTileSize, 3 * ScreenConfig.originalTileSize), Entity.Direction.UP));
+        mapManager.dispatchMap(new MapExit("RTL_ROOMMATH", new Vector2(3 * ScreenConfig.originalTileSize, 3 * ScreenConfig.originalTileSize), Entity.Direction.UP));
 
         OrthographicCamera hudCamera = new OrthographicCamera();
         hudCamera.setToOrtho(false, ScreenConfig.screenWidth, ScreenConfig.screenHeight);
