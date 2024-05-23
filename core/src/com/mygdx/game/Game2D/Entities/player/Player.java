@@ -46,7 +46,6 @@ public class Player extends Entity {
 
         dialogues.addAll(List.of(new String[]{
                 "Cool and Normal",
-                "Zed Gamay Oten",
                 "OOP lezgow"
         }));
     }

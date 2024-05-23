@@ -23,16 +23,18 @@ public class MapManager {
     public MapManager() {
         tiledMapRenderer = new OrthogonalTiledMapRenderer(null);
         maps.put("ROOM", new Room().setMap("Game2D/Maps/HOUSE/HIS_HOUSE.tmx").setMapName("ROOM"));
+
         maps.put("GLE202", new GLE202().setMap("Game2D/Maps/GLE202 ROOM/GLE202.tmx").setMapName("GLE202"));
-        maps.put("NGE_ROOM", new NGE_ROOM().setMap("Game2D/Maps/NGE ROOM/FINAL_NGE_ROOM.tmx").setMapName("NGE_ROOM"));
         maps.put("GLE_CR", new GLE_CR().setMap("Game2D/Maps/COMMON CR/GLE_CR.tmx").setMapName("GLE_CR"));
+
+        maps.put("NGE_ROOM", new NGE_ROOM().setMap("Game2D/Maps/NGE ROOM/FINAL_NGE_ROOM.tmx").setMapName("NGE_ROOM"));
         maps.put("NGE_CR", new NGE_CR().setMap("Game2D/Maps/COMMON CR/NGE_CR.tmx").setMapName("NGE_CR"));
         maps.put("NGE_HALL", new NGE_HALL_FINAL().setMap("Game2D/Maps/NGE HALLWAY STUDY AREA/NGE_HALL_FINAL.tmx").setMapName("NGE_HALL"));
 
         maps.put("RTL_ACCOUNTING", new RTL_ACCOUNTING().setMap("Game2D/Maps/ACCOUNTING RTL/RTL_ACCOUNTING.tmx").setMapName("RTL_ACCOUNTING"));
         maps.put("RTL_THIRD", new RTL_THIRD().setMap("Game2D/Maps/RTL THIRD FLOOR/RTL_THIRD.tmx").setMapName("RTL_THIRD"));
-        maps.put("RTL_ROOMDAA", new RTL_THIRD().setMap("Game2D/Maps/RTL ROOM/RTL_ROOMDAA.tmx").setMapName("RTL_THIRDDAA"));
-        maps.put("RTL_ROOMMATH", new RTL_THIRD().setMap("Game2D/Maps/RTL ROOM/RTL_ROOMMATH.tmx").setMapName("RTL_THIRDMATH"));
+        maps.put("RTL_ROOMDAA", new RTL_THIRD().setMap("Game2D/Maps/RTL ROOM/RTL_ROOMDAA.tmx").setMapName("RTL_ROOMDAA"));
+        maps.put("RTL_ROOMMATH", new RTL_THIRD().setMap("Game2D/Maps/RTL ROOM/RTL_ROOMMATH.tmx").setMapName("RTL_ROOMMATH"));
 
 
     }
