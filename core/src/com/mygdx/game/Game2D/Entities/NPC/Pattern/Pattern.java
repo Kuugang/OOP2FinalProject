@@ -1,6 +1,5 @@
 package com.mygdx.game.Game2D.Entities.NPC.Pattern;
 
-
 import com.mygdx.game.Game2D.Entities.Entity;
 
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public abstract class Pattern {
     protected abstract void setDirection();
 
     public void setCurrentDirection(){
-        currentDirection = directions.get(0);
+        currentDirection = directions.getFirst();
     }
 
     public void nextDirection() {

@@ -18,8 +18,8 @@ import static com.mygdx.game.Game2D.World.MapManager.tiledMapRenderer;
 public class Room extends GameMap {
 
     public Room(){
-        npcs.add(new HouseNPC(3));
-        npcs.forEach(npc -> inputMultiplexer.addProcessor(npc));
+        npcManager.addNPC(new HouseNPC(15000000));
+        npcManager.getNPCs().forEach(npc -> inputMultiplexer.addProcessor(npc));
         player.setDialogue();
     }
 
@@ -28,11 +28,10 @@ public class Room extends GameMap {
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
         player.render();
-        for(Entity n : npcs){
+        for(Entity n : npcManager.getNPCs()){
             if(n instanceof HouseNPC){
                 ((HouseNPC) n).render();
             }
         }
-
     }
 }

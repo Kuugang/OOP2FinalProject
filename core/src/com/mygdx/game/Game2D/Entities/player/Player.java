@@ -131,8 +131,6 @@ public class Player extends Entity {
         }
     }
 
-
-
     private boolean withinInteractionRange(Sprite player, Sprite entity){
         float entitySpriteX = entity.getX(), entitySpriteY = entity.getY();
         float playerSpriteX = player.getX(), playerSpriteY = player.getY();
@@ -184,11 +182,11 @@ public class Player extends Entity {
         isMoving = false;
 
         if(Gdx.input.isKeyPressed(Input.Keys.F))
-            for(Entity e: mapManager.currentMap.npcs)
+            for(Entity e: mapManager.currentMap.npcManager.getNPCs())
                 if(withinInteractionRange(sprite, e.sprite) && e.finishedDialogue)
                     e.setDialogue();
 
-        for(NPC e: mapManager.currentMap.npcs)
+        for(NPC e: mapManager.currentMap.npcManager.getNPCs())
             if(!e.finishedDialogue)
                 e.doDialogue();
 

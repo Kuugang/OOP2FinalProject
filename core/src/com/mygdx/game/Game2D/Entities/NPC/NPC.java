@@ -96,14 +96,14 @@ public class NPC extends Entity {
     }
 
     public void move(){
-        if(movementCounter == length * speed)
+        if(movementCounter == length * speed) {
             newMovement();
+        }
         if(movement.getCurrentDirection() == Direction.UP){
             isMoving = true;
             boxBody.applyLinearImpulse(new Vector2(0, speed), boxBody.getWorldCenter(), true);
             direction = Direction.UP;
             movementCounter++;
-
         }else if(movement.getCurrentDirection() == Direction.DOWN){
             isMoving = true;
             boxBody.applyLinearImpulse(new Vector2(0, -speed), boxBody.getWorldCenter(), true);
@@ -155,7 +155,6 @@ public class NPC extends Entity {
         }
     }
 
-
     public void setToStay(int length){
         movement = new StayPattern((int) (length * speed));
         movement.setCurrentDirection();
@@ -166,8 +165,6 @@ public class NPC extends Entity {
     public NPC render(){
         if(gameState == GameScreen.GameState.PAUSED)
             return this;
-
-        move();
 
         if(movement.getCurrentDirection() == Direction.STAY)
             movement.nextDirection();

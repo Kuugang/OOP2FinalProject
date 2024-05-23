@@ -16,6 +16,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Entities.NPC.NPC;
+import com.mygdx.game.Game2D.Manager.NPCManager;
 import com.mygdx.game.ScreenConfig;
 
 import java.util.ArrayList;
@@ -35,9 +36,9 @@ public abstract class GameMap {
     public MapLayer exitLayer;
     public MapObjects exitMapObjects = new MapObjects();
     public ArrayList <Body> bodies = new ArrayList<>();
-    public ArrayList<NPC> npcs = new ArrayList<>();
     protected int layers;
     TiledMapTileLayer FOREGROUND_LAYER;
+    public NPCManager npcManager = new NPCManager();
 
     public GameMap setMap(String path) {
         this.tiledMap = new TmxMapLoader().load(path);
