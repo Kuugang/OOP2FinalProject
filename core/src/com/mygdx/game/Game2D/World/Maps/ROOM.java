@@ -9,8 +9,8 @@ import static com.mygdx.game.Game2D.Screens.GameScreen.*;
 import static com.mygdx.game.Game2D.World.MapManager.tiledMapRenderer;
 
 public class ROOM extends GameMap {
-
-    public ROOM(){
+    public ROOM(String mapName){
+        super(mapName);
         npcs.add(new HouseNPC(3));
         npcs.forEach(npc -> InputManager.inputMultiplexer.addProcessor(npc));
         player.setDialogue();

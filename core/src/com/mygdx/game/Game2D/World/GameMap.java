@@ -39,6 +39,10 @@ public abstract class GameMap {
     protected int layers;
     TiledMapTileLayer FOREGROUND_LAYER, FOREGROUND_LAYER1;
 
+    public GameMap(String mapName){
+        this.mapName = mapName;
+    }
+
     public GameMap setMap(String path) {
         this.tiledMap = new TmxMapLoader().load(path);
         layers = tiledMap.getLayers().getCount();
@@ -122,6 +126,28 @@ public abstract class GameMap {
 
                     collisionBody.createFixture(collisionFixtureDef).setUserData("COLLISION");
                     bodies.add(collisionBody);
+                }
+
+                if (object instanceof RectangleMapObject) {
+                    Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
+
+                    BodyDef collisionBodyDef = new BodyDef();
+                    collisionBodyDef.type = BodyDef.BodyType.StaticBody;
+
+                    collisionBodyDef.position.set((rectangle.getX() + rectangle.getWidth() / 2), (rectangle.getY() + rectangle.getHeight() / 2));
+
+                    Body collisionBody = world.createBody(collisionBodyDef);
+
+                    FixtureDef exitFixtureDef = new FixtureDef();
+                    PolygonShape shape = new PolygonShape();
+
+                    shape.setAsBox(rectangle.getWidth() / 2, rectangle.getHeight() / 2);
+                    exitFixtureDef.shape = shape;
+                    exitFixtureDef.filter.categoryBits = CollisionType.WALL.getValue();
+
+                    collisionBody.createFixture(exitFixtureDef).setUserData("COLLISION");
+                    bodies.add(collisionBody);
+                    shape.dispose();
                 }
             }
         }

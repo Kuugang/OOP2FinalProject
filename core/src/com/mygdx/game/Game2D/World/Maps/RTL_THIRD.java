@@ -8,4 +8,7 @@ import static com.mygdx.game.Game2D.Screens.GameScreen.player;
 import static com.mygdx.game.Game2D.World.MapManager.tiledMapRenderer;
 
 public class RTL_THIRD extends GameMap {
+    public RTL_THIRD(String mapName) {
+        super(mapName);
+    }
 }

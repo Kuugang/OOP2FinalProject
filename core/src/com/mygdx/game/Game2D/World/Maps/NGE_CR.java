@@ -7,4 +7,7 @@ import static com.mygdx.game.Game2D.World.MapManager.tiledMapRenderer;
 
 public class NGE_CR extends GameMap {
 
+    public NGE_CR(String mapName) {
+        super(mapName);
+    }
 }
