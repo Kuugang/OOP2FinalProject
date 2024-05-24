@@ -8,4 +8,7 @@ import static com.mygdx.game.Game2D.World.MapManager.tiledMapRenderer;
 
 public class RTL_ACCOUNTING extends GameMap {
 
+    public RTL_ACCOUNTING(String mapName) {
+        super(mapName);
+    }
 }

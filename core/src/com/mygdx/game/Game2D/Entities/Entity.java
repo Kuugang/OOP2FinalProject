@@ -60,6 +60,7 @@ public class Entity implements InputProcessor {
         }
     }
 
+    //TODO USE THIS
     public enum State {
         IDLE,
         WALKING

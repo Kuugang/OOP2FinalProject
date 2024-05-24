@@ -136,81 +136,33 @@
   <object id="68" x="2176" y="512.182" width="31.4545" height="63.4545">
    <properties>
     <property name="nextMap" value="NGE_ROOM"/>
-    <property name="playerDirection" value="LEFT"/>
-    <property name="playerX" type="float" value="16.5"/>
-    <property name="playerY" type="float" value="11"/>
+    <property name="playerDirection" value="UP"/>
+    <property name="playerX" type="float" value="14.5"/>
+    <property name="playerY" type="float" value="6.5"/>
    </properties>
   </object>
   <object id="69" x="1919.82" y="512" width="32.1818" height="64">
    <properties>
     <property name="nextMap" value="NGE_ROOM"/>
-    <property name="playerDirection" value="LEFT"/>
-    <property name="playerX" type="float" value="16.5"/>
-    <property name="playerY" type="float" value="11"/>
-   </properties>
-  </object>
-  <object id="70" x="1855.82" y="512" width="32.1818" height="63.8182">
-   <properties>
-    <property name="nextMap" value="NGE_ROOM"/>
-    <property name="playerDirection" value="LEFT"/>
-    <property name="playerX" type="float" value="16.5"/>
-    <property name="playerY" type="float" value="11"/>
-   </properties>
-  </object>
-  <object id="71" x="1600" y="512" width="31.6364" height="63.6364">
-   <properties>
-    <property name="nextMap" value="NGE_ROOM"/>
-    <property name="playerDirection" value="LEFT"/>
-    <property name="playerX" type="float" value="16.5"/>
-    <property name="playerY" type="float" value="11"/>
-   </properties>
-  </object>
-  <object id="72" x="1536" y="512" width="32" height="63.8182">
-   <properties>
-    <property name="nextMap" value="NGE_ROOM"/>
-    <property name="playerDirection" value="LEFT"/>
-    <property name="playerX" type="float" value="16.5"/>
-    <property name="playerY" type="float" value="11"/>
-   </properties>
-  </object>
-  <object id="73" x="1280" y="512" width="31.8182" height="64">
-   <properties>
-    <property name="nextMap" value="NGE_ROOM"/>
-    <property name="playerDirection" value="LEFT"/>
-    <property name="playerX" type="float" value="16.5"/>
-    <property name="playerY" type="float" value="11"/>
+    <property name="playerDirection" value="UP"/>
+    <property name="playerX" type="float" value="2.5"/>
+    <property name="playerY" type="float" value="6.5"/>
    </properties>
   </object>
   <object id="74" x="1216" y="511.818" width="31.8182" height="64">
    <properties>
     <property name="nextMap" value="NGE_ROOM"/>
-    <property name="playerDirection" value="LEFT"/>
-    <property name="playerX" type="float" value="16.5"/>
-    <property name="playerY" type="float" value="11"/>
+    <property name="playerDirection" value="UP"/>
+    <property name="playerX" type="float" value="14.5"/>
+    <property name="playerY" type="float" value="6.5"/>
    </properties>
   </object>
-  <object id="75" x="960" y="512" width="32" height="63.8182">
+  <object id="75" x="960" y="511" width="32" height="63.8182">
    <properties>
     <property name="nextMap" value="NGE_ROOM"/>
-    <property name="playerDirection" value="LEFT"/>
-    <property name="playerX" type="float" value="16.5"/>
-    <property name="playerY" type="float" value="11"/>
-   </properties>
-  </object>
-  <object id="76" x="896" y="511.818" width="31.8182" height="64">
-   <properties>
-    <property name="nextMap" value="NGE_ROOM"/>
-    <property name="playerDirection" value="LEFT"/>
-    <property name="playerX" type="float" value="16.5"/>
-    <property name="playerY" type="float" value="11"/>
-   </properties>
-  </object>
-  <object id="77" x="640" y="512.182" width="31.8182" height="63.6364">
-   <properties>
-    <property name="nextMap" value="NGE_ROOM"/>
-    <property name="playerDirection" value="LEFT"/>
-    <property name="playerX" type="float" value="16.5"/>
-    <property name="playerY" type="float" value="11"/>
+    <property name="playerDirection" value="UP"/>
+    <property name="playerX" type="float" value="2.5"/>
+    <property name="playerY" type="float" value="6.5"/>
    </properties>
   </object>
   <object id="96" x="511.5" y="512" width="32.25" height="63.75">
@@ -321,35 +273,17 @@
   <object id="82" x="2176" y="576">
    <polygon points="0,0 0,-96 -224,-96 -224,0"/>
   </object>
-  <object id="83" x="1920" y="576">
-   <polygon points="0,0 0,-96 -32,-96 -32,0"/>
-  </object>
-  <object id="84" x="1856" y="576">
-   <polygon points="0,0 0,-96 -224,-96 -224,0"/>
-  </object>
-  <object id="85" x="1600" y="576">
-   <polygon points="0,0 -32,0 -32,-96 0,-96"/>
-  </object>
-  <object id="88" x="1280" y="576">
-   <polygon points="0,0 -32,0 -32,-96 0,-96"/>
-  </object>
   <object id="89" x="1216" y="576">
    <polygon points="0,0 0,-96 -224,-96 -224,0"/>
   </object>
-  <object id="90" x="960" y="576">
-   <polygon points="0,0 -32,0 -32,-96 0,-96"/>
-  </object>
-  <object id="91" x="896" y="576">
-   <polygon points="0,0 0,-96 -224,-96 -224,0"/>
-  </object>
-  <object id="92" x="640" y="576">
-   <polygon points="0,0 0,-96 -96,-96 -96,0"/>
+  <object id="91" x="960" y="576">
+   <polygon points="0,0 0,-96 -416.667,-96 -416.667,0"/>
   </object>
   <object id="93" x="512" y="576">
    <polygon points="0,0 0,-96 -192,-96 -192,0"/>
   </object>
-  <object id="94" x="1312" y="576">
-   <polygon points="0,0 0,-96 224,-96 224,0"/>
+  <object id="94" x="1248.25" y="576">
+   <polygon points="0,0 0,-96 671.5,-96 671.5,0"/>
   </object>
   <object id="100" x="2176" y="704">
    <polygon points="0,0 77.8182,-0.181818 77.8182,40.1818 0,64"/>

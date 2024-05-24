@@ -8,4 +8,7 @@ import static com.mygdx.game.Game2D.World.MapManager.tiledMapRenderer;
 
 public class NGE_ROOM extends GameMap {
 
+    public NGE_ROOM(String mapName) {
+        super(mapName);
+    }
 }

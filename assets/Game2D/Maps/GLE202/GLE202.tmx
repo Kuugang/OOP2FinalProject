@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="21" height="21" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="21">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="21" height="21" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="26">
  <tileset firstgid="1" source="../../TSX FILES/gle-layout.tsx"/>
  <tileset firstgid="442" source="../../TSX FILES/FULL_INTERIOR.tsx"/>
  <tileset firstgid="17466" source="../../TSX FILES/ROOM_BUILDER.tsx"/>
  <tileset firstgid="25750" source="../../TSX FILES/EXTERIOR.tsx"/>
- <tileset firstgid="81542" source="../../TSX FILES/ROOM_BUILDER.tsx"/>
  <layer id="1" name="Tile Layer 1" width="21" height="21">
   <data encoding="csv">
 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,
@@ -70,8 +69,8 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,82390,82390,82390,82390,82390,82390,82390,82390,82390,82390,82390,82390,82390,82390,82390,82390,82390,82390,82390,0,
-0,82394,36547,82394,82394,82394,82394,82394,82394,82394,82394,82394,82394,82394,82394,82394,82394,82394,36547,82394,0,
+0,18314,18314,18314,18314,18314,18314,18314,18314,18314,18314,18314,18314,18314,18314,18314,18314,18314,18314,18314,0,
+0,18318,36547,18318,18318,18318,18318,18318,18318,18318,18318,18318,18318,18318,18318,18318,18318,18318,36547,18318,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -89,9 +88,6 @@
   </object>
   <object id="3" x="640" y="96">
    <polygon points="0,0 0,416 32,416 32,0"/>
-  </object>
-  <object id="4" x="672" y="477.333">
-   <polygon points="0,0 -672,0 -672,34.6667 0,34.6667"/>
   </object>
   <object id="5" x="32" y="512">
    <polygon points="0,0 0,-416 -32,-416 -32,0"/>
@@ -140,6 +136,23 @@
   </object>
   <object id="20" x="309" y="422">
    <polygon points="0,0 -0.5,46.25 52.25,45.25 53,0"/>
+  </object>
+  <object id="21" x="0" y="480" width="672" height="32"/>
+ </objectgroup>
+ <objectgroup id="5" name="EXIT_LAYER">
+  <object id="24" x="576" y="448" width="32" height="64">
+   <properties>
+    <property name="nextMap" value="GLE_HALLWAY"/>
+    <property name="playerDirection" value="DOWN"/>
+    <property name="setLastPosition" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="25" x="64" y="448" width="32" height="64">
+   <properties>
+    <property name="nextMap" value="GLE_HALLWAY"/>
+    <property name="playerDirection" value="DOWN"/>
+    <property name="setLastPosition" type="bool" value="true"/>
+   </properties>
   </object>
  </objectgroup>
 </map>
