@@ -45,9 +45,7 @@ public class GameCollisionListener implements ContactListener {
 
         if (objectA instanceof HouseNPC) {
             if (objectB == "COLLISION") {
-                ((HouseNPC) objectA).movement.nextDirection();
                 ((HouseNPC) objectA).newMovement();
-                ((HouseNPC) objectA).movement.setCurrentDirection();
             }
         }
     }

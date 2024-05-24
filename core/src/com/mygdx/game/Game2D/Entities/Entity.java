@@ -123,7 +123,7 @@ public class Entity implements InputProcessor {
                 finishedDialogue = true;
                 if(this instanceof NPC){
                     ((NPC) this).newMovement();
-                    ((NPC)this).movement.setCurrentDirection();
+                    ((NPC)this).setStay = false;
                 }
             }
 
@@ -155,7 +155,7 @@ public class Entity implements InputProcessor {
             npc.direction = Direction.DOWN;
         }
 
-        npc.setToStay(length);
+        npc.setToStay(length * 1000);
     }
 
     public Entity setDialogue(){

@@ -36,13 +36,13 @@ public class NPC extends Entity {
     float stateTime = 0F;
     int length; //Length in seconds in which the entity do a movement
     int movementCounter; //A counter for fixing NPC movement when encountering a collision
-
-    public Pattern movement;
+    public boolean setStay;
 
     public NPC(int length){
         direction = Direction.DOWN;
-        isMoving = false;
-        movementCounter = length;
+        setStay = isMoving = false;
+
+        movementCounter = (int) (length * speed);
         this.length = length;
         textureAtlas = new TextureAtlas(Gdx.files.internal("atlas/leo.atlas"));
 
@@ -73,7 +73,7 @@ public class NPC extends Entity {
         x = (float) Gdx.graphics.getWidth() / 2;
         y = (float) Gdx.graphics.getHeight() / 2;
 
-        speed = 50;
+        speed = 20;
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -91,92 +91,79 @@ public class NPC extends Entity {
 
         Fixture fixture = boxBody.createFixture(fixtureDef);
         fixture.setUserData(this);
-
-        movement = new UpPattern(length);
     }
 
     public void move(){
-        if(movementCounter == length * speed) {
+        if(setStay)
+            return;
+
+        if(movementCounter == length * speed)
             newMovement();
-        }
-        if(movement.getCurrentDirection() == Direction.UP){
+
+        if(direction == Direction.UP){
             isMoving = true;
             boxBody.applyLinearImpulse(new Vector2(0, speed), boxBody.getWorldCenter(), true);
             direction = Direction.UP;
-            movementCounter++;
-        }else if(movement.getCurrentDirection() == Direction.DOWN){
+        }else if(direction == Direction.DOWN){
             isMoving = true;
             boxBody.applyLinearImpulse(new Vector2(0, -speed), boxBody.getWorldCenter(), true);
             direction = Direction.DOWN;
-            movementCounter++;
-        }else if(movement.getCurrentDirection() == Direction.LEFT){
+        }else if(direction == Direction.LEFT){
             isMoving = true;
             boxBody.applyLinearImpulse(new Vector2(-speed, 0), boxBody.getWorldCenter(), true);
             direction = Direction.LEFT;
-            movementCounter++;
-        }else if(movement.getCurrentDirection() == Direction.RIGHT){
+        }else if(direction == Direction.RIGHT){
             isMoving = true;
             boxBody.applyLinearImpulse(new Vector2(speed, 0), boxBody.getWorldCenter(), true);
             direction = Direction.RIGHT;
-            movementCounter++;
         }else {
             isMoving = false;
-            movementCounter++;
         }
+
+        if((((
+                direction == Direction.LEFT || direction == Direction.RIGHT)
+                && (int)boxBody.getPosition().x % ScreenConfig.tileSize == 0) || ((direction ==
+                Direction.UP || direction == Direction.DOWN)
+                && (int)boxBody.getPosition().y % ScreenConfig.tileSize == 0)) && movementCounter / length >= length)
+            newMovement();
+        else
+            movementCounter++;
+
+        if(movementCounter >= length)
+            newMovement();
+
     }
 
     public void newMovement(){
-        Direction currentMovement = movement.getCurrentDirection();
-        while(currentMovement == movement.getCurrentDirection()){
+        setStay = false;
+        Direction currentMovement = direction;
+        while(currentMovement == direction){
             RandomXS128 randomXS128 = new RandomXS128();
             int randomNumber = randomXS128.nextInt() % 5;
             switch (randomNumber) {
-                case 0 -> {
-                    movement = new DownPattern(length);
-                    movementCounter = 0;
-                }
-                case 1 -> {
-                    movement = new LeftPattern(length);
-                    movementCounter = 0;
-                }
-                case 2 -> {
-                    movement = new RightPattern(length);
-                    movementCounter = 0;
-                }
-                case 3 -> {
-                    movement = new UpPattern(length);
-                    movementCounter = 0;
-                }
-                case 4 -> {
-                    movement = new StayPattern((int) (length * speed));
-                    movementCounter = 0;
-                }
+                case 0 -> direction = Direction.DOWN;
+                case 1 -> direction = Direction.LEFT;
+                case 2 -> direction = Direction.RIGHT;
+                case 3 -> direction = Direction.UP;
+                case 4 -> direction = Direction.STAY;
             }
         }
+        if(direction == Direction.STAY)
+            length *= 10;
+
+        movementCounter = 0;
     }
 
     public void setToStay(int length){
-        movement = new StayPattern((int) (length * speed));
-        movement.setCurrentDirection();
-
+        direction = Direction.STAY;
+        this.length = length * 10000;
         movementCounter = 0;
+        setStay = true;
     }
 
     public NPC render(){
         if(gameState == GameScreen.GameState.PAUSED)
             return this;
-
-        if(movement.getCurrentDirection() == Direction.STAY)
-            movement.nextDirection();
-        else if(((movement.getCurrentDirection() == Direction.LEFT || movement.getCurrentDirection() == Direction.RIGHT)
-                && (int)boxBody.getPosition().x % ScreenConfig.tileSize == 0) || ((movement.getCurrentDirection() ==
-                Direction.UP || movement.getCurrentDirection() == Direction.DOWN)
-                && (int)boxBody.getPosition().y % ScreenConfig.tileSize == 0)){
-            movement.nextDirection();
-        }
-
-        if(movement.atEnd())
-            newMovement();
 
         float currentX = sprite.getX(), currentY = sprite.getY();
         sprite.setPosition(boxBody.getPosition().x - sprite.getWidth() / 2, boxBody.getPosition().y -
@@ -187,7 +174,7 @@ public class NPC extends Entity {
 
         stateTime += Gdx.graphics.getDeltaTime();
 
-        if(isMoving)
+        if(isMoving && !setStay)
             animation(upAnimation, downAnimation, leftAnimation, rightAnimation);
         else
             animation(idleUpAnimation, idleDownAnimation, idleLeftAnimation, idleRightAnimation);
@@ -197,7 +184,6 @@ public class NPC extends Entity {
         batch.begin();
         sprite.draw(batch);
         batch.end();
-
         return this;
     }
 
