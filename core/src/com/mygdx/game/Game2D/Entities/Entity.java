@@ -62,7 +62,7 @@ public class Entity implements InputProcessor {
 
     public enum State {
         IDLE,
-        WALKING;
+        WALKING
     }
 
     public void setState(Entity.State state){
@@ -116,7 +116,7 @@ public class Entity implements InputProcessor {
                 finishedDialogue = true;
                 if(this instanceof NPC){
                     ((NPC) this).newMovement();
-                    ((NPC)this).setStay = false;
+                    setState(State.IDLE);
                 }
             }
 
