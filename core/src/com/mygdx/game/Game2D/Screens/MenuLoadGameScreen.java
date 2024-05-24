@@ -10,12 +10,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.Game2D.Entities.player.Player;
 import com.mygdx.game.Game2D.Game2D;
+import com.mygdx.game.Game2D.Manager.ProfileManager;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
 import com.mygdx.game.Game2D.Screens.transition.effects.FadeOutTransitionEffect;
 import com.mygdx.game.Game2D.Screens.transition.effects.TransitionEffect;
 
 import java.util.ArrayList;
+
+import static com.mygdx.game.Game2D.Game2D.profileManager;
 
 public class MenuLoadGameScreen extends BaseScreen {
 
@@ -45,62 +49,55 @@ public class MenuLoadGameScreen extends BaseScreen {
         bottomTable.setHeight(Gdx.graphics.getHeight()/2f);
         bottomTable.center();
 
-//        createProfileList();
-//        handleLoadButton();
+        createProfileList();
+        handleLoadButton();
         handleLoadBackButton();
     }
 
-//    private void createProfileList() {
-//        ProfileManager.getInstance().storeAllProfiles();
-//        listItems = new List(ResourceManager.skin);
-//        Array<String> list = ProfileManager.getInstance().getProfileList();
-//        listItems.setItems(list);
-//        ScrollPane scrollPane = new ScrollPane(listItems);
-//
-//        scrollPane.setOverscroll(false, false);
-//        scrollPane.setFadeScrollBars(false);
-//        scrollPane.setScrollingDisabled(true, false);
-//        scrollPane.setScrollbarsOnTop(true);
-//
-//        topTable.add(scrollPane).center();
-//    }
+    private void createProfileList() {
+        listItems = new List(ResourceManager.skin);
+        ArrayList<Player> profiles = profileManager.getProfiles();
 
-//    private void handleLoadButton() {
-//        createButton("Play",0, loadTable.getHeight()/9, loadTable);
-//
-//        Actor loadButton = loadTable.getCells().get(0).getActor();
-//        topTable.padBottom(loadButton.getHeight());
-//        bottomTable.add(loadButton).padRight(50);
-//        loadButton.addListener(new ClickListener() {
-//            @Override
-//            public void clicked (InputEvent event, float x, float y) {
-//                previousScreen.dispose();
-//
-//                if (listItems.getSelected() == null) {
-//                    return;
-//                }
-//                String fileName = listItems.getSelected().toString();
-//                if (fileName != null && !fileName.isEmpty()) {
-//                    FileHandle file = ProfileManager.getInstance().getProfileFile(fileName);
-//                    if (file != null) {
-//                        ProfileManager.getInstance().setCurrentProfile(fileName);
-//                        ProfileManager.getInstance().loadProfile();
-//                        game.setGameScreen(new GameScreen(game));
-//
-//                        ArrayList<TransitionEffect> effects = new ArrayList<>();
-//                        effects.add(new FadeOutTransitionEffect(1f));
-//                        //effects.add(new FadeInTransitionEffect(1f)); TODO: Issue with fadein effect
-//                        setScreenWithTransition((BaseScreen) game.getScreen(), game.getGameScreen(), effects);
-//                    }
-//                }
-//            }
-//        });
-//
-//    }
+        Array<String> list = new Array<>();
+        
+        for (Player p: profiles) {
+            list.add(p.username);
+        }
+        
+        listItems.setItems(list);
+        ScrollPane scrollPane = new ScrollPane(listItems);
+
+        scrollPane.setOverscroll(false, false);
+        scrollPane.setFadeScrollBars(false);
+        scrollPane.setScrollingDisabled(true, false);
+        scrollPane.setScrollbarsOnTop(true);
+
+        topTable.add(scrollPane).center();
+    }
+
+    private void handleLoadButton() {
+        Actor loadButton = createButton("Play");
+
+        bottomTable.add(loadButton);
+
+        loadButton.addListener(new ClickListener() {
+            @Override
+            public void clicked (InputEvent event, float x, float y) {
+                if (listItems.getSelected() == null) {
+                    return;
+                }
+
+                previousScreen.dispose();
+                String username = listItems.getSelected().toString();
+                profileManager.loadProfile(username);
+
+                setScreenWithTransition((BaseScreen)game.getScreen(), new GameScreen(game), new ArrayList<>());
+            }
+        });
+    }
 
     private void handleLoadBackButton() {
         Actor backButton = createButton("Back");
-
         bottomTable.add(backButton);
         backButton.addListener(new ClickListener() {
             @Override

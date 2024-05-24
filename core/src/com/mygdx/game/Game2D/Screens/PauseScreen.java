@@ -14,26 +14,30 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Game2D.Game2D;
-import com.mygdx.game.Game2D.Manager.SaveManager;
+import com.mygdx.game.Game2D.Manager.InputManager;
+import com.mygdx.game.Game2D.Manager.ProfileManager;
+import com.mygdx.game.Game2D.Screens.transition.effects.FadeOutTransitionEffect;
+import com.mygdx.game.Game2D.Screens.transition.effects.TransitionEffect;
 
+import java.util.ArrayList;
+
+import static com.mygdx.game.Game2D.Game2D.profileManager;
 import static com.mygdx.game.Game2D.Manager.ResourceManager.pixel10;
 import static com.mygdx.game.Game2D.Screens.GameScreen.player;
 
-public class PauseScreen implements InputProcessor, Screen {
+public class PauseScreen extends BaseScreen {
     private Stage stage;
-    private static boolean isPaused = false;
     private Skin skin;
-    private static GameScreen gameScreen;
 
-    public PauseScreen(GameScreen gameScreen, Game2D game) {
-        PauseScreen.gameScreen = gameScreen;
+
+    public PauseScreen (Game2D game) {
+        super(game);
         this.stage = new Stage(new ScreenViewport());
         this.skin = new Skin(Gdx.files.internal("data/uiskin.json")); // You need a skin file
 
         //Change font of the pausecreen
         skin.getFont("default-font").dispose();
         skin.add("default-font",pixel10);
-
 
         Label pauseLabel = new Label("Game Paused", skin);
         TextButton resumeButton = new TextButton("Resume", skin);
@@ -58,27 +62,29 @@ public class PauseScreen implements InputProcessor, Screen {
         resumeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                resumeGame();
+                hide();
             }
         });
 
         exitButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //Exit game;
-                game.switchToMainMenuScreen();
+
+                ArrayList<TransitionEffect> effects = new ArrayList<>();
+                effects.add(new FadeOutTransitionEffect(0.5F));
+
+                setScreenWithTransition(
+                        (BaseScreen)game.getScreen(),
+                        new MenuScreen(game),
+                        effects
+                );
 
             }
         });
         saveButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                SaveManager saveManager = new SaveManager();
-
-                saveManager.savePlayerPosition(player.getX(), player.getY());
-                saveManager.saveUserDetails(player.getUsername());
-                saveManager.saveMap(player.map);
-                saveManager.saveLevel(1); // TODO Level or Day
+                profileManager.saveProfile(player);
             }
         });
 
@@ -98,7 +104,8 @@ public class PauseScreen implements InputProcessor, Screen {
 
     @Override
     public void pause() {
-
+        stage.act();
+        stage.draw();
     }
 
     @Override
@@ -107,76 +114,11 @@ public class PauseScreen implements InputProcessor, Screen {
     }
 
     @Override
-    public void dispose() {
-
-    }
-
-    private void resumeGame() {
-        isPaused = false;
-        gameScreen.setGameState(GameScreen.GameState.RUNNING);
-    }
-
     public void show() {
-        gameScreen.setGameState(GameScreen.GameState.PAUSED);
-        isPaused = true;
     }
 
     public void hide() {
-        isPaused = false;
-        gameScreen.setGameState(GameScreen.GameState.RUNNING);
-    }
-
-    @Override
-    public boolean keyDown(int keycode) {
-        if (keycode == Input.Keys.ESCAPE) {
-            if (!isPaused) {
-                show();
-            } else {
-                hide();
-            }
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(float amountX, float amountY) {
-        return false;
+        Game2D.inputManager.switchtoPauseScreen();
     }
 
     public Stage getStage() {

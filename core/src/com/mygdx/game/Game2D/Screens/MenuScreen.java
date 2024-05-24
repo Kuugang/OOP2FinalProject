@@ -33,6 +33,7 @@ public class MenuScreen extends BaseScreen {
 //        portrait.setPosition(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f, Align.center); // Adjust position as needed
 //        menuStage.addActor(portrait);
 //        Gdx.input.setInputProcessor(menuStage);
+
         menuTable = createTable();
         menuTable.setFillParent(false);
         menuTable.bottom().padBottom(20);
@@ -45,14 +46,11 @@ public class MenuScreen extends BaseScreen {
 
     private void handlePlayButton() {
         Actor newButton =  createImageButton("new_button",  menuTable);
-        newButton.setSize(20,20);
         newButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent even, float x, float y) {
                 ArrayList<TransitionEffect> effects = new ArrayList<>();
                 effects.add(new FadeOutTransitionEffect(0.5F));
-
-
 
                 setScreenWithTransition(
                         (BaseScreen)game.getScreen(),
@@ -111,13 +109,12 @@ public class MenuScreen extends BaseScreen {
     private void handleLoadButton() {
         Actor loadButton = createImageButton("load_button",   menuTable);
         loadButton.setSize(64, 48);
-//        Actor loadButton = menuTable.getCells().get(1).getActor();
-//        loadButton.addListener(new ClickListener() {
-//            @Override
-//            public void clicked(InputEvent even, float x, float y) {
-//                setScreenWithTransition((BaseScreen) game.getScreen(), new MenuLoadGameScreen(game, (BaseScreen) game.getScreen(), resourceManager), new ArrayList<>());
-//            }
-//        });
+        loadButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent even, float x, float y) {
+                setScreenWithTransition((BaseScreen) game.getScreen(), new MenuLoadGameScreen(game, (BaseScreen) game.getScreen(), resourceManager), new ArrayList<>());
+            }
+        });
     }
 
     @Override

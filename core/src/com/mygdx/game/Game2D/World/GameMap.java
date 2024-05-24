@@ -37,13 +37,14 @@ public abstract class GameMap {
     public MapObjects exitMapObjects = new MapObjects();
     public ArrayList <Body> bodies = new ArrayList<>();
     protected int layers;
-    TiledMapTileLayer FOREGROUND_LAYER;
+    TiledMapTileLayer FOREGROUND_LAYER, FOREGROUND_LAYER1;
     public NPCManager npcManager = new NPCManager();
 
     public GameMap setMap(String path) {
         this.tiledMap = new TmxMapLoader().load(path);
         layers = tiledMap.getLayers().getCount();
         FOREGROUND_LAYER = (TiledMapTileLayer) tiledMap.getLayers().get("FOREGROUND_LAYER");
+        FOREGROUND_LAYER1 = (TiledMapTileLayer) tiledMap.getLayers().get("FOREGROUND_LAYER1");
         return this;
     }
 
@@ -88,7 +89,7 @@ public abstract class GameMap {
                         playerY = (float) properties.get("playerY");
                     }
 
-                    MapExit exit = new MapExit(nextMap, new Vector2(playerX * ScreenConfig.originalTileSize, playerY * ScreenConfig.originalTileSize), direction);
+                    MapExit exit = new MapExit(nextMap, new Vector2(playerX, playerY), direction);
 
                     collisionBody.createFixture(exitFixtureDef).setUserData(exit);
                     bodies.add(collisionBody);
@@ -144,7 +145,7 @@ public abstract class GameMap {
 
         tiledMapRenderer.setView(camera);
         for (int i = 0; i < layers; i++) {
-            if (tiledMap.getLayers().get(i) == FOREGROUND_LAYER) {
+            if (tiledMap.getLayers().get(i) == FOREGROUND_LAYER || tiledMap.getLayers().get(i) == FOREGROUND_LAYER1) {
                 break;
             }
             tiledMapRenderer.render(new int[]{i});
@@ -153,10 +154,9 @@ public abstract class GameMap {
         player.render();
 
         for (int i = 0; i < layers; i++) {
-            if (tiledMap.getLayers().get(i) == FOREGROUND_LAYER) {
+            if (tiledMap.getLayers().get(i) == FOREGROUND_LAYER || tiledMap.getLayers().get(i) == FOREGROUND_LAYER1) {
                 tiledMapRenderer.render(new int[]{i});
             }
         }
-        tiledMapRenderer.render();
     }
 }

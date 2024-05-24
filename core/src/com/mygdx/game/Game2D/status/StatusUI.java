@@ -49,9 +49,9 @@ public class StatusUI extends Window implements StatusSubject {
     }
 
     private void handleName(Table table) {
-        Label nameLabel = new Label(World.username + " McLuffy", STATUS_UI_SKIN);
-        nameLabel.setColor(Color.BLACK);
-        table.add(nameLabel).align(Align.left).spaceBottom(10).row();
+//        Label nameLabel = new Label(World.username + " McLuffy", STATUS_UI_SKIN);
+//        nameLabel.setColor(Color.BLACK);
+//        table.add(nameLabel).align(Align.left).spaceBottom(10).row();
     }
 
     private void handleDay(Table table) {

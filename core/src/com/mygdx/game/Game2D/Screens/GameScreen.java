@@ -5,23 +5,21 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Entities.player.Player;
-import com.mygdx.game.Game2D.Entities.player.PlayerHUD2;
+import com.mygdx.game.Game2D.Entities.player.PlayerHUD;
 import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Listeners.GameCollisionListener;
+import com.mygdx.game.Game2D.Manager.InputManager;
 import com.mygdx.game.Game2D.World.MapExit;
 import com.mygdx.game.Game2D.World.MapManager;
 import com.mygdx.game.ScreenConfig;
 
-import static com.mygdx.game.Game2D.Game2D.batch;
-import static com.mygdx.game.Game2D.World.World.username;
+import static com.mygdx.game.Game2D.Game2D.*;
 
 public class GameScreen extends BaseScreen implements ApplicationListener {
     public static Game2D game;
@@ -33,7 +31,7 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
     public static GameState gameState;
     public static PauseScreen pauseScreen;
     public static InputMultiplexer inputMultiplexer;
-    private final PlayerHUD2 PLAYER_HUD;
+    private final PlayerHUD PLAYER_HUD;
 
     public GameScreen(Game2D game) {
         super(game);
@@ -47,34 +45,30 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
         viewport = new FitViewport(ScreenConfig.screenWidth, ScreenConfig.screenHeight, camera);
         setupViewport(ScreenConfig.screenWidth, ScreenConfig.screenHeight);
 
-        player = new Player(username, new Vector2(11 * ScreenConfig.originalTileSize,
-                9 * ScreenConfig.originalTileSize), Entity.Direction.DOWN);
-
+        player = profileManager.getCurrentPlayer();
 
         mapManager = new MapManager();
-        mapManager.dispatchMap(new MapExit("ROOM", new Vector2(10 * ScreenConfig.originalTileSize, 10 * ScreenConfig.originalTileSize), Entity.Direction.UP));
-//        mapManager.dispatchMap(new MapExit("GLE202", new Vector2(2 * ScreenConfig.originalTileSize, 3 * ScreenConfig.originalTileSize), Entity.Direction.UP));
+
+        // mapManager.dispatchMap(new MapExit(player.map, player.position, player.direction));
+        mapManager.dispatchMap(new MapExit("GLE_202", player.position, player.direction));
 
         OrthographicCamera hudCamera = new OrthographicCamera();
         hudCamera.setToOrtho(false, ScreenConfig.screenWidth, ScreenConfig.screenHeight);
 //        PLAYER_HUD = new PlayerHUD(hudCamera, player, mapManager);
-        PLAYER_HUD = new PlayerHUD2(player);
+        PLAYER_HUD = new PlayerHUD(player);
         debugRenderer = new Box2DDebugRenderer();
 
         //Initialize GameState
         gameState = GameState.RUNNING;
 
         //PauseScreen
-        pauseScreen = new PauseScreen(this, game);
+        pauseScreen = new PauseScreen(game);
 
         //Handle multiple input
         //TODO ADD PLAYERHUD input
+        inputManager = new InputManager(this, pauseScreen, PLAYER_HUD);
 
-        inputMultiplexer.addProcessor(pauseScreen);
-        inputMultiplexer.addProcessor(pauseScreen.getStage());
-        inputMultiplexer.addProcessor(stage);
 
-        Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
     @Override
@@ -104,8 +98,9 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
         mapManager.update();
         player.update();
 
-        camera.position.set(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2, 0);
+        camera.position.set((player.getPosition().x * ScreenConfig.originalTileSize) +  (player.getWidth() / 2), (player.getPosition().y * ScreenConfig.originalTileSize)  + (player.getHeight() / 2), 0);
         camera.update();
+
 
         PLAYER_HUD.render(delta);
         debugRenderer.render(world, camera.combined);
@@ -187,6 +182,5 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
         LOADING,
         RUNNING,
         PAUSED,
-        GAME_OVER
     }
 }

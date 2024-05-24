@@ -25,8 +25,15 @@
 0,0,0,0,0,0,0,533,534,535,536,537,538,539,540,541,542,543,544,545,546,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="3" name="Exit">
-  <object id="1" x="320" y="448" width="288" height="56"/>
+ <objectgroup id="3" name="EXIT_LAYER">
+  <object id="1" x="320" y="448" width="288" height="56">
+   <properties>
+    <property name="nextMap" value="NGE_HALL"/>
+    <property name="playerDirection" value="LEFT"/>
+    <property name="playerX" type="float" value="30"/>
+    <property name="playerY" type="float" value="40"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="4" name="COLLISION_LAYER">
   <object id="2" x="320" y="160">

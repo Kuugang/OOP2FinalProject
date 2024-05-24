@@ -1,117 +1,123 @@
 package com.mygdx.game.Game2D.Entities.player;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.Game2D.Entities.Entity;
-import com.mygdx.game.Game2D.status.StatusObserver;
-import com.mygdx.game.Game2D.status.StatusUI;
-import com.mygdx.game.Game2D.World.MapManager;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.mygdx.game.Game2D.Manager.ResourceManager;
+import com.mygdx.game.Game2D.status.PlayerPortrait;
 
-public class PlayerHUD implements Screen, StatusObserver {
+public class PlayerHUD {
 
     private Stage stage;
-    private Entity player;
+    private PlayerPortrait playerPortrait;
+    private Label nameLabel;
+    private Label dayLabel;
+    private Label mapLabel;
+    private int defaultWidth;
+    private int defaultHeight;
 
-    private StatusUI statusUI;
-    private Dialog messageBoxUI;
-    private Json json;
-    private MapManager mapManager;
 
-    private Actor stageKeyboardFocus;
-    public float defaultHeight = 0;
-    public float defaultWidth = 0;
+    public PlayerHUD(Player player) {
+        stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+        playerPortrait = new PlayerPortrait();
+        defaultWidth = 350;
+        defaultHeight = 100;
 
-    //TODO Fix HUD to move when screen is scaling
-    public PlayerHUD(Camera cameraHUD, Entity entityPlayer, MapManager mapMgr) {
-        player = entityPlayer;
-        mapManager = mapMgr;
-        Viewport viewport = new ScreenViewport(cameraHUD);
-        stage = new Stage(viewport);
-        stageKeyboardFocus = stage.getKeyboardFocus();
 
-        json = new Json();
+        Table table = new Table();
+        table.pad(10);
+        table.setBackground(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("test.png")))));
 
-        statusUI = new StatusUI();
-        statusUI.setVisible(true);
-        statusUI.setPosition(0, Gdx.graphics.getHeight() - statusUI.getHeight());
+        table.left();
 
-        defaultHeight = Gdx.graphics.getHeight();
-        defaultWidth = Gdx.graphics.getWidth();
-        statusUI.setKeepWithinStage(false);
-        statusUI.setMovable(false);
+        Table playerTable = new Table();
+        playerTable.add(playerPortrait).size(50).align(Align.left).padLeft(10);
 
-        stage.addActor(statusUI);
+        table.add(playerTable).align(Align.left);
 
-        statusUI.validate();
 
-        // Observers
-        statusUI.addObserver(this);
+
+        //Nested Table for rowspan
+        Table table2 = new Table();
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = ResourceManager.pixel10;
+        labelStyle.fontColor = Color.BLACK;
+
+
+        // Name label
+        nameLabel = new Label(player.username, labelStyle);
+        nameLabel.setFontScale(2.5f);
+        table2.add(nameLabel).align(Align.left).size(10);
+        table2.row();
+
+
+        // Add day label TODO Dynamic Day
+        dayLabel = new Label("Day: Monday" , labelStyle);
+        dayLabel.setFontScale(2.5f);
+        table2.add(dayLabel).align(Align.left).size(10).padTop(15);
+
+
+        table2.padLeft(30);
+
+
+        table.add(table2).align(Align.left);
+
+
+
+//        //TODO Make HUD interactable
+//        TextButton inventoryButton = new TextButton("Inventory", skin); // Assuming you have a skin
+//        TextButton profileButton = new TextButton("Profile", skin);
+//
+//        Table table3 = new Table();
+//        table3.add(inventoryButton).align(Align.left).size(10).padTop(10);
+//        table3.add(profileButton).align(Align.left).size(10).padTop(10);
+//
+//        table.add(table3).align(Align.left);
+
+
+        table.setSize(defaultWidth, defaultHeight);
+        stage.addActor(table);
+
+
+        // x = 10 for margin and - 10 for y margin
+        table.setPosition(10, Gdx.graphics.getHeight() - table.getHeight() - 10);
+
+
     }
 
-    public Stage getStage() {
-        return stage;
-    }
 
-    public StatusUI getStatusUI() {
-        return statusUI;
-    }
 
-    private void setInputUI(Window ui) {
-        if (ui.isVisible()) {
-            Gdx.input.setInputProcessor(stage);
-        } else {
-            stage.setKeyboardFocus(stageKeyboardFocus);
-            InputMultiplexer inputMultiplexer = new InputMultiplexer();
-            inputMultiplexer.addProcessor(stage);
-            Gdx.input.setInputProcessor(inputMultiplexer);
-        }
-    }
-
-    @Override
-    public void show() {
-    }
-
-    @Override
     public void render(float delta) {
         stage.act(delta);
         stage.draw();
     }
 
-    @Override
-    public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
-        statusUI.setPosition(0, height - statusUI.getHeight());
-        statusUI.validate();
+    public void setNameLabelText(String text) {
+        nameLabel.setText(text);
     }
 
-    @Override
-    public void pause() {
+    public void setDayLabelText(String text) {
+        dayLabel.setText(text);
     }
 
-    @Override
-    public void resume() {
-    }
 
-    @Override
-    public void hide() {
-    }
-
-    @Override
     public void dispose() {
         stage.dispose();
     }
 
-    @Override
-    public void onNotify(int value, StatusEvent event) {
-
+    public  Stage  getStage(){
+        return stage;
     }
+
+    public void resize(int width, int height) {
+        stage.getViewport().update(width, height, true);
+    }
+
 }
