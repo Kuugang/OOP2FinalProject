@@ -32,15 +32,11 @@ public class BaseScreen implements Screen{
     protected Viewport viewport;
     // main stage of each screen
     protected Stage stage;
-//    protected AudioObserver.AudioTypeEvent musicTheme;
-
-//    private Array<AudioObserver> observers;
 
     public BaseScreen(Game2D game) {
         this.game = game;
         this.resourceManager = Game2D.resourceManager;
         this.stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight())); // Initialize the stage
-//        Gdx.input.setInputProcessor(this.stage); //
     }
 
     public void setScreenWithTransition(BaseScreen current, BaseScreen next, List<TransitionEffect> transitionEffect) {
@@ -75,16 +71,6 @@ public class BaseScreen implements Screen{
             return null;
         }
 
-//
-//        int newWidth = (int) (buttonRegion.getRegionWidth() * 50 );
-//        int newHeight = (int) (buttonRegion.getRegionHeight() * 50);
-//
-//        // Set the new size for the TextureRegion
-//        buttonRegion.setRegionWidth(newWidth);
-//        buttonRegion.setRegionHeight(newHeight);
-
-
-
         int newWidth = (int) (buttonRegion.getRegionWidth() * 0.1f);
         int newHeight = (int) (buttonRegion.getRegionHeight() * 0.1f);
 
@@ -99,8 +85,6 @@ public class BaseScreen implements Screen{
 
 
         ImageButton button = new ImageButton(buttonStyle);
-
-
 
         table.add(button).pad(10); // Adjust padding as needed
 
@@ -146,7 +130,7 @@ public class BaseScreen implements Screen{
 
     @Override
     public void dispose() {
-        //stage.dispose();
+//        stage.dispose();
     }
 
     public OrthographicCamera getGameCam() {

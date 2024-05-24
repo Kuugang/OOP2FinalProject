@@ -113,11 +113,6 @@ public class PauseScreen extends BaseScreen implements InputProcessor {
 
     }
 
-    @Override
-    public void dispose() {
-
-    }
-
     private void resumeGame() {
         isPaused = false;
         gameScreen.setGameState(GameScreen.GameState.RUNNING);
@@ -129,6 +124,7 @@ public class PauseScreen extends BaseScreen implements InputProcessor {
     }
 
     public void hide() {
+        //TODO BUG WHEN RESUME CAN STILL CLICK ON BUTTONS EVEN THOUGH HIDDEN
         isPaused = false;
         gameScreen.setGameState(GameScreen.GameState.RUNNING);
     }
