@@ -156,8 +156,8 @@ public class GameServer extends Thread {
         if (getPlayerMP(packet.getUsername()) != null) {
             int index = getPlayerMPIndex(packet.getUsername());
             PlayerMP player = this.connectedPlayers.get(index);
-            player.x = packet.getX();
-            player.y = packet.getY();
+//            player.x = packet.getX();
+//            player.y = packet.getY();
             packet.writeData(this);
         }
     }

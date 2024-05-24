@@ -30,9 +30,15 @@ public class ProfileManager {
         }
     }
 
-    public void addProfile(Player player){
+    public boolean addProfile(Player player){
+        for (Player p : profiles) {
+            if(p.username.equals(player.username)){
+                return false;
+            }
+        }
         profiles.add(player);
         saveProfiles();
+        return true;
     }
 
 
@@ -62,7 +68,7 @@ public class ProfileManager {
 
         for (Player p: profiles) {
             if(Objects.equals(p.username, player.username)) {
-                p.setPosition(new Vector2(player.getPosition().x / ScreenConfig.originalTileSize, player.getPosition().y / ScreenConfig.originalTileSize));
+                p.setPosition(new Vector2(player.getPosition().x, player.getPosition().y));
                 p.setDirection(p.getDirection());
                 p.setMap(player.map);
                 exists = true;
@@ -74,6 +80,15 @@ public class ProfileManager {
             profiles.add(player);
         }
 
+        saveProfiles();
+    }
+
+    public void overwriteProfile(Player player){
+        for(int i = 0; i < profiles.size(); i++){
+            if(profiles.get(i).username.equals(player.username)){
+                profiles.set(i, player);
+            }
+        }
         saveProfiles();
     }
 
