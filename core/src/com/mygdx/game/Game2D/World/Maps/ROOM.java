@@ -2,6 +2,7 @@ package com.mygdx.game.Game2D.World.Maps;
 
 import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Entities.NPC.HouseNPC;
+import com.mygdx.game.Game2D.Manager.InputManager;
 import com.mygdx.game.Game2D.World.GameMap;
 
 import static com.mygdx.game.Game2D.Screens.GameScreen.*;
@@ -11,7 +12,7 @@ public class ROOM extends GameMap {
 
     public ROOM(){
         npcs.add(new HouseNPC(3));
-        npcs.forEach(npc -> inputMultiplexer.addProcessor(npc));
+        npcs.forEach(npc -> InputManager.inputMultiplexer.addProcessor(npc));
         player.setDialogue();
     }
 

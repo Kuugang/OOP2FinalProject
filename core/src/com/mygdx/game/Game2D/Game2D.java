@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mygdx.game.Game2D.Manager.InputManager;
 import com.mygdx.game.Game2D.Manager.ProfileManager;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
 import com.mygdx.game.Game2D.Manager.SoundManager;
@@ -20,6 +21,7 @@ public class Game2D extends Game {
     public static ResourceManager resourceManager;
     public static SoundManager soundManager;
     private GameClient gameClient;
+    public static InputManager inputManager;
 
     @Override
     public void create() {
@@ -29,6 +31,7 @@ public class Game2D extends Game {
         profileManager = new ProfileManager();
         soundManager = new SoundManager();
         menuScreen = new MenuScreen(this);
+        inputManager = new InputManager();
 
         this.setScreen(menuScreen);
     }

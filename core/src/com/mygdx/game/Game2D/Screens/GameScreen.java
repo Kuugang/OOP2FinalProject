@@ -11,9 +11,10 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.Game2D.Entities.player.Player;
-import com.mygdx.game.Game2D.Entities.player.PlayerHUD2;
+import com.mygdx.game.Game2D.Entities.player.PlayerHUD;
 import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Listeners.GameCollisionListener;
+import com.mygdx.game.Game2D.Manager.InputManager;
 import com.mygdx.game.Game2D.World.MapExit;
 import com.mygdx.game.Game2D.World.MapManager;
 import com.mygdx.game.ScreenConfig;
@@ -22,55 +23,57 @@ import static com.mygdx.game.Game2D.Game2D.batch;
 import static com.mygdx.game.Game2D.Game2D.profileManager;
 
 public class GameScreen extends BaseScreen implements ApplicationListener {
+    //GameScreen Variables
     public static Game2D game;
     public static Player player;
     public static OrthographicCamera camera;
     public static World world;
     private final Box2DDebugRenderer debugRenderer;
+
+    //Manager
     public static MapManager mapManager;
+    //Screens and Stages
     public static GameState gameState;
     public static PauseScreen pauseScreen;
-    public static InputMultiplexer inputMultiplexer;
-    private final PlayerHUD2 PLAYER_HUD;
+    public final PlayerHUD PLAYER_HUD;
 
+    //Input
+    private static  InputManager inputManager;
     public GameScreen(Game2D game) {
         super(game);
         GameScreen.game = game;
-        inputMultiplexer = new InputMultiplexer();
         world = new World(new Vector2(0, 0), true);
-
         world.setContactListener(new GameCollisionListener(game, this));
-
         camera = new OrthographicCamera();
         viewport = new FitViewport(ScreenConfig.screenWidth, ScreenConfig.screenHeight, camera);
         setupViewport(ScreenConfig.screenWidth, ScreenConfig.screenHeight);
-
         player = profileManager.getCurrentPlayer();
 
+        //Map Manager
         mapManager = new MapManager();
-
         mapManager.dispatchMap(new MapExit(player.map, player.position, player.direction));
 
+
+        //Set Camera Angle
         OrthographicCamera hudCamera = new OrthographicCamera();
         hudCamera.setToOrtho(false, ScreenConfig.screenWidth, ScreenConfig.screenHeight);
-//        PLAYER_HUD = new PlayerHUD(hudCamera, player, mapManager);
-        PLAYER_HUD = new PlayerHUD2(player);
+
+        //Set Player HUD
+        PLAYER_HUD = new PlayerHUD(player);
         debugRenderer = new Box2DDebugRenderer();
 
         //Initialize GameState
         gameState = GameState.RUNNING;
 
         //PauseScreen
-        pauseScreen = new PauseScreen(this, game);
+        pauseScreen = new PauseScreen(game);
 
         //Handle multiple input
         //TODO ADD PLAYERHUD input
+        inputManager = new InputManager(this, pauseScreen,PLAYER_HUD);
 
-        inputMultiplexer.addProcessor(pauseScreen);
-        inputMultiplexer.addProcessor(pauseScreen.getStage());
-        inputMultiplexer.addProcessor(stage);
 
-        Gdx.input.setInputProcessor(inputMultiplexer);
+
     }
 
     @Override
@@ -159,6 +162,8 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
         }
     }
 
+
+
     public static class VIEWPORT {
         private static float viewportWidth;
         private static float viewportHeight;
@@ -175,8 +180,7 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
     }
 
     public GameState setGameState(GameState gameState) {
-        this.gameState = gameState;
-
+        GameScreen.gameState = gameState;
         return gameState;
     }
     public enum GameState {

@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Game2D.Game2D;
+import com.mygdx.game.Game2D.Manager.InputManager;
 import com.mygdx.game.Game2D.Manager.ProfileManager;
 import com.mygdx.game.Game2D.Screens.transition.effects.FadeOutTransitionEffect;
 import com.mygdx.game.Game2D.Screens.transition.effects.TransitionEffect;
@@ -24,15 +25,13 @@ import static com.mygdx.game.Game2D.Game2D.profileManager;
 import static com.mygdx.game.Game2D.Manager.ResourceManager.pixel10;
 import static com.mygdx.game.Game2D.Screens.GameScreen.player;
 
-public class PauseScreen extends BaseScreen implements InputProcessor {
+public class PauseScreen extends BaseScreen {
     private Stage stage;
-    private static boolean isPaused = false;
     private Skin skin;
-    private static GameScreen gameScreen;
 
-    public PauseScreen(GameScreen gameScreen, Game2D game) {
+
+    public PauseScreen (Game2D game) {
         super(game);
-        PauseScreen.gameScreen = gameScreen;
         this.stage = new Stage(new ScreenViewport());
         this.skin = new Skin(Gdx.files.internal("data/uiskin.json")); // You need a skin file
 
@@ -63,7 +62,7 @@ public class PauseScreen extends BaseScreen implements InputProcessor {
         resumeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                resumeGame();
+                hide();
             }
         });
 
@@ -105,7 +104,8 @@ public class PauseScreen extends BaseScreen implements InputProcessor {
 
     @Override
     public void pause() {
-
+        stage.act();
+        stage.draw();
     }
 
     @Override
@@ -113,73 +113,12 @@ public class PauseScreen extends BaseScreen implements InputProcessor {
 
     }
 
-    private void resumeGame() {
-        isPaused = false;
-        gameScreen.setGameState(GameScreen.GameState.RUNNING);
-    }
-
+    @Override
     public void show() {
-        gameScreen.setGameState(GameScreen.GameState.PAUSED);
-        isPaused = true;
     }
 
     public void hide() {
-        //TODO BUG WHEN RESUME CAN STILL CLICK ON BUTTONS EVEN THOUGH HIDDEN
-        isPaused = false;
-        gameScreen.setGameState(GameScreen.GameState.RUNNING);
-    }
-
-    @Override
-    public boolean keyDown(int keycode) {
-        if (keycode == Input.Keys.ESCAPE) {
-            if (!isPaused) {
-                show();
-            } else {
-                hide();
-            }
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(float amountX, float amountY) {
-        return false;
+        Game2D.inputManager.switchtoPauseScreen();
     }
 
     public Stage getStage() {
