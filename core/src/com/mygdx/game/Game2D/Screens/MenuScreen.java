@@ -33,6 +33,7 @@ public class MenuScreen extends BaseScreen {
 //        portrait.setPosition(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f, Align.center); // Adjust position as needed
 //        menuStage.addActor(portrait);
 //        Gdx.input.setInputProcessor(menuStage);
+
         menuTable = createTable();
         menuTable.setFillParent(false);
         menuTable.bottom().padBottom(20);
@@ -45,7 +46,6 @@ public class MenuScreen extends BaseScreen {
 
     private void handlePlayButton() {
         Actor newButton =  createImageButton("new_button",  menuTable);
-        newButton.setSize(20,20);
         newButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent even, float x, float y) {

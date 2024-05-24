@@ -4,17 +4,25 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
+import com.mygdx.game.Game2D.Manager.SoundManager;
 import com.mygdx.game.Game2D.Screens.transition.effects.TransitionEffect;
 
 import java.util.ArrayList;
@@ -62,15 +70,37 @@ public class BaseScreen implements Screen{
 
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle(imageUp, imageDown, null, pixel10);
         TextButton button = new TextButton(buttonName, buttonStyle);
+
+        //Sound for hover
+        button.addListener(new InputListener() {
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                //Hover sound
+                if(!SoundManager.buttonSound)
+                {
+                    SoundManager.playSound("hover");
+                    SoundManager.buttonSound = true;
+                }
+            }
+
+
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                //Hover sound
+                SoundManager.buttonSound = false;
+
+
+            }
+        });
+
         button.getLabel().setColor(new Color(79 / 255.f, 79 / 255.f, 117 / 255.f, 1));
 
         return button;
     }
 
     public ImageButton createImageButton(String buttonName, Table table) {
-        TextureRegion buttonRegion = MAINMENU_TEXTURE_ATLAS.findRegion(buttonName);
 
-        if (buttonRegion == null) {
+        TextureRegion buttonUp= MAINMENU_TEXTURE_ATLAS.findRegion(buttonName);
+        TextureRegion buttonDown = MAINMENU_TEXTURE_ATLAS.findRegion(buttonName + "_hover");
+        if (buttonUp == null) {
             Gdx.app.error("createImageButton", "Region not found for button: " + buttonName);
             return null;
         }
@@ -85,21 +115,49 @@ public class BaseScreen implements Screen{
 
 
 
-        int newWidth = (int) (buttonRegion.getRegionWidth() * 0.1f);
-        int newHeight = (int) (buttonRegion.getRegionHeight() * 0.1f);
+        int newWidth = (int) (buttonUp.getRegionWidth() * 0.1f);
+        int newHeight = (int) (buttonUp.getRegionHeight() * 0.1f);
 
-        TextureRegion scaledButtonRegion = new TextureRegion(buttonRegion);
-        scaledButtonRegion.setRegionWidth(newWidth);
-        scaledButtonRegion.setRegionHeight(newHeight);
+//        TextureRegion scaledButtonRegionUp = new TextureRegion(buttonUp);
+//        scaledButtonRegionUp.setRegionWidth(newWidth);
+//        scaledButtonRegionUp.setRegionHeight(newHeight);
+//        TextureRegion scaledButtonRegionDown = new TextureRegion(buttonDown);
+//        scaledButtonRegionDown.setRegionWidth(newWidth);
+
+
 
         ImageButton.ImageButtonStyle buttonStyle = new ImageButton.ImageButtonStyle();
-        buttonStyle.imageUp = new TextureRegionDrawable(buttonRegion); // Set the image for the button
+        buttonStyle.imageUp = new TextureRegionDrawable(buttonUp); // Set the image for the button
         buttonStyle.imageUp.setMinWidth(200);
         buttonStyle.imageUp.setMinHeight(150);
-
+        buttonStyle.imageDown = new TextureRegionDrawable(buttonDown); // Set the image for the button
+        buttonStyle.imageDown.setMinWidth(200);
+        buttonStyle.imageDown.setMinHeight(150);
 
         ImageButton button = new ImageButton(buttonStyle);
 
+
+        button.addListener(new InputListener() {
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                //Hover sound
+                if(!SoundManager.buttonSound)
+                {
+                    SoundManager.playSound("hover");
+                    SoundManager.buttonSound = true;
+                }
+                button.getStyle().imageUp = button.getStyle().imageDown;
+
+            }
+
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                //Hover sound
+                SoundManager.buttonSound = false;
+
+
+                button.getStyle().imageUp = new TextureRegionDrawable(buttonUp);
+                button.getStyle().imageDown = new TextureRegionDrawable(buttonDown);
+            }
+        });
 
 
         table.add(button).pad(10); // Adjust padding as needed
@@ -110,6 +168,14 @@ public class BaseScreen implements Screen{
     public Table createTable() {
         Table table = new Table();
         table.setBounds(0,0, (float) Gdx.graphics.getWidth(), (float) Gdx.graphics.getHeight());
+        table.setDebug(true);
+        return table;
+    }
+
+    public Table createTable(float width, float height)
+    {
+        Table table = new Table();
+        table.setBounds(0,0, width, height);
         return table;
     }
 

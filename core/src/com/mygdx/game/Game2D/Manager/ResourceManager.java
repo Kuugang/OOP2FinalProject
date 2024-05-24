@@ -6,6 +6,7 @@ import com.badlogic.gdx.assets.loaders.MusicLoader;
 import com.badlogic.gdx.assets.loaders.TextureLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -59,6 +60,8 @@ public class ResourceManager {
     public Texture rabite;
     public Texture heroWalkUp;
     public Texture rabiteWalkDown;
+
+    //Sounds
 
     private static AssetManager assetManager = new AssetManager();
 
