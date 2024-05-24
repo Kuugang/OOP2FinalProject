@@ -15,8 +15,6 @@ import com.mygdx.game.Game2D.Screens.GameScreen;
 import com.mygdx.game.Game2D.World.CollisionType;
 import com.mygdx.game.ScreenConfig;
 
-import java.util.ArrayList;
-
 import static com.mygdx.game.Game2D.Game2D.batch;
 import static com.mygdx.game.Game2D.Screens.GameScreen.gameState;
 import static com.mygdx.game.Game2D.Screens.GameScreen.world;
@@ -31,17 +29,12 @@ public class NPC extends Entity {
     Animation<TextureRegion> idleDownAnimation;
     Animation<TextureRegion> idleLeftAnimation;
     Animation<TextureRegion> idleRightAnimation;
-    public boolean isMoving;
-    TextureRegion frame;
-    float stateTime = 0F;
     int length; //Length in seconds in which the entity do a movement
     int movementCounter; //A counter for fixing NPC movement when encountering a collision
-
     public Pattern movement;
 
     public NPC(int length){
         direction = Direction.DOWN;
-        isMoving = false;
         movementCounter = length;
         this.length = length;
         textureAtlas = new TextureAtlas(Gdx.files.internal("atlas/leo.atlas"));
@@ -70,8 +63,7 @@ public class NPC extends Entity {
         frame = idleDownAnimation.getKeyFrame(0);
 
         sprite = new Sprite(rightAnimation.getKeyFrame(0));
-        x = (float) Gdx.graphics.getWidth() / 2;
-        y = (float) Gdx.graphics.getHeight() / 2;
+        position = new Vector2((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
 
         speed = 50;
 
@@ -99,30 +91,31 @@ public class NPC extends Entity {
         if(movementCounter == length * speed)
             newMovement();
         if(movement.getCurrentDirection() == Direction.UP){
-            isMoving = true;
+            setState(State.WALKING);
             boxBody.applyLinearImpulse(new Vector2(0, speed), boxBody.getWorldCenter(), true);
             direction = Direction.UP;
             movementCounter++;
 
         }else if(movement.getCurrentDirection() == Direction.DOWN){
-            isMoving = true;
+            setState(State.WALKING);
             boxBody.applyLinearImpulse(new Vector2(0, -speed), boxBody.getWorldCenter(), true);
             direction = Direction.DOWN;
             movementCounter++;
         }else if(movement.getCurrentDirection() == Direction.LEFT){
-            isMoving = true;
+            setState(State.WALKING);
             boxBody.applyLinearImpulse(new Vector2(-speed, 0), boxBody.getWorldCenter(), true);
             direction = Direction.LEFT;
             movementCounter++;
         }else if(movement.getCurrentDirection() == Direction.RIGHT){
-            isMoving = true;
+            setState(State.WALKING);
             boxBody.applyLinearImpulse(new Vector2(speed, 0), boxBody.getWorldCenter(), true);
             direction = Direction.RIGHT;
             movementCounter++;
         }else {
-            isMoving = false;
+            setState(State.IDLE);
             movementCounter++;
         }
+        position.set(this.boxBody.getPosition().x / ScreenConfig.originalTileSize, this.boxBody.getPosition().y / ScreenConfig.originalTileSize);
     }
 
     public void newMovement(){
@@ -185,12 +178,12 @@ public class NPC extends Entity {
         sprite.setPosition(boxBody.getPosition().x - sprite.getWidth() / 2, boxBody.getPosition().y -
                 sprite.getHeight() / 7);
 
-        if(currentX == sprite.getX() && currentY == sprite.getY() && isMoving)
+        if(currentX == sprite.getX() && currentY == sprite.getY() && state == State.WALKING)
             newMovement();
 
-        stateTime += Gdx.graphics.getDeltaTime();
+        animationStateTime += Gdx.graphics.getDeltaTime();
 
-        if(isMoving)
+        if(state == State.WALKING)
             animation(upAnimation, downAnimation, leftAnimation, rightAnimation);
         else
             animation(idleUpAnimation, idleDownAnimation, idleLeftAnimation, idleRightAnimation);
@@ -207,10 +200,10 @@ public class NPC extends Entity {
     private NPC animation(Animation<TextureRegion> upAnimation, Animation<TextureRegion> downAnimation,
                                Animation<TextureRegion> leftAnimation, Animation<TextureRegion> rightAnimation) {
         switch (direction) {
-            case UP -> frame = upAnimation.getKeyFrame(stateTime, true);
-            case DOWN -> frame = downAnimation.getKeyFrame(stateTime, true);
-            case LEFT -> frame = leftAnimation.getKeyFrame(stateTime, true);
-            case RIGHT -> frame = rightAnimation.getKeyFrame(stateTime, true);
+            case UP -> frame = upAnimation.getKeyFrame(animationStateTime, true);
+            case DOWN -> frame = downAnimation.getKeyFrame(animationStateTime, true);
+            case LEFT -> frame = leftAnimation.getKeyFrame(animationStateTime, true);
+            case RIGHT -> frame = rightAnimation.getKeyFrame(animationStateTime, true);
         }
         return this;
     }

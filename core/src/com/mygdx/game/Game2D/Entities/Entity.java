@@ -8,14 +8,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.Game2D.Entities.NPC.NPC;
-import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
-import com.mygdx.game.Game2D.World.GameMap;
 
 import java.util.ArrayList;
 
@@ -24,12 +22,15 @@ import static com.mygdx.game.Game2D.Screens.GameScreen.player;
 
 public class Entity implements InputProcessor {
     public Vector2 position;
-    public float x, y;
     public Sprite sprite;
+    public TextureRegion frame;
+    public float animationStateTime = 0F;
+
     public String map;
     public float speed;
     public Direction direction;
-    protected Game2D game;
+    public State state = State.IDLE;
+
     public Body boxBody;
     protected ArrayList<String> dialogues;
 
@@ -47,22 +48,6 @@ public class Entity implements InputProcessor {
         DOWN,
         LEFT, STAY;
 
-        static public Direction getRandomNext() {
-            return Direction.values()[MathUtils.random(Direction.values().length - 1)];
-        }
-
-        public Direction getOpposite() {
-            if (this == LEFT) {
-                return RIGHT;
-            } else if (this == RIGHT) {
-                return LEFT;
-            } else if (this == UP) {
-                return DOWN;
-            } else {
-                return UP;
-            }
-        }
-
         public static Direction fromString(String direction) {
             if (direction != null) {
                 try {
@@ -78,6 +63,14 @@ public class Entity implements InputProcessor {
     public enum State {
         IDLE,
         WALKING;
+    }
+
+    public void setState(Entity.State state){
+        this.state = state;
+    }
+
+    public State getState(){
+        return state;
     }
 
     private float timePerCharacter = 0.1f; // Time (in seconds) between each character display
@@ -134,8 +127,8 @@ public class Entity implements InputProcessor {
     }
 
     public void redirection(NPC npc, int length){
-        float npcX = npc.getX(), npcY = npc.getY();
-        float playerX = player.getX(), playerY = player.getY();
+        float npcX = npc.getPosition().x, npcY = npc.getPosition().y;
+        float playerX = player.getPosition().x, playerY = player.getPosition().y;
 
         if(playerY > npcY) {
             if(npc.direction == Direction.UP)
@@ -176,13 +169,17 @@ public class Entity implements InputProcessor {
         return this;
     }
 
-    public float getX(){
-        return boxBody == null ? 0 : boxBody.getPosition().x;
+    public Vector2 getPosition(){
+        return position;
     }
 
-    public float getY(){
-        return boxBody == null ? 0 : boxBody.getPosition().y;
-    }
+//    public float getX(){
+//        return boxBody == null ? 0 : boxBody.getPosition().x;
+//    }
+//
+//    public float getY(){
+//        return boxBody == null ? 0 : boxBody.getPosition().y;
+//    }
 
     public void stopDialogue(){
         finishedDialogue = true;

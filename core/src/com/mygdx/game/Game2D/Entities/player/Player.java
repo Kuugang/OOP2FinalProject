@@ -13,7 +13,6 @@ import com.mygdx.game.Game2D.Entities.NPC.NPC;
 import com.mygdx.game.Game2D.Inventory.Inventory;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
 import com.mygdx.game.Game2D.World.CollisionType;
-import com.mygdx.game.Game2D.World.GameMap;
 import com.mygdx.game.ScreenConfig;
 
 import java.util.List;
@@ -24,15 +23,7 @@ import static com.mygdx.game.Game2D.Screens.GameScreen.*;
 public class Player extends Entity implements Json.Serializable {
     public String username;
     public boolean isCollisionSet;
-    public int hp;
-    public int charisma;
-    public int intelligence;
-    public int agility;
-    public Inventory inventory;
-    public boolean isMoving = false;
     private Vector2 lastMapPosition;
-    TextureRegion frame;
-    float stateTime = 0F;
     public float interactionDistance = 40; //Maximum distance when interacting with other entities
 
     public Player(){
@@ -85,9 +76,12 @@ public class Player extends Entity implements Json.Serializable {
 
 
     public void update(){
-        isMoving = Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.S) ||
-            Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.W);
-        //TODO FIX SENDING PACKETS
+        if ((Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.W))) {
+            setState(State.WALKING);
+        } else {
+            setState(State.IDLE);
+        }
+
         if(Gdx.input.isKeyPressed(Input.Keys.A)){
             direction = Direction.LEFT;
             boxBody.applyLinearImpulse(new Vector2(-speed, 0), boxBody.getWorldCenter(), true);
@@ -95,7 +89,6 @@ public class Player extends Entity implements Json.Serializable {
         if(Gdx.input.isKeyPressed(Input.Keys.D)){
             direction = Direction.RIGHT;
             boxBody.applyLinearImpulse(new Vector2(speed, 0), boxBody.getWorldCenter(), true);
-
         }
         if(Gdx.input.isKeyPressed(Input.Keys.W)){
             direction = Direction.UP;
@@ -136,20 +129,20 @@ public class Player extends Entity implements Json.Serializable {
     }
 
     public void render(){
-        stateTime += Gdx.graphics.getDeltaTime();
-        if(isMoving){
+        animationStateTime += Gdx.graphics.getDeltaTime();
+        if(state == State.WALKING){
             switch (direction) {
-                case UP -> frame = resourceManager.upAnimation.getKeyFrame(stateTime, true);
-                case DOWN -> frame = resourceManager.downAnimation.getKeyFrame(stateTime, true);
-                case LEFT -> frame = resourceManager.leftAnimation.getKeyFrame(stateTime, true);
-                case RIGHT -> frame = resourceManager.rightAnimation.getKeyFrame(stateTime, true);
+                case UP -> frame = resourceManager.upAnimation.getKeyFrame(animationStateTime, true);
+                case DOWN -> frame = resourceManager.downAnimation.getKeyFrame(animationStateTime, true);
+                case LEFT -> frame = resourceManager.leftAnimation.getKeyFrame(animationStateTime, true);
+                case RIGHT -> frame = resourceManager.rightAnimation.getKeyFrame(animationStateTime, true);
             }
         }else{
             switch (direction) {
-                case UP -> frame = resourceManager.idleUpAnimation.getKeyFrame(stateTime, true);
-                case DOWN -> frame = resourceManager.idleDownAnimation.getKeyFrame(stateTime, true);
-                case LEFT -> frame = resourceManager.idleLeftAnimation.getKeyFrame(stateTime, true);
-                case RIGHT -> frame = resourceManager.idleRightAnimation.getKeyFrame(stateTime, true);
+                case UP -> frame = resourceManager.idleUpAnimation.getKeyFrame(animationStateTime, true);
+                case DOWN -> frame = resourceManager.idleDownAnimation.getKeyFrame(animationStateTime, true);
+                case LEFT -> frame = resourceManager.idleLeftAnimation.getKeyFrame(animationStateTime, true);
+                case RIGHT -> frame = resourceManager.idleRightAnimation.getKeyFrame(animationStateTime, true);
             }
         }
 
@@ -160,7 +153,7 @@ public class Player extends Entity implements Json.Serializable {
         batch.begin();
         sprite.draw(batch);
         batch.end();
-        isMoving = false;
+        setState(State.IDLE);
 
         if(Gdx.input.isKeyPressed(Input.Keys.F))
             for(Entity e: mapManager.currentMap.npcs)
@@ -189,10 +182,6 @@ public class Player extends Entity implements Json.Serializable {
     public Player setUsername(String username) {
         this.username = username;
         return this;
-    }
-
-    public void setIsMoving(boolean isMoving){
-        this.isMoving = isMoving;
     }
 
     public void setMap(String map){

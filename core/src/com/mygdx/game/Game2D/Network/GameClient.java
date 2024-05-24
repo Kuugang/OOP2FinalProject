@@ -77,32 +77,32 @@ public class GameClient extends Thread {
 //                GameScreen.otherPlayers.remove(((Packet01Disconnect) packet).getUsername());
                 break;
             case MOVE:
-                packet = new Packet02Move(data);
-
-                if(Objects.equals(((Packet02Move) packet).getUsername(), GameScreen.player.getUsername()))
-                    return;
-
-                String username = ((Packet02Move) packet).getUsername();
-
-                PlayerMP player = otherPlayers.get(username);
-                player.setDirection(((Packet02Move) packet).getDirection());
-
-                switch (((Packet02Move) packet).getDirection()){
-                    case LEFT -> {
-                        player.boxBody.applyLinearImpulse(new Vector2(-player.speed, 0), player.boxBody.getWorldCenter(), true);
-                    }
-                    case RIGHT -> {
-                        player.boxBody.applyLinearImpulse(new Vector2(player.speed, 0), player.boxBody.getWorldCenter(), true);
-                    }
-                    case UP -> {
-                        player.boxBody.applyLinearImpulse(new Vector2(0, player.speed), player.boxBody.getWorldCenter(), true);
-                    }
-                    case DOWN -> {
-                        player.boxBody.applyLinearImpulse(new Vector2(0, -player.speed), player.boxBody.getWorldCenter(), true);
-                    }
-                }
-                player.setIsMoving(true);
-                player.setPosition(new Vector2(((Packet02Move) packet).getX(), ((Packet02Move) packet).getY()));
+//                packet = new Packet02Move(data);
+//
+//                if(Objects.equals(((Packet02Move) packet).getUsername(), GameScreen.player.getUsername()))
+//                    return;
+//
+//                String username = ((Packet02Move) packet).getUsername();
+//
+//                PlayerMP player = otherPlayers.get(username);
+//                player.setDirection(((Packet02Move) packet).getDirection());
+//
+//                switch (((Packet02Move) packet).getDirection()){
+//                    case LEFT -> {
+//                        player.boxBody.applyLinearImpulse(new Vector2(-player.speed, 0), player.boxBody.getWorldCenter(), true);
+//                    }
+//                    case RIGHT -> {
+//                        player.boxBody.applyLinearImpulse(new Vector2(player.speed, 0), player.boxBody.getWorldCenter(), true);
+//                    }
+//                    case UP -> {
+//                        player.boxBody.applyLinearImpulse(new Vector2(0, player.speed), player.boxBody.getWorldCenter(), true);
+//                    }
+//                    case DOWN -> {
+//                        player.boxBody.applyLinearImpulse(new Vector2(0, -player.speed), player.boxBody.getWorldCenter(), true);
+//                    }
+//                }
+//                player.setIsMoving(true);
+//                player.setPosition(new Vector2(((Packet02Move) packet).getX(), ((Packet02Move) packet).getY()));
                 break;
         }
     }
