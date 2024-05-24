@@ -37,12 +37,13 @@ public abstract class GameMap {
     public ArrayList <Body> bodies = new ArrayList<>();
     public ArrayList<NPC> npcs = new ArrayList<>();
     protected int layers;
-    TiledMapTileLayer FOREGROUND_LAYER;
+    TiledMapTileLayer FOREGROUND_LAYER, FOREGROUND_LAYER1;
 
     public GameMap setMap(String path) {
         this.tiledMap = new TmxMapLoader().load(path);
         layers = tiledMap.getLayers().getCount();
         FOREGROUND_LAYER = (TiledMapTileLayer) tiledMap.getLayers().get("FOREGROUND_LAYER");
+        FOREGROUND_LAYER1 = (TiledMapTileLayer) tiledMap.getLayers().get("FOREGROUND_LAYER1");
         return this;
     }
 
@@ -143,7 +144,7 @@ public abstract class GameMap {
 
         tiledMapRenderer.setView(camera);
         for (int i = 0; i < layers; i++) {
-            if (tiledMap.getLayers().get(i) == FOREGROUND_LAYER) {
+            if (tiledMap.getLayers().get(i) == FOREGROUND_LAYER || tiledMap.getLayers().get(i) == FOREGROUND_LAYER1) {
                 break;
             }
             tiledMapRenderer.render(new int[]{i});
@@ -152,7 +153,7 @@ public abstract class GameMap {
         player.render();
 
         for (int i = 0; i < layers; i++) {
-            if (tiledMap.getLayers().get(i) == FOREGROUND_LAYER) {
+            if (tiledMap.getLayers().get(i) == FOREGROUND_LAYER || tiledMap.getLayers().get(i) == FOREGROUND_LAYER1) {
                 tiledMapRenderer.render(new int[]{i});
             }
         }

@@ -23,7 +23,7 @@ public class MapManager {
         tiledMapRenderer = new OrthogonalTiledMapRenderer(null);
         maps.put("ROOM", new ROOM().setMap("Game2D/Maps/HOUSE/HIS_HOUSE.tmx").setMapName("ROOM"));
 
-        maps.put("GLE202", new GLE_202().setMap("Game2D/Maps/GLE202/GLE202.tmx").setMapName("GLE202"));
+        maps.put("GLE_202", new GLE_202().setMap("Game2D/Maps/GLE202/GLE202.tmx").setMapName("GLE_202"));
         maps.put("GLE_CR", new GLE_CR().setMap("Game2D/Maps/COMMON_CR/GLE_CR.tmx").setMapName("GLE_CR"));
         maps.put("GLE_HALLWAY", new GLE_HALLWAY().setMap("Game2D/Maps/GLE_HALLWAY/GLE_HALLWAY.tmx").setMapName("GLE_HALL"));
 
