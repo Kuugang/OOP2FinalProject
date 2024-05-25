@@ -29,10 +29,12 @@ public class NPC extends Entity {
     Animation<TextureRegion> idleRightAnimation;
     int length; //Length in seconds in which the entity do a movement
     int movementCounter; //A counter for fixing NPC movement when encountering a collision
+    public boolean setToStay = false;
 
     public NPC(int length){
+        state = State.WALKING;
         direction = Direction.DOWN;
-        movementCounter = length;
+        movementCounter = 0;
         this.length = length;
         textureAtlas = new TextureAtlas(Gdx.files.internal("atlas/leo.atlas"));
 
@@ -56,13 +58,12 @@ public class NPC extends Entity {
         idleLeftAnimation.setPlayMode(Animation.PlayMode.NORMAL);
         idleRightAnimation.setPlayMode(Animation.PlayMode.NORMAL);
 
-        direction = Direction.DOWN;
         frame = idleDownAnimation.getKeyFrame(0);
 
         sprite = new Sprite(rightAnimation.getKeyFrame(0));
         position = new Vector2((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
 
-        speed = 50;
+        speed = 0.001F;
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -85,36 +86,27 @@ public class NPC extends Entity {
     }
 
     public void move(){
-        if(movementCounter == length * speed)
+        if(movementCounter >= length)
             newMovement();
 
-
+        state = State.WALKING;
         if(direction == Direction.UP){
-            setState(State.WALKING);
-            boxBody.applyLinearImpulse(new Vector2(0, speed), boxBody.getWorldCenter(), true);
+            boxBody.applyLinearImpulse(new Vector2(0, speed / 2), boxBody.getWorldCenter(), true);
             direction = Direction.UP;
-            movementCounter++;
-
         }else if(direction == Direction.DOWN){
-            setState(State.WALKING);
-            boxBody.applyLinearImpulse(new Vector2(0, -speed), boxBody.getWorldCenter(), true);
+            boxBody.applyLinearImpulse(new Vector2(0, -speed / 2), boxBody.getWorldCenter(), true);
             direction = Direction.DOWN;
-            movementCounter++;
         }else if(direction == Direction.LEFT){
-            setState(State.WALKING);
-            boxBody.applyLinearImpulse(new Vector2(-speed, 0), boxBody.getWorldCenter(), true);
+            boxBody.applyLinearImpulse(new Vector2(-speed / 2, 0), boxBody.getWorldCenter(), true);
             direction = Direction.LEFT;
         }else if(direction == Direction.RIGHT){
-            setState(State.WALKING);
-            boxBody.applyLinearImpulse(new Vector2(speed, 0), boxBody.getWorldCenter(), true);
+            boxBody.applyLinearImpulse(new Vector2(speed / 2, 0), boxBody.getWorldCenter(), true);
             direction = Direction.RIGHT;
-        }else {
-            setState(State.IDLE);
-        }
+        }else
+            state = State.IDLE;
 
         movementCounter++;
-        position.set(this.boxBody.getPosition().x / ScreenConfig.originalTileSize, this.boxBody.getPosition().y /
-                ScreenConfig.originalTileSize);
+
     }
 
     public void newMovement(){
@@ -130,46 +122,32 @@ public class NPC extends Entity {
                 case 4 -> direction = Direction.STAY;
             }
         }
-        if(direction == Direction.STAY)
-            length *= (int) speed;
+
+        state = (direction == Direction.STAY ? State.IDLE : State.WALKING);
+
         movementCounter = 0;
     }
 
 
-    public void setToStay(int length){
-        direction = Direction.STAY;
+    public void setToStay(){
         movementCounter = 0;
-        this.length = length * (int)speed;
+        setToStay = true;
     }
 
     public NPC render(){
         if(gameState == GameScreen.GameState.PAUSED)
             return this;
 
-        move();
+        position.set(this.boxBody.getPosition().x / ScreenConfig.originalTileSize, this.boxBody.getPosition().y /
+                ScreenConfig.originalTileSize);
 
-/*        if(movement.getCurrentDirection() == Direction.STAY)
-            movement.nextDirection();
-        else if(((movement.getCurrentDirection() == Direction.LEFT || movement.getCurrentDirection() == Direction.RIGHT)
-                && (int)boxBody.getPosition().x % ScreenConfig.tileSize == 0) || ((movement.getCurrentDirection() ==
-                Direction.UP || movement.getCurrentDirection() == Direction.DOWN)
-                && (int)boxBody.getPosition().y % ScreenConfig.tileSize == 0)){
-            movement.nextDirection();
-        }*/
-
-        if(movementCounter >= length)
-            newMovement();
-
-        float currentX = sprite.getX(), currentY = sprite.getY();
         sprite.setPosition(boxBody.getPosition().x - sprite.getWidth() / 2, boxBody.getPosition().y -
                 sprite.getHeight() / 7);
 
-        if(currentX == sprite.getX() && currentY == sprite.getY() && state == State.WALKING)
-            newMovement();
+        animationStateTime += Gdx.graphics.getDeltaTime() /
+                ((float) Gdx.graphics.getFramesPerSecond() / ((float) Gdx.graphics.getFramesPerSecond() / 10));
 
-        animationStateTime += Gdx.graphics.getDeltaTime();
-
-        if(state == State.WALKING)
+        if(state == State.WALKING && !setToStay)
             animation(upAnimation, downAnimation, leftAnimation, rightAnimation);
         else
             animation(idleUpAnimation, idleDownAnimation, idleLeftAnimation, idleRightAnimation);

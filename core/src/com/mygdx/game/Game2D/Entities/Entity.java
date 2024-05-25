@@ -74,11 +74,12 @@ public class Entity implements InputProcessor {
         return state;
     }
 
-    private float timePerCharacter = 0.1f; // Time (in seconds) between each character display
+    private float timePerCharacter = 0.5f; // Time (in seconds) between each character display
     private float elapsedTime = 0f;
     private int charactersToDisplay = 0;
     private String dialogue;
     public boolean finishedDialogue = true;
+
 
     public void doDialogue(){
         if(!finishedDialogue) {
@@ -111,13 +112,14 @@ public class Entity implements InputProcessor {
                 if(charactersToDisplay > dialogue.length())
                     charactersToDisplay = dialogue.length();
 
-                if(this instanceof NPC)
-                    redirection((NPC) this, dialogue.length() - charactersToDisplay + 1);
+                if(this instanceof NPC) {
+                    ((NPC)this).setToStay = true;
+                    redirection((NPC) this);
+                }
             }else {
                 finishedDialogue = true;
                 if(this instanceof NPC){
-                    ((NPC) this).newMovement();
-                    setState(State.IDLE);
+                    ((NPC) this).setToStay = false;
                 }
             }
 
@@ -127,7 +129,7 @@ public class Entity implements InputProcessor {
         }
     }
 
-    public void redirection(NPC npc, int length){
+    public void redirection(NPC npc){
         float npcX = npc.getPosition().x, npcY = npc.getPosition().y;
         float playerX = player.getPosition().x, playerY = player.getPosition().y;
 
@@ -149,12 +151,11 @@ public class Entity implements InputProcessor {
             npc.direction = Direction.DOWN;
         }
 
-        npc.setToStay(length * 1000);
+        npc.setToStay();
     }
 
     public Entity setDialogue(){
-        RandomXS128 random = new RandomXS128();
-        return setDialogue(dialogues.get(Math.abs(random.nextInt() % dialogues.size())));
+        return setDialogue(dialogues.get(Math.abs(new RandomXS128().nextInt() % dialogues.size())));
     }
 
     public Entity setDialogue(int index){
@@ -173,14 +174,6 @@ public class Entity implements InputProcessor {
     public Vector2 getPosition(){
         return position;
     }
-
-//    public float getX(){
-//        return boxBody == null ? 0 : boxBody.getPosition().x;
-//    }
-//
-//    public float getY(){
-//        return boxBody == null ? 0 : boxBody.getPosition().y;
-//    }
 
     public void stopDialogue(){
         finishedDialogue = true;

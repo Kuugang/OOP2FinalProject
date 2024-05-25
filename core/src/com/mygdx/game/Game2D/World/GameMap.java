@@ -38,10 +38,11 @@ public abstract class GameMap {
     public ArrayList <Body> bodies = new ArrayList<>();
     protected int layers;
     TiledMapTileLayer FOREGROUND_LAYER, FOREGROUND_LAYER1;
-    public NPCManager npcManager = new NPCManager();
+    public NPCManager npcManager;
 
     public GameMap(String mapName){
         this.mapName = mapName;
+        npcManager = new NPCManager();
     }
 
     public GameMap setMap(String path) {
