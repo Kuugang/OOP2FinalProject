@@ -5,7 +5,6 @@ import com.mygdx.game.Game2D.Entities.NPC.NPC;
 import com.mygdx.game.Game2D.Threads.NPCRunnable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
     This class will be for managing npc movements with threads.
@@ -15,7 +14,9 @@ public class NPCManager {
     private final NPCRunnable[] activeNPCRunnable;
     public NPCManager() {
         activeNPCRunnable = new NPCRunnable[Runtime.getRuntime().availableProcessors()];
-        Arrays.fill(activeNPCRunnable, new NPCRunnable());
+
+        for(int i = 0; i < activeNPCRunnable.length; i++)
+            activeNPCRunnable[i] = new NPCRunnable();
     }
 
     public NPCManager addNPC(NPC npc) {
@@ -41,6 +42,7 @@ public class NPCManager {
             }else
                 break;
         }
+
         return this;
     }
 
