@@ -68,5 +68,6 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx-ai:$aiVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         implementation "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+        implementation group: 'org.postgresql', name: 'postgresql', version: '42.7.3'
     }
 }

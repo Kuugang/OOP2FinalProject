@@ -4,19 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -28,7 +24,7 @@ import com.mygdx.game.Game2D.Screens.transition.effects.TransitionEffect;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mygdx.game.Game2D.Manager.ResourceManager.MAINMENU_TEXTURE_ATLAS;
+import static com.mygdx.game.Game2D.Manager.ResourceManager.BUTTONS_TEXTURE_ATLAS;
 
 
 public class BaseScreen implements Screen{
@@ -66,8 +62,6 @@ public class BaseScreen implements Screen{
         TextureRegionDrawable imageUp = new TextureRegionDrawable(playButtons[0][0]);
         TextureRegionDrawable imageDown = new TextureRegionDrawable(playButtons[1][0]);
 
-
-
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle(imageUp, imageDown, null, pixel10);
         TextButton button = new TextButton(buttonName, buttonStyle);
 
@@ -81,7 +75,6 @@ public class BaseScreen implements Screen{
                     SoundManager.buttonSound = true;
                 }
             }
-
 
             public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
                 //Hover sound
@@ -97,78 +90,48 @@ public class BaseScreen implements Screen{
     }
 
     public ImageButton createImageButton(String buttonName, Table table) {
+            TextureRegion buttonUp = BUTTONS_TEXTURE_ATLAS.findRegion(buttonName);
 
-        TextureRegion buttonUp= MAINMENU_TEXTURE_ATLAS.findRegion(buttonName);
-        TextureRegion buttonDown = MAINMENU_TEXTURE_ATLAS.findRegion(buttonName + "_hover");
-        if (buttonUp == null) {
-            Gdx.app.error("createImageButton", "Region not found for button: " + buttonName);
-            return null;
-        }
+            if (buttonUp == null) {
+                Gdx.app.error("createImageButton", "Region not found for button: " + buttonName);
+                return null;
+            }
 
-//
-//        int newWidth = (int) (buttonRegion.getRegionWidth() * 50 );
-//        int newHeight = (int) (buttonRegion.getRegionHeight() * 50);
-//
-//        // Set the new size for the TextureRegion
-//        buttonRegion.setRegionWidth(newWidth);
-//        buttonRegion.setRegionHeight(newHeight);
+            ImageButton.ImageButtonStyle buttonStyle = new ImageButton.ImageButtonStyle();
+            buttonStyle.imageUp = new TextureRegionDrawable(buttonUp);
 
+            ImageButton button = new ImageButton(buttonStyle);
+            button.setTransform(true);
 
+            button.setOrigin(button.getWidth() / 2, button.getHeight() / 2);
 
-        int newWidth = (int) (buttonUp.getRegionWidth() * 0.1f);
-        int newHeight = (int) (buttonUp.getRegionHeight() * 0.1f);
-
-//        TextureRegion scaledButtonRegionUp = new TextureRegion(buttonUp);
-//        scaledButtonRegionUp.setRegionWidth(newWidth);
-//        scaledButtonRegionUp.setRegionHeight(newHeight);
-//        TextureRegion scaledButtonRegionDown = new TextureRegion(buttonDown);
-//        scaledButtonRegionDown.setRegionWidth(newWidth);
-
-
-
-        ImageButton.ImageButtonStyle buttonStyle = new ImageButton.ImageButtonStyle();
-        buttonStyle.imageUp = new TextureRegionDrawable(buttonUp); // Set the image for the button
-        buttonStyle.imageUp.setMinWidth(200);
-        buttonStyle.imageUp.setMinHeight(150);
-        buttonStyle.imageDown = new TextureRegionDrawable(buttonDown); // Set the image for the button
-        buttonStyle.imageDown.setMinWidth(200);
-        buttonStyle.imageDown.setMinHeight(150);
-
-        ImageButton button = new ImageButton(buttonStyle);
-
-
-        button.addListener(new InputListener() {
-            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                //Hover sound
-                if(!SoundManager.buttonSound)
-                {
-                    SoundManager.playSound("hover");
-                    SoundManager.buttonSound = true;
+            button.addListener(new InputListener() {
+                @Override
+                public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                    // Hover sound
+                    if (!SoundManager.buttonSound) {
+                        SoundManager.playSound("hover");
+                        SoundManager.buttonSound = true;
+                    }
+                    button.setScale(1.1F);
                 }
-                button.getStyle().imageUp = button.getStyle().imageDown;
 
-            }
+                @Override
+                public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                    SoundManager.buttonSound = false;
+                    button.setScale(1.0F);
+                }
+            });
 
-            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                //Hover sound
-                SoundManager.buttonSound = false;
+            table.add(button).pad(10);
 
-
-                button.getStyle().imageUp = new TextureRegionDrawable(buttonUp);
-                button.getStyle().imageDown = new TextureRegionDrawable(buttonDown);
-            }
-        });
-
-
-        table.add(button).pad(10); // Adjust padding as needed
-
-        return button;
+            return button;
     }
 
     public Table createTable() {
         Table table = new Table();
         table.setBounds(0,0, (float) Gdx.graphics.getWidth(), (float) Gdx.graphics.getHeight());
-        table.setDebug(true);
+//        table.setDebug(true);
         return table;
     }
 

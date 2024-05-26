@@ -29,18 +29,12 @@ public class MenuScreen extends BaseScreen {
         super(game);
 //        super.musicTheme = MENU_THEME;
 
-//        portrait = new Portrait();
-//        portrait.setPosition(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f, Align.center); // Adjust position as needed
-//        menuStage.addActor(portrait);
-//        Gdx.input.setInputProcessor(menuStage);
-
         menuTable = createTable();
         menuTable.setFillParent(false);
         menuTable.bottom().padBottom(20);
 
         handlePlayButton();
         handleLoadButton();
-        handleMultiplayerButton();
         handleExitButton();
     }
 
@@ -55,23 +49,6 @@ public class MenuScreen extends BaseScreen {
                 setScreenWithTransition(
                         (BaseScreen)game.getScreen(),
                         new MenuNewGameScreen(game, (BaseScreen)game.getScreen(), resourceManager),
-                        effects
-                );
-            }
-        });
-
-    }
-
-    private void handleMultiplayerButton(){
-        Actor multiPlayerButton =  createImageButton("online_button", menuTable);
-        multiPlayerButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent even, float x, float y) {
-                ArrayList<TransitionEffect> effects = new ArrayList<>();
-                effects.add(new FadeOutTransitionEffect(1F));
-                setScreenWithTransition(
-                        (BaseScreen) game.getScreen(),
-                        new MenuNewMultiplayerScreen(game, (BaseScreen) game.getScreen(), resourceManager),
                         effects
                 );
             }

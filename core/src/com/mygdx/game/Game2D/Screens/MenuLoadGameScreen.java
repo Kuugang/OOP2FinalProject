@@ -1,13 +1,10 @@
 package com.mygdx.game.Game2D.Screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Game2D.Entities.player.Player;
@@ -30,6 +27,7 @@ public class MenuLoadGameScreen extends BaseScreen {
     private BaseScreen previousScreen;
     private List listItems;
     private float stateTime;
+    private Dialog cloudAuthDialog;
 
     public MenuLoadGameScreen(Game2D game, BaseScreen previousScreen, ResourceManager resourceManager) {
         super(game);
@@ -51,7 +49,10 @@ public class MenuLoadGameScreen extends BaseScreen {
 
         createProfileList();
         handleLoadButton();
+        handleCloudUploadButton();
+        handleCloudDownloadButton();
         handleLoadBackButton();
+        createCloudAuthDialog();
     }
 
     private void createProfileList() {
@@ -92,6 +93,133 @@ public class MenuLoadGameScreen extends BaseScreen {
                 profileManager.loadProfile(username);
 
                 setScreenWithTransition((BaseScreen)game.getScreen(), new GameScreen(game), new ArrayList<>());
+            }
+        });
+    }
+
+
+    private void createCloudAuthDialog() {
+        cloudAuthDialog = new Dialog("Login/Register", ResourceManager.skin);
+
+        cloudAuthDialog.setKeepWithinStage(true);
+        cloudAuthDialog.setModal(true);
+        cloudAuthDialog.setMovable(false);
+        cloudAuthDialog.row();
+
+        Label usernameLabel = new Label("Username:", ResourceManager.skin);
+        TextField usernameField = new TextField("", ResourceManager.skin);
+
+        Label passwordLabel = new Label("Password:", ResourceManager.skin);
+        TextField passwordField = new TextField("", ResourceManager.skin);
+        passwordField.setPasswordMode(true);
+        passwordField.setPasswordCharacter('*');
+
+        cloudAuthDialog.getContentTable().add(usernameLabel).pad(5);
+        cloudAuthDialog.getContentTable().row();
+        cloudAuthDialog.getContentTable().add(usernameField).width(200).pad(5);
+        cloudAuthDialog.getContentTable().row();
+        cloudAuthDialog.getContentTable().add(passwordLabel).pad(5);
+        cloudAuthDialog.getContentTable().row();
+        cloudAuthDialog.getContentTable().add(passwordField).width(200).pad(5);
+        cloudAuthDialog.getContentTable().row();
+
+        Label resultLabel = new Label("", ResourceManager.skin);
+        cloudAuthDialog.getContentTable().add(resultLabel).colspan(2).pad(5);
+        cloudAuthDialog.getContentTable().row();
+
+        Table buttonTable = new Table();
+
+        Actor loginButton = createButton("Login");
+        loginButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                String username = usernameField.getText();
+                String password = passwordField.getText();
+                String result = profileManager.cloudLogin(username, password);
+                resultLabel.setText(result);
+            }
+        });
+        buttonTable.add(loginButton).pad(5);
+
+        Actor registerButton = createButton("Register");
+        registerButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                String username = usernameField.getText();
+                String password = passwordField.getText();
+                String result = profileManager.cloudRegister(username, password);
+                resultLabel.setText(result);
+            }
+        });
+        buttonTable.add(registerButton).pad(5);
+
+        Actor cancelButton = createButton("Cancel");
+        cancelButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                cloudAuthDialog.hide();
+            }
+        });
+        buttonTable.add(cancelButton).pad(5);
+
+        cloudAuthDialog.getContentTable().add(buttonTable).colspan(2).pad(10);
+        cloudAuthDialog.row();
+    }
+
+
+    private void handleCloudUploadButton() {
+        ImageButton imageButton = createImageButton("cloud_upload", bottomTable);
+
+        imageButton.addListener(new ClickListener() {
+            @Override
+            public void clicked (InputEvent event, float x, float y) {
+                if(!profileManager.getPreferences().contains("cloud_id")){
+                    cloudAuthDialog.show(loadStage);
+                }else{
+                    boolean status = profileManager.cloudProfilesUpload();
+
+                    Dialog dialog = new Dialog("Upload Status", ResourceManager.skin);
+                    if (status) {
+                        dialog.text("Upload Successful");
+                    } else {
+                        dialog.text("Upload Failed");
+                    }
+                    dialog.button("OK", true);
+                    dialog.show(loadStage);
+                }
+            }
+        });
+    }
+
+    private void handleCloudDownloadButton() {
+        ImageButton imageButton = createImageButton("cloud_download", bottomTable);
+
+        imageButton.addListener(new ClickListener() {
+            @Override
+            public void clicked (InputEvent event, float x, float y) {
+                if(!profileManager.getPreferences().contains("cloud_id")){
+                    cloudAuthDialog.show(loadStage);
+                }else{
+                    boolean status = profileManager.cloudProfilesDownload();
+                    Dialog dialog = new Dialog("Download Status", ResourceManager.skin);
+                    if (status) {
+                        dialog.text("Profiles downloaded");
+
+                        ArrayList<Player> profiles = profileManager.getProfiles();
+
+                        Array<String> list = new Array<>();
+                        for (Player p: profiles) {
+                            list.add(p.username);
+                        }
+
+                        listItems.setItems(list);
+
+                    } else {
+                        dialog.text("Download failed");
+                    }
+                    dialog.button("OK", true);
+                    dialog.show(loadStage);
+                }
             }
         });
     }

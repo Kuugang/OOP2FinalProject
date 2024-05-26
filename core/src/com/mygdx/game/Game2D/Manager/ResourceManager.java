@@ -46,8 +46,8 @@ public class ResourceManager {
     public Pixmap cursor;
 
     // BUTTON
-    public final static String MAINMENU_TEXTURE_ATLAS_PATH = "skins/mainmenu/mainmenu.atlas";
-    public static TextureAtlas MAINMENU_TEXTURE_ATLAS = new TextureAtlas(MAINMENU_TEXTURE_ATLAS_PATH);
+    public final static String BUTTONS_TEXTURE_ATLAS_PATH = "skins/buttons/buttonsTexture.atlas";
+    public static TextureAtlas BUTTONS_TEXTURE_ATLAS = new TextureAtlas(BUTTONS_TEXTURE_ATLAS_PATH);
     public TextureRegion[][] button;
 
     // FONT
@@ -55,11 +55,6 @@ public class ResourceManager {
 
     // SETTINGS
     public static Skin skin;
-
-    // ENTITIES
-    public Texture rabite;
-    public Texture heroWalkUp;
-    public Texture rabiteWalkDown;
 
     //Sounds
 
@@ -103,18 +98,6 @@ public class ResourceManager {
         idleLeftAnimation.setPlayMode(Animation.PlayMode.NORMAL);
         idleRightAnimation.setPlayMode(Animation.PlayMode.NORMAL);
 
-
-
-
-//        // IMAGES
-//        assetManager.load("asset/background/natureBackground_frames_sheet.png", Texture.class);
-//        assetManager.load("asset/background/battleBackground_meadow.png", Texture.class);
-//
-//        // ENTITIES
-//        assetManager.load("entities/hero/hero_1_walking_up.png", Texture.class);
-//
-//        assetManager.finishLoading();
-//
         atlas = assetManager.get("atlas/textures.atlas", TextureAtlas.class);
         cursor = new Pixmap(Gdx.files.internal("tool/cursor.png"));
 //
@@ -129,9 +112,6 @@ public class ResourceManager {
 
 //        // SETTINGS
         skin = new Skin(Gdx.files.internal("data/uiskin.json"));
-//
-//        // ENTITIES
-//        heroWalkUp = assetManager.get("entities/hero/hero_1_walking_up.png");
     }
 
     public static ResourceManager getInstance(){
