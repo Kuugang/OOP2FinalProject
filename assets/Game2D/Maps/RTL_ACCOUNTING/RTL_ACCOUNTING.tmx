@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="99" height="67" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="128">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="99" height="67" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="137">
  <tileset firstgid="1" source="../../TSX FILES/FIRST FLOOR.tsx"/>
  <tileset firstgid="4001" source="../../TSX FILES/RTL_FINAL_FLOOR1.tsx"/>
  <tileset firstgid="10634" source="LAYER1.tsx"/>
@@ -420,6 +420,26 @@
   </object>
   <object id="127" x="1889.33" y="649.333">
    <polygon points="0,0 62,1.33333 61.3333,126 48,140.667 11.3333,140 0,126.667"/>
+  </object>
+  <object id="130" x="2294.67" y="715.667" width="9.33333" height="127"/>
+  <object id="131" x="2306" y="715.333">
+   <polygon points="0,0 -1,21 55.3333,21.6667"/>
+  </object>
+  <object id="132" x="2306" y="836">
+   <polygon points="0,0 0.333333,8 54.3333,21.6667 55.3333,-0.666667"/>
+  </object>
+  <object id="134" x="2532.67" y="672.667" width="83.3333" height="26.6667"/>
+  <object id="135" x="2694" y="672.667" width="9.33333" height="30"/>
+  <object id="136" x="2112" y="1887.75" width="92.5" height="12.25"/>
+ </objectgroup>
+ <objectgroup id="4" name="EXIT_LAYER">
+  <object id="129" x="2306" y="738" width="58" height="96">
+   <properties>
+    <property name="nextMap" value="RTL_THIRD"/>
+    <property name="playerDirection" value="RIGHT"/>
+    <property name="playerX" type="float" value="73.5"/>
+    <property name="playerY" type="float" value="28"/>
+   </properties>
   </object>
  </objectgroup>
 </map>

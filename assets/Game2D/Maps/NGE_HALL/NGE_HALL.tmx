@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="90" height="60" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="123">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="90" height="60" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="126">
  <tileset firstgid="1" source="(LAYER1) NGE_HALL_STUDY-TEST.tsx"/>
  <tileset firstgid="2801" source="(LAYER1) NGE_HALL_STUDY.tsx"/>
  <tileset firstgid="8201" source="../../TSX FILES/FULL_INTERIOR.tsx"/>
@@ -184,6 +184,14 @@
     <property name="nextMap" value="NGE_CR"/>
     <property name="playerDirection" value="RIGHT"/>
     <property name="playerX" type="float" value="0.5"/>
+    <property name="playerY" type="float" value="1"/>
+   </properties>
+  </object>
+  <object id="123" x="2657" y="542" width="61" height="65">
+   <properties>
+    <property name="nextMap" value="RTL_ACCOUNTING"/>
+    <property name="playerDirection" value="UP"/>
+    <property name="playerX" type="float" value="35"/>
     <property name="playerY" type="float" value="1"/>
    </properties>
   </object>
