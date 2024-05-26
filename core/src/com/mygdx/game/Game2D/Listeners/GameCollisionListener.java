@@ -40,6 +40,7 @@ public class GameCollisionListener implements ContactListener {
                 }
                 player.setLastMapPosition(new Vector2(playerX, playerY));
                 mapManager.dispatchMap(mapExit);
+
             }
         }
 
