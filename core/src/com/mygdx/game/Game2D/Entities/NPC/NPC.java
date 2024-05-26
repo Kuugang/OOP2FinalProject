@@ -71,6 +71,7 @@ public class NPC extends Entity {
         boxBody = world.createBody(bodyDef);
         boxBody.setLinearDamping(50f);
 
+
         PolygonShape dynamicBox = new PolygonShape();
         dynamicBox.setAsBox(sprite.getWidth() / 3, sprite.getHeight() / 8);
 
