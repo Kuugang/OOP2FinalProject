@@ -1,25 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="15" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="44">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="15" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="44">
  <tileset firstgid="1" source="../../TSX FILES/(LAYER 1) NGE_CR.tsx"/>
  <tileset firstgid="151" source="../../TSX FILES/(LAYER 2) NGE_CR.tsx"/>
  <tileset firstgid="301" source="../../TSX FILES/ROOM_BUILDER.tsx"/>
  <tileset firstgid="8585" source="../../TSX FILES/FULL_INTERIOR.tsx"/>
  <tileset firstgid="25609" source="../../TSX FILES/NGE_CR1.tsx"/>
- <layer id="5" name="Tile Layer 3" width="15" height="10">
-  <data encoding="csv">
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,6053,0,0,0,6281,0,0,0,0,0,0,0,
-0,0,0,6129,0,0,0,6357,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-</data>
- </layer>
- <layer id="2" name="Tile Layer 2" width="15" height="10">
+ <layer id="2" name="Tile Layer 1" width="15" height="10">
   <data encoding="csv">
 25609,25610,25611,25612,25613,25614,25615,25616,25617,25618,25619,25620,25621,25622,25623,
 25624,25625,25626,25627,25628,25629,25630,25631,25632,25633,25634,25635,25636,25637,25638,
@@ -31,6 +17,20 @@
 25714,25715,25716,25717,25718,25719,25720,25721,25722,25723,25724,25725,25726,25727,25728,
 25729,25730,25731,25732,25733,25734,25735,25736,25737,25738,25739,25740,25741,25742,25743,
 25744,25745,25746,25747,25748,25749,25750,25751,25752,25753,25754,25755,25756,25757,25758
+</data>
+ </layer>
+ <layer id="5" name="FOREGROUND_LAYER" width="15" height="10">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,6053,0,0,0,6281,0,0,0,0,0,0,0,
+0,0,0,6129,0,0,0,6357,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
  <objectgroup id="6" name="EXIT_LAYER">
@@ -109,17 +109,17 @@
   <object id="35" x="448" y="128">
    <polygon points="0,0 0,64 32,64 32,0"/>
   </object>
-  <object id="36" x="288" y="96">
-   <polygon points="0,0 0,64 64,64 64,0 0,0"/>
+  <object id="36" x="289.875" y="96">
+   <polygon points="0,0 0,64 62.125,64 62.125,0 0,0"/>
   </object>
   <object id="37" x="224" y="0">
    <polygon points="0,0 13.75,0.25 13,96.5 0,96"/>
   </object>
-  <object id="39" x="97.6667" y="128.333">
-   <polygon points="0,0 158.333,-0.333333 158.333,31.6667 -1.66667,31.6667"/>
+  <object id="39" x="97.6459" y="133.281">
+   <polygon points="0,0 156.354,-0.28125 156.354,26.7188 -1.64584,26.7188"/>
   </object>
   <object id="41" x="115" y="96.3333">
-   <polygon points="0,0 0,35 122.667,35.3333 122.667,0.333333"/>
+   <polygon points="0,0 0,37.6415 122.667,38 122.667,0.35849"/>
   </object>
  </objectgroup>
 </map>
