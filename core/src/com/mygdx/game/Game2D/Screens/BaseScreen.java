@@ -56,8 +56,8 @@ public class BaseScreen implements Screen{
     public TextButton createButton(String buttonName) {
         BitmapFont pixel10 = ResourceManager.pixel10;
 
-        TextureRegionDrawable imageUp = new TextureRegionDrawable(ResourceManager.getInstance().UI.findRegion("button"));
-        TextureRegionDrawable imageDown = new TextureRegionDrawable(ResourceManager.getInstance().UI.findRegion("button"));
+        TextureRegionDrawable imageUp = new TextureRegionDrawable(ResourceManager.getInstance().atlas.findRegion("button"));
+        TextureRegionDrawable imageDown = new TextureRegionDrawable(ResourceManager.getInstance().atlas.findRegion("button"));
         imageDown.setMinSize(100, 50);
 
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle(imageUp, imageDown, null, pixel10);
@@ -110,7 +110,7 @@ public class BaseScreen implements Screen{
 
 
     public ImageButton createImageButton(String buttonName, Table table) {
-            TextureRegion buttonUp = ResourceManager.getInstance().UI.findRegion(buttonName);
+            TextureRegion buttonUp = ResourceManager.getInstance().atlas.findRegion(buttonName);
 
             ImageButton.ImageButtonStyle buttonStyle = new ImageButton.ImageButtonStyle();
             buttonStyle.imageUp = new TextureRegionDrawable(buttonUp);
@@ -145,7 +145,7 @@ public class BaseScreen implements Screen{
     public Table createTable() {
         Table table = new Table();
         table.setBounds(0,0, (float) Gdx.graphics.getWidth(), (float) Gdx.graphics.getHeight());
-        table.setDebug(true);
+//        table.setDebug(true);
         return table;
     }
 

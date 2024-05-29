@@ -98,7 +98,7 @@ public class TypeRacer extends Game implements InputProcessor {
 
     public void initializeWords() {
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("words/words.csv"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("assets/words/words.csv"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
