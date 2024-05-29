@@ -8,8 +8,6 @@ import com.mygdx.game.Game2D.Utils.GameQueue;
 import com.mygdx.game.Game2D.World.GameMap;
 import com.mygdx.game.Game2D.World.Minigame;
 
-import static com.mygdx.game.Game2D.Screens.GameScreen.world;
-
 public class MINIGAME1 extends GameMap implements Minigame {
     public static int health = 10;
     public int level;
@@ -23,12 +21,12 @@ public class MINIGAME1 extends GameMap implements Minigame {
         new Thread(() -> {
             for(int i = 0; i < 50; i++) {
                 NPCMinigame1 npcMinigame1 = new NPCMinigame1(1000, level);
-
+                Gdx.app.postRunnable(() -> npcMinigame1.setTextureAtlas(ResourceManager.getRandomTA_NPC()));
+                
                 try {
                     Thread.sleep(500);
                 }catch (InterruptedException ignored){}
 
-                Gdx.app.postRunnable(() -> npcMinigame1.setTextureAtlas(ResourceManager.getRandomTA_NPC()));
                 GameQueue.add(() -> bodies.add(npcMinigame1.boxBody));
 
                 npcManager.addNPC(npcMinigame1);
