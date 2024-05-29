@@ -206,7 +206,9 @@
    <properties>
     <property name="nextMap" value="NGE_F"/>
     <property name="playerDirection" value="up"/>
-    <property name="type" value="lastMap"/>
+    <property name="playerX" type="float" value="37"/>
+    <property name="playerY" type="float" value="13"/>
+    <property name="type" value="exit"/>
    </properties>
   </object>
  </objectgroup>

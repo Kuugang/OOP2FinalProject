@@ -42,15 +42,23 @@ public class MenuNewGameScreen extends BaseScreen {
 
         Label profileName = new Label("Enter Profile Name: ", ResourceManager.skin);
         usernameText = new TextField("Leo", ResourceManager.skin);
-
         usernameText.setMaxLength(20);
+
+        usernameText.setWidth(200);
+        usernameText.setHeight(10);
+
+        usernameText.getStyle().background.setLeftWidth(10);
+        usernameText.getStyle().background.setRightWidth(20);
+        usernameText.getStyle().background.setTopHeight(5);
+        usernameText.getStyle().background.setBottomHeight(5);
 
         menuNewGameTable = createTable();
         menuNewGameTable.pad(10);
         menuNewGameTable = createTable();
         menuNewGameTable.setFillParent(true);
         menuNewGameTable.add(profileName).center();
-        menuNewGameTable.add(usernameText).center();
+//        menuNewGameTable.add(usernameText).center();
+        menuNewGameTable.add(usernameText);
 
         menuNewGameTable.row();
 
@@ -59,37 +67,49 @@ public class MenuNewGameScreen extends BaseScreen {
         menuNewGameTable.add(handleNewBackButton()).padRight(10);
     }
 
-    private void createOverwriteDialog() {
-        overwriteDialog = new Dialog("Overwrite existing save?", ResourceManager.skin);
 
+    private void createOverwriteDialog() {
+        overwriteDialog = new Dialog("", ResourceManager.skin);
         overwriteDialog.setKeepWithinStage(true);
         overwriteDialog.setModal(true);
         overwriteDialog.setMovable(false);
-        overwriteDialog.row();
 
+        Label label = new Label("Overwrite existing save?", ResourceManager.skin);
+        overwriteDialog.getContentTable().pad(10f, 10f, 10f, 10f);
+        overwriteDialog.getContentTable().add(label).row();
+
+        Table buttonTable = new Table();
 
         Actor overwriteButton = createButton("Overwrite");
         overwriteButton.addListener(new ClickListener() {
             @Override
-            public void clicked (InputEvent event, float x, float y) {
+            public void clicked(InputEvent event, float x, float y) {
                 profileManager.overwriteProfile(player);
                 profileManager.loadProfile(player.username);
-                setScreenWithTransition((BaseScreen)game.getScreen(), new GameScreen(game), new ArrayList<>());
+                setScreenWithTransition((BaseScreen) game.getScreen(), new GameScreen(game), new ArrayList<>());
+                overwriteDialog.hide();
             }
         });
-
-        overwriteDialog.add(overwriteButton);
+        buttonTable.add(overwriteButton).pad(5);
 
         Actor cancelButton = createButton("Cancel");
         cancelButton.addListener(new ClickListener() {
             @Override
-            public void clicked (InputEvent event, float x, float y) {
+            public void clicked(InputEvent event, float x, float y) {
                 overwriteDialog.hide();
             }
         });
+        buttonTable.add(cancelButton).pad(5);
 
-        overwriteDialog.add(cancelButton);
+        overwriteDialog.getContentTable().add(buttonTable);
+
+        overwriteDialog.pack();
+
+        stage.addActor(overwriteDialog);
+
+        overwriteDialog.setPosition((stage.getWidth() - overwriteDialog.getWidth()) / 2, (stage.getHeight() - overwriteDialog.getHeight()) / 2);
     }
+
 
     private Actor handlePlayButton() {
         Actor playButton = createButton("Play");

@@ -1,0 +1,21 @@
+
+skin.png
+size: 512, 256
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+default
+  rotate: false
+  xy: 1, 127
+  size: 256, 128
+  orig: 256, 128
+  offset: 0, 0
+  index: -1
+load_profiles_bg
+  rotate: false
+  xy: 1, 63
+  size: 64, 62
+  split: 31, 31, 30, 30
+  orig: 64, 62
+  offset: 0, 0
+  index: -1
