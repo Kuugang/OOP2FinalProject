@@ -5,6 +5,9 @@ import com.mygdx.game.Game2D.Entities.NPC.NPCMinigame1;
 import com.mygdx.game.Game2D.World.GameMap;
 import com.mygdx.game.Game2D.World.Minigame;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 import static com.mygdx.game.Game2D.Screens.GameScreen.player;
 
 
@@ -18,24 +21,13 @@ public class MINIGAME1 extends GameMap implements Minigame {
 
     @Override
     public void setNPCS() {
-        npcs.add(new NPCMinigame1(1000, level));
-        npcs.add(new NPCMinigame1(1000, level));
-        npcs.add(new NPCMinigame1(1000, level));
-        npcs.add(new NPCMinigame1(1000, level));
-        npcs.add(new NPCMinigame1(1000, level));
-        npcs.add(new NPCMinigame1(1000, level));
-        npcs.add(new NPCMinigame1(1000, level));
-        npcs.add(new NPCMinigame1(1000, level));
-        npcs.add(new NPCMinigame1(1000, level));
-        npcs.add(new NPCMinigame1(1000, level));
-        npcs.add(new NPCMinigame1(1000, level));
-        npcs.add(new NPCMinigame1(1000, level));
-        npcs.add(new NPCMinigame1(1000, level));
-        npcs.add(new NPCMinigame1(1000, level));
+        for(int i = 0; i < 14; i++) {
+            NPCMinigame1 npcMinigame1 = new NPCMinigame1(1000, level);
+            npcMinigame1.setTextureAtlas("atlas/leo.atlas");
+            npcManager.addNPC(npcMinigame1);
+        }
 
-        npcs.forEach(npc -> {
-            bodies.add(npc.boxBody);
-        });
+        npcManager.getNPCs().forEach(npc -> bodies.add(npc.boxBody));
     }
 
     @Override
@@ -45,7 +37,7 @@ public class MINIGAME1 extends GameMap implements Minigame {
 
     @Override
     public void minigame() {
-        npcs.forEach(NPC::update);
+        npcManager.getNPCs().forEach(NPC::update);
         if(health <= 0){
             onGameOver();
         }

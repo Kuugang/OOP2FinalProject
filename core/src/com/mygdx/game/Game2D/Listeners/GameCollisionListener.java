@@ -3,7 +3,7 @@ package com.mygdx.game.Game2D.Listeners;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.mygdx.game.Game2D.Entities.NPC.HouseNPC;
+import com.mygdx.game.Game2D.Entities.NPC.NPC1;
 import com.mygdx.game.Game2D.Entities.NPC.NPCMinigame1;
 import com.mygdx.game.Game2D.Entities.player.Player;
 import com.mygdx.game.Game2D.Game2D;
@@ -49,9 +49,9 @@ public class GameCollisionListener implements ContactListener {
             }
         }
 
-        if (objectA instanceof HouseNPC) {
+        if (objectA instanceof NPC1) {
             if (objectB == "COLLISION") {
-                ((HouseNPC) objectA).newMovement();
+                ((NPC1) objectA).newMovement();
             }
         }
     }

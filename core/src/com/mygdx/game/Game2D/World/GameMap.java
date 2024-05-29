@@ -40,7 +40,6 @@ public abstract class GameMap {
     protected int layers;
     TiledMapTileLayer FOREGROUND_LAYER, FOREGROUND_LAYER1;
     public NPCManager npcManager;
-    public ArrayList<NPC> npcs = new ArrayList<>();
     Music mapMusic;
 
     public GameMap(String mapName){
@@ -222,10 +221,6 @@ public abstract class GameMap {
             if (tiledMap.getLayers().get(i) == FOREGROUND_LAYER || tiledMap.getLayers().get(i) == FOREGROUND_LAYER1) {
                 tiledMapRenderer.render(new int[]{i});
             }
-        }
-
-        for(NPC n : npcs){
-            n.render();
         }
 
         for(NPC n : npcManager.getNPCs()){
