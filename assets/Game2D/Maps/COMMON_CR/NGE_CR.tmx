@@ -38,7 +38,7 @@
    <properties>
     <property name="nextMap" value="NGE_HALL"/>
     <property name="playerDirection" value="DOWN"/>
-    <property name="setLastPosition" type="bool" value="true"/>
+    <property name="type" value="lastMap"/>
    </properties>
   </object>
  </objectgroup>

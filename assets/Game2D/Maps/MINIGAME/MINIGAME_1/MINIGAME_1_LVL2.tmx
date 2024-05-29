@@ -81,6 +81,17 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="4" name="EXIT_LAYER">
+  <object id="14" x="225.5" y="-27.5" width="350" height="29">
+   <properties>
+    <property name="nextMap" value="MINIGAME1_LVL3"/>
+    <property name="playerDirection" value="UP"/>
+    <property name="playerX" type="float" value="-1"/>
+    <property name="playerY" type="float" value="0"/>
+    <property name="type" value="exit"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup id="3" name="COLLISION_LAYER">
   <object id="1" x="0" y="0" width="224" height="960"/>
   <object id="3" x="576" y="0" width="192" height="960"/>

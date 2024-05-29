@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="15" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="74">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="15" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="75">
  <tileset firstgid="1" source="../../TSX FILES/(LAYER1) GLE_CR.tsx"/>
  <tileset firstgid="8285" source="LAYERS/(LAYER2) GLE_CR.tsx"/>
  <tileset firstgid="8435" source="../../TSX FILES/ROOM_BUILDER.tsx"/>
@@ -19,6 +19,15 @@
 33878,33879,33880,33881,33882,33883,33884,33885,33886,33887,33888,33889,33890,33891,33892
 </data>
  </layer>
+ <objectgroup id="8" name="EXIT_LAYER">
+  <object id="74" x="64.5" y="288.25" width="63.5" height="30.75">
+   <properties>
+    <property name="nextMap" value="GLE_HALLWAY"/>
+    <property name="playerDirection" value="right"/>
+    <property name="type" value="lastMap"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup id="4" name="COLLISION_LAYER">
   <object id="1" x="0.5" y="289">
    <polygon points="0,0 -0.5,31 63.5,31 63.5,-1 -0.5,-1"/>

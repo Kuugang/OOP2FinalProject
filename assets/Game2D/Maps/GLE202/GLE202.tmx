@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="21" height="21" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="26">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="21" height="21" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="78">
  <tileset firstgid="1" source="../../TSX FILES/gle-layout.tsx"/>
  <tileset firstgid="442" source="../../TSX FILES/FULL_INTERIOR.tsx"/>
  <tileset firstgid="17466" source="../../TSX FILES/ROOM_BUILDER.tsx"/>
  <tileset firstgid="25750" source="../../TSX FILES/EXTERIOR.tsx"/>
  <tileset firstgid="81542" source="../../TSX FILES/GLE202-LAYOUT.tsx"/>
- <layer id="1" name="Tile Layer 1" width="21" height="21" visible="0">
+ <layer id="1" name="Tile Layer 1" width="21" height="21">
   <data encoding="csv">
 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,
 22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,
@@ -30,7 +30,7 @@
 421,422,423,424,425,426,427,428,429,430,431,432,433,434,435,436,437,438,439,440,441
 </data>
  </layer>
- <layer id="3" name="FOREGROUND_LAYER" width="21" height="21" visible="0">
+ <layer id="3" name="FOREGROUND_LAYER" width="21" height="21">
   <data encoding="csv">
 81542,81543,81544,81545,81546,81547,81548,81549,81550,81551,81552,81553,81554,81555,81556,81557,81558,81559,81560,81561,81562,
 81563,81564,81565,81566,81567,81568,81569,81570,81571,81572,81573,81574,81575,81576,81577,81578,81579,81580,81581,81582,81583,
@@ -55,7 +55,7 @@
 81962,81963,81964,81965,81966,81967,81968,81969,81970,81971,81972,81973,81974,81975,81976,81977,81978,81979,81980,81981,81982
 </data>
  </layer>
- <layer id="4" name="FOREGROUND_LAYER1" width="21" height="21" visible="0" opacity="0.39">
+ <layer id="4" name="FOREGROUND_LAYER1" width="21" height="21" opacity="0.39">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -80,5 +80,100 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="5" name="EXIT_LAYER" visible="0"/>
+ <objectgroup id="5" name="EXIT_LAYER">
+  <object id="26" x="576.364" y="492.182" width="32.3636" height="19.0909">
+   <properties>
+    <property name="nextMap" value="GLE_HALLWAY"/>
+    <property name="playerDirection" value="down"/>
+    <property name="type" value="lastMap"/>
+   </properties>
+  </object>
+  <object id="27" x="63.8182" y="492.773" width="33.2727" height="17.5909">
+   <properties>
+    <property name="nextMap" value="GLE_HALLWAY"/>
+    <property name="playerDirection" value="down"/>
+    <property name="type" value="lastMap"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="6" name="COLLISION_LAYER">
+  <object id="28" x="99.75" y="128" width="24.375" height="9.875"/>
+  <object id="29" x="131.688" y="127.813" width="24.375" height="9.875"/>
+  <object id="30" x="163.688" y="128.188" width="24.375" height="9.875"/>
+  <object id="31" x="195.813" y="128.063" width="24.375" height="9.875"/>
+  <object id="32" x="228.063" y="128.063" width="24.375" height="9.875"/>
+  <object id="33" x="259.813" y="128.063" width="24.375" height="9.875"/>
+  <object id="34" x="387.813" y="127.938" width="24.375" height="9.875"/>
+  <object id="35" x="420.063" y="128.188" width="24.375" height="9.875"/>
+  <object id="36" x="451.688" y="127.813" width="24.375" height="9.875"/>
+  <object id="37" x="483.688" y="128.188" width="24.375" height="9.875"/>
+  <object id="38" x="515.938" y="128.188" width="24.375" height="9.875"/>
+  <object id="39" x="547.813" y="127.938" width="24.375" height="9.875"/>
+  <object id="40" x="387.813" y="223.563" width="24.375" height="9.875"/>
+  <object id="41" x="420.063" y="223.313" width="24.375" height="9.875"/>
+  <object id="42" x="451.563" y="223.063" width="24.375" height="9.875"/>
+  <object id="43" x="483.813" y="223.813" width="24.375" height="9.875"/>
+  <object id="44" x="516.313" y="224.563" width="24.375" height="9.875"/>
+  <object id="45" x="547.994" y="224.085" width="24.375" height="9.875"/>
+  <object id="46" x="547.631" y="319.79" width="24.375" height="9.875"/>
+  <object id="47" x="515.813" y="319.79" width="24.375" height="9.875"/>
+  <object id="48" x="483.812" y="319.972" width="24.375" height="9.875"/>
+  <object id="49" x="451.449" y="319.972" width="24.375" height="9.875"/>
+  <object id="50" x="419.449" y="319.972" width="24.375" height="9.875"/>
+  <object id="51" x="387.631" y="319.608" width="24.375" height="9.875"/>
+  <object id="52" x="99.7708" y="319.854" width="24.375" height="9.875"/>
+  <object id="53" x="131.854" y="319.938" width="24.375" height="9.875"/>
+  <object id="54" x="163.396" y="319.688" width="24.375" height="9.875"/>
+  <object id="55" x="195.938" y="319.646" width="24.375" height="9.875"/>
+  <object id="56" x="228.146" y="319.729" width="24.375" height="9.875"/>
+  <object id="57" x="259.729" y="320.313" width="24.375" height="9.875"/>
+  <object id="58" x="99.8125" y="224.063" width="24.375" height="9.875"/>
+  <object id="59" x="131.813" y="223.875" width="24.375" height="9.875"/>
+  <object id="60" x="163.938" y="223.813" width="24.375" height="9.875"/>
+  <object id="61" x="195.875" y="224" width="24.375" height="9.875"/>
+  <object id="62" x="227.938" y="223.938" width="24.375" height="9.875"/>
+  <object id="63" x="260" y="224" width="24.375" height="9.875"/>
+  <object id="64" x="0" y="0">
+   <polygon points="0,0 0,96 672,96 672,0"/>
+  </object>
+  <object id="65" x="32" y="0">
+   <polygon points="0,0 0,512 -32,512 -32,0"/>
+  </object>
+  <object id="66" x="640" y="0">
+   <polygon points="0,0 0,512 32,512 32,0"/>
+  </object>
+  <object id="67" x="86" y="326.182">
+   <polygon points="0,0 0,37.4545 212,37.8182 212.182,0"/>
+  </object>
+  <object id="68" x="373.818" y="325.818">
+   <polygon points="0,0 0,37.4545 212,37.8182 212.182,0"/>
+  </object>
+  <object id="69" x="374.182" y="230.182">
+   <polygon points="0,0 0,37.4545 212,37.8182 212.182,0"/>
+  </object>
+  <object id="70" x="374.182" y="134">
+   <polygon points="0,0 0,37.4545 212,37.8182 212.182,0"/>
+  </object>
+  <object id="71" x="86" y="134.364">
+   <polygon points="0,0 0,37.4545 212,37.8182 212.182,0"/>
+  </object>
+  <object id="72" x="86" y="230.182">
+   <polygon points="0,0 0,37.4545 212,37.8182 212.182,0"/>
+  </object>
+  <object id="73" x="64" y="96">
+   <polygon points="0,0 0,32 -32,32 -32,0"/>
+  </object>
+  <object id="74" x="320" y="96">
+   <polygon points="0,0 0,32 32,32 32,0"/>
+  </object>
+  <object id="75" x="608" y="96">
+   <polygon points="0,0 0,32 32,32 32,0"/>
+  </object>
+  <object id="76" x="32" y="512">
+   <polygon points="0,0 608,0 608,-13.9091 -0.666667,-13.3333"/>
+  </object>
+  <object id="77" x="310.091" y="422.091">
+   <polygon points="0,0 51.9091,-0.0909091 51.9091,27.4091 0.534091,27.6591"/>
+  </object>
+ </objectgroup>
 </map>
