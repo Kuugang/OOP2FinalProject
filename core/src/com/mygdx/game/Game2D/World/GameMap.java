@@ -19,12 +19,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Entities.NPC.NPC;
-import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Manager.AudioManager;
 import com.mygdx.game.Game2D.Manager.NPCManager;
-import com.mygdx.game.Game2D.Screens.GameScreen;
-
-import java.util.ArrayList;
 
 import static com.mygdx.game.Game2D.Screens.GameScreen.*;
 import static com.mygdx.game.Game2D.World.MapManager.tiledMapRenderer;
@@ -120,11 +116,14 @@ public abstract class GameMap {
                         case "lastMap" -> {
                             String nextMap = (String) properties.get("nextMap");
                             Entity.Direction direction = Entity.Direction.fromString((String)properties.get("playerDirection"));
-                            float playerX = player.getLastMapPosition().x;
-                            float playerY = player.getLastMapPosition().y;
 
-                            MapExit exit = new MapExit(nextMap, new Vector2(playerX, playerY), direction);
-                            collisionBody.createFixture(exitFixtureDef).setUserData(exit);
+                            if(player.getLastMapPosition() != null){
+                                float playerX = player.getLastMapPosition().x;
+                                float playerY = player.getLastMapPosition().y;
+
+                                MapExit exit = new MapExit(nextMap, new Vector2(playerX, playerY), direction);
+                                collisionBody.createFixture(exitFixtureDef).setUserData(exit);
+                            }
                         }
                     }
 

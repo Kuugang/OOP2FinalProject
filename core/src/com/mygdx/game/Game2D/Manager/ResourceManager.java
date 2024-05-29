@@ -71,7 +71,7 @@ public class ResourceManager {
     public Animation<TextureRegion> idleLeftAnimation;
     public Animation<TextureRegion> idleRightAnimation;
 
-    public TextureAtlas UI = new TextureAtlas(Gdx.files.internal("assets/atlas/UI/UI.atlas"));
+    public TextureAtlas UI = new TextureAtlas(Gdx.files.internal("atlas/UI/UI.atlas"));
     public ResourceManager() {
         // ATLAS
         assetManager.load("atlas/textures.atlas", TextureAtlas.class);
@@ -280,8 +280,7 @@ public class ResourceManager {
             case 15 -> TextureAtlasNPC.NPC16.getPath();
             case 16 -> TextureAtlasNPC.NPC17.getPath();
             case 17 -> TextureAtlasNPC.NPC18.getPath();
-            case 18 -> TextureAtlasNPC.NPC19.getPath();
-            case 19 -> TextureAtlasNPC.NPC20.getPath();
+            case 18, 19 -> TextureAtlasNPC.NPC20.getPath();
             default -> null;
         };
     }
