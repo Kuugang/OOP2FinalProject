@@ -3,6 +3,7 @@ package com.mygdx.game.Game2D.World.Maps;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Entities.NPC.NPC1;
+import com.mygdx.game.Game2D.Manager.TextureAtlasNPC;
 import com.mygdx.game.Game2D.World.GameMap;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class ROOM extends GameMap {
 
     public void setNPCS(){
         NPC1 gymNPC = new NPC1(100);
-        gymNPC.setTextureAtlas("atlas/NPC/NPC1/NPC1.atlas");
+        gymNPC.setTextureAtlas(TextureAtlasNPC.NPC1.getPath());
         gymNPC.setDialogues(new ArrayList<>(Arrays.asList(
                 "No pain, no gain.",
                 "Feel the burn!",
@@ -37,7 +38,7 @@ public class ROOM extends GameMap {
         gymNPC.setPosition(new Vector2(29, 9));
 
         NPC1 anotherNPC = new NPC1(100);
-        anotherNPC.setTextureAtlas("atlas/NPC/NPC7/npc7.atlas");
+        anotherNPC.setTextureAtlas(TextureAtlasNPC.NPC7.getPath());
         anotherNPC.setPosition(new Vector2(13, 9));
         anotherNPC.setDialogues(new ArrayList<>(Arrays.asList(
                 "Sooo Warm...",
