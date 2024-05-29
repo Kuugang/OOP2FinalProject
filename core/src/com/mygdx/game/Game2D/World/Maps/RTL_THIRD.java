@@ -20,20 +20,23 @@ public class RTL_THIRD extends GameMap {
 
     @Override
     public void setNPCS() {
-        RandomXS128 randomXS128 = new RandomXS128();
-        for(int i = 0; i < 4; i++){
-            MainNPC mainNPC = new MainNPC(Math.abs(randomXS128.nextInt(100, 500)));
-            mainNPC.setTextureAtlas(RandomGetter.getRandomTA_NPC());
-            mainNPC.setDialogues(RandomGetter.getRandomDialogues());
-            mainNPC.setPosition(new Vector2(Math.abs(randomXS128.nextInt(0, 100)),
-                    Math.abs(randomXS128.nextInt(0, 65))));
+/*        RandomXS128 randomXS128 = new RandomXS128();
+        MainNPC[] npcs = new MainNPC[4];
 
+        for(int i = 0; i < npcs.length; i++){
+            npcs[i] = new MainNPC(randomXS128.nextInt(50, 300));
+            npcs[i].setTextureAtlas(RandomGetter.getRandomTA_NPC());
+            npcs[i].setDialogues(RandomGetter.getRandomDialogues());
 
-
-
-            npcManager.addNPC(mainNPC);
-
-            GameQueue.add(() -> bodies.add(mainNPC.boxBody));
+            MainNPC finalNpc = npcs[i];
+            npcManager.addNPC(finalNpc);
+            GameQueue.add(() -> bodies.add(finalNpc.boxBody));
         }
+
+        npcs[0].setPosition(new Vector2(87, 18));
+        npcs[1].setPosition(new Vector2(31, 18));
+        npcs[2].setPosition(new Vector2(87, 50));
+        npcs[3].setPosition(new Vector2(87, 32));*/
+
     }
 }

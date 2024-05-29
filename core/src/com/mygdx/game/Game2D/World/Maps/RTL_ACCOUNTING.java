@@ -33,5 +33,18 @@ public class RTL_ACCOUNTING extends GameMap {
             GameQueue.add(() -> bodies.add(mainNPC.boxBody));
         }
 
+        /*
+        RandomXS128 randomXS128 = new RandomXS128();
+        for(int i = 0; i < 5; i++){
+            MainNPC mainNPC = new MainNPC(Math.abs(randomXS128.nextInt(100, 500)));
+            mainNPC.setTextureAtlas(RandomGetter.getRandomTA_NPC());
+            mainNPC.setDialogues(RandomGetter.getRandomDialogues());
+            mainNPC.setPosition(new Vector2(32 + (i * 3), 12));
+
+            npcManager.addNPC(mainNPC);
+
+            GameQueue.add(() -> bodies.add(mainNPC.boxBody));
+        }
+         */
     }
 }

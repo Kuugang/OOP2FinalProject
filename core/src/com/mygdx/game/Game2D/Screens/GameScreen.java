@@ -50,7 +50,7 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
 
         player = profileManager.getCurrentPlayer();
 
-        mapManager.dispatchMap(new MapExit("ROOM", player.position, player.direction));
+        mapManager.dispatchMap(new MapExit("RTL_THIRD", player.position, player.direction));
 
 
         OrthographicCamera hudCamera = new OrthographicCamera();
