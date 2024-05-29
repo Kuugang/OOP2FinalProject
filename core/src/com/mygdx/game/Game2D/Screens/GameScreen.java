@@ -15,12 +15,9 @@ import com.mygdx.game.Game2D.Entities.player.PlayerHUD;
 import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Listeners.GameCollisionListener;
 import com.mygdx.game.Game2D.Manager.InputManager;
-import com.mygdx.game.Game2D.Threads.NPCRunnable;
 import com.mygdx.game.Game2D.World.MapExit;
 import com.mygdx.game.Game2D.World.MapManager;
 import com.mygdx.game.ScreenConfig;
-
-import java.util.Objects;
 
 import static com.mygdx.game.Game2D.Game2D.*;
 

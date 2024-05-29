@@ -1,19 +1,19 @@
 package com.mygdx.game.Game2D.Threads;
 
 import com.mygdx.game.Game2D.Entities.NPC.NPC;
-import com.mygdx.game.Game2D.Game2D;
-import com.mygdx.game.Game2D.Screens.GameScreen;
+import com.mygdx.game.Game2D.World.GameMap;
 
-import javax.swing.plaf.TableHeaderUI;
 import java.util.ArrayList;
 
 public class NPCRunnable extends Thread{
     private final ArrayList<NPC> npc;
     private boolean run;
+    private final GameMap gameMap;
 
-    public NPCRunnable(){
+    public NPCRunnable(GameMap gameMap){
         npc = new ArrayList<>();
         run = true;
+        this.gameMap = gameMap;
     }
 
     public void addNPC(NPC npc){
@@ -27,8 +27,13 @@ public class NPCRunnable extends Thread{
         while(run) {
             synchronized (this.npc){
                 for (NPC npc : npc)
-                    if(!npc.setToStay)
-                        npc.update();
+                    npc.update();
+            }
+            synchronized (gameMap){
+                try {
+                    gameMap.wait();
+                } catch (InterruptedException ignored) {
+                }
             }
         }
     }

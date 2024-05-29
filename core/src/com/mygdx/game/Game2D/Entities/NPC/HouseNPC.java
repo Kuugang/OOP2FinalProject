@@ -16,6 +16,8 @@ public class HouseNPC extends NPC {
                 "DAA",
                 "Beautiful Mistakes"
         }));
+
+        setTextureAtlas("atlas/leo.atlas");
     }
 
     @Override

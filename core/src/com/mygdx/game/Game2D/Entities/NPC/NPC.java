@@ -36,7 +36,22 @@ public abstract class NPC extends Entity {
         direction = Direction.DOWN;
         movementCounter = 0;
         this.length = length;
-        textureAtlas = new TextureAtlas(Gdx.files.internal("atlas/leo.atlas"));
+
+        position = new Vector2((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
+
+        speed = 150F;
+
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(8 * ScreenConfig.tileSize, 8 * ScreenConfig.tileSize);
+        boxBody = world.createBody(bodyDef);
+        boxBody.setLinearDamping(50f);
+
+        direction = Direction.UP;
+    }
+
+    public void setTextureAtlas(String path){
+        textureAtlas = new TextureAtlas(Gdx.files.internal(path));
 
         upAnimation = new Animation<>(0.10f, textureAtlas.findRegions("move_up"));
         downAnimation = new Animation<>(0.10f, textureAtlas.findRegions("move_down"));
@@ -61,15 +76,6 @@ public abstract class NPC extends Entity {
         frame = idleDownAnimation.getKeyFrame(0);
 
         sprite = new Sprite(rightAnimation.getKeyFrame(0));
-        position = new Vector2((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
-
-        speed = 150F;
-
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(8 * ScreenConfig.tileSize, 8 * ScreenConfig.tileSize);
-        boxBody = world.createBody(bodyDef);
-        boxBody.setLinearDamping(50f);
 
         PolygonShape dynamicBox = new PolygonShape();
         dynamicBox.setAsBox(sprite.getWidth() / 3, sprite.getHeight() / 8);
@@ -81,12 +87,10 @@ public abstract class NPC extends Entity {
 
         Fixture fixture = boxBody.createFixture(fixtureDef);
         fixture.setUserData(this);
-
-        direction = Direction.UP;
     }
 
     public void move(){
-        if(movementCounter >= length)
+        if(movementCounter >= length && !setToStay)
             newMovement();
 
         state = State.WALKING;
@@ -145,8 +149,6 @@ public abstract class NPC extends Entity {
         sprite.setPosition(boxBody.getPosition().x - sprite.getWidth() / 2, boxBody.getPosition().y -
                 sprite.getHeight() / 7);
 
-//        animationStateTime += Gdx.graphics.getDeltaTime() /
-//                ((float) Gdx.graphics.getFramesPerSecond() / ((float) Gdx.graphics.getFramesPerSecond() / 10));
         animationStateTime += Gdx.graphics.getDeltaTime();
 
         if(state == State.WALKING && !setToStay)
