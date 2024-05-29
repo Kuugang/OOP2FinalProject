@@ -10,10 +10,12 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -25,8 +27,6 @@ import com.mygdx.game.Game2D.status.CurrentMusicDisplay;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.mygdx.game.Game2D.Manager.ResourceManager.BUTTONS_TEXTURE_ATLAS;
 
 
 public class BaseScreen implements Screen{
@@ -54,44 +54,63 @@ public class BaseScreen implements Screen{
     }
 
     public TextButton createButton(String buttonName) {
-        TextureRegion[][] playButtons = resourceManager.button;
+        BitmapFont pixel10 = ResourceManager.pixel10;
 
-        BitmapFont pixel10 =  ResourceManager.pixel10;
-
-        TextureRegionDrawable imageUp = new TextureRegionDrawable(playButtons[0][0]);
-        TextureRegionDrawable imageDown = new TextureRegionDrawable(playButtons[1][0]);
+        TextureRegionDrawable imageUp = new TextureRegionDrawable(ResourceManager.getInstance().UI.findRegion("button"));
+        TextureRegionDrawable imageDown = new TextureRegionDrawable(ResourceManager.getInstance().UI.findRegion("button"));
+        imageDown.setMinSize(100, 50);
 
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle(imageUp, imageDown, null, pixel10);
         TextButton button = new TextButton(buttonName, buttonStyle);
 
-        //Sound for hover
+        button.setTransform(true);
+        button.setOrigin(Align.center);
+
         button.addListener(new InputListener() {
+            @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                //Hover sound
-                if(!AudioManager.buttonSound)
-                {
+                if (!AudioManager.buttonSound) {
+                    button.addAction(Actions.scaleTo(1.1f, 1.1f, 0.1f));
                     AudioManager.getInstance().playSound("hover");
                 }
             }
 
+            @Override
             public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                //Hover sound
+                button.addAction(Actions.scaleTo(1f, 1f, 0.1f)); // Smooth scaling animation
                 AudioManager.buttonSound = false;
             }
         });
 
-        button.getLabel().setColor(new Color(79 / 255.f, 79 / 255.f, 117 / 255.f, 1));
+        button.getLabel().setColor(new Color(79 / 255f, 79 / 255f, 117 / 255f, 1));
 
         return button;
     }
 
-    public ImageButton createImageButton(String buttonName, Table table) {
-            TextureRegion buttonUp = BUTTONS_TEXTURE_ATLAS.findRegion(buttonName);
 
-            if (buttonUp == null) {
-                Gdx.app.error("createImageButton", "Region not found for button: " + buttonName);
-                return null;
+    public void createImageButton(ImageButton button, Table table) {
+        button.addListener(new InputListener() {
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                if (!AudioManager.buttonSound) {
+                    AudioManager.getInstance().playSound("hover");
+                }
+                button.setScale(button.getScaleX() + .1F, button.getScaleY() + .1F);
             }
+
+            @Override
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                AudioManager.buttonSound = false;
+                button.setScale(button.getScaleX() - .1F, button.getScaleY() - .1F);
+            }
+        });
+
+        table.add(button).pad(10);
+    }
+
+
+    public ImageButton createImageButton(String buttonName, Table table) {
+            TextureRegion buttonUp = ResourceManager.getInstance().UI.findRegion(buttonName);
 
             ImageButton.ImageButtonStyle buttonStyle = new ImageButton.ImageButtonStyle();
             buttonStyle.imageUp = new TextureRegionDrawable(buttonUp);

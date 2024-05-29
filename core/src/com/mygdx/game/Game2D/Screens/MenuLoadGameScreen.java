@@ -2,12 +2,15 @@ package com.mygdx.game.Game2D.Screens;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Game2D.Entities.player.Player;
 import com.mygdx.game.Game2D.Game2D;
@@ -32,6 +35,7 @@ public class MenuLoadGameScreen extends BaseScreen {
     private final Label resultText = new Label("", ResourceManager.skin);
     private Table selectedRow;
     private Table controlsTable = new Table();
+    private Dialog confirmDeleteDialog = new Dialog("Confirm Delete", ResourceManager.skin);
 
     public MenuLoadGameScreen(Game2D game, BaseScreen previousScreen, ResourceManager resourceManager) {
         super(game);
@@ -40,9 +44,12 @@ public class MenuLoadGameScreen extends BaseScreen {
 
         loadTable = createTable();
 
+        TextureRegionDrawable background = new TextureRegionDrawable(ResourceManager.getInstance().UI.findRegion("load_profiles_bg"));
         topTable = createTable();
-        topTable.center();
-        topTable.setFillParent(true);
+        topTable.setBackground(background);
+//        topTable.center();
+//        topTable.setFillParent(true);
+
 
         bottomTable = createTable();
         bottomTable.setWidth(Gdx.graphics.getWidth());
@@ -84,16 +91,42 @@ public class MenuLoadGameScreen extends BaseScreen {
         deleteButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                boolean result = profileManager.deleteProfile(username);
-                if(result){
-                    profileRows.removeValue(row, true);
-                    refreshList();
-                    resultText.setText("Successfully deleted character");
-                }else{
-                    resultText.setText("Failed to delete character");
-                }
+                confirmDeleteDialog.show(loadStage);
             }
         });
+
+
+        Actor yesButton = createButton("Yes");
+        yesButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent even, float x, float y) {
+                Gdx.app.postRunnable(new Runnable() {
+                    final boolean result = profileManager.deleteProfile(username);
+                    @Override
+                    public void run() {
+                        if (result) {
+                            profileRows.removeValue(row, true);
+                            refreshList();
+                            resultText.setText("Successfully deleted character");
+                        } else {
+                            resultText.setText("Failed to delete character");
+                        }
+                        confirmDeleteDialog.hide();
+                    }
+                });
+            }
+        });
+
+        Actor noButton = createButton("No");
+        noButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent even, float x, float y) {
+                confirmDeleteDialog.hide();
+            }
+        });
+
+        confirmDeleteDialog.getContentTable().add(yesButton);
+        confirmDeleteDialog.getContentTable().add(noButton);
 
         row.addListener(new ClickListener() {
             @Override
@@ -119,7 +152,6 @@ public class MenuLoadGameScreen extends BaseScreen {
 
     private void handleLoadButton() {
         Actor loadButton = createButton("Play");
-//        bottomTable.add(loadButton);
         controlsTable.add(loadButton);
 
         loadButton.addListener(new ClickListener() {
@@ -207,7 +239,8 @@ public class MenuLoadGameScreen extends BaseScreen {
     }
 
     private void handleCloudUploadButton() {
-        ImageButton imageButton = createImageButton("cloud_upload", controlsTable);
+        ImageButton imageButton = ResourceManager.getInstance().createImageButton("upload_button", 2);
+        createImageButton(imageButton, controlsTable);
 
         imageButton.addListener(new ClickListener() {
             @Override
@@ -231,7 +264,8 @@ public class MenuLoadGameScreen extends BaseScreen {
     }
 
     private void handleCloudDownloadButton() {
-        ImageButton imageButton = createImageButton("cloud_download", controlsTable);
+        ImageButton imageButton = ResourceManager.getInstance().createImageButton("download_button", 2);
+        createImageButton(imageButton, controlsTable);
 
         imageButton.addListener(new ClickListener() {
             @Override

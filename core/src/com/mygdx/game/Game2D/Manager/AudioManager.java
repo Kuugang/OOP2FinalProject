@@ -63,6 +63,7 @@ public class AudioManager {
             currentMusic.setLooping(true);
             currentMusic.play();
             currentMusicDisplay.updateMusicLabel(name);
+            currentMusicDisplay.startScrolling();
         }
     }
 

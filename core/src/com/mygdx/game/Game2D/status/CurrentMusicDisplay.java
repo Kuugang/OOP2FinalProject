@@ -11,36 +11,36 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
 
 public class CurrentMusicDisplay {
     private Stage stage;
-    private Label musicLabel;
+    private Label musicLabel1;
+    private Label musicLabel2;
     private int defaultWidth;
     private int defaultHeight;
     private ScrollPane scrollPane;
     private Table scrollTable;
+    private String currentMusicTitle;
 
     public CurrentMusicDisplay() {
-
         stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         defaultWidth = 200;
         defaultHeight = 50;
 
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("atlas/GUI/GUI.atlas"));
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("atlas/UI/UI.atlas"));
         NinePatch ninePatch = new NinePatch(atlas.findRegion("UI_Flat_Button_Large_Lock_01a1"));
         NinePatchDrawable backgroundDrawable = new NinePatchDrawable(ninePatch);
 
-        NinePatch musicNotes = new NinePatch(atlas.findRegion("MusicNotes"));
+        NinePatch musicNotes = new NinePatch(ResourceManager.getInstance().UI.findRegion("music_notes"));
         NinePatchDrawable musicNotesDrawable = new NinePatchDrawable(musicNotes);
 
         Table mainTable = new Table();
         mainTable.pad(10);
         mainTable.left();
-        mainTable.setBackground(backgroundDrawable);
+//        mainTable.setBackground(backgroundDrawable);
 
         Image musicNotesImage = new Image(musicNotesDrawable);
 
@@ -48,14 +48,17 @@ public class CurrentMusicDisplay {
         labelStyle.font = ResourceManager.pixel10;
         labelStyle.fontColor = Color.BLACK;
 
-        musicLabel = new Label("", labelStyle);
-        musicLabel.setFontScale(1.5f);
+        musicLabel1 = new Label("", labelStyle);
+        musicLabel1.setFontScale(1.5f);
+        musicLabel2 = new Label("", labelStyle);
+        musicLabel2.setFontScale(1.5f);
 
         scrollTable = new Table();
-        scrollTable.add(musicLabel).align(Align.left);
+        scrollTable.add(musicLabel1).align(Align.left);
+        scrollTable.add(musicLabel2).align(Align.left);
 
         scrollPane = new ScrollPane(scrollTable);
-        scrollPane.setScrollingDisabled(false, true);
+        scrollPane.setScrollingDisabled(true, false);
         scrollPane.setOverscroll(false, false);
         scrollPane.setFadeScrollBars(false);
 
@@ -65,28 +68,36 @@ public class CurrentMusicDisplay {
         mainTable.setSize(defaultWidth + 50, defaultHeight);
         stage.addActor(mainTable);
 
-        mainTable.setPosition(700, Gdx.graphics.getHeight() - mainTable.getHeight() - 10);
-        startScrolling();
+        mainTable.setPosition(500, Gdx.graphics.getHeight() - mainTable.getHeight() - 10);
     }
 
-    private void startScrolling() {
+    public void startScrolling() {
         Action scrollAction = new Action() {
             @Override
             public boolean act(float delta) {
-                float scrollX = scrollPane.getScrollX();
-                float maxScrollX = scrollTable.getWidth() - scrollPane.getWidth();
+                float scrollSpeed = 1;
 
-                if (scrollX >= maxScrollX) {
-                    scrollPane.setScrollX(0);
-                } else {
-                    scrollPane.setScrollX(scrollX + 1);
+                musicLabel1.moveBy(-scrollSpeed, 0);
+                musicLabel2.moveBy(-scrollSpeed, 0);
+
+                if (musicLabel1.getX() + musicLabel1.getWidth() <= 0) {
+                    musicLabel1.setX(musicLabel2.getX() + musicLabel2.getWidth() + 10);
+                }
+                if (musicLabel2.getX() + musicLabel2.getWidth() <= 0) {
+                    musicLabel2.setX(musicLabel1.getX() + musicLabel1.getWidth() + 10);
                 }
 
                 return false;
             }
         };
 
-        stage.addAction(scrollAction);
+        stage.addAction(new Action() {
+            @Override
+            public boolean act(float delta) {
+                scrollAction.act(delta);
+                return false;
+            }
+        });
     }
 
     public void render(float delta) {
@@ -103,9 +114,13 @@ public class CurrentMusicDisplay {
     }
 
     public void updateMusicLabel(String musicTitle) {
-        musicLabel.setText(musicTitle);
-        musicLabel.layout();
-        scrollTable.setWidth(musicLabel.getWidth());
-        scrollPane.layout();
+        currentMusicTitle = musicTitle;
+        musicLabel1.setText(currentMusicTitle + "      ");
+        musicLabel2.setText(currentMusicTitle + "      ");
+        musicLabel1.setX(0);
+        musicLabel2.setX(musicLabel1.getWidth() + 10);
+        musicLabel1.layout();
+        musicLabel2.layout();
+        scrollTable.setWidth(musicLabel1.getWidth() + musicLabel2.getWidth() + 10);
     }
 }

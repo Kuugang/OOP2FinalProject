@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.Game2D.Manager.*;
 import com.mygdx.game.Game2D.Network.GameClient;
 import com.mygdx.game.Game2D.Screens.MenuScreen;
+import com.mygdx.game.Game2D.World.MapManager;
 
 public class Game2D extends Game {
     public static SpriteBatch batch;
@@ -15,6 +16,7 @@ public class Game2D extends Game {
     public static ResourceManager resourceManager;
     private GameClient gameClient;
     public static InputManager inputManager;
+    public static MapManager mapManager;
 
     @Override
     public void create() {
@@ -23,9 +25,10 @@ public class Game2D extends Game {
         resourceManager = ResourceManager.getInstance();
         profileManager = new ProfileManager();
         inputManager = new InputManager();
+        mapManager = new MapManager();
 
         menuScreen = new MenuScreen(this);
-        AudioManager.getInstance().playMusic("[Official] Celeste Original Soundtrack - 02 - First Steps");
+        AudioManager.getInstance().playMusic("Celeste Original Soundtrack - 02 - First Steps");
         this.setScreen(menuScreen);
     }
 

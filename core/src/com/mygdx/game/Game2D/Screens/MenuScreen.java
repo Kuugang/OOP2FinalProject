@@ -27,7 +27,6 @@ public class MenuScreen extends BaseScreen {
 
     public MenuScreen(Game2D game) {
         super(game);
-//        super.musicTheme = MENU_THEME;
 
         menuTable = createTable();
         menuTable.setFillParent(false);
