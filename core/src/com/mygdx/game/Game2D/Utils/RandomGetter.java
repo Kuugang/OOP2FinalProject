@@ -49,9 +49,10 @@ public class RandomGetter {
 
 
     public static ArrayList<String> getRandomDialogues(){
-        return switch (Math.abs(new RandomXS128().nextInt() % 2)){
+        return switch (Math.abs(new RandomXS128().nextInt() % 3)){
             case 0 -> Dialogues.dialogues1;
             case 1 -> Dialogues.dialogues2;
+            case 2 -> Dialogues.dialogues3;
             default -> null;
         };
     }

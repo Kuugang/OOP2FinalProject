@@ -53,4 +53,19 @@ public class Dialogues {
             "It's always a pleasure talking to you."
     ));
 
+    public static final ArrayList<String> dialogues3 = new ArrayList<>(Arrays.asList(
+            "No pain, no gain.",
+            "Feel the burn!",
+            "Leg day is the best day.",
+            "Stay hydrated.",
+            "I'm hitting the gym.",
+            "Lift heavy, lift smart.",
+            "Fitness is a lifestyle.",
+            "What’s your PR (personal record)?",
+            "Don't skip leg day.",
+            "Eat clean, train dirty.",
+            "Train insane or remain the same.",
+            "The only bad workout is the one that didn’t happen.",
+            "Stronger every day."
+    ));
 }
