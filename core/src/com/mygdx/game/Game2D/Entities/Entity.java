@@ -36,13 +36,20 @@ public class Entity implements InputProcessor {
     public Body boxBody;
     public FixtureDef fixtureDef = new FixtureDef();
     protected ArrayList<String> dialogues;
+    protected ArrayList<String> dialoguesToNPC;
+    public int indexDia;
 
     public Entity(){
         dialogues = new ArrayList<>();
+        dialoguesToNPC = new ArrayList<>();
     }
 
     public Sprite getSprite() {
         return sprite;
+    }
+
+    public int getSizeDialogues(){
+        return dialogues.size();
     }
 
     public enum Direction {
@@ -77,7 +84,7 @@ public class Entity implements InputProcessor {
         return state;
     }
 
-    private float timePerCharacter = 0.1f; // Time (in seconds) between each character display
+    private float timePerCharacter = 0.05f; // Time (in seconds) between each character display
     private float elapsedTime = 0f;
     private int charactersToDisplay = 0;
     private String dialogue;
@@ -138,6 +145,10 @@ public class Entity implements InputProcessor {
                     direction = defaultDirection;
 
                     setPreviousToStay = defaultDirectionSet = false;
+
+                    synchronized (this){
+                        notifyAll();
+                    }
                 }
             }
 
@@ -172,7 +183,18 @@ public class Entity implements InputProcessor {
         npc.setToStay();
     }
 
+    public Entity setSequentialDialogue(){
+        if(indexDia == dialogues.size())
+            indexDia = 0;
+
+        setDialogue(dialoguesToNPC.get(indexDia));
+
+        return this;
+    }
+
     public Entity setDialogue(){
+        if(dialogues.isEmpty())
+            return this;
         return setDialogue(dialogues.get(Math.abs(new RandomXS128().nextInt() % dialogues.size())));
     }
 

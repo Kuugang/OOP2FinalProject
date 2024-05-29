@@ -140,6 +140,10 @@ public abstract class NPC extends Entity {
     public void setDialogues(ArrayList<String> dialogues){
         super.dialogues = dialogues;
     }
+    
+    public void setDialoguesToNPC(ArrayList<String> dialoguesToNPC){
+        super.dialoguesToNPC = dialoguesToNPC;
+    }
 
     public void setToStay(){
         movementCounter = 0;
