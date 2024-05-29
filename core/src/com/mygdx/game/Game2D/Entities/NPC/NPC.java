@@ -30,6 +30,7 @@ public abstract class NPC extends Entity {
     int length; //Length in seconds in which the entity do a movement
     int movementCounter; //A counter for fixing NPC movement when encountering a collision
     public boolean setToStay = false;
+    private Direction previousDirection;
 
     public NPC(int length){
         state = State.WALKING;
@@ -129,6 +130,8 @@ public abstract class NPC extends Entity {
         }
 
         state = (direction == Direction.STAY ? State.IDLE : State.WALKING);
+        if(direction == Direction.STAY)
+            previousDirection = currentDirection;
 
         movementCounter = 0;
     }
@@ -151,7 +154,7 @@ public abstract class NPC extends Entity {
 
         animationStateTime += Gdx.graphics.getDeltaTime();
 
-        if(state == State.WALKING && !setToStay)
+        if(state == State.WALKING)
             animation(upAnimation, downAnimation, leftAnimation, rightAnimation);
         else
             animation(idleUpAnimation, idleDownAnimation, idleLeftAnimation, idleRightAnimation);
@@ -167,12 +170,22 @@ public abstract class NPC extends Entity {
 
     private NPC animation(Animation<TextureRegion> upAnimation, Animation<TextureRegion> downAnimation,
                                Animation<TextureRegion> leftAnimation, Animation<TextureRegion> rightAnimation) {
-        switch (direction) {
+        if(direction != Direction.STAY)
+            animation2(upAnimation, downAnimation, leftAnimation, rightAnimation, direction);
+        else {
+            animation2(upAnimation, downAnimation, leftAnimation, rightAnimation, previousDirection);
+        }
+        return this;
+    }
+
+    private void animation2(Animation<TextureRegion> upAnimation, Animation<TextureRegion> downAnimation,
+                            Animation<TextureRegion> leftAnimation, Animation<TextureRegion> rightAnimation,
+                            Direction previousDirection) {
+        switch (previousDirection) {
             case UP -> frame = upAnimation.getKeyFrame(animationStateTime, true);
             case DOWN -> frame = downAnimation.getKeyFrame(animationStateTime, true);
             case LEFT -> frame = leftAnimation.getKeyFrame(animationStateTime, true);
             case RIGHT -> frame = rightAnimation.getKeyFrame(animationStateTime, true);
         }
-        return this;
     }
 }

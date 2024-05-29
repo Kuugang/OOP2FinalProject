@@ -34,7 +34,7 @@ public class Entity implements InputProcessor {
     public State state = State.IDLE;
 
     public Body boxBody;
-    public FixtureDef fixtureDef;
+    public FixtureDef fixtureDef = new FixtureDef();
     protected ArrayList<String> dialogues;
 
     public Entity(){

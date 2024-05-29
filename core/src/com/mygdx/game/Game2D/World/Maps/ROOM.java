@@ -10,7 +10,7 @@ public class ROOM extends GameMap {
     }
 
     public void setNPCS(){
-        npcManager.addNPC(new HouseNPC(100)).addNPC(new HouseNPC(100)).addNPC(new HouseNPC(100));
+        npcManager.addNPC(new HouseNPC(100))/*.addNPC(new HouseNPC(100)).addNPC(new HouseNPC(100))*/;
 
         npcManager.getNPCs().forEach(npc -> bodies.add(npc.boxBody));
         player.setDialogue();
