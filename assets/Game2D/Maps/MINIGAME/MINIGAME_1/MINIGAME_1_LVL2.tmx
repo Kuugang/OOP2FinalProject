@@ -36,17 +36,6 @@
 697,698,699,700,701,702,703,704,705,706,707,708,709,710,711,712,713,714,715,716,717,718,719,720
 </data>
  </layer>
- <objectgroup id="4" name="EXIT_LAYER">
-  <object id="14" x="224" y="-31" width="352" height="32">
-   <properties>
-    <property name="nextMap" value="MINIGAME1_LVL3"/>
-    <property name="playerDirection" value="UP"/>
-    <property name="playerX" type="float" value="-1"/>
-    <property name="playerY" type="float" value="0.1"/>
-    <property name="type" value="exit"/>
-   </properties>
-  </object>
- </objectgroup>
  <layer id="2" name="FOREGROUND_LAYER" width="24" height="30" opacity="0.27">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -82,12 +71,12 @@
 </data>
  </layer>
  <objectgroup id="4" name="EXIT_LAYER">
-  <object id="14" x="225.5" y="-27.5" width="350" height="29">
+  <object id="14" x="224.833" y="-27.5" width="350" height="29">
    <properties>
     <property name="nextMap" value="MINIGAME1_LVL3"/>
-    <property name="playerDirection" value="UP"/>
+    <property name="playerDirection" value="up"/>
     <property name="playerX" type="float" value="-1"/>
-    <property name="playerY" type="float" value="0"/>
+    <property name="playerY" type="float" value="1"/>
     <property name="type" value="exit"/>
    </properties>
   </object>

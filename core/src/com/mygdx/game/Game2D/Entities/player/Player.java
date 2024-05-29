@@ -25,7 +25,7 @@ public class Player extends Entity implements Json.Serializable {
     public String username;
     public boolean isCollisionSet;
     private Vector2 lastMapPosition;
-    public float interactionDistance = 40; //Maximum distance when interacting with other entities
+    public float interactionDistance = 40; //Maximum distanceW when interacting with other entities
     public PlayerHUD playerHUD;
 
     public Player(){

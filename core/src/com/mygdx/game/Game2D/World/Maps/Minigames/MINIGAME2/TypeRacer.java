@@ -52,18 +52,18 @@ public class TypeRacer extends Game implements InputProcessor {
             @Override
             public void run() {
                 addWord();
-                if (speed <= 1) {
+                if (speed >= 1) {
                     speed -= 0.1F;
                 }
                 System.out.println("Speed" + speed);
 
                 this.cancel();
 
-                Timer.schedule(this, 2, speed);
+                Timer.schedule(this, 2, .5f);
             }
         };
 
-        Timer.schedule(task, 2, speed);
+        Timer.schedule(task, 2, 1);
     }
 
 
@@ -105,7 +105,7 @@ public class TypeRacer extends Game implements InputProcessor {
 
     public void initializeWords() {
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("words/words.csv"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("assets/words/words.csv"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
