@@ -77,10 +77,10 @@
 </data>
  </layer>
  <objectgroup id="4" name="EXIT_LAYER">
-  <object id="12" x="1565.5" y="631" width="166.5" height="38">
+  <object id="12" x="1566.23" y="799.318" width="166.5" height="32.3636">
    <properties>
     <property name="nextMap" value="HIS_HOUSE"/>
-    <property name="playerDirection" value="up"/>
+    <property name="playerDirection" value="UP"/>
     <property name="playerX" type="float" value="14"/>
     <property name="playerY" type="float" value="1.5"/>
     <property name="type" value="exit"/>

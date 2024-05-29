@@ -83,7 +83,9 @@
    <properties>
     <property name="nextMap" value="ALLIEDF"/>
     <property name="playerDirection" value="left"/>
-    <property name="type" value="lastMap"/>
+    <property name="playerX" type="float" value="168"/>
+    <property name="playerY" type="float" value="2"/>
+    <property name="type" value="exit"/>
    </properties>
   </object>
  </objectgroup>

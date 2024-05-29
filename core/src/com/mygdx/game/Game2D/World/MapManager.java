@@ -31,7 +31,7 @@ public class MapManager {
         maps.put("NGE_CR", new NGE_CR("NGE_CR").setMap("Game2D/Maps/COMMON_CR/NGE_CR.tmx"));
         maps.put("NGE_HALL", new NGE_HALL("NGE_HALL").setMap("Game2D/Maps/NGE_HALL/NGE_HALL.tmx"));
 
-        maps.put("RTL_ACCOUNTING", new RTL_ACCOUNTING("RTL_ACCOUTING").setMap("Game2D/Maps/RTL_ACCOUNTING/RTL_ACCOUNTING.tmx"));
+        maps.put("RTL_ACCOUNTING", new RTL_ACCOUNTING("RTL_ACCOUNTING").setMap("Game2D/Maps/RTL_ACCOUNTING/RTL_ACCOUNTING.tmx"));
         maps.put("RTL_THIRD", new RTL_THIRD("RTL_THIRD").setMap("Game2D/Maps/RTL_THIRD_FLOOR/RTL_THIRD.tmx"));
         maps.put("RTL_ROOMDAA", new RTL_THIRD("RTL_ROOMDAA").setMap("Game2D/Maps/RTL_ROOM/RTL_ROOMDAA.tmx"));
         maps.put("RTL_ROOMMATH", new RTL_THIRD("RTL_ROOMMATH").setMap("Game2D/Maps/RTL_ROOM/RTL_ROOMMATH.tmx"));
@@ -68,10 +68,7 @@ public class MapManager {
 
                 tiledMapRenderer.setMap(map.getTiledMap());
                 currentMap = map;
-                currentMap.setCollisions();
-                currentMap.setExits();
-                currentMap.setNPCS();
-                currentMap.playMusic();
+                currentMap.initializeMap();
             });
         }
     }

@@ -1,6 +1,7 @@
 package com.mygdx.game.Game2D;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.Game2D.Manager.*;
@@ -17,7 +18,7 @@ public class Game2D extends Game {
     private GameClient gameClient;
     public static InputManager inputManager;
     public static MapManager mapManager;
-
+    public static Screen previousScreen;
     @Override
     public void create() {
         batch = new SpriteBatch();
@@ -44,4 +45,9 @@ public class Game2D extends Game {
         this.gameClient = gameClient;
     }
 
+    @Override
+    public void setScreen(Screen screen) {
+        previousScreen = getScreen();
+        super.setScreen(screen);
+    }
 }

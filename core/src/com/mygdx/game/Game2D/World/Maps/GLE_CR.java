@@ -3,8 +3,8 @@ package com.mygdx.game.Game2D.World.Maps;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Entities.NPC.MainNPC;
-import com.mygdx.game.Game2D.Manager.ResourceManager;
 import com.mygdx.game.Game2D.Utils.GameQueue;
+import com.mygdx.game.Game2D.Utils.RandomGetter;
 import com.mygdx.game.Game2D.World.GameMap;
 
 import java.util.ArrayList;
@@ -44,21 +44,21 @@ public class GLE_CR extends GameMap {
     @Override
     public void setNPCS() {
         MainNPC mainNpc = new MainNPC(0);
-        mainNpc.setTextureAtlas(ResourceManager.getRandomTA_NPC());
+        mainNpc.setTextureAtlas(RandomGetter.getRandomTA_NPC());
         mainNpc.setToStay(Entity.Direction.DOWN);
         mainNpc.setPosition(new Vector2(9, 2));
         mainNpc.setDialogues(dialogues);
         npcManager.addNPC(mainNpc);
 
         MainNPC npc2 = new MainNPC(0);
-        npc2.setTextureAtlas(ResourceManager.getRandomTA_NPC());
+        npc2.setTextureAtlas(RandomGetter.getRandomTA_NPC());
         npc2.setToStay(Entity.Direction.DOWN);
         npc2.setPosition(new Vector2(11, 2));
         npc2.setDialogues(dialogues);
         npcManager.addNPC(npc2);
 
         MainNPC npc3 = new MainNPC(0);
-        npc3.setTextureAtlas(ResourceManager.getRandomTA_NPC());
+        npc3.setTextureAtlas(RandomGetter.getRandomTA_NPC());
         npc3.setToStay(Entity.Direction.DOWN);
         npc3.setPosition(new Vector2(13, 2));
         npc3.setDialogues(dialogues);

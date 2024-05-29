@@ -9,6 +9,7 @@ import com.mygdx.game.Game2D.Entities.player.Player;
 import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.World.MapExit;
 import com.mygdx.game.Game2D.World.Maps.Minigames.MINIGAME1;
+import com.mygdx.game.Game2D.World.Maps.Minigames.MINIGAME2.TypeRacer;
 import com.mygdx.game.ScreenConfig;
 
 import static com.mygdx.game.Game2D.Game2D.mapManager;
@@ -45,8 +46,9 @@ public class GameCollisionListener implements ContactListener {
                 mapManager.dispatchMap(mapExit);
             }
 
-            if(objectB instanceof NPCMinigame1){
-                MINIGAME1.health -= 1;
+            if(objectB instanceof TypeRacer typeRacer){
+                typeRacer.create();
+                game.setScreen(typeRacer);
             }
         }
 

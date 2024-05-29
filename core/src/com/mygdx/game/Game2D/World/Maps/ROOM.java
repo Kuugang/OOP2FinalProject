@@ -1,10 +1,12 @@
 package com.mygdx.game.Game2D.World.Maps;
 
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Game2D.Dialogues.Dialogues;
 import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Entities.NPC.MainNPC;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
 import com.mygdx.game.Game2D.Utils.GameQueue;
+import com.mygdx.game.Game2D.Utils.RandomGetter;
 import com.mygdx.game.Game2D.World.GameMap;
 
 import java.util.ArrayList;
@@ -19,27 +21,13 @@ public class ROOM extends GameMap {
 
     public void setNPCS(){
         MainNPC gymNPC = new MainNPC(100);
-        gymNPC.setTextureAtlas(ResourceManager.getRandomTA_NPC());
-        gymNPC.setDialogues(new ArrayList<>(Arrays.asList(
-                "No pain, no gain.",
-                "Feel the burn!",
-                "Leg day is the best day.",
-                "Stay hydrated.",
-                "I'm hitting the gym.",
-                "Lift heavy, lift smart.",
-                "Fitness is a lifestyle.",
-                "What’s your PR (personal record)?",
-                "Don't skip leg day.",
-                "Eat clean, train dirty.",
-                "Train insane or remain the same.",
-                "The only bad workout is the one that didn’t happen.",
-                "Stronger every day."
-        )));
+        gymNPC.setTextureAtlas(RandomGetter.getRandomTA_NPC());
+        gymNPC.setDialogues(Dialogues.dialogues3);
         gymNPC.setToStay(Entity.Direction.RIGHT);
         gymNPC.setPosition(new Vector2(29, 9));
 
         MainNPC anotherNPC = new MainNPC(100);
-        anotherNPC.setTextureAtlas(ResourceManager.getRandomTA_NPC());
+        anotherNPC.setTextureAtlas(RandomGetter.getRandomTA_NPC());
         anotherNPC.setPosition(new Vector2(13, 9));
         anotherNPC.setDialogues(new ArrayList<>(Arrays.asList(
                 "Sooo Warm...",

@@ -539,7 +539,9 @@
    <properties>
     <property name="nextMap" value="NGE_HALL"/>
     <property name="playerDirection" value="RIGHT"/>
-    <property name="type" value="lastMap"/>
+    <property name="playerX" type="float" value="83"/>
+    <property name="playerY" type="float" value="20"/>
+    <property name="type" value="exit"/>
    </properties>
   </object>
   <object id="144" x="9.09091" y="712.121" width="27.2727" height="1421.21">

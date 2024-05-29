@@ -3,12 +3,10 @@ package com.mygdx.game.Game2D.World.Maps.Minigames;
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Game2D.Entities.NPC.NPC;
 import com.mygdx.game.Game2D.Entities.NPC.NPCMinigame1;
-import com.mygdx.game.Game2D.Manager.ResourceManager;
 import com.mygdx.game.Game2D.Utils.GameQueue;
+import com.mygdx.game.Game2D.Utils.RandomGetter;
 import com.mygdx.game.Game2D.World.GameMap;
 import com.mygdx.game.Game2D.World.Minigame;
-
-import static com.mygdx.game.Game2D.Screens.GameScreen.world;
 
 public class MINIGAME1 extends GameMap implements Minigame {
 
@@ -23,9 +21,9 @@ public class MINIGAME1 extends GameMap implements Minigame {
     @Override
     public void setNPCS() {
         new Thread(() -> {
-            for(int i = 0; i < 20; i++) {
+            for(int i = 0; i < 50; i++) {
                 NPCMinigame1 npcMinigame1 = new NPCMinigame1(1000, level);
-                Gdx.app.postRunnable(() -> npcMinigame1.setTextureAtlas(ResourceManager.getRandomTA_NPC()));
+                Gdx.app.postRunnable(() -> npcMinigame1.setTextureAtlas(RandomGetter.getRandomTA_NPC()));
 
                 try {
                     Thread.sleep(500);
