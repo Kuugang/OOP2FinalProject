@@ -50,7 +50,7 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
 
         player = profileManager.getCurrentPlayer();
 
-        mapManager.dispatchMap(new MapExit("NGE_HALL", player.position, player.direction));
+        mapManager.dispatchMap(new MapExit("ROOM", player.position, player.direction));
 
 
         OrthographicCamera hudCamera = new OrthographicCamera();
@@ -87,7 +87,7 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
 
         ScreenUtils.clear(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//        camera.zoom = 0.5F;
+        camera.zoom = 0.5F;
 
         //PHYSICS
         world.step(1/10f, 6, 2);
