@@ -30,7 +30,6 @@ public class PlayerHUD {
         defaultWidth = 350;
         defaultHeight = 100;
 
-
         Table table = new Table();
         table.pad(10);
         table.setBackground(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("test.png")))));
@@ -42,14 +41,11 @@ public class PlayerHUD {
 
         table.add(playerTable).align(Align.left);
 
-
-
         //Nested Table for rowspan
         Table table2 = new Table();
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = ResourceManager.pixel10;
         labelStyle.fontColor = Color.BLACK;
-
 
         // Name label
         nameLabel = new Label(player.username, labelStyle);
@@ -65,11 +61,7 @@ public class PlayerHUD {
 
 
         table2.padLeft(30);
-
-
         table.add(table2).align(Align.left);
-
-
 
 //        //TODO Make HUD interactable
 //        TextButton inventoryButton = new TextButton("Inventory", skin); // Assuming you have a skin
@@ -81,15 +73,12 @@ public class PlayerHUD {
 //
 //        table.add(table3).align(Align.left);
 
-
         table.setSize(defaultWidth, defaultHeight);
         stage.addActor(table);
 
 
         // x = 10 for margin and - 10 for y margin
         table.setPosition(10, Gdx.graphics.getHeight() - table.getHeight() - 10);
-
-
     }
 
 

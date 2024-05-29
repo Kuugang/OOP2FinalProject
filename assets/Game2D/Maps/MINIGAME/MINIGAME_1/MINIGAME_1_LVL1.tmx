@@ -76,7 +76,7 @@
     <property name="nextMap" value="MINIGAME1_LVL2"/>
     <property name="playerDirection" value="UP"/>
     <property name="playerX" type="float" value="-1"/>
-    <property name="playerY" type="float" value="0"/>
+    <property name="playerY" type="float" value="0.1"/>
     <property name="type" value="exit"/>
    </properties>
   </object>

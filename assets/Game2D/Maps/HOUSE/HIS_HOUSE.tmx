@@ -28,11 +28,11 @@
  <objectgroup id="3" name="EXIT_LAYER">
   <object id="1" x="320" y="448" width="288" height="56">
    <properties>
-    <property name="nextMap" value="Minigame1"/>
+    <property name="nextMap" value="MINIGAME1_LVL1"/>
     <property name="playerDirection" value="UP"/>
     <property name="playerX" type="float" value="10"/>
-    <property name="playerY" type="float" value="10"/>
-    <property name="type" value="minigame"/>
+    <property name="playerY" type="float" value="0.1"/>
+    <property name="type" value="exit"/>
    </properties>
   </object>
  </objectgroup>

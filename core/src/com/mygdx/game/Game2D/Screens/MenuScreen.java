@@ -106,7 +106,7 @@ public class MenuScreen extends BaseScreen {
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(0,0,0,1);
+        super.render(delta);
 
         stateTime += Gdx.graphics.getDeltaTime();
 

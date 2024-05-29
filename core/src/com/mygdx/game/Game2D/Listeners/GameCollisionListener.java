@@ -46,7 +46,6 @@ public class GameCollisionListener implements ContactListener {
 
             if(objectB instanceof NPCMinigame1){
                 MINIGAME1.health -= 1;
-                System.out.println("NAIGO KA");
             }
         }
 

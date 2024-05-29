@@ -216,6 +216,7 @@ public class Player extends Entity implements Json.Serializable {
         json.writeValue("position", getPosition());
         json.writeValue("direction", getDirection());
         json.writeValue("map", getMap());
+        json.writeValue("lastMapPosition", getLastMapPosition());
     }
 
     @Override
@@ -224,5 +225,6 @@ public class Player extends Entity implements Json.Serializable {
         position = json.readValue("position", Vector2.class, jsonData);
         direction = json.readValue("direction", Entity.Direction.class, jsonData);
         map = json.readValue("map", String.class, jsonData);
+        lastMapPosition = json.readValue("lastMapPosition", Vector2.class, jsonData);
     }
 }

@@ -6,7 +6,6 @@ import com.mygdx.game.Game2D.Screens.transition.effects.TransitionEffect;
 import java.util.ArrayList;
 
 public class TransitionScreen extends BaseScreen {
-
     private Game2D game;
     private BaseScreen current;
     private BaseScreen next;

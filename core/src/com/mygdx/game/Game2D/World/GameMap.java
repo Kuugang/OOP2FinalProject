@@ -1,5 +1,7 @@
 package com.mygdx.game.Game2D.World;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
@@ -17,6 +19,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Entities.NPC.NPC;
+import com.mygdx.game.Game2D.Game2D;
+import com.mygdx.game.Game2D.Manager.AudioManager;
 import com.mygdx.game.Game2D.Manager.NPCManager;
 import com.mygdx.game.Game2D.Screens.GameScreen;
 
@@ -37,6 +41,7 @@ public abstract class GameMap {
     TiledMapTileLayer FOREGROUND_LAYER, FOREGROUND_LAYER1;
     public NPCManager npcManager;
     public ArrayList<NPC> npcs = new ArrayList<>();
+    Music mapMusic;
 
     public GameMap(String mapName){
         this.mapName = mapName;
@@ -54,6 +59,23 @@ public abstract class GameMap {
     public GameMap setMapName(String mapName){
         this.mapName = mapName;
         return this;
+    }
+
+    public GameMap setMapMusic(String music){
+        mapMusic = AudioManager.getInstance().getMusic(music);
+        return this;
+    }
+
+    public void playMusic(){
+        if(mapMusic != null){
+            AudioManager.getInstance().playMusic(mapMusic);
+        }
+    }
+
+    public void stopMusic(){
+        if(mapMusic != null){
+            AudioManager.getInstance().stopMusic();
+        }
     }
 
     public abstract void setNPCS();
@@ -84,12 +106,14 @@ public abstract class GameMap {
                     MapProperties properties = object.getProperties();
                     String type = (String) properties.get("type");
                     switch (type){
-                        case "exit", "minigame" -> {
+                        case "exit" -> {
                             String nextMap = (String) properties.get("nextMap");
                             Entity.Direction direction = Entity.Direction.fromString((String)properties.get("playerDirection"));
 
                             float playerX = (float) properties.get("playerX");
                             float playerY = (float) properties.get("playerY");
+                            if(playerX == -1)playerX = player.getLastMapPosition().x;
+                            if(playerY == -1)playerY = player.getLastMapPosition().y;
 
                             MapExit exit = new MapExit(nextMap, new Vector2(playerX, playerY), direction);
                             collisionBody.createFixture(exitFixtureDef).setUserData(exit);

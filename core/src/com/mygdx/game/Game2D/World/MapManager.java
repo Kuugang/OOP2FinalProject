@@ -1,6 +1,7 @@
 package com.mygdx.game.Game2D.World;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -36,9 +37,9 @@ public class MapManager {
         maps.put("RTL_ROOMDAA", new RTL_THIRD("RTL_ROOMDAA").setMap("Game2D/Maps/RTL_ROOM/RTL_ROOMDAA.tmx"));
         maps.put("RTL_ROOMMATH", new RTL_THIRD("RTL_ROOMMATH").setMap("Game2D/Maps/RTL_ROOM/RTL_ROOMMATH.tmx"));
 
-        maps.put("MINIGAME_1_LVL1", new MINIGAME1("MINIGAME_1_LVL1", 1).setMap("Game2D/Maps/MINIGAME/MINIGAME_1/MINIGAME_1_LVL1.tmx"));
-        maps.put("MINIGAME_1_LVL2", new MINIGAME1("MINIGAME_1_LVL2", 2).setMap("Game2D/Maps/MINIGAME/MINIGAME_1/MINIGAME_1_LVL2.tmx"));
-        maps.put("MINIGAME_1_LVL3", new MINIGAME1("MINIGAME_1_LVL3", 3).setMap("Game2D/Maps/MINIGAME/MINIGAME_1/MINIGAME_1_LVL3.tmx"));
+        maps.put("MINIGAME1_LVL1", new MINIGAME1("MINIGAME1_LVL1", 1).setMap("Game2D/Maps/MINIGAME/MINIGAME_1/MINIGAME_1_LVL1.tmx").setMapMusic("Stardew Valley OST - Luau Festival"));
+        maps.put("MINIGAME1_LVL2", new MINIGAME1("MINIGAME1_LVL2", 2).setMap("Game2D/Maps/MINIGAME/MINIGAME_1/MINIGAME_1_LVL2.tmx").setMapMusic("MUSIC_LVL2"));
+        maps.put("MINIGAME1_LVL3", new MINIGAME1("MINIGAME1_LVL3", 3).setMap("Game2D/Maps/MINIGAME/MINIGAME_1/MINIGAME_1_LVL3.tmx").setMapMusic("MUSIC_LVL3"));
     }
 
     public void dispatchMap(MapExit mapExit) {
@@ -48,6 +49,7 @@ public class MapManager {
             Gdx.app.postRunnable(() -> {
                 if (currentMap != null) {
                     currentMap.disposeBodies();
+                    currentMap.stopMusic();
                 }
 
                 player.setDirection(mapExit.playerDirection);
@@ -59,6 +61,7 @@ public class MapManager {
                 currentMap.setCollisions();
                 currentMap.setExits();
                 currentMap.setNPCS();
+                currentMap.playMusic();
             });
         }
     }

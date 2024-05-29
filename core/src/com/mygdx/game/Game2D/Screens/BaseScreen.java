@@ -14,12 +14,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
-import com.mygdx.game.Game2D.Manager.SoundManager;
+import com.mygdx.game.Game2D.Manager.AudioManager;
 import com.mygdx.game.Game2D.Screens.transition.effects.TransitionEffect;
+import com.mygdx.game.Game2D.status.CurrentMusicDisplay;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,19 +34,16 @@ public class BaseScreen implements Screen{
     protected ResourceManager resourceManager;
     protected OrthographicCamera gameCam;
     protected OrthographicCamera battleCam;
-    // viewport that keeps aspect ratios of the game when resizing
     protected Viewport viewport;
-    // main stage of each screen
     protected Stage stage;
-//    protected AudioObserver.AudioTypeEvent musicTheme;
-
-//    private Array<AudioObserver> observers;
+    CurrentMusicDisplay currentMusicDisplay;
 
     public BaseScreen(Game2D game) {
         this.game = game;
         this.resourceManager = Game2D.resourceManager;
         this.stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight())); // Initialize the stage
-//        Gdx.input.setInputProcessor(this.stage); //
+
+        currentMusicDisplay = AudioManager.getInstance().getCurrentMusicDisplay();
     }
 
     public void setScreenWithTransition(BaseScreen current, BaseScreen next, List<TransitionEffect> transitionEffect) {
@@ -69,18 +68,15 @@ public class BaseScreen implements Screen{
         button.addListener(new InputListener() {
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                 //Hover sound
-                if(!SoundManager.buttonSound)
+                if(!AudioManager.buttonSound)
                 {
-                    SoundManager.playSound("hover");
-                    SoundManager.buttonSound = true;
+                    AudioManager.getInstance().playSound("hover");
                 }
             }
 
             public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
                 //Hover sound
-                SoundManager.buttonSound = false;
-
-
+                AudioManager.buttonSound = false;
             }
         });
 
@@ -109,16 +105,15 @@ public class BaseScreen implements Screen{
                 @Override
                 public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                     // Hover sound
-                    if (!SoundManager.buttonSound) {
-                        SoundManager.playSound("hover");
-                        SoundManager.buttonSound = true;
+                    if (!AudioManager.buttonSound) {
+                        AudioManager.getInstance().playSound("hover");
                     }
                     button.setScale(1.1F);
                 }
 
                 @Override
                 public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                    SoundManager.buttonSound = false;
+                    AudioManager.buttonSound = false;
                     button.setScale(1.0F);
                 }
             });
@@ -149,8 +144,10 @@ public class BaseScreen implements Screen{
 
     @Override
     public void render(float delta) {
+        ScreenUtils.clear(0,0,0,1);
         stage.act(delta);
         stage.draw();
+        currentMusicDisplay.render(delta);
     }
 
     @Override
@@ -175,19 +172,9 @@ public class BaseScreen implements Screen{
 
     @Override
     public void dispose() {
-        //stage.dispose();
+//        stage.dispose();
     }
-
-    public OrthographicCamera getGameCam() {
-        return gameCam;
-    }
-
-    public OrthographicCamera getBattleCam() {
-        return battleCam;
-    }
-
     public Stage getStage() {
         return stage;
     }
-
 }

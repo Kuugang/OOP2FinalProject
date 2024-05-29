@@ -79,6 +79,7 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
 
     @Override
     public void render(float delta) {
+        super.render(delta);
         if (gameState == GameState.PAUSED) {
             pauseScreen.getStage().act(delta);
             pauseScreen.getStage().draw();

@@ -2,7 +2,6 @@ package com.mygdx.game.Game2D.Entities.NPC;
 
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Game2D.World.CollisionType;
-import com.mygdx.game.Game2D.World.Maps.Minigames.MINIGAME1;
 
 import java.util.Random;
 
@@ -18,13 +17,13 @@ public class NPCMinigame1 extends NPC {
     }
 
     public void randomizeNPC(){
-        int randomInt1 = random.nextInt(11 - 7 + 1) + 7;
-        int randomInt2 = random.nextInt(17 - 13 + 1) + 13;
+        float random1 = random.nextFloat(11 - 7 + 1) + 7.5F;
+        float random2 = random.nextFloat(17 - 13 + 1) + 12.5F;
 
         if(random.nextInt(2) == 1){
-            setPosition(new Vector2(randomInt1, 29));
+            setPosition(new Vector2(random1, 33));
         }else{
-            setPosition(new Vector2(randomInt2, 29));
+            setPosition(new Vector2(random2, 33));
         }
 
         float speedLowerBound = 0;
