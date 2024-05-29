@@ -79,8 +79,10 @@
  <objectgroup id="4" name="EXIT_LAYER">
   <object id="12" x="1565.5" y="631" width="166.5" height="38">
    <properties>
-    <property name="nextMap" value="HOME"/>
+    <property name="nextMap" value="HIS_HOUSE"/>
     <property name="playerDirection" value="up"/>
+    <property name="playerX" type="float" value="14"/>
+    <property name="playerY" type="float" value="1.5"/>
     <property name="type" value="exit"/>
    </properties>
   </object>
@@ -88,6 +90,8 @@
    <properties>
     <property name="nextMap" value="ACADF"/>
     <property name="playerDirection" value="down"/>
+    <property name="playerX" type="float" value="2"/>
+    <property name="playerY" type="float" value="27"/>
     <property name="type" value="exit"/>
    </properties>
   </object>
@@ -95,14 +99,18 @@
    <properties>
     <property name="nextMap" value="GYMF"/>
     <property name="playerDirection" value="down"/>
-    <property name="type" value="lastMap"/>
+    <property name="playerX" type="float" value="33.5"/>
+    <property name="playerY" type="float" value="11"/>
+    <property name="type" value="exit"/>
    </properties>
   </object>
   <object id="17" x="0" y="1039.39" width="1924.24" height="30.303">
    <properties>
     <property name="nextMap" value="SHSF"/>
     <property name="playerDirection" value="down"/>
-    <property name="type" value="lastMap"/>
+    <property name="playerX" type="float" value="165"/>
+    <property name="playerY" type="float" value="7"/>
+    <property name="type" value="exit"/>
    </properties>
   </object>
  </objectgroup>

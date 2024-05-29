@@ -12,6 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.mygdx.game.Game2D.Dialogues.Dialogues;
+
+import java.util.ArrayList;
 
 public class ResourceManager {
     public static ResourceManager instance = null;
@@ -103,6 +106,14 @@ public class ResourceManager {
 
         atlas.dispose();
         pixel10.dispose();
+    }
+
+    public static ArrayList<String> getRandomDialogues(){
+        return switch (Math.abs(new RandomXS128().nextInt() % 2)){
+            case 0 -> Dialogues.dialogues1;
+            case 1 -> Dialogues.dialogues2;
+            default -> null;
+        };
     }
 
     public static String getRandomTA_NPC(){

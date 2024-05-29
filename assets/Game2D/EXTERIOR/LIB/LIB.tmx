@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="38" height="28" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="27">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="38" height="28" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="29">
  <tileset firstgid="1" source="../../TSX FILES/LIB.tsx"/>
  <tileset firstgid="1065" source="../Modern_Exteriors_Complete_Tileset_32x32.tsx"/>
  <tileset firstgid="56857" source="../Tiles2.tsx"/>
@@ -90,24 +90,28 @@
   <object id="26" x="1047" y="-1" width="43" height="7"/>
  </objectgroup>
  <objectgroup id="3" name="EXIT_LAYER">
-  <object id="19" x="480" y="384" width="128" height="32">
-   <properties>
-    <property name="nextMap" value="LIBRARY"/>
-    <property name="playerDirection" value="up"/>
-    <property name="type" value="exit"/>
-   </properties>
-  </object>
   <object id="20" x="0" y="768" width="2.33333" height="128">
    <properties>
     <property name="nextMap" value="RTL"/>
     <property name="playerDirection" value="left"/>
-    <property name="type" value="exit"/>
+    <property name="type" value="lastMap"/>
    </properties>
   </object>
   <object id="21" x="1214.5" y="608.333" width="1.75" height="287.917">
    <properties>
     <property name="nextMap" value="CLINICLINE"/>
     <property name="playerDirection" value="up"/>
+    <property name="playerX" type="float" value="1.5"/>
+    <property name="playerY" type="float" value="12"/>
+    <property name="type" value="exit"/>
+   </properties>
+  </object>
+  <object id="27" x="351.333" y="883.333" width="415.333" height="12">
+   <properties>
+    <property name="nextMap" value="GLE_F"/>
+    <property name="playerDirection" value="up"/>
+    <property name="playerX" type="float" value="20.5"/>
+    <property name="playerY" type="float" value="2.5"/>
     <property name="type" value="exit"/>
    </properties>
   </object>

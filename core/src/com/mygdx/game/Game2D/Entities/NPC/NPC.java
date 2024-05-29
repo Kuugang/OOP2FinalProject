@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Screens.GameScreen;
+import com.mygdx.game.Game2D.Utils.GameQueue;
 import com.mygdx.game.Game2D.World.CollisionType;
 import com.mygdx.game.ScreenConfig;
 
@@ -97,16 +98,16 @@ public abstract class NPC extends Entity {
 
         state = State.WALKING;
         if(direction == Direction.UP && !setToStay){
-            boxBody.applyLinearImpulse(new Vector2(0, speed / 2), boxBody.getWorldCenter(), true);
+            GameQueue.add(() -> boxBody.applyLinearImpulse(new Vector2(0, speed / 2), boxBody.getWorldCenter(), true));
             direction = Direction.UP;
         }else if(direction == Direction.DOWN && !setToStay){
-            boxBody.applyLinearImpulse(new Vector2(0, -speed / 2), boxBody.getWorldCenter(), true);
+            GameQueue.add(() -> boxBody.applyLinearImpulse(new Vector2(0, -speed / 2), boxBody.getWorldCenter(), true));
             direction = Direction.DOWN;
         }else if(direction == Direction.LEFT && !setToStay){
-            boxBody.applyLinearImpulse(new Vector2(-speed / 2, 0), boxBody.getWorldCenter(), true);
+            GameQueue.add(() -> boxBody.applyLinearImpulse(new Vector2(-speed / 2, 0), boxBody.getWorldCenter(), true));
             direction = Direction.LEFT;
         }else if(direction == Direction.RIGHT && !setToStay){
-            boxBody.applyLinearImpulse(new Vector2(speed / 2, 0), boxBody.getWorldCenter(), true);
+            GameQueue.add(() -> boxBody.applyLinearImpulse(new Vector2(speed / 2, 0), boxBody.getWorldCenter(), true));
             direction = Direction.RIGHT;
         }else
             state = State.IDLE;
@@ -140,7 +141,7 @@ public abstract class NPC extends Entity {
     public void setDialogues(ArrayList<String> dialogues){
         super.dialogues = dialogues;
     }
-    
+
     public void setDialoguesToNPC(ArrayList<String> dialoguesToNPC){
         super.dialoguesToNPC = dialoguesToNPC;
     }
@@ -159,11 +160,11 @@ public abstract class NPC extends Entity {
         if(gameState == GameScreen.GameState.PAUSED)
             return this;
 
-        position.set(this.boxBody.getPosition().x / ScreenConfig.originalTileSize, this.boxBody.getPosition().y /
-                ScreenConfig.originalTileSize);
+        GameQueue.add(() -> position.set(this.boxBody.getPosition().x / ScreenConfig.originalTileSize, this.boxBody.getPosition().y /
+                ScreenConfig.originalTileSize));
 
-        sprite.setPosition(boxBody.getPosition().x - sprite.getWidth() / 2, boxBody.getPosition().y -
-                sprite.getHeight() / 7);
+        GameQueue.add(() -> sprite.setPosition(boxBody.getPosition().x - sprite.getWidth() / 2, boxBody.getPosition().y -
+                sprite.getHeight() / 7));
 
         animationStateTime += Gdx.graphics.getDeltaTime();
 
