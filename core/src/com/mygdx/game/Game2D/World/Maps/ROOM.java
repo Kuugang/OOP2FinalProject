@@ -2,7 +2,7 @@ package com.mygdx.game.Game2D.World.Maps;
 
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Game2D.Entities.Entity;
-import com.mygdx.game.Game2D.Entities.NPC.NPC1;
+import com.mygdx.game.Game2D.Entities.NPC.MainNPC;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
 import com.mygdx.game.Game2D.Utils.GameQueue;
 import com.mygdx.game.Game2D.World.GameMap;
@@ -18,7 +18,7 @@ public class ROOM extends GameMap {
     }
 
     public void setNPCS(){
-        NPC1 gymNPC = new NPC1(100);
+        MainNPC gymNPC = new MainNPC(100);
         gymNPC.setTextureAtlas(ResourceManager.getRandomTA_NPC());
         gymNPC.setDialogues(new ArrayList<>(Arrays.asList(
                 "No pain, no gain.",
@@ -38,7 +38,7 @@ public class ROOM extends GameMap {
         gymNPC.setToStay(Entity.Direction.RIGHT);
         gymNPC.setPosition(new Vector2(29, 9));
 
-        NPC1 anotherNPC = new NPC1(100);
+        MainNPC anotherNPC = new MainNPC(100);
         anotherNPC.setTextureAtlas(ResourceManager.getRandomTA_NPC());
         anotherNPC.setPosition(new Vector2(13, 9));
         anotherNPC.setDialogues(new ArrayList<>(Arrays.asList(

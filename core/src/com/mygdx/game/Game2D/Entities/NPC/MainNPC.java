@@ -1,8 +1,8 @@
 package com.mygdx.game.Game2D.Entities.NPC;
 
-public class NPC1 extends NPC {
+public class MainNPC extends NPC {
 
-    public NPC1(int length) {
+    public MainNPC(int length) {
         super(length);
         setTextureAtlas("atlas/leo.atlas");
     }

@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.Game2D.Dialogues.Dialogues;
+import com.mygdx.game.Game2D.Entities.Entity;
 
 import java.util.ArrayList;
 
@@ -101,6 +102,16 @@ public class ResourceManager {
         isMenuLoadGameScreen = menuLoadGameScreen;
     }
 
+    public Entity.Direction getRandomDirection() {
+        RandomXS128 randomXS128 = new RandomXS128();
+        return switch (Math.abs(randomXS128.nextInt() % 4)) {
+            case 0 -> Entity.Direction.LEFT;
+            case 1 -> Entity.Direction.RIGHT;
+            case 2 -> Entity.Direction.UP;
+            case 3 -> Entity.Direction.DOWN;
+            default -> null;
+        };
+    }
     public void dispose() {
         assetManager.dispose();
 
