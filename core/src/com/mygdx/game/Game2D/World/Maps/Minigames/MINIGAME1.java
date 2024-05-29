@@ -4,8 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Game2D.Entities.NPC.NPC;
 import com.mygdx.game.Game2D.Entities.NPC.NPCMinigame1;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
+import com.mygdx.game.Game2D.Utils.GameQueue;
 import com.mygdx.game.Game2D.World.GameMap;
 import com.mygdx.game.Game2D.World.Minigame;
+
+import static com.mygdx.game.Game2D.Screens.GameScreen.world;
 
 public class MINIGAME1 extends GameMap implements Minigame {
     public static int health = 10;
@@ -14,9 +17,7 @@ public class MINIGAME1 extends GameMap implements Minigame {
         super(mapName);
         this.level = level;
     }
-
-
-
+    
     @Override
     public void setNPCS() {
         new Thread(() -> {
@@ -24,17 +25,15 @@ public class MINIGAME1 extends GameMap implements Minigame {
                 NPCMinigame1 npcMinigame1 = new NPCMinigame1(1000, level);
 
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(500);
                 }catch (InterruptedException ignored){}
 
-                Gdx.app.postRunnable(() -> {
-                    npcMinigame1.setTextureAtlas(ResourceManager.getRandomTA_NPC());
-                    npcManager.addNPC(npcMinigame1);
-                });
+                Gdx.app.postRunnable(() -> npcMinigame1.setTextureAtlas(ResourceManager.getRandomTA_NPC()));
+                GameQueue.add(() -> bodies.add(npcMinigame1.boxBody));
+
+                npcManager.addNPC(npcMinigame1);
             }
         }).start();
-
-        npcManager.getNPCs().forEach(npc -> bodies.add(npc.boxBody));
     }
 
     @Override

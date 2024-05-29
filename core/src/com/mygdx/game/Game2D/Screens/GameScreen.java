@@ -15,6 +15,7 @@ import com.mygdx.game.Game2D.Entities.player.PlayerHUD;
 import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Listeners.GameCollisionListener;
 import com.mygdx.game.Game2D.Manager.InputManager;
+import com.mygdx.game.Game2D.Utils.GameQueue;
 import com.mygdx.game.Game2D.World.MapExit;
 import com.mygdx.game.Game2D.World.MapManager;
 import com.mygdx.game.ScreenConfig;
@@ -90,6 +91,9 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
 
         //PHYSICS
         world.step(1/60f, 6, 2);
+
+        while (!GameQueue.isEmpty())
+            GameQueue.removeFirst();
 
         batch.setProjectionMatrix(camera.combined);
         mapManager.update();
