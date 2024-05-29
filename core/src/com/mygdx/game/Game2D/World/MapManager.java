@@ -1,7 +1,6 @@
 package com.mygdx.game.Game2D.World;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -36,6 +35,17 @@ public class MapManager {
         maps.put("RTL_THIRD", new RTL_THIRD("RTL_THIRD").setMap("Game2D/Maps/RTL_THIRD_FLOOR/RTL_THIRD.tmx"));
         maps.put("RTL_ROOMDAA", new RTL_THIRD("RTL_ROOMDAA").setMap("Game2D/Maps/RTL_ROOM/RTL_ROOMDAA.tmx"));
         maps.put("RTL_ROOMMATH", new RTL_THIRD("RTL_ROOMMATH").setMap("Game2D/Maps/RTL_ROOM/RTL_ROOMMATH.tmx"));
+
+        maps.put("NGE_F", new NGE_F("NGE_F").setMap("Game2D/EXTERIOR/NGE_F/NGE_F.TMX"));
+        maps.put("RTL", new RTL("RTL").setMap("Game2D/EXTERIOR/RTL/RTL.TMX"));
+        maps.put("ALLIEDF", new ALLIEDF("ALLIEDF").setMap("Game2D/EXTERIOR/ALLIEDF/ALLIEDF.TMX"));
+        maps.put("GYMF", new GYMF("GYMF").setMap("Game2D/EXTERIOR/GYMF/GYMF.TMX"));
+        maps.put("ELEMF", new ELEMF("ELEMF").setMap("Game2D/EXTERIOR/ELEMF/ELEMF.TMX"));
+        maps.put("ACADF", new ACADF("ACADF").setMap("Game2D/EXTERIOR/ACADF/ACADF.TMX"));
+        maps.put("GLE_F", new GLE_F("GLE_F").setMap("Game2D/EXTERIOR/GLE_F/GLE_F.TMX"));
+        maps.put("LIB", new LIB("LIB").setMap("Game2D/EXTERIOR/LIB/LIB.TMX"));
+        maps.put("CLINICLINE", new CLINICLINE("CLINICLINE").setMap("Game2D/EXTERIOR/CLINICLINE/CLINICLINE.TMX"));
+        maps.put("SHSF", new SHSF("SHSF").setMap("Game2D/EXTERIOR/SHSF/SHSF.TMX"));
 
         maps.put("MINIGAME1_LVL1", new MINIGAME1("MINIGAME1_LVL1", 1).setMap("Game2D/Maps/MINIGAME/MINIGAME_1/MINIGAME_1_LVL1.tmx").setMapMusic("Stardew Valley OST - Luau Festival"));
         maps.put("MINIGAME1_LVL2", new MINIGAME1("MINIGAME1_LVL2", 2).setMap("Game2D/Maps/MINIGAME/MINIGAME_1/MINIGAME_1_LVL2.tmx").setMapMusic("MUSIC_LVL2"));
