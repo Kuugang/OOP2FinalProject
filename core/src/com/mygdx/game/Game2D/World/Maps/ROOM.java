@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Entities.NPC.NPC1;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
-import com.mygdx.game.Game2D.Manager.TextureAtlasNPC;
+import com.mygdx.game.Game2D.Utils.GameQueue;
 import com.mygdx.game.Game2D.World.GameMap;
 
 import java.util.ArrayList;
@@ -51,7 +51,11 @@ public class ROOM extends GameMap {
 
         npcManager.addNPC(gymNPC).addNPC(anotherNPC);
 
-        npcManager.getNPCs().forEach(npc -> bodies.add(npc.boxBody));
+        GameQueue.add(() -> {
+            bodies.add(gymNPC.boxBody);
+            bodies.add(anotherNPC.boxBody);
+        });
+
         player.setDialogue();
     }
 }

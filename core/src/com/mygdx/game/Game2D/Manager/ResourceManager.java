@@ -18,6 +18,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.mygdx.game.Game2D.Dialogues.Dialogues;
+
+import java.util.ArrayList;
 
 public class ResourceManager {
     public static ResourceManager instance = null;
@@ -59,7 +62,6 @@ public class ResourceManager {
     //Sounds
 
     private static AssetManager assetManager = new AssetManager();
-
 
     public TextureAtlas textureAtlas;
     public Animation<TextureRegion> upAnimation;
@@ -259,6 +261,14 @@ public class ResourceManager {
         pixel10.dispose();
     }
 
+    public static ArrayList<String> getRandomDialogues(){
+        return switch (Math.abs(new RandomXS128().nextInt() % 2)){
+            case 0 -> Dialogues.dialogues1;
+            case 1 -> Dialogues.dialogues2;
+            default -> null;
+        };
+    }
+
     public static String getRandomTA_NPC(){
         RandomXS128 randomXS128 = new RandomXS128();
         return switch (Math.abs(randomXS128.nextInt() % TextureAtlasNPC.values().length)) {
@@ -280,8 +290,7 @@ public class ResourceManager {
             case 15 -> TextureAtlasNPC.NPC16.getPath();
             case 16 -> TextureAtlasNPC.NPC17.getPath();
             case 17 -> TextureAtlasNPC.NPC18.getPath();
-            case 18 -> TextureAtlasNPC.NPC19.getPath();
-            case 19 -> TextureAtlasNPC.NPC20.getPath();
+            case 18, 19 -> TextureAtlasNPC.NPC20.getPath();
             default -> null;
         };
     }

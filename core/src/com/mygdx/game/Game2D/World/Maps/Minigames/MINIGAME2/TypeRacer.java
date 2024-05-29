@@ -52,18 +52,10 @@ public class TypeRacer extends Game implements InputProcessor {
             @Override
             public void run() {
                 addWord();
-                if (speed >= 1) {
-                    speed -= 0.1F;
-                }
-                System.out.println("Speed" + speed);
-
-                this.cancel();
-
-                Timer.schedule(this, 2, .5f);
             }
         };
 
-        Timer.schedule(task, 2, 1);
+        Timer.schedule(task, 1, 1.5f);
     }
 
 
@@ -83,6 +75,7 @@ public class TypeRacer extends Game implements InputProcessor {
 
     public void addWord() {
         Random rand = new Random();
+        speed+= .5f;
         int randomIndex = rand.nextInt(possibleWords.size());
         Word word = possibleWords.get(randomIndex);
 
@@ -93,7 +86,7 @@ public class TypeRacer extends Game implements InputProcessor {
 
         word.setPosition(new Vector2(x, Gdx.graphics.getHeight() - 70));
 
-        word.speed = rand.nextFloat() * 50 + 50; // Random speed between 50 and 100
+        word.speed = rand.nextFloat() * 10 + 20 + speed; // Random speed between 50 and 100
         words.add(word);
     }
 
@@ -105,7 +98,7 @@ public class TypeRacer extends Game implements InputProcessor {
 
     public void initializeWords() {
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("assets/words/words.csv"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("words/words.csv"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);

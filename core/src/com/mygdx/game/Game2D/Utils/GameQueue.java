@@ -1,6 +1,7 @@
 package com.mygdx.game.Game2D.Utils;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 
 public class GameQueue {
@@ -19,12 +20,30 @@ public class GameQueue {
         }
     }
 
-    public static synchronized void removeFirst() {
+    public static void run(){
+        synchronized (queue){
+            ArrayList<Thread> threads = new ArrayList<>();
+            queue.forEach(runnable -> threads.add(new Thread(runnable)));
+            threads.forEach(Thread::start);
+            threads.forEach(thread -> {
+                try {
+                    thread.join();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            queue.clear();
+        }
+    }
+
+    public static void removeFirst() {
         synchronized (queue){
             try {
                 Thread thread = new Thread(queue.peek());
                 thread.start();
                 thread.join();
+
+
             } catch (InterruptedException ignored) {}
 
             queue.removeFirst();

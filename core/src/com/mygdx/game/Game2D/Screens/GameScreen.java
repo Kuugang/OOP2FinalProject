@@ -34,6 +34,7 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
     public static PauseScreen pauseScreen;
     public static InputMultiplexer inputMultiplexer;
     CurrentMusicDisplay currentMusicDisplay;
+
     public GameScreen(Game2D game) {
         super(game);
 
@@ -49,7 +50,7 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
 
         player = profileManager.getCurrentPlayer();
 
-        Game2D.mapManager.dispatchMap(new MapExit(player.map, player.position, player.direction));
+        mapManager.dispatchMap(new MapExit("ROOM", player.position, player.direction));
 
         OrthographicCamera hudCamera = new OrthographicCamera();
         hudCamera.setToOrtho(false, ScreenConfig.screenWidth, ScreenConfig.screenHeight);
@@ -88,17 +89,17 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
         camera.zoom = 0.5F;
 
         //PHYSICS
-        world.step(1/60f, 6, 2);
+        world.step(1/10f, 6, 2);
 
-        while (!GameQueue.isEmpty())
-            GameQueue.removeFirst();
+        GameQueue.run();
 
         batch.setProjectionMatrix(camera.combined);
         mapManager.update();
         player.update();
         player.playerHUD.render(delta);
 
-        camera.position.set((player.getPosition().x * ScreenConfig.originalTileSize) +  (player.getWidth() / 2), (player.getPosition().y * ScreenConfig.originalTileSize)  + (player.getHeight() / 2), 0);
+        camera.position.set((player.getPosition().x * ScreenConfig.originalTileSize) +  (player.getWidth() / 2),
+                (player.getPosition().y * ScreenConfig.originalTileSize)  + (player.getHeight() / 2), 0);
         camera.update();
 
         currentMusicDisplay.render(delta);
