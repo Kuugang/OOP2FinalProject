@@ -4,9 +4,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Game2D.Dialogues.Dialogues;
 import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Entities.NPC.MainNPC;
-import com.mygdx.game.Game2D.Manager.ResourceManager;
 import com.mygdx.game.Game2D.Utils.GameQueue;
 import com.mygdx.game.Game2D.Utils.NPC_NPC_Bridge;
+import com.mygdx.game.Game2D.Utils.RandomGetter;
 import com.mygdx.game.Game2D.World.GameMap;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class GLE_202 extends GameMap {
     @Override
     public void setNPCS() {
         MainNPC mainNpc = new MainNPC(100);
-        mainNpc.setTextureAtlas(ResourceManager.getRandomTA_NPC());
+        mainNpc.setTextureAtlas(RandomGetter.getRandomTA_NPC());
         mainNpc.setToStay(Entity.Direction.DOWN);
         mainNpc.setPosition(new Vector2(2, 10));
         mainNpc.setDialogues(new ArrayList<>(
@@ -55,14 +55,14 @@ public class GLE_202 extends GameMap {
         npcManager.addNPC(mainNpc);
 
         MainNPC npc2 = new MainNPC(100);
-        npc2.setTextureAtlas(ResourceManager.getRandomTA_NPC());
+        npc2.setTextureAtlas(RandomGetter.getRandomTA_NPC());
         npc2.setToStay(Entity.Direction.UP);
         npc2.setPosition(new Vector2(2, 8));
         npc2.setDialogues(new ArrayList<>(Dialogues.dialogues1));
         npcManager.addNPC(npc2);
 
         MainNPC npc3 = new MainNPC(100);
-        npc3.setTextureAtlas(ResourceManager.getRandomTA_NPC());
+        npc3.setTextureAtlas(RandomGetter.getRandomTA_NPC());
         npc3.setToStay(Entity.Direction.LEFT);
         npc3.setPosition(new Vector2(20, 9));
         npc3.setDialogues(Dialogues.dialogues2);
@@ -70,12 +70,12 @@ public class GLE_202 extends GameMap {
 
 
         MainNPC npc4 = new MainNPC(100);
-        npc4.setTextureAtlas(ResourceManager.getRandomTA_NPC());
+        npc4.setTextureAtlas(RandomGetter.getRandomTA_NPC());
         npc4.setPosition(new Vector2(15, 9));
         npcManager.addNPC(npc4);
 
         MainNPC npc5 = new MainNPC(100);
-        npc5.setTextureAtlas(ResourceManager.getRandomTA_NPC());
+        npc5.setTextureAtlas(RandomGetter.getRandomTA_NPC());
         npc5.setPosition(new Vector2(8, 9));
         npcManager.addNPC(npc5);
 /*        npc1.setDialogues();

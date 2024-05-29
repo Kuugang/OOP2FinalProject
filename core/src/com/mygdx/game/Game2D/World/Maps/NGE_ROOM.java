@@ -5,6 +5,7 @@ import com.mygdx.game.Game2D.Dialogues.Dialogues;
 import com.mygdx.game.Game2D.Entities.NPC.MainNPC;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
 import com.mygdx.game.Game2D.Utils.GameQueue;
+import com.mygdx.game.Game2D.Utils.RandomGetter;
 import com.mygdx.game.Game2D.World.GameMap;
 
 public class NGE_ROOM extends GameMap {
@@ -16,7 +17,7 @@ public class NGE_ROOM extends GameMap {
     @Override
     public void setNPCS() {
         MainNPC mainNpc = new MainNPC(100);
-        mainNpc.setTextureAtlas(ResourceManager.getRandomTA_NPC());
+        mainNpc.setTextureAtlas(RandomGetter.getRandomTA_NPC());
         mainNpc.setDialogues(Dialogues.dialogues2);
         mainNpc.setPosition(new Vector2(7, 3));
         npcManager.addNPC(mainNpc);
