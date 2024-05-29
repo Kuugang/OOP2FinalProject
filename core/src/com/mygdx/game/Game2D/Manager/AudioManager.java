@@ -33,7 +33,7 @@ public class AudioManager {
     }
 
     public void loadMusic() {
-        FileHandle[] files = Gdx.files.internal("media/musics").list();
+        FileHandle[] files = Gdx.files.internal("assets/media/musics").list();
         for (FileHandle file : files) {
             Music music = Gdx.audio.newMusic(file);
             musics.put(file.nameWithoutExtension(), music);
@@ -41,7 +41,7 @@ public class AudioManager {
     }
 
     public void loadSound() {
-        FileHandle[] files = Gdx.files.internal("media/sounds").list();
+        FileHandle[] files = Gdx.files.internal("assets/media/sounds").list();
         for (FileHandle file : files) {
             Sound sound = Gdx.audio.newSound(file);
             sounds.put(file.nameWithoutExtension(), sound);

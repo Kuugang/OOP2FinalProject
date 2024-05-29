@@ -40,6 +40,8 @@
    <properties>
     <property name="nextMap" value="LIB"/>
     <property name="playerDirection" value="down"/>
+    <property name="playerX" type="float" value="18.5"/>
+    <property name="playerY" type="float" value="2.5"/>
     <property name="type" value="exit"/>
    </properties>
   </object>
@@ -47,13 +49,17 @@
    <properties>
     <property name="nextMap" value="ACADF"/>
     <property name="playerDirection" value="left"/>
+    <property name="playerX" type="float" value="23"/>
+    <property name="playerY" type="float" value="2"/>
     <property name="type" value="exit"/>
    </properties>
   </object>
   <object id="3" x="0.125" y="896" width="9.5" height="55.625">
    <properties>
-    <property name="nextMap" value="ELEMF"/>
+    <property name="nextMap" value="ACADF"/>
     <property name="playerDirection" value="left"/>
+    <property name="playerX" type="float" value="2.5"/>
+    <property name="playerY" type="float" value="2.5"/>
     <property name="type" value="exit"/>
    </properties>
   </object>
@@ -61,6 +67,8 @@
    <properties>
     <property name="nextMap" value="GLE_HALLWAY"/>
     <property name="playerDirection" value="up"/>
+    <property name="playerX" type="float" value="3"/>
+    <property name="playerY" type="float" value="9"/>
     <property name="type" value="exit"/>
    </properties>
   </object>
@@ -68,6 +76,8 @@
    <properties>
     <property name="nextMap" value="GLE_HALLWAY"/>
     <property name="playerDirection" value="up"/>
+    <property name="playerX" type="float" value="3"/>
+    <property name="playerY" type="float" value="9"/>
     <property name="type" value="exit"/>
    </properties>
   </object>
@@ -75,6 +85,8 @@
    <properties>
     <property name="nextMap" value="GLE_HALLWAY"/>
     <property name="playerDirection" value="up"/>
+    <property name="playerX" type="float" value="3"/>
+    <property name="playerY" type="float" value="9"/>
     <property name="type" value="exit"/>
    </properties>
   </object>
@@ -82,6 +94,8 @@
    <properties>
     <property name="nextMap" value="GLE_HALLWAY"/>
     <property name="playerDirection" value="up"/>
+    <property name="playerX" type="float" value="56"/>
+    <property name="playerY" type="float" value="9"/>
     <property name="type" value="exit"/>
    </properties>
   </object>
@@ -89,6 +103,8 @@
    <properties>
     <property name="nextMap" value="GLE_HALLWAY"/>
     <property name="playerDirection" value="up"/>
+    <property name="playerX" type="float" value="56"/>
+    <property name="playerY" type="float" value="9"/>
     <property name="type" value="exit"/>
    </properties>
   </object>
@@ -96,6 +112,8 @@
    <properties>
     <property name="nextMap" value="GLE_HALLWAY"/>
     <property name="playerDirection" value="up"/>
+    <property name="playerX" type="float" value="56"/>
+    <property name="playerY" type="float" value="9"/>
     <property name="type" value="exit"/>
    </properties>
   </object>

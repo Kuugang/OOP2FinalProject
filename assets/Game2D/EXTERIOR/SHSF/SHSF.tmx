@@ -100,6 +100,8 @@
    <properties>
     <property name="nextMap" value="CLINICLINE"/>
     <property name="playerDirection" value="right"/>
+    <property name="playerX" type="float" value="54"/>
+    <property name="playerY" type="float" value="2"/>
     <property name="type" value="exit"/>
    </properties>
   </object>
@@ -107,6 +109,8 @@
    <properties>
     <property name="nextMap" value="GYMF"/>
     <property name="playerDirection" value="up"/>
+    <property name="playerX" type="float" value="33"/>
+    <property name="playerY" type="float" value="3"/>
     <property name="type" value="exit"/>
    </properties>
   </object>
@@ -114,6 +118,8 @@
    <properties>
     <property name="nextMap" value="ELEMF"/>
     <property name="playerDirection" value="left"/>
+    <property name="playerX" type="float" value="51"/>
+    <property name="playerY" type="float" value="2.5"/>
     <property name="type" value="exit"/>
    </properties>
   </object>

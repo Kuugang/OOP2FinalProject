@@ -91,13 +91,17 @@
    <properties>
     <property name="nextMap" value="LIB"/>
     <property name="playerDirection" value="left"/>
-    <property name="type" value="lastMap"/>
+    <property name="playerX" type="float" value="35"/>
+    <property name="playerY" type="float" value="3"/>
+    <property name="type" value="exit"/>
    </properties>
   </object>
   <object id="30" x="1594.5" y="633.5" width="581.5" height="10">
    <properties>
     <property name="nextMap" value="SHSF"/>
     <property name="playerDirection" value="right"/>
+    <property name="playerX" type="float" value="88"/>
+    <property name="playerY" type="float" value="3"/>
     <property name="type" value="exit"/>
    </properties>
   </object>

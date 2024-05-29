@@ -65,6 +65,8 @@
    <properties>
     <property name="nextMap" value="ELEMF"/>
     <property name="playerDirection" value="right"/>
+    <property name="playerX" type="float" value="1"/>
+    <property name="playerY" type="float" value="5"/>
     <property name="type" value="exit"/>
    </properties>
   </object>
@@ -72,14 +74,16 @@
    <properties>
     <property name="nextMap" value="SHSF"/>
     <property name="playerDirection" value="down"/>
-    <property name="type" value="lastMap"/>
+    <property name="playerX" type="float" value="164"/>
+    <property name="playerY" type="float" value="13"/>
+    <property name="type" value="exit"/>
    </properties>
   </object>
   <object id="14" x="1.33333" y="789.333" width="1142.67" height="14.6667">
    <properties>
     <property name="nextMap" value="ALLIEDF"/>
     <property name="playerDirection" value="left"/>
-    <property name="type" value="exit"/>
+    <property name="type" value="lastMap"/>
    </properties>
   </object>
  </objectgroup>

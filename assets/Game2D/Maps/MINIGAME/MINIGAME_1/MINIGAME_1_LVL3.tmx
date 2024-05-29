@@ -101,9 +101,9 @@
   <object id="8" x="224" y="288" width="352" height="32">
    <properties>
     <property name="nextMap" value="NGE_F"/>
-    <property name="playerDirection" value="UP"/>
-    <property name="playerX" type="float" value="38"/>
-    <property name="playerY" type="float" value="4"/>
+    <property name="playerDirection" value="RIGHT"/>
+    <property name="playerX" type="float" value="37"/>
+    <property name="playerY" type="float" value="6.5"/>
     <property name="type" value="exit"/>
    </properties>
   </object>

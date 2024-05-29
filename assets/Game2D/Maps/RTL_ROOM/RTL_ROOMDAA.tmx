@@ -55,16 +55,14 @@
    <properties>
     <property name="nextMap" value="RTL_THIRD"/>
     <property name="playerDirection" value="LEFT"/>
-    <property name="playerX" type="float" value="76"/>
-    <property name="playerY" type="float" value="42.5"/>
+    <property name="type" value="lastMap"/>
    </properties>
   </object>
   <object id="66" x="77.75" y="602" width="65.5" height="13">
    <properties>
     <property name="nextMap" value="RTL_THIRD"/>
     <property name="playerDirection" value="LEFT"/>
-    <property name="playerX" type="float" value="76"/>
-    <property name="playerY" type="float" value="46.5"/>
+    <property name="type" value="lastMap"/>
    </properties>
   </object>
  </objectgroup>

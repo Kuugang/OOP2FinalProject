@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="90" height="60" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="126">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="90" height="60" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="135">
  <tileset firstgid="1" source="(LAYER1) NGE_HALL_STUDY-TEST.tsx"/>
  <tileset firstgid="2801" source="(LAYER1) NGE_HALL_STUDY.tsx"/>
  <tileset firstgid="8201" source="../../TSX FILES/FULL_INTERIOR.tsx"/>
@@ -197,9 +197,16 @@
    <properties>
     <property name="nextMap" value="RTL_ACCOUNTING"/>
     <property name="playerDirection" value="UP"/>
-    <property name="playerX" type="float" value="35"/>
-    <property name="playerY" type="float" value="1"/>
+    <property name="playerX" type="float" value="63"/>
+    <property name="playerY" type="float" value="3"/>
     <property name="type" value="exit"/>
+   </properties>
+  </object>
+  <object id="133" x="2241.33" y="1616.67" width="633.333" height="12">
+   <properties>
+    <property name="nextMap" value="NGE_F"/>
+    <property name="playerDirection" value="up"/>
+    <property name="type" value="lastMap"/>
    </properties>
   </object>
  </objectgroup>
@@ -329,5 +336,13 @@
   <object id="120" x="2052.13" y="646.292" width="23.75" height="16.75"/>
   <object id="121" x="2116.13" y="646.958" width="23.75" height="16.75"/>
   <object id="122" x="2179.46" y="644.958" width="23.75" height="16.75"/>
+  <object id="126" x="2245.33" y="1625.33" width="644" height="13.3333"/>
+  <object id="127" x="2864" y="0" width="28" height="1652"/>
+  <object id="128" x="2594.5" y="573.5" width="60.5" height="6"/>
+  <object id="129" x="2528" y="160" width="128" height="32"/>
+  <object id="130" x="2639.5" y="191.5" width="16" height="383.5"/>
+  <object id="131" x="2573.5" y="250.5" width="33" height="328"/>
+  <object id="132" x="2496" y="64" width="32" height="416"/>
+  <object id="134" x="2722" y="1252" width="30" height="380"/>
  </objectgroup>
 </map>
