@@ -6,20 +6,22 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.mygdx.game.Game2D.status.CurrentMusicDisplay;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class AudioManager {
     public static AudioManager instance;
     public static HashMap<String, Sound> sounds;
     public static HashMap<String, Music> musics;
     public static boolean buttonSound = false;
-    private Music currentMusic;
+    public Music currentMusic;
     public CurrentMusicDisplay currentMusicDisplay;
+    public ArrayList<Music> fillers;
+    Queue<Music> fillersQueue = new LinkedList<Music>();
 
     private AudioManager() {
         sounds = new HashMap<>();
         musics = new HashMap<>();
+        fillers = new ArrayList<>();
         loadSound();
         loadMusic();
         currentMusicDisplay = new CurrentMusicDisplay();
@@ -36,6 +38,27 @@ public class AudioManager {
         FileHandle[] files = Gdx.files.internal("assets/media/musics").list();
         for (FileHandle file : files) {
             Music music = Gdx.audio.newMusic(file);
+
+            music.setOnCompletionListener(new Music.OnCompletionListener() {
+                @Override
+                public void onCompletion(Music music) {
+                    handleMusicCompletion(music);
+                }
+            });
+
+            if (Objects.equals(file.nameWithoutExtension(), "Moonlighter OST - 02 - Will's Theme") ||
+                    Objects.equals(file.nameWithoutExtension(), "Moonlighter OST - 03 - Village of Rynoka") ||
+                    Objects.equals(file.nameWithoutExtension(), "Moonlighter OST - 04 - The Moonlighter") ||
+                    Objects.equals(file.nameWithoutExtension(), "Moonlighter OST - 23 - The Heroic Merchant") ||
+                    Objects.equals(file.nameWithoutExtension(), "Stardew Valley OST - Music Box Song") ||
+                    Objects.equals(file.nameWithoutExtension(), "Volcano Mines (Forgotten World)") ||
+                    Objects.equals(file.nameWithoutExtension(), "Celeste Original Soundtrack - 02 - First Steps")) {
+                fillers.add(music);
+                fillersQueue.add(music);
+            }else{
+                music.setLooping(true);
+            }
+
             musics.put(file.nameWithoutExtension(), music);
         }
     }
@@ -60,7 +83,6 @@ public class AudioManager {
         if (music != null) {
             if (currentMusic != null) currentMusic.stop();
             currentMusic = music;
-            currentMusic.setLooping(true);
             currentMusic.play();
             currentMusicDisplay.updateMusicLabel(name);
             currentMusicDisplay.startScrolling();
@@ -71,14 +93,15 @@ public class AudioManager {
         if (music != null) {
             if (currentMusic != null) currentMusic.stop();
             currentMusic = music;
-            currentMusic.setLooping(true);
             currentMusic.play();
             currentMusicDisplay.updateMusicLabel(getMusicTitle(music));
         }
     }
 
     public void stopMusic() {
-        currentMusic.stop();
+        if (currentMusic != null) {
+            currentMusic.stop();
+        }
     }
 
     public void disposeSound(String name) {
@@ -109,7 +132,21 @@ public class AudioManager {
         return "";
     }
 
-    public CurrentMusicDisplay getCurrentMusicDisplay(){
+    public CurrentMusicDisplay getCurrentMusicDisplay() {
         return currentMusicDisplay;
+    }
+
+
+    private void handleMusicCompletion(Music music) {
+        Gdx.app.log("AudioManager", "Music completed: " + getMusicTitle(music));
+
+        if (!fillersQueue.isEmpty() && !music.isLooping()) {
+            // Get the next music in the queue
+            Music nextMusic = fillersQueue.poll(); // Retrieve and remove the head of the queue
+            if (nextMusic != null) {
+                playMusic(nextMusic);
+                fillersQueue.offer(music); // Add the finished music to the end of the queue
+            }
+        }
     }
 }

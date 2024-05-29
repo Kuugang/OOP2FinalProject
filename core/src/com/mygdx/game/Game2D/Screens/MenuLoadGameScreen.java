@@ -20,6 +20,7 @@ import com.mygdx.game.Game2D.Screens.transition.effects.TransitionEffect;
 import java.util.ArrayList;
 
 import static com.mygdx.game.Game2D.Game2D.profileManager;
+import static com.mygdx.game.Game2D.Screens.GameScreen.player;
 
 public class MenuLoadGameScreen extends BaseScreen {
     private Table loadTable;
@@ -116,18 +117,15 @@ public class MenuLoadGameScreen extends BaseScreen {
         yesButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.postRunnable(new Runnable() {
+                confirmDeleteDialog.hide();
+                Gdx.app.postRunnable(() -> {
                     final boolean result = profileManager.deleteProfile(username);
-                    @Override
-                    public void run() {
-                        if (result) {
-                            profileRows.removeValue(row, true);
-                            refreshList();
-                            resultText.setText("Successfully deleted character");
-                        } else {
-                            resultText.setText("Failed to delete character");
-                        }
-                        confirmDeleteDialog.hide();
+                    if (result) {
+                        profileRows.removeValue(row, true);
+                        refreshList();
+                        resultText.setText("Successfully deleted character");
+                    } else {
+                        resultText.setText("Failed to delete character");
                     }
                 });
             }

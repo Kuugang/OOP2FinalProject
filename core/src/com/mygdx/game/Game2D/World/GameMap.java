@@ -23,6 +23,9 @@ import com.mygdx.game.Game2D.Manager.AudioManager;
 import com.mygdx.game.Game2D.Manager.NPCManager;
 import com.mygdx.game.Game2D.Utils.GameQueue;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import static com.mygdx.game.Game2D.Screens.GameScreen.*;
 import static com.mygdx.game.Game2D.World.MapManager.tiledMapRenderer;
 
@@ -65,6 +68,15 @@ public abstract class GameMap {
     public void playMusic(){
         if(mapMusic != null){
             AudioManager.getInstance().playMusic(mapMusic);
+        } else{
+            AudioManager audioManager = AudioManager.getInstance();
+            ArrayList <Music> fillers =  audioManager.fillers;
+
+            if(audioManager.currentMusic == null){
+                Random random = new Random();
+                int i = random.nextInt(fillers.size());
+                audioManager.playMusic(fillers.get(i));
+            }
         }
     }
 
