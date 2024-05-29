@@ -75,11 +75,11 @@
   <object id="3" x="576" y="0" width="192" height="960"/>
   <object id="5" x="224" y="0" width="351" height="0.875"/>
   <object id="6" x="224" y="959.13" width="351" height="0.875"/>
-  <object id="7" x="397.875" y="895.938" width="6.0625" height="29.9375"/>
-  <object id="8" x="397.875" y="735.875" width="6" height="30.375"/>
-  <object id="9" x="397.75" y="576" width="6.125" height="29.875"/>
-  <object id="10" x="397.875" y="416.125" width="6.125" height="29.875"/>
-  <object id="11" x="397.875" y="256" width="6.125" height="30.125"/>
-  <object id="12" x="397.875" y="96" width="6.125" height="30.125"/>
+  <object id="7" x="397.875" y="919.313" width="6.0625" height="6.5625"/>
+  <object id="8" x="397.875" y="759.625" width="6" height="6.625"/>
+  <object id="9" x="397.75" y="599.875" width="6.125" height="6"/>
+  <object id="10" x="397.875" y="439.375" width="6.125" height="6.625"/>
+  <object id="11" x="397.875" y="279.375" width="6.125" height="6.75"/>
+  <object id="12" x="397.875" y="119.75" width="6.125" height="6.375"/>
  </objectgroup>
 </map>
