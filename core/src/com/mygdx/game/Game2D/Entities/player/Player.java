@@ -18,6 +18,7 @@ import com.mygdx.game.ScreenConfig;
 import java.util.List;
 
 import static com.mygdx.game.Game2D.Game2D.*;
+import static com.mygdx.game.Game2D.Game2D.mapManager;
 import static com.mygdx.game.Game2D.Screens.GameScreen.*;
 
 public class Player extends Entity implements Json.Serializable {
@@ -25,6 +26,7 @@ public class Player extends Entity implements Json.Serializable {
     public boolean isCollisionSet;
     private Vector2 lastMapPosition;
     public float interactionDistance = 40; //Maximum distance when interacting with other entities
+    public PlayerHUD playerHUD;
 
     public Player(){
         //IMPORTANT: No argument constructor needed for deserialization
@@ -179,6 +181,7 @@ public class Player extends Entity implements Json.Serializable {
 
     public void setMap(String map){
         this.map = map;
+        this.playerHUD.setMapLabelText(map);
     }
 
     public void setLastMapPosition(Vector2 position){

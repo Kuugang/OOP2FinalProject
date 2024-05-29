@@ -14,10 +14,12 @@ import com.mygdx.game.Game2D.Entities.player.Player;
 import com.mygdx.game.Game2D.Entities.player.PlayerHUD;
 import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Listeners.GameCollisionListener;
+import com.mygdx.game.Game2D.Manager.AudioManager;
 import com.mygdx.game.Game2D.Manager.InputManager;
 import com.mygdx.game.Game2D.Threads.NPCRunnable;
 import com.mygdx.game.Game2D.World.MapExit;
 import com.mygdx.game.Game2D.World.MapManager;
+import com.mygdx.game.Game2D.status.CurrentMusicDisplay;
 import com.mygdx.game.ScreenConfig;
 
 import java.util.Objects;
@@ -30,12 +32,10 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
     public static OrthographicCamera camera;
     public static World world;
     private final Box2DDebugRenderer debugRenderer;
-    public static MapManager mapManager;
     public static GameState gameState;
     public static PauseScreen pauseScreen;
     public static InputMultiplexer inputMultiplexer;
-    private final PlayerHUD PLAYER_HUD;
-
+    CurrentMusicDisplay currentMusicDisplay;
     public GameScreen(Game2D game) {
         super(game);
 
@@ -51,14 +51,12 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
 
         player = profileManager.getCurrentPlayer();
 
-        mapManager = new MapManager();
-
-         mapManager.dispatchMap(new MapExit(player.map, player.position, player.direction));
+        Game2D.mapManager.dispatchMap(new MapExit(player.map, player.position, player.direction));
 
         OrthographicCamera hudCamera = new OrthographicCamera();
         hudCamera.setToOrtho(false, ScreenConfig.screenWidth, ScreenConfig.screenHeight);
+        currentMusicDisplay = AudioManager.getInstance().getCurrentMusicDisplay();
 
-        PLAYER_HUD = new PlayerHUD(player);
         debugRenderer = new Box2DDebugRenderer();
 
         //Initialize GameState
@@ -69,7 +67,8 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
 
         //Handle multiple input
         //TODO ADD PLAYERHUD input
-        inputManager = new InputManager(this, pauseScreen, PLAYER_HUD);
+        player.playerHUD = new PlayerHUD(player);
+        inputManager = new InputManager(this, pauseScreen, player.playerHUD);
     }
 
     @Override
@@ -79,7 +78,6 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
 
     @Override
     public void render(float delta) {
-        super.render(delta);
         if (gameState == GameState.PAUSED) {
             pauseScreen.getStage().act(delta);
             pauseScreen.getStage().draw();
@@ -97,11 +95,12 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
         batch.setProjectionMatrix(camera.combined);
         mapManager.update();
         player.update();
+        player.playerHUD.render(delta);
 
         camera.position.set((player.getPosition().x * ScreenConfig.originalTileSize) +  (player.getWidth() / 2), (player.getPosition().y * ScreenConfig.originalTileSize)  + (player.getHeight() / 2), 0);
         camera.update();
 
-        PLAYER_HUD.render(delta);
+        currentMusicDisplay.render(delta);
         debugRenderer.render(world, camera.combined);
     }
 

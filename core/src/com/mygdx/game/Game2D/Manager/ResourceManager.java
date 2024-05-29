@@ -15,7 +15,10 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class ResourceManager {
     public static ResourceManager instance = null;
@@ -46,8 +49,6 @@ public class ResourceManager {
     public Pixmap cursor;
 
     // BUTTON
-    public final static String BUTTONS_TEXTURE_ATLAS_PATH = "skins/buttons/buttonsTexture.atlas";
-    public static TextureAtlas BUTTONS_TEXTURE_ATLAS = new TextureAtlas(BUTTONS_TEXTURE_ATLAS_PATH);
     public TextureRegion[][] button;
 
     // FONT
@@ -71,7 +72,7 @@ public class ResourceManager {
     public Animation<TextureRegion> idleLeftAnimation;
     public Animation<TextureRegion> idleRightAnimation;
 
-
+    public TextureAtlas UI = new TextureAtlas(Gdx.files.internal("assets/atlas/UI/UI.atlas"));
     public ResourceManager() {
         // ATLAS
         assetManager.load("atlas/textures.atlas", TextureAtlas.class);
@@ -100,18 +101,24 @@ public class ResourceManager {
 
         atlas = assetManager.get("atlas/textures.atlas", TextureAtlas.class);
         cursor = new Pixmap(Gdx.files.internal("tool/cursor.png"));
-//
-//        // IMAGES
-//        backgroundSheet = assetManager.get("asset/background/natureBackground_frames_sheet.png");
-//        battleBackgroundMeadow = assetManager.get("asset/background/battleBackground_meadow.png");
-        // BUTTON
         button = atlas.findRegion("play_button").split(80, 40);
 
-//        // FONT
         pixel10 = new BitmapFont(Gdx.files.internal("fonts/pixel.fnt"), atlas.findRegion("pixel"), false);
 
-//        // SETTINGS
         skin = new Skin(Gdx.files.internal("data/uiskin.json"));
+    }
+
+    public ImageButton createImageButton(String buttonName, float scale){
+        TextureRegion buttonTextureRegion = ResourceManager.getInstance().UI.findRegion(buttonName);
+        ImageButton.ImageButtonStyle buttonStyle = new ImageButton.ImageButtonStyle();
+        buttonStyle.imageUp = new TextureRegionDrawable(buttonTextureRegion);
+
+        ImageButton button = new ImageButton(buttonStyle);
+        button.setTransform(true);
+        button.setScale(scale);
+
+        button.setOrigin(button.getWidth() / 2, button.getHeight() / 2);
+        return button;
     }
 
     public static ResourceManager getInstance(){

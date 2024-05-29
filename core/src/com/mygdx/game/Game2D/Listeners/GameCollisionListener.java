@@ -11,6 +11,7 @@ import com.mygdx.game.Game2D.World.MapExit;
 import com.mygdx.game.Game2D.World.Maps.Minigames.MINIGAME1;
 import com.mygdx.game.ScreenConfig;
 
+import static com.mygdx.game.Game2D.Game2D.mapManager;
 import static com.mygdx.game.Game2D.Screens.GameScreen.*;
 
 public class GameCollisionListener implements ContactListener {
