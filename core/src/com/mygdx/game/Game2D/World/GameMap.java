@@ -21,6 +21,7 @@ import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Entities.NPC.NPC;
 import com.mygdx.game.Game2D.Manager.AudioManager;
 import com.mygdx.game.Game2D.Manager.NPCManager;
+import com.mygdx.game.Game2D.Utils.GameQueue;
 
 import static com.mygdx.game.Game2D.Screens.GameScreen.*;
 import static com.mygdx.game.Game2D.World.MapManager.tiledMapRenderer;
@@ -192,10 +193,11 @@ public abstract class GameMap {
 
     public void disposeBodies(){
         npcManager.clear();
-        world.getBodies(bodies);
+
         for (Body body : bodies)
             if(body != player.boxBody)
-                world.destroyBody(body);
+                GameQueue.add(() -> world.destroyBody(body));
+
         this.bodies.clear();
     }
 
