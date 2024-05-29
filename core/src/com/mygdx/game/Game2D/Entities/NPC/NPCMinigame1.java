@@ -49,7 +49,7 @@ public class NPCMinigame1 extends NPC {
     public void move(){
         boxBody.applyLinearImpulse(new Vector2(0, -speed / 2), boxBody.getWorldCenter(), true);
 
-        if(getPosition().y <= 0.21515606){
+        if(getPosition().y <= 0.5){
             randomizeNPC();
         }
     }
