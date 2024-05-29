@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="38" height="28" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="29">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="38" height="28" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="30">
  <tileset firstgid="1" source="../../TSX FILES/LIB.tsx"/>
  <tileset firstgid="1065" source="../Modern_Exteriors_Complete_Tileset_32x32.tsx"/>
  <tileset firstgid="56857" source="../Tiles2.tsx"/>
@@ -97,7 +97,7 @@
     <property name="type" value="lastMap"/>
    </properties>
   </object>
-  <object id="21" x="1214.5" y="608.333" width="1.75" height="287.917">
+  <object id="21" x="1214.5" y="608.333" width="1.75" height="152.917">
    <properties>
     <property name="nextMap" value="CLINICLINE"/>
     <property name="playerDirection" value="up"/>
@@ -112,6 +112,15 @@
     <property name="playerDirection" value="up"/>
     <property name="playerX" type="float" value="20.5"/>
     <property name="playerY" type="float" value="2.5"/>
+    <property name="type" value="exit"/>
+   </properties>
+  </object>
+  <object id="29" x="1213.82" y="761.091" width="14.1818" height="135.091">
+   <properties>
+    <property name="nextMap" value="ACADF"/>
+    <property name="playerDirection" value="up"/>
+    <property name="playerX" type="float" value="2"/>
+    <property name="playerY" type="float" value="2"/>
     <property name="type" value="exit"/>
    </properties>
   </object>
