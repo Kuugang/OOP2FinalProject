@@ -1,7 +1,6 @@
 package com.mygdx.game.Game2D.World.Maps;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Entities.NPC.NPC1;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class GLE_CR extends GameMap {
-    private ArrayList<String> dialogues = new ArrayList<>(
+    private final ArrayList<String> dialogues = new ArrayList<>(
             Arrays.asList(
                     "Don't you have something better to do?",
                     "I don't have time for this right now.",
