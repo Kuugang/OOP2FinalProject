@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="17" height="21" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="44">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="17" height="21" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="46">
  <tileset firstgid="1" source="../../TSX FILES/nge-layout.tsx"/>
  <tileset firstgid="358" source="../../TSX FILES/FULL_INTERIOR.tsx"/>
  <tileset firstgid="17382" name="ROOM_BUILDER" tilewidth="32" tileheight="32" tilecount="8284" columns="76">
@@ -181,6 +181,14 @@
     <property name="nextMap" value="NGE_HALL"/>
     <property name="playerDirection" value="DOWN"/>
     <property name="type" value="lastMap"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="6" name="INTERACTABLE_LAYER">
+  <object id="45" x="64" y="96" width="32" height="32">
+   <properties>
+    <property name="minigame" value="2"/>
+    <property name="type" value="minigame"/>
    </properties>
   </object>
  </objectgroup>

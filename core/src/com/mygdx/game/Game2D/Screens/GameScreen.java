@@ -1,6 +1,7 @@
 package com.mygdx.game.Game2D.Screens;
 
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
@@ -35,6 +36,10 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
     public static InputMultiplexer inputMultiplexer;
     CurrentMusicDisplay currentMusicDisplay;
 
+
+
+
+
     public GameScreen(Game2D game) {
         super(game);
 
@@ -50,7 +55,8 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
 
         player = profileManager.getCurrentPlayer();
 
-        mapManager.dispatchMap(new MapExit("ROOM", player.position, player.direction));
+        mapManager.dispatchMap(new MapExit(player.map, player.position, player.direction));
+        mapManager.dispatchMap(new MapExit("NGE_HALL", new Vector2(30, 40), player.direction));
 
         OrthographicCamera hudCamera = new OrthographicCamera();
         hudCamera.setToOrtho(false, ScreenConfig.screenWidth, ScreenConfig.screenHeight);

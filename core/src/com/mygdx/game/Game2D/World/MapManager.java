@@ -68,10 +68,7 @@ public class MapManager {
 
                 tiledMapRenderer.setMap(map.getTiledMap());
                 currentMap = map;
-                currentMap.setCollisions();
-                currentMap.setExits();
-                currentMap.setNPCS();
-                currentMap.playMusic();
+                currentMap.initializeMap();
             });
         }
     }

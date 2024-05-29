@@ -1,6 +1,8 @@
 package com.mygdx.game.Game2D.World;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -21,7 +23,11 @@ import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Entities.NPC.NPC;
 import com.mygdx.game.Game2D.Manager.AudioManager;
 import com.mygdx.game.Game2D.Manager.NPCManager;
+import com.mygdx.game.Game2D.Screens.GameScreen;
 import com.mygdx.game.Game2D.Utils.GameQueue;
+import com.mygdx.game.Game2D.World.Maps.Minigames.MINIGAME2.TypeRacer;
+
+import java.lang.reflect.Type;
 
 import static com.mygdx.game.Game2D.Screens.GameScreen.*;
 import static com.mygdx.game.Game2D.World.MapManager.tiledMapRenderer;
@@ -33,13 +39,15 @@ public abstract class GameMap {
     MapObjects collisionMapObjects;
     MapObjects mapExitObjects;
     public MapLayer exitLayer;
-    public Array <Body> bodies = new Array<>();
+    public MapLayer interactableLayer;
+    public MapObjects interactableObjects;
+    public Array<Body> bodies = new Array<>();
     protected int layers;
     TiledMapTileLayer FOREGROUND_LAYER, FOREGROUND_LAYER1;
     public NPCManager npcManager;
     Music mapMusic;
 
-    public GameMap(String mapName){
+    public GameMap(String mapName) {
         this.mapName = mapName;
         npcManager = new NPCManager(this);
     }
@@ -52,34 +60,86 @@ public abstract class GameMap {
         return this;
     }
 
-    public GameMap setMapName(String mapName){
+    public GameMap setMapName(String mapName) {
         this.mapName = mapName;
         return this;
     }
 
-    public GameMap setMapMusic(String music){
+    public GameMap setMapMusic(String music) {
         mapMusic = AudioManager.getInstance().getMusic(music);
         return this;
     }
 
-    public void playMusic(){
-        if(mapMusic != null){
+    public void playMusic() {
+        if (mapMusic != null) {
             AudioManager.getInstance().playMusic(mapMusic);
         }
     }
 
-    public void stopMusic(){
-        if(mapMusic != null){
+    public void stopMusic() {
+        if (mapMusic != null) {
             AudioManager.getInstance().stopMusic();
         }
     }
 
+    public void initializeMap()
+    {
+        setCollisions();
+        setExits();
+        setInteractable();
+        setNPCS();
+    }
+
+
+    public void setInteractable() {
+        interactableLayer =  this.tiledMap.getLayers().get("INTERACTABLE_LAYER");
+
+        if(interactableLayer != null){
+            interactableObjects = interactableLayer.getObjects();
+            for( MapObject object : interactableObjects){
+                if(object instanceof RectangleMapObject){
+                    MapProperties mapProperties = object.getProperties();
+                    String type = (String) mapProperties.get("type");
+
+                    Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
+
+                    BodyDef collisionBodyDef = new BodyDef();
+                    collisionBodyDef.type = BodyDef.BodyType.StaticBody;
+
+                    collisionBodyDef.position.set((rectangle.getX() + rectangle.getWidth() / 2), (rectangle.getY() + rectangle.getHeight() / 2));
+
+                    Body collisionBody = world.createBody(collisionBodyDef);
+
+                    FixtureDef exitFixtureDef = new FixtureDef();
+                    PolygonShape shape = new PolygonShape();
+
+                    shape.setAsBox(rectangle.getWidth() / 2, rectangle.getHeight() / 2);
+                    exitFixtureDef.shape = shape;
+                    exitFixtureDef.filter.categoryBits = CollisionType.EXIT.getValue();
+                    exitFixtureDef.filter.maskBits = CollisionType.PLAYER.getValue();
+
+
+                    if(type.equals("minigame")){
+                        String minigame = (String) mapProperties.get("minigame");
+                        switch (minigame){
+                            case "2":
+                                TypeRacer typeRacer = new TypeRacer(game);
+                                collisionBody.createFixture(exitFixtureDef).setUserData(typeRacer);
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
     public abstract void setNPCS();
 
-    public void setExits(){
+    public void setExits() {
         exitLayer = this.tiledMap.getLayers().get("EXIT_LAYER");
 
-        if(exitLayer != null){
+        if (exitLayer != null) {
             mapExitObjects = exitLayer.getObjects();
             for (MapObject object : mapExitObjects) {
                 if (object instanceof RectangleMapObject) {
@@ -99,26 +159,28 @@ public abstract class GameMap {
                     exitFixtureDef.shape = shape;
                     exitFixtureDef.filter.categoryBits = CollisionType.EXIT.getValue();
                     exitFixtureDef.filter.maskBits = CollisionType.PLAYER.getValue();
+
+
                     MapProperties properties = object.getProperties();
                     String type = (String) properties.get("type");
-                    switch (type){
+                    switch (type) {
                         case "exit" -> {
                             String nextMap = (String) properties.get("nextMap");
-                            Entity.Direction direction = Entity.Direction.fromString((String)properties.get("playerDirection"));
+                            Entity.Direction direction = Entity.Direction.fromString((String) properties.get("playerDirection"));
 
                             float playerX = (float) properties.get("playerX");
                             float playerY = (float) properties.get("playerY");
-                            if(playerX == -1)playerX = player.getLastMapPosition().x;
-                            if(playerY == -1)playerY = player.getLastMapPosition().y;
+                            if (playerX == -1) playerX = player.getLastMapPosition().x;
+                            if (playerY == -1) playerY = player.getLastMapPosition().y;
 
                             MapExit exit = new MapExit(nextMap, new Vector2(playerX, playerY), direction);
                             collisionBody.createFixture(exitFixtureDef).setUserData(exit);
                         }
                         case "lastMap" -> {
                             String nextMap = (String) properties.get("nextMap");
-                            Entity.Direction direction = Entity.Direction.fromString((String)properties.get("playerDirection"));
+                            Entity.Direction direction = Entity.Direction.fromString((String) properties.get("playerDirection"));
 
-                            if(player.getLastMapPosition() != null){
+                            if (player.getLastMapPosition() != null) {
                                 float playerX = player.getLastMapPosition().x;
                                 float playerY = player.getLastMapPosition().y;
 
@@ -135,10 +197,10 @@ public abstract class GameMap {
         }
     }
 
-    public void setCollisions(){
+    public void setCollisions() {
         collisionLayer = this.tiledMap.getLayers().get("COLLISION_LAYER");
 
-        if(collisionLayer != null){
+        if (collisionLayer != null) {
             collisionMapObjects = collisionLayer.getObjects();
             for (MapObject object : collisionMapObjects) {
                 if (object instanceof PolygonMapObject) {
@@ -187,15 +249,15 @@ public abstract class GameMap {
 
     }
 
-    public TiledMap getTiledMap(){
+    public TiledMap getTiledMap() {
         return tiledMap;
     }
 
-    public void disposeBodies(){
+    public void disposeBodies() {
         npcManager.clear();
 
         for (Body body : bodies)
-            if(body != player.boxBody)
+            if (body != player.boxBody)
                 GameQueue.add(() -> world.destroyBody(body));
 
         this.bodies.clear();
@@ -224,11 +286,11 @@ public abstract class GameMap {
             }
         }
 
-        for(NPC n : npcManager.getNPCs()){
+        for (NPC n : npcManager.getNPCs()) {
             n.render();
         }
 
-        if(this instanceof Minigame){
+        if (this instanceof Minigame) {
             ((Minigame) this).minigame();
         }
     }

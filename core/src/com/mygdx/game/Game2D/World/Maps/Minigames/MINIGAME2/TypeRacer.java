@@ -1,8 +1,6 @@
 package com.mygdx.game.Game2D.World.Maps.Minigames.MINIGAME2;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -10,8 +8,11 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
+import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Manager.AudioManager;
+import com.mygdx.game.Game2D.Manager.InputManager;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
+import com.mygdx.game.Game2D.Screens.GameScreen;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -23,7 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-public class TypeRacer extends Game implements InputProcessor {
+public class TypeRacer extends Game implements InputProcessor, Screen {
 
 
     private static final List<Word> possibleWords = new ArrayList<>();
@@ -41,7 +42,16 @@ public class TypeRacer extends Game implements InputProcessor {
     private double blinkTime;
     public float speed = 3;
     public GameOver gameover = null;
+    public GameScreen gameScreen;
+    public static TypeRacer instance;
     //    private ExitScreen exitScreen;
+   public  Game2D game;
+
+
+    public TypeRacer(Game2D game){
+    this.game = game;
+    }
+
     @Override
     public void create() {
         texture = new Texture("atlas/UI/TypeRacerBackground.png");
@@ -76,8 +86,11 @@ public class TypeRacer extends Game implements InputProcessor {
     public void addWord() {
         Random rand = new Random();
         speed+= .5f;
-        int randomIndex = rand.nextInt(possibleWords.size());
-        Word word = possibleWords.get(randomIndex);
+        Word word;
+        do {
+            int randomIndex = rand.nextInt(possibleWords.size());
+            word = possibleWords.get(randomIndex);
+        } while (words.contains(word));
 
         float wordWidth = getWordWidth(word.getText());
 
@@ -108,7 +121,7 @@ public class TypeRacer extends Game implements InputProcessor {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(words.size());
+        System.out.println(possibleWords.size());
 
     }
 
@@ -181,6 +194,11 @@ public class TypeRacer extends Game implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
+        if(Input.Keys.ESCAPE == keycode){
+            game.setScreen(Game2D.previousScreen);
+            dispose();
+            return true;
+        }
         return false;
     }
 
@@ -246,5 +264,20 @@ public class TypeRacer extends Game implements InputProcessor {
     @Override
     public boolean scrolled(float amountX, float amountY) {
         return false;
+    }
+
+    @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void render(float delta) {
+        render();
+    }
+
+    @Override
+    public void hide() {
+
     }
 }
