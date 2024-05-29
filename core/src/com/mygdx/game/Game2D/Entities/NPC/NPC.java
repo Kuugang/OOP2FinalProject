@@ -13,6 +13,8 @@ import com.mygdx.game.Game2D.Screens.GameScreen;
 import com.mygdx.game.Game2D.World.CollisionType;
 import com.mygdx.game.ScreenConfig;
 
+import java.util.ArrayList;
+
 import static com.mygdx.game.Game2D.Game2D.batch;
 import static com.mygdx.game.Game2D.Screens.GameScreen.gameState;
 import static com.mygdx.game.Game2D.Screens.GameScreen.world;
@@ -34,7 +36,6 @@ public abstract class NPC extends Entity {
 
     public NPC(int length){
         state = State.WALKING;
-        direction = Direction.DOWN;
         movementCounter = 0;
         this.length = length;
 
@@ -95,16 +96,16 @@ public abstract class NPC extends Entity {
             newMovement();
 
         state = State.WALKING;
-        if(direction == Direction.UP){
+        if(direction == Direction.UP && !setToStay){
             boxBody.applyLinearImpulse(new Vector2(0, speed / 2), boxBody.getWorldCenter(), true);
             direction = Direction.UP;
-        }else if(direction == Direction.DOWN){
+        }else if(direction == Direction.DOWN && !setToStay){
             boxBody.applyLinearImpulse(new Vector2(0, -speed / 2), boxBody.getWorldCenter(), true);
             direction = Direction.DOWN;
-        }else if(direction == Direction.LEFT){
+        }else if(direction == Direction.LEFT && !setToStay){
             boxBody.applyLinearImpulse(new Vector2(-speed / 2, 0), boxBody.getWorldCenter(), true);
             direction = Direction.LEFT;
-        }else if(direction == Direction.RIGHT){
+        }else if(direction == Direction.RIGHT && !setToStay){
             boxBody.applyLinearImpulse(new Vector2(speed / 2, 0), boxBody.getWorldCenter(), true);
             direction = Direction.RIGHT;
         }else
@@ -136,10 +137,18 @@ public abstract class NPC extends Entity {
         movementCounter = 0;
     }
 
+    public void setDialogues(ArrayList<String> dialogues){
+        super.dialogues = dialogues;
+    }
 
     public void setToStay(){
         movementCounter = 0;
         setToStay = true;
+    }
+
+    public void setToStay(Direction direction){
+        this.direction = direction;
+        setToStay();
     }
 
     public NPC render(){
