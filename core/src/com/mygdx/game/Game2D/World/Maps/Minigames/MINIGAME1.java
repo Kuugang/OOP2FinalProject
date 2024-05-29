@@ -1,15 +1,11 @@
 package com.mygdx.game.Game2D.World.Maps.Minigames;
 
+import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Game2D.Entities.NPC.NPC;
 import com.mygdx.game.Game2D.Entities.NPC.NPCMinigame1;
+import com.mygdx.game.Game2D.Manager.ResourceManager;
 import com.mygdx.game.Game2D.World.GameMap;
 import com.mygdx.game.Game2D.World.Minigame;
-
-import java.lang.reflect.Array;
-import java.util.Arrays;
-
-import static com.mygdx.game.Game2D.Screens.GameScreen.player;
-
 
 public class MINIGAME1 extends GameMap implements Minigame {
     public static int health = 10;
@@ -19,13 +15,24 @@ public class MINIGAME1 extends GameMap implements Minigame {
         this.level = level;
     }
 
+
+
     @Override
     public void setNPCS() {
-        for(int i = 0; i < 14; i++) {
-            NPCMinigame1 npcMinigame1 = new NPCMinigame1(1000, level);
-            npcMinigame1.setTextureAtlas("atlas/leo.atlas");
-            npcManager.addNPC(npcMinigame1);
-        }
+        new Thread(() -> {
+            for(int i = 0; i < 50; i++) {
+                NPCMinigame1 npcMinigame1 = new NPCMinigame1(1000, level);
+
+                try {
+                    Thread.sleep(100);
+                }catch (InterruptedException ignored){}
+
+                Gdx.app.postRunnable(() -> {
+                    npcMinigame1.setTextureAtlas(ResourceManager.getRandomTA_NPC());
+                    npcManager.addNPC(npcMinigame1);
+                });
+            }
+        }).start();
 
         npcManager.getNPCs().forEach(npc -> bodies.add(npc.boxBody));
     }
