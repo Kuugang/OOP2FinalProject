@@ -2,7 +2,7 @@ package com.mygdx.game.Game2D.World.Maps;
 
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Game2D.Entities.Entity;
-import com.mygdx.game.Game2D.Entities.NPC.NPC1;
+import com.mygdx.game.Game2D.Entities.NPC.MainNPC;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
 import com.mygdx.game.Game2D.Utils.GameQueue;
 import com.mygdx.game.Game2D.World.GameMap;
@@ -43,21 +43,21 @@ public class GLE_CR extends GameMap {
 
     @Override
     public void setNPCS() {
-        NPC1 npc1 = new NPC1(0);
-        npc1.setTextureAtlas(ResourceManager.getRandomTA_NPC());
-        npc1.setToStay(Entity.Direction.DOWN);
-        npc1.setPosition(new Vector2(9, 2));
-        npc1.setDialogues(dialogues);
-        npcManager.addNPC(npc1);
+        MainNPC mainNpc = new MainNPC(0);
+        mainNpc.setTextureAtlas(ResourceManager.getRandomTA_NPC());
+        mainNpc.setToStay(Entity.Direction.DOWN);
+        mainNpc.setPosition(new Vector2(9, 2));
+        mainNpc.setDialogues(dialogues);
+        npcManager.addNPC(mainNpc);
 
-        NPC1 npc2 = new NPC1(0);
+        MainNPC npc2 = new MainNPC(0);
         npc2.setTextureAtlas(ResourceManager.getRandomTA_NPC());
         npc2.setToStay(Entity.Direction.DOWN);
         npc2.setPosition(new Vector2(11, 2));
         npc2.setDialogues(dialogues);
         npcManager.addNPC(npc2);
 
-        NPC1 npc3 = new NPC1(0);
+        MainNPC npc3 = new MainNPC(0);
         npc3.setTextureAtlas(ResourceManager.getRandomTA_NPC());
         npc3.setToStay(Entity.Direction.DOWN);
         npc3.setPosition(new Vector2(13, 2));
@@ -65,7 +65,7 @@ public class GLE_CR extends GameMap {
         npcManager.addNPC(npc3);
 
         GameQueue.add(() -> {
-            bodies.add(npc1.boxBody);
+            bodies.add(mainNpc.boxBody);
             bodies.add(npc2.boxBody);
             bodies.add(npc3.boxBody);
         });

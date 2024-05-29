@@ -35,18 +35,4 @@ public class GameQueue {
             queue.clear();
         }
     }
-
-    public static void removeFirst() {
-        synchronized (queue){
-            try {
-                Thread thread = new Thread(queue.peek());
-                thread.start();
-                thread.join();
-
-
-            } catch (InterruptedException ignored) {}
-
-            queue.removeFirst();
-        }
-    }
 }

@@ -3,7 +3,7 @@ package com.mygdx.game.Game2D.World.Maps;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Game2D.Dialogues.Dialogues;
 import com.mygdx.game.Game2D.Entities.Entity;
-import com.mygdx.game.Game2D.Entities.NPC.NPC1;
+import com.mygdx.game.Game2D.Entities.NPC.MainNPC;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
 import com.mygdx.game.Game2D.Utils.GameQueue;
 import com.mygdx.game.Game2D.Utils.NPC_NPC_Bridge;
@@ -21,11 +21,11 @@ public class GLE_202 extends GameMap {
 
     @Override
     public void setNPCS() {
-        NPC1 npc1 = new NPC1(100);
-        npc1.setTextureAtlas(ResourceManager.getRandomTA_NPC());
-        npc1.setToStay(Entity.Direction.DOWN);
-        npc1.setPosition(new Vector2(2, 10));
-        npc1.setDialogues(new ArrayList<>(
+        MainNPC mainNpc = new MainNPC(100);
+        mainNpc.setTextureAtlas(ResourceManager.getRandomTA_NPC());
+        mainNpc.setToStay(Entity.Direction.DOWN);
+        mainNpc.setPosition(new Vector2(2, 10));
+        mainNpc.setDialogues(new ArrayList<>(
                 Arrays.asList(
                         "Don't you have something better to do?",
                         "I don't have time for this right now.",
@@ -52,16 +52,16 @@ public class GLE_202 extends GameMap {
                 )
         );
 
-        npcManager.addNPC(npc1);
+        npcManager.addNPC(mainNpc);
 
-        NPC1 npc2 = new NPC1(100);
+        MainNPC npc2 = new MainNPC(100);
         npc2.setTextureAtlas(ResourceManager.getRandomTA_NPC());
         npc2.setToStay(Entity.Direction.UP);
         npc2.setPosition(new Vector2(2, 8));
         npc2.setDialogues(new ArrayList<>(Dialogues.dialogues1));
         npcManager.addNPC(npc2);
 
-        NPC1 npc3 = new NPC1(100);
+        MainNPC npc3 = new MainNPC(100);
         npc3.setTextureAtlas(ResourceManager.getRandomTA_NPC());
         npc3.setToStay(Entity.Direction.LEFT);
         npc3.setPosition(new Vector2(20, 9));
@@ -69,12 +69,12 @@ public class GLE_202 extends GameMap {
         npcManager.addNPC(npc3);
 
 
-        NPC1 npc4 = new NPC1(100);
+        MainNPC npc4 = new MainNPC(100);
         npc4.setTextureAtlas(ResourceManager.getRandomTA_NPC());
         npc4.setPosition(new Vector2(15, 9));
         npcManager.addNPC(npc4);
 
-        NPC1 npc5 = new NPC1(100);
+        MainNPC npc5 = new MainNPC(100);
         npc5.setTextureAtlas(ResourceManager.getRandomTA_NPC());
         npc5.setPosition(new Vector2(8, 9));
         npcManager.addNPC(npc5);
@@ -86,7 +86,7 @@ public class GLE_202 extends GameMap {
 
 
         GameQueue.add(() -> {
-            bodies.add(npc1.boxBody);
+            bodies.add(mainNpc.boxBody);
             bodies.add(npc2.boxBody);
             bodies.add(npc3.boxBody);
             bodies.add(npc4.boxBody);
