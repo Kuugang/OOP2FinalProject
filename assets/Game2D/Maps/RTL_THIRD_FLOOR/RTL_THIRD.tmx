@@ -134,7 +134,7 @@
     <property name="playerY" type="float" value="42.5"/>
    </properties>
   </object>
-  <object id="40" x="2309.17" y="817.167" width="24" height="46.6667">
+  <object id="40" x="2309.92" y="818.042" width="24" height="46.6667">
    <properties>
     <property name="nextMap" value="RTL_ACCOUNTING"/>
     <property name="playerDirection" value="RIGHT"/>
