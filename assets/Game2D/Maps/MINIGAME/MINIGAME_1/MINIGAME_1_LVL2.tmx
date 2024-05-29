@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="24" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="14">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="24" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="15">
  <tileset firstgid="1" source="../../../TSX FILES/LAYOUT 1 - MINIGAME 1.tsx"/>
  <tileset firstgid="721" source="../../../TSX FILES/EXTERIOR.tsx"/>
  <layer id="1" name="Tile Layer 1" width="24" height="30">
@@ -70,10 +70,20 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="4" name="EXIT_LAYER">
+  <object id="14" x="225.5" y="-27.5" width="350" height="29">
+   <properties>
+    <property name="nextMap" value="MINIGAME1_LVL3"/>
+    <property name="playerDirection" value="UP"/>
+    <property name="playerX" type="float" value="-1"/>
+    <property name="playerY" type="float" value="0"/>
+    <property name="type" value="exit"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup id="3" name="COLLISION_LAYER">
   <object id="1" x="0" y="0" width="224" height="960"/>
   <object id="3" x="576" y="0" width="192" height="960"/>
-  <object id="5" x="224" y="0" width="351" height="0.875"/>
   <object id="6" x="224" y="959.13" width="351" height="0.875"/>
   <object id="7" x="397.875" y="919.313" width="6.0625" height="6.5625"/>
   <object id="8" x="397.875" y="759.625" width="6" height="6.625"/>
