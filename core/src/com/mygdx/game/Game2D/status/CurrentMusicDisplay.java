@@ -3,7 +3,6 @@ package com.mygdx.game.Game2D.status;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -30,10 +29,10 @@ public class CurrentMusicDisplay {
         defaultWidth = 200;
         defaultHeight = 50;
 
-        NinePatch ninePatch = new NinePatch(ResourceManager.getInstance().UI.findRegion("UI_Flat_Button_Large_Lock_01a1"));
+        NinePatch ninePatch = new NinePatch(ResourceManager.getInstance().atlas.findRegion("UI_Flat_Button_Large_Lock_01a1"));
         NinePatchDrawable backgroundDrawable = new NinePatchDrawable(ninePatch);
 
-        NinePatch musicNotes = new NinePatch(ResourceManager.getInstance().UI.findRegion("musicnotes"));
+        NinePatch musicNotes = new NinePatch(ResourceManager.getInstance().atlas.findRegion("musicnotes"));
         NinePatchDrawable musicNotesDrawable = new NinePatchDrawable(musicNotes);
 
         Table mainTable = new Table();

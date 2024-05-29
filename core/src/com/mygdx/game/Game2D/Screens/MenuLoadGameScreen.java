@@ -2,9 +2,7 @@ package com.mygdx.game.Game2D.Screens;
 
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -12,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Game2D.Entities.player.Player;
 import com.mygdx.game.Game2D.Game2D;
@@ -30,14 +27,13 @@ public class MenuLoadGameScreen extends BaseScreen {
     private Table bottomTable;
     private Stage loadStage = new Stage();
     private BaseScreen previousScreen;
-    private List<Label> listItems = new List<>(ResourceManager.skin);
     private float stateTime;
     private Dialog cloudAuthDialog;
     private Array<Table> profileRows = new Array<>();
     private final Label resultText = new Label("", ResourceManager.skin);
     private Table selectedRow;
     private Table controlsTable = new Table();
-    private Dialog confirmDeleteDialog = new Dialog("Confirm Delete", ResourceManager.skin);
+    private Dialog confirmDeleteDialog = new Dialog("", ResourceManager.skin);
     Actor yesButton;
     Actor noButton;
 
@@ -49,9 +45,6 @@ public class MenuLoadGameScreen extends BaseScreen {
         loadTable = createTable();
 
         topTable = createTable();
-//        topTable.center();
-//        topTable.setFillParent(true);
-
 
         bottomTable = createTable();
         bottomTable.setWidth(Gdx.graphics.getWidth());
@@ -70,8 +63,17 @@ public class MenuLoadGameScreen extends BaseScreen {
         handleLoadBackButton();
         createCloudAuthDialog();
 
-        confirmDeleteDialog.getContentTable().add(yesButton);
-        confirmDeleteDialog.getContentTable().add(noButton);
+        Label confirm = new Label("Confirm delete", ResourceManager.skin);
+        Table buttonTable = new Table();
+        buttonTable.add(yesButton).pad(10);
+        buttonTable.add(noButton).pad(10);
+
+        confirmDeleteDialog.getContentTable().pad(10f, 10f, 10f, 10f);
+
+        confirmDeleteDialog.getContentTable().add(confirm).center();
+        confirmDeleteDialog.getContentTable().row();
+        confirmDeleteDialog.getContentTable().add(buttonTable);
+        confirmDeleteDialog.pack();
     }
 
     private void createProfileList() {
@@ -87,7 +89,6 @@ public class MenuLoadGameScreen extends BaseScreen {
         Table row = new Table();
         row.layout();
         row.setWidth(500);
-        row.setDebug(true);
         row.layout();
 
         row.setName(username);
@@ -144,19 +145,19 @@ public class MenuLoadGameScreen extends BaseScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (selectedRow != null) {
-                    NinePatch ninePatch = new NinePatch(ResourceManager.getInstance().UI.findRegion("load_profiles_bg"));
+                    NinePatch ninePatch = new NinePatch(ResourceManager.getInstance().atlas.findRegion("load_profiles_bg"));
                     NinePatchDrawable backgroundDrawable = new NinePatchDrawable(ninePatch);
                     selectedRow.setBackground(backgroundDrawable);
                 }
                 selectedRow = row;
-                NinePatch ninePatch = new NinePatch(ResourceManager.getInstance().UI.findRegion("load_profiles_selected_bg"));
+                NinePatch ninePatch = new NinePatch(ResourceManager.getInstance().atlas.findRegion("load_profiles_selected_bg"));
                 NinePatchDrawable backgroundDrawable = new NinePatchDrawable(ninePatch);
                 selectedRow.setBackground(backgroundDrawable);
             }
         });
         row.pad(10);
 
-        NinePatch ninePatch = new NinePatch(ResourceManager.getInstance().UI.findRegion("load_profiles_bg"));
+        NinePatch ninePatch = new NinePatch(ResourceManager.getInstance().atlas.findRegion("load_profiles_bg"));
         NinePatchDrawable backgroundDrawable = new NinePatchDrawable(ninePatch);
         row.setBackground(backgroundDrawable);
 

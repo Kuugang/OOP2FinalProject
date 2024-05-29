@@ -2,15 +2,11 @@ package com.mygdx.game.Game2D.Entities.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
@@ -36,7 +32,7 @@ public class PlayerHUD {
         Table table = new Table();
         table.pad(10);
 
-        NinePatch PLAYER_HUD_BG = new NinePatch(ResourceManager.getInstance().UI.findRegion("player_hud_bg"));
+        NinePatch PLAYER_HUD_BG = new NinePatch(ResourceManager.getInstance().atlas.findRegion("player_hud_bg"));
         NinePatchDrawable PLAYER_HUD_BG_DRAWABLE = new NinePatchDrawable(PLAYER_HUD_BG);
 
         PLAYER_HUD_BG_DRAWABLE.setPadding(10f, 10f, 10f, 10f);
