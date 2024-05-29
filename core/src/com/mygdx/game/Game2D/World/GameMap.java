@@ -20,6 +20,8 @@ import com.mygdx.game.Game2D.Entities.NPC.NPC;
 import com.mygdx.game.Game2D.Manager.NPCManager;
 import com.mygdx.game.Game2D.Screens.GameScreen;
 
+import java.util.ArrayList;
+
 import static com.mygdx.game.Game2D.Screens.GameScreen.*;
 import static com.mygdx.game.Game2D.World.MapManager.tiledMapRenderer;
 
@@ -34,6 +36,7 @@ public abstract class GameMap {
     protected int layers;
     TiledMapTileLayer FOREGROUND_LAYER, FOREGROUND_LAYER1;
     public NPCManager npcManager;
+    public ArrayList<NPC> npcs = new ArrayList<>();
 
     public GameMap(String mapName){
         this.mapName = mapName;
@@ -185,9 +188,14 @@ public abstract class GameMap {
             tiledMapRenderer.render(new int[]{i});
         }
 
-        for(NPC n : npcManager.getNPCs()){
+//        for(NPC n : npcManager.getNPCs()){
+//            n.render();
+//        }
+
+        for(NPC n : npcs){
             n.render();
         }
+
 
         player.render();
 

@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.mygdx.game.Game2D.Entities.NPC.NPC;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
 import com.mygdx.game.ScreenConfig;
@@ -33,6 +34,7 @@ public class Entity implements InputProcessor {
     public State state = State.IDLE;
 
     public Body boxBody;
+    public FixtureDef fixtureDef;
     protected ArrayList<String> dialogues;
 
     public Entity(){

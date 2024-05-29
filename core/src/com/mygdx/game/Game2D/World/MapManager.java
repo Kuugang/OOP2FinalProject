@@ -6,8 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Game2D.Entities.PlayerMP;
 import com.mygdx.game.Game2D.World.Maps.*;
-import com.mygdx.game.Game2D.World.Minigames.Minigame1;
-import com.mygdx.game.ScreenConfig;
+import com.mygdx.game.Game2D.World.Maps.Minigames.MINIGAME1;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +36,9 @@ public class MapManager {
         maps.put("RTL_ROOMDAA", new RTL_THIRD("RTL_ROOMDAA").setMap("Game2D/Maps/RTL_ROOM/RTL_ROOMDAA.tmx"));
         maps.put("RTL_ROOMMATH", new RTL_THIRD("RTL_ROOMMATH").setMap("Game2D/Maps/RTL_ROOM/RTL_ROOMMATH.tmx"));
 
-        maps.put("Minigame1", new Minigame1("Minigame1").setMap("Game2D/Maps/MINIGAME/MINIGAME_1/MINIGAME_1.tmx"));
+        maps.put("MINIGAME_1_LVL1", new MINIGAME1("MINIGAME_1_LVL1", 1).setMap("Game2D/Maps/MINIGAME/MINIGAME_1/MINIGAME_1_LVL1.tmx"));
+        maps.put("MINIGAME_1_LVL2", new MINIGAME1("MINIGAME_1_LVL2", 2).setMap("Game2D/Maps/MINIGAME/MINIGAME_1/MINIGAME_1_LVL2.tmx"));
+        maps.put("MINIGAME_1_LVL3", new MINIGAME1("MINIGAME_1_LVL3", 3).setMap("Game2D/Maps/MINIGAME/MINIGAME_1/MINIGAME_1_LVL3.tmx"));
     }
 
     public void dispatchMap(MapExit mapExit) {

@@ -74,10 +74,10 @@ public abstract class NPC extends Entity {
         PolygonShape dynamicBox = new PolygonShape();
         dynamicBox.setAsBox(sprite.getWidth() / 3, sprite.getHeight() / 8);
 
-        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef = new FixtureDef();
         fixtureDef.shape = dynamicBox;
         fixtureDef.filter.categoryBits = CollisionType.NPC.getValue();
-        fixtureDef.filter.maskBits = CollisionType.WALL.getValue();  // Collides with walls only
+        fixtureDef.filter.maskBits = (short) (CollisionType.WALL.getValue() | CollisionType.PLAYER.getValue() | CollisionType.NPC.getValue());
 
         Fixture fixture = boxBody.createFixture(fixtureDef);
         fixture.setUserData(this);

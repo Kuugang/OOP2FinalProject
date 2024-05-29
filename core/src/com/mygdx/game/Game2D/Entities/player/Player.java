@@ -63,11 +63,11 @@ public class Player extends Entity implements Json.Serializable {
         PolygonShape dynamicBox = new PolygonShape();
         dynamicBox.setAsBox(sprite.getWidth() / 3, sprite.getHeight() / 8);
 
-        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef = new FixtureDef();
         fixtureDef.shape = dynamicBox;
 
         fixtureDef.filter.categoryBits = CollisionType.PLAYER.getValue();
-        fixtureDef.filter.maskBits = (short) (CollisionType.WALL.getValue() | CollisionType.EXIT.getValue());
+        fixtureDef.filter.maskBits = (short) (CollisionType.WALL.getValue() | CollisionType.EXIT.getValue() | CollisionType.NPC.getValue());
 
         Fixture fixture = boxBody.createFixture(fixtureDef);
         fixture.setUserData(this);

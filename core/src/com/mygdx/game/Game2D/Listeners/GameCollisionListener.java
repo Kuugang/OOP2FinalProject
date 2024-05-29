@@ -4,9 +4,11 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Game2D.Entities.NPC.HouseNPC;
+import com.mygdx.game.Game2D.Entities.NPC.NPCMinigame1;
 import com.mygdx.game.Game2D.Entities.player.Player;
 import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.World.MapExit;
+import com.mygdx.game.Game2D.World.Maps.Minigames.MINIGAME1;
 import com.mygdx.game.ScreenConfig;
 
 import static com.mygdx.game.Game2D.Screens.GameScreen.*;
@@ -40,6 +42,11 @@ public class GameCollisionListener implements ContactListener {
                 }
                 player.setLastMapPosition(new Vector2(playerX, playerY));
                 mapManager.dispatchMap(mapExit);
+            }
+
+            if(objectB instanceof NPCMinigame1){
+                MINIGAME1.health -= 1;
+                System.out.println("NAIGO KA");
             }
         }
 
