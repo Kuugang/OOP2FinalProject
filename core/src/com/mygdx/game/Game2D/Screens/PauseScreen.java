@@ -97,7 +97,9 @@ public class PauseScreen extends BaseScreen {
         saveButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                profileManager.saveProfile(player);
+                Gdx.app.postRunnable(() -> {
+                    profileManager.saveProfile(player);
+                });
             }
         });
 

@@ -3,6 +3,7 @@ package com.mygdx.game.Game2D.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Game2D.Entities.player.Player;
@@ -36,6 +38,8 @@ public class MenuLoadGameScreen extends BaseScreen {
     private Table selectedRow;
     private Table controlsTable = new Table();
     private Dialog confirmDeleteDialog = new Dialog("Confirm Delete", ResourceManager.skin);
+    Actor yesButton;
+    Actor noButton;
 
     public MenuLoadGameScreen(Game2D game, BaseScreen previousScreen, ResourceManager resourceManager) {
         super(game);
@@ -44,9 +48,7 @@ public class MenuLoadGameScreen extends BaseScreen {
 
         loadTable = createTable();
 
-        TextureRegionDrawable background = new TextureRegionDrawable(ResourceManager.getInstance().UI.findRegion("load_profiles_bg"));
         topTable = createTable();
-        topTable.setBackground(background);
 //        topTable.center();
 //        topTable.setFillParent(true);
 
@@ -67,6 +69,9 @@ public class MenuLoadGameScreen extends BaseScreen {
         handleCloudDownloadButton();
         handleLoadBackButton();
         createCloudAuthDialog();
+
+        confirmDeleteDialog.getContentTable().add(yesButton);
+        confirmDeleteDialog.getContentTable().add(noButton);
     }
 
     private void createProfileList() {
@@ -80,12 +85,24 @@ public class MenuLoadGameScreen extends BaseScreen {
 
     private void addProfileRow(String username) {
         Table row = new Table();
+        row.layout();
+        row.setWidth(500);
+        row.setDebug(true);
+        row.layout();
+
         row.setName(username);
 
+        float minWidth = 700;
+        row.setWidth(minWidth);
+
         Label usernameLabel = new Label(username, ResourceManager.skin);
+        usernameLabel.setWidth(minWidth * 0.7f);
         row.add(usernameLabel).left().expandX().fillX().pad(10);
 
-        TextButton deleteButton = new TextButton("Delete", ResourceManager.skin);
+        ImageButton deleteButton = ResourceManager.getInstance().createImageButton("delete_button", 2);
+        deleteButton.setWidth(minWidth * 0.3f);
+        createImageButton(deleteButton, row);
+
         row.add(deleteButton).right().pad(10);
 
         deleteButton.addListener(new ChangeListener() {
@@ -94,12 +111,10 @@ public class MenuLoadGameScreen extends BaseScreen {
                 confirmDeleteDialog.show(loadStage);
             }
         });
-
-
-        Actor yesButton = createButton("Yes");
+        yesButton = createButton("Yes");
         yesButton.addListener(new ClickListener() {
             @Override
-            public void clicked(InputEvent even, float x, float y) {
+            public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.postRunnable(new Runnable() {
                     final boolean result = profileManager.deleteProfile(username);
                     @Override
@@ -117,29 +132,34 @@ public class MenuLoadGameScreen extends BaseScreen {
             }
         });
 
-        Actor noButton = createButton("No");
+        noButton = createButton("No");
         noButton.addListener(new ClickListener() {
             @Override
-            public void clicked(InputEvent even, float x, float y) {
+            public void clicked(InputEvent event, float x, float y) {
                 confirmDeleteDialog.hide();
             }
         });
-
-        confirmDeleteDialog.getContentTable().add(yesButton);
-        confirmDeleteDialog.getContentTable().add(noButton);
 
         row.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (selectedRow != null) {
-                    selectedRow.setBackground(ResourceManager.skin.getDrawable("default-round"));
+                    NinePatch ninePatch = new NinePatch(ResourceManager.getInstance().UI.findRegion("load_profiles_bg"));
+                    NinePatchDrawable backgroundDrawable = new NinePatchDrawable(ninePatch);
+                    selectedRow.setBackground(backgroundDrawable);
                 }
                 selectedRow = row;
-                selectedRow.setBackground(ResourceManager.skin.getDrawable("selection"));
+                NinePatch ninePatch = new NinePatch(ResourceManager.getInstance().UI.findRegion("load_profiles_selected_bg"));
+                NinePatchDrawable backgroundDrawable = new NinePatchDrawable(ninePatch);
+                selectedRow.setBackground(backgroundDrawable);
             }
         });
+        row.pad(10);
 
-        row.setBackground(ResourceManager.skin.getDrawable("default-round"));
+        NinePatch ninePatch = new NinePatch(ResourceManager.getInstance().UI.findRegion("load_profiles_bg"));
+        NinePatchDrawable backgroundDrawable = new NinePatchDrawable(ninePatch);
+        row.setBackground(backgroundDrawable);
+
         profileRows.add(row);
     }
 
@@ -147,6 +167,7 @@ public class MenuLoadGameScreen extends BaseScreen {
         topTable.clear();
         for (Actor row : profileRows) {
             topTable.add(row).row();
+            row.setSize(300, 60);
         }
     }
 

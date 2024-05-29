@@ -22,7 +22,7 @@ public class CurrentMusicDisplay {
     private int defaultWidth;
     private int defaultHeight;
     private ScrollPane scrollPane;
-    private Table scrollTable;
+    private Table scrollTable = new Table();
     private String currentMusicTitle;
 
     public CurrentMusicDisplay() {
@@ -30,17 +30,16 @@ public class CurrentMusicDisplay {
         defaultWidth = 200;
         defaultHeight = 50;
 
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("atlas/UI/UI.atlas"));
-        NinePatch ninePatch = new NinePatch(atlas.findRegion("UI_Flat_Button_Large_Lock_01a1"));
+        NinePatch ninePatch = new NinePatch(ResourceManager.getInstance().UI.findRegion("UI_Flat_Button_Large_Lock_01a1"));
         NinePatchDrawable backgroundDrawable = new NinePatchDrawable(ninePatch);
 
-        NinePatch musicNotes = new NinePatch(ResourceManager.getInstance().UI.findRegion("music_notes"));
+        NinePatch musicNotes = new NinePatch(ResourceManager.getInstance().UI.findRegion("musicnotes"));
         NinePatchDrawable musicNotesDrawable = new NinePatchDrawable(musicNotes);
 
         Table mainTable = new Table();
         mainTable.pad(10);
         mainTable.left();
-//        mainTable.setBackground(backgroundDrawable);
+        mainTable.setBackground(backgroundDrawable);
 
         Image musicNotesImage = new Image(musicNotesDrawable);
 
@@ -68,7 +67,7 @@ public class CurrentMusicDisplay {
         mainTable.setSize(defaultWidth + 50, defaultHeight);
         stage.addActor(mainTable);
 
-        mainTable.setPosition(500, Gdx.graphics.getHeight() - mainTable.getHeight() - 10);
+        mainTable.setPosition(Gdx.graphics.getWidth() - mainTable.getWidth() - 10, 10);
     }
 
     public void startScrolling() {
