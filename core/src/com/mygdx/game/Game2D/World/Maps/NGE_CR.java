@@ -10,4 +10,9 @@ public class NGE_CR extends GameMap {
     public NGE_CR(String mapName) {
         super(mapName);
     }
+
+    @Override
+    public void setNPCS() {
+
+    }
 }

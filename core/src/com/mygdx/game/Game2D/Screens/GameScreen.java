@@ -15,9 +15,12 @@ import com.mygdx.game.Game2D.Entities.player.PlayerHUD;
 import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Listeners.GameCollisionListener;
 import com.mygdx.game.Game2D.Manager.InputManager;
+import com.mygdx.game.Game2D.Threads.NPCRunnable;
 import com.mygdx.game.Game2D.World.MapExit;
 import com.mygdx.game.Game2D.World.MapManager;
 import com.mygdx.game.ScreenConfig;
+
+import java.util.Objects;
 
 import static com.mygdx.game.Game2D.Game2D.*;
 
@@ -35,6 +38,7 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
 
     public GameScreen(Game2D game) {
         super(game);
+
         GameScreen.game = game;
         inputMultiplexer = new InputMultiplexer();
         world = new World(new Vector2(0, 0), true);
@@ -53,7 +57,7 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
 
         OrthographicCamera hudCamera = new OrthographicCamera();
         hudCamera.setToOrtho(false, ScreenConfig.screenWidth, ScreenConfig.screenHeight);
-//        PLAYER_HUD = new PlayerHUD(hudCamera, player, mapManager);
+
         PLAYER_HUD = new PlayerHUD(player);
         debugRenderer = new Box2DDebugRenderer();
 
@@ -75,8 +79,6 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
 
     @Override
     public void render(float delta) {
-
-        //Hud renders regardless of state
         if (gameState == GameState.PAUSED) {
             pauseScreen.getStage().act(delta);
             pauseScreen.getStage().draw();
@@ -97,7 +99,6 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
 
         camera.position.set((player.getPosition().x * ScreenConfig.originalTileSize) +  (player.getWidth() / 2), (player.getPosition().y * ScreenConfig.originalTileSize)  + (player.getHeight() / 2), 0);
         camera.update();
-
 
         PLAYER_HUD.render(delta);
         debugRenderer.render(world, camera.combined);

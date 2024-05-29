@@ -173,14 +173,14 @@
    <properties>
     <property name="nextMap" value="NGE_HALL"/>
     <property name="playerDirection" value="DOWN"/>
-    <property name="setLastPosition" type="bool" value="true"/>
+    <property name="type" value="lastMap"/>
    </properties>
   </object>
   <object id="41" x="448" y="480" width="32" height="64">
    <properties>
     <property name="nextMap" value="NGE_HALL"/>
     <property name="playerDirection" value="DOWN"/>
-    <property name="setLastPosition" type="bool" value="true"/>
+    <property name="type" value="lastMap"/>
    </properties>
   </object>
  </objectgroup>

@@ -6,4 +6,9 @@ public class NGE_HALL extends GameMap {
     public NGE_HALL(String mapName) {
         super(mapName);
     }
+
+    @Override
+    public void setNPCS() {
+
+    }
 }

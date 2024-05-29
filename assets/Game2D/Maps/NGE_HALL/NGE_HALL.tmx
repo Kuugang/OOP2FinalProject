@@ -145,6 +145,7 @@
     <property name="playerDirection" value="UP"/>
     <property name="playerX" type="float" value="14.5"/>
     <property name="playerY" type="float" value="6.5"/>
+    <property name="type" value="exit"/>
    </properties>
   </object>
   <object id="69" x="1919.82" y="512" width="32.1818" height="64">
@@ -153,6 +154,7 @@
     <property name="playerDirection" value="UP"/>
     <property name="playerX" type="float" value="2.5"/>
     <property name="playerY" type="float" value="6.5"/>
+    <property name="type" value="exit"/>
    </properties>
   </object>
   <object id="74" x="1216" y="511.818" width="31.8182" height="64">
@@ -161,6 +163,7 @@
     <property name="playerDirection" value="UP"/>
     <property name="playerX" type="float" value="14.5"/>
     <property name="playerY" type="float" value="6.5"/>
+    <property name="type" value="exit"/>
    </properties>
   </object>
   <object id="75" x="960" y="511" width="32" height="63.8182">
@@ -169,6 +172,7 @@
     <property name="playerDirection" value="UP"/>
     <property name="playerX" type="float" value="2.5"/>
     <property name="playerY" type="float" value="6.5"/>
+    <property name="type" value="exit"/>
    </properties>
   </object>
   <object id="96" x="511.5" y="512" width="32.25" height="63.75">
@@ -177,6 +181,7 @@
     <property name="playerDirection" value="RIGHT"/>
     <property name="playerX" type="float" value="0.5"/>
     <property name="playerY" type="float" value="1"/>
+    <property name="type" value="exit"/>
    </properties>
   </object>
   <object id="98" x="2432.06" y="511.597" width="31.8182" height="64.5455">
@@ -185,6 +190,7 @@
     <property name="playerDirection" value="RIGHT"/>
     <property name="playerX" type="float" value="0.5"/>
     <property name="playerY" type="float" value="1"/>
+    <property name="type" value="exit"/>
    </properties>
   </object>
   <object id="123" x="2657" y="542" width="61" height="65">
@@ -193,6 +199,7 @@
     <property name="playerDirection" value="UP"/>
     <property name="playerX" type="float" value="35"/>
     <property name="playerY" type="float" value="1"/>
+    <property name="type" value="exit"/>
    </properties>
   </object>
  </objectgroup>

@@ -11,4 +11,9 @@ public class RTL_ACCOUNTING extends GameMap {
     public RTL_ACCOUNTING(String mapName) {
         super(mapName);
     }
+
+    @Override
+    public void setNPCS() {
+
+    }
 }

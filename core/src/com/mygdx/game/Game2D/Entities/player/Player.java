@@ -172,11 +172,6 @@ public class Player extends Entity implements Json.Serializable {
         this.boxBody.setTransform(new Vector2(position.x * ScreenConfig.originalTileSize, position.y * ScreenConfig.originalTileSize), 0);
     }
 
-    public Player setDirection(Direction direction){
-        this.direction = direction;
-        return this;
-    }
-
     public Player setUsername(String username) {
         this.username = username;
         return this;

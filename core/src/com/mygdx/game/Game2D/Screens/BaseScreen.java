@@ -131,7 +131,7 @@ public class BaseScreen implements Screen{
     public Table createTable() {
         Table table = new Table();
         table.setBounds(0,0, (float) Gdx.graphics.getWidth(), (float) Gdx.graphics.getHeight());
-//        table.setDebug(true);
+        table.setDebug(true);
         return table;
     }
 

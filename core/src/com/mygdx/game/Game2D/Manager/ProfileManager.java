@@ -119,6 +119,15 @@ public class ProfileManager {
         return currentPlayer;
     }
 
+    public int getProfileIndex(String username){
+        for(int i = 0; i < profiles.size(); i++){
+            if(Objects.equals(profiles.get(i).username, username)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
 
     public String cloudLogin(String username, String password){
         try(Connection connection = databaseManager.getConnection()){
@@ -170,9 +179,9 @@ public class ProfileManager {
             String user_id = preferences.getString("cloud_id");
             if(!preferences.contains("cloud_id"))return false;
 
-            String selectQuery = "SELECT COUNT(*) FROM profiles WHERE user_id = ? AND username = ?";
-            String insertQuery = "INSERT INTO profiles (user_id, username, x, y, direction, map) VALUES (?, ?, ?, ?, ?, ?)";
-            String updateQuery = "UPDATE profiles SET x = ?, y = ?, direction = ?, map = ?, updated_at = NOW() WHERE user_id = ? AND username = ?";
+            String selectQuery = "SELECT COUNT(*) FROM characters WHERE user_id = ? AND username = ?";
+            String insertQuery = "INSERT INTO characters(user_id, username, x, y, direction, map) VALUES (?, ?, ?, ?, ?, ?)";
+            String updateQuery = "UPDATE characters SET x = ?, y = ?, direction = ?, map = ?, updated_at = NOW() WHERE user_id = ? AND username = ?";
 
             PreparedStatement selectStatement = connection.prepareStatement(selectQuery);
             selectStatement.setObject(1, UUID.fromString(user_id));
@@ -218,9 +227,9 @@ public class ProfileManager {
         int uploadProfileCount = 0;
 
         try (Connection connection = databaseManager.getConnection()) {
-            String selectQuery = "SELECT COUNT(*) FROM profiles WHERE user_id = ? AND username = ?";
-            String insertQuery = "INSERT INTO profiles (user_id, username, x, y, direction, map) VALUES (?, ?, ?, ?, ?, ?)";
-            String updateQuery = "UPDATE profiles SET x = ?, y = ?, direction = ?, map = ?, updated_at = NOW() WHERE user_id = ? AND username = ?";
+            String selectQuery = "SELECT COUNT(*) FROM characters WHERE user_id = ? AND username = ?";
+            String insertQuery = "INSERT INTO characters (user_id, username, x, y, direction, map) VALUES (?, ?, ?, ?, ?, ?)";
+            String updateQuery = "UPDATE characters SET x = ?, y = ?, direction = ?, map = ?, updated_at = NOW() WHERE user_id = ? AND username = ?";
 
             for (Player p : profiles) {
                 PreparedStatement selectStatement = connection.prepareStatement(selectQuery);
@@ -266,7 +275,7 @@ public class ProfileManager {
         String user_id = preferences.getString("cloud_id");
 
         try (Connection connection = databaseManager.getConnection()) {
-            String query = "SELECT * FROM profiles WHERE user_id = ?";
+            String query = "SELECT * FROM characters WHERE user_id = ?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setObject(1, UUID.fromString(user_id));
@@ -286,6 +295,29 @@ public class ProfileManager {
             System.out.println(e.getMessage());
             return false;
         }
+    }
+
+    public boolean deleteProfile(String username){
+        if(getProfileIndex(username) == -1) return false;
+        profiles.remove(getProfileIndex(username));
+        if(preferences.contains("cloud_id")){
+            String user_id = preferences.getString("cloud_id");
+
+            try (Connection connection = databaseManager.getConnection()) {
+                String query = "DELETE FROM characters WHERE username = ? and user_id = ?";
+
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, username);
+                preparedStatement.setObject(2, UUID.fromString(user_id));
+                preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println(e.getMessage());
+                return false;
+            }
+        }
+        saveProfiles();
+        return true;
     }
 
     public Preferences getPreferences(){

@@ -11,4 +11,9 @@ public class NGE_ROOM extends GameMap {
     public NGE_ROOM(String mapName) {
         super(mapName);
     }
+
+    @Override
+    public void setNPCS() {
+
+    }
 }

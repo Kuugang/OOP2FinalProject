@@ -15,7 +15,6 @@ import com.mygdx.game.Game2D.Screens.MenuScreen;
 public class Game2D extends Game {
     public static SpriteBatch batch;
     public static ShapeRenderer shapeRenderer;
-    public GameScreen gameScreen;
     public MenuScreen menuScreen;
     public static ProfileManager profileManager;
     public static ResourceManager resourceManager;
@@ -40,17 +39,12 @@ public class Game2D extends Game {
     public void render() {
         super.render();
     }
-
-    public GameScreen getGameScreen(){
-        return gameScreen;
-    }
-    public void setGameScreen(GameScreen gameScreen) {
-        this.gameScreen = gameScreen;
-    }
     public GameClient getGameClient(){
         return gameClient;
     }
+
     public void setGameClient(GameClient gameClient){
         this.gameClient = gameClient;
     }
+
 }

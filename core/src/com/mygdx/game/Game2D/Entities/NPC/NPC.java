@@ -17,7 +17,7 @@ import static com.mygdx.game.Game2D.Game2D.batch;
 import static com.mygdx.game.Game2D.Screens.GameScreen.gameState;
 import static com.mygdx.game.Game2D.Screens.GameScreen.world;
 
-public class NPC extends Entity {
+public abstract class NPC extends Entity {
     TextureAtlas textureAtlas;
     Animation<TextureRegion> upAnimation;
     Animation<TextureRegion> downAnimation;
@@ -63,14 +63,13 @@ public class NPC extends Entity {
         sprite = new Sprite(rightAnimation.getKeyFrame(0));
         position = new Vector2((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
 
-        speed = 0.001F;
+        speed = 150F;
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(8 * ScreenConfig.tileSize, 8 * ScreenConfig.tileSize);
         boxBody = world.createBody(bodyDef);
         boxBody.setLinearDamping(50f);
-
 
         PolygonShape dynamicBox = new PolygonShape();
         dynamicBox.setAsBox(sprite.getWidth() / 3, sprite.getHeight() / 8);
@@ -107,8 +106,9 @@ public class NPC extends Entity {
             state = State.IDLE;
 
         movementCounter++;
-
     }
+
+    public abstract void update();
 
     public void newMovement(){
         Direction currentDirection = direction;
@@ -145,8 +145,9 @@ public class NPC extends Entity {
         sprite.setPosition(boxBody.getPosition().x - sprite.getWidth() / 2, boxBody.getPosition().y -
                 sprite.getHeight() / 7);
 
-        animationStateTime += Gdx.graphics.getDeltaTime() /
-                ((float) Gdx.graphics.getFramesPerSecond() / ((float) Gdx.graphics.getFramesPerSecond() / 10));
+//        animationStateTime += Gdx.graphics.getDeltaTime() /
+//                ((float) Gdx.graphics.getFramesPerSecond() / ((float) Gdx.graphics.getFramesPerSecond() / 10));
+        animationStateTime += Gdx.graphics.getDeltaTime();
 
         if(state == State.WALKING && !setToStay)
             animation(upAnimation, downAnimation, leftAnimation, rightAnimation);

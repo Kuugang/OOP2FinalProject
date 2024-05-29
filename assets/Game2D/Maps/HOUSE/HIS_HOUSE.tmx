@@ -28,10 +28,11 @@
  <objectgroup id="3" name="EXIT_LAYER">
   <object id="1" x="320" y="448" width="288" height="56">
    <properties>
-    <property name="nextMap" value="NGE_HALL"/>
-    <property name="playerDirection" value="LEFT"/>
-    <property name="playerX" type="float" value="30"/>
-    <property name="playerY" type="float" value="40"/>
+    <property name="nextMap" value="Minigame1"/>
+    <property name="playerDirection" value="UP"/>
+    <property name="playerX" type="float" value="10"/>
+    <property name="playerY" type="float" value="10"/>
+    <property name="type" value="minigame"/>
    </properties>
   </object>
  </objectgroup>

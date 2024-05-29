@@ -124,29 +124,6 @@ public class MenuNewGameScreen extends BaseScreen {
         return backButton;
     }
 
-    private Actor handleOverwriteButton() {
-        Actor overwriteButton = createButton("Overwrite");
-        overwriteButton.addListener(new ClickListener() {
-            @Override
-            public void clicked (InputEvent event, float x, float y) {
-                game.setGameScreen(new GameScreen(game));
-            }
-        });
-
-        return overwriteButton;
-    }
-
-    private Actor handleCancelButton() {
-        Actor cancelButton = createButton("Cancel");
-        cancelButton.addListener(new ClickListener() {
-            @Override
-            public void clicked (InputEvent event, float x, float y) {
-                overwriteDialog.hide();
-            }
-        });
-        return cancelButton;
-    }
-
     @Override
     public void show() {
         newStage.addActor(menuNewGameTable);

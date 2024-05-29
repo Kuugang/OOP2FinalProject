@@ -18,4 +18,8 @@ public class HouseNPC extends NPC {
         }));
     }
 
+    @Override
+    public void update() {
+        move();
+    }
 }

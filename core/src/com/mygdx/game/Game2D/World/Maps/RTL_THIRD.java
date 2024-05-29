@@ -11,4 +11,9 @@ public class RTL_THIRD extends GameMap {
     public RTL_THIRD(String mapName) {
         super(mapName);
     }
+
+    @Override
+    public void setNPCS() {
+
+    }
 }

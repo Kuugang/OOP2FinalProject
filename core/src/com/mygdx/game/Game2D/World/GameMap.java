@@ -18,13 +18,8 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Entities.NPC.NPC;
 import com.mygdx.game.Game2D.Manager.NPCManager;
-import com.mygdx.game.ScreenConfig;
+import com.mygdx.game.Game2D.Screens.GameScreen;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-
-import static com.mygdx.game.Game2D.Game2D.batch;
 import static com.mygdx.game.Game2D.Screens.GameScreen.*;
 import static com.mygdx.game.Game2D.World.MapManager.tiledMapRenderer;
 
@@ -58,6 +53,8 @@ public abstract class GameMap {
         return this;
     }
 
+    public abstract void setNPCS();
+
     public void setExits(){
         exitLayer = this.tiledMap.getLayers().get("EXIT_LAYER");
 
@@ -82,21 +79,29 @@ public abstract class GameMap {
                     exitFixtureDef.filter.categoryBits = CollisionType.EXIT.getValue();
                     exitFixtureDef.filter.maskBits = CollisionType.PLAYER.getValue();
                     MapProperties properties = object.getProperties();
-                    String nextMap = (String) properties.get("nextMap");
-                    Entity.Direction direction = Entity.Direction.fromString((String)properties.get("playerDirection"));
-                    float playerX;
-                    float playerY;
-                    if(properties.containsKey("setLastPosition")){
-                        playerX = player.getLastMapPosition().x;
-                        playerY = player.getLastMapPosition().y;
-                    }else{
-                        playerX = (float) properties.get("playerX");
-                        playerY = (float) properties.get("playerY");
+                    String type = (String) properties.get("type");
+                    switch (type){
+                        case "exit", "minigame" -> {
+                            String nextMap = (String) properties.get("nextMap");
+                            Entity.Direction direction = Entity.Direction.fromString((String)properties.get("playerDirection"));
+
+                            float playerX = (float) properties.get("playerX");
+                            float playerY = (float) properties.get("playerY");
+
+                            MapExit exit = new MapExit(nextMap, new Vector2(playerX, playerY), direction);
+                            collisionBody.createFixture(exitFixtureDef).setUserData(exit);
+                        }
+                        case "lastMap" -> {
+                            String nextMap = (String) properties.get("nextMap");
+                            Entity.Direction direction = Entity.Direction.fromString((String)properties.get("playerDirection"));
+                            float playerX = player.getLastMapPosition().x;
+                            float playerY = player.getLastMapPosition().y;
+
+                            MapExit exit = new MapExit(nextMap, new Vector2(playerX, playerY), direction);
+                            collisionBody.createFixture(exitFixtureDef).setUserData(exit);
+                        }
                     }
 
-                    MapExit exit = new MapExit(nextMap, new Vector2(playerX, playerY), direction);
-
-                    collisionBody.createFixture(exitFixtureDef).setUserData(exit);
                     bodies.add(collisionBody);
                     shape.dispose();
                 }
@@ -180,12 +185,20 @@ public abstract class GameMap {
             tiledMapRenderer.render(new int[]{i});
         }
 
+        for(NPC n : npcManager.getNPCs()){
+            n.render();
+        }
+
         player.render();
 
         for (int i = 0; i < layers; i++) {
             if (tiledMap.getLayers().get(i) == FOREGROUND_LAYER || tiledMap.getLayers().get(i) == FOREGROUND_LAYER1) {
                 tiledMapRenderer.render(new int[]{i});
             }
+        }
+
+        if(this instanceof Minigame){
+            ((Minigame) this).minigame();
         }
     }
 }

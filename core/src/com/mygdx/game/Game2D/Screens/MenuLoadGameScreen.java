@@ -1,15 +1,16 @@
 package com.mygdx.game.Game2D.Screens;
 
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Game2D.Entities.player.Player;
 import com.mygdx.game.Game2D.Game2D;
-import com.mygdx.game.Game2D.Manager.ProfileManager;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
 import com.mygdx.game.Game2D.Screens.transition.effects.FadeOutTransitionEffect;
 import com.mygdx.game.Game2D.Screens.transition.effects.TransitionEffect;
@@ -19,21 +20,22 @@ import java.util.ArrayList;
 import static com.mygdx.game.Game2D.Game2D.profileManager;
 
 public class MenuLoadGameScreen extends BaseScreen {
-
     private Table loadTable;
     private Table topTable;
     private Table bottomTable;
     private Stage loadStage = new Stage();
     private BaseScreen previousScreen;
-    private List listItems;
+    private List<Label> listItems = new List<>(ResourceManager.skin);
     private float stateTime;
     private Dialog cloudAuthDialog;
+    private Array<Table> profileRows = new Array<>();
+    private final Label resultText = new Label("", ResourceManager.skin);
+    private Table selectedRow;
+    private Table controlsTable = new Table();
 
     public MenuLoadGameScreen(Game2D game, BaseScreen previousScreen, ResourceManager resourceManager) {
         super(game);
         this.previousScreen = previousScreen;
-//        super.musicTheme = MENU_THEME;
-
         resourceManager.setMenuLoadGameScreen(true);
 
         loadTable = createTable();
@@ -44,8 +46,13 @@ public class MenuLoadGameScreen extends BaseScreen {
 
         bottomTable = createTable();
         bottomTable.setWidth(Gdx.graphics.getWidth());
-        bottomTable.setHeight(Gdx.graphics.getHeight()/2f);
+        bottomTable.setHeight(Gdx.graphics.getHeight() / 2f);
         bottomTable.center();
+
+        Table table = new Table();
+        table.add(resultText).pad(10).center();
+        bottomTable.add(table).center().row();
+        bottomTable.add(controlsTable);
 
         createProfileList();
         handleLoadButton();
@@ -56,51 +63,84 @@ public class MenuLoadGameScreen extends BaseScreen {
     }
 
     private void createProfileList() {
-        listItems = new List(ResourceManager.skin);
         ArrayList<Player> profiles = profileManager.getProfiles();
-
-        Array<String> list = new Array<>();
-        
-        for (Player p: profiles) {
-            list.add(p.username);
+        for (Player p : profiles) {
+            addProfileRow(p.username);
         }
-        
-        listItems.setItems(list);
-        ScrollPane scrollPane = new ScrollPane(listItems);
 
-        scrollPane.setOverscroll(false, false);
-        scrollPane.setFadeScrollBars(false);
-        scrollPane.setScrollingDisabled(true, false);
-        scrollPane.setScrollbarsOnTop(true);
+        refreshList();
+    }
 
-        topTable.add(scrollPane).center();
+    private void addProfileRow(String username) {
+        Table row = new Table();
+        row.setName(username);
+
+        Label usernameLabel = new Label(username, ResourceManager.skin);
+        row.add(usernameLabel).left().expandX().fillX().pad(10);
+
+        TextButton deleteButton = new TextButton("Delete", ResourceManager.skin);
+        row.add(deleteButton).right().pad(10);
+
+        deleteButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                boolean result = profileManager.deleteProfile(username);
+                if(result){
+                    profileRows.removeValue(row, true);
+                    refreshList();
+                    resultText.setText("Successfully deleted character");
+                }else{
+                    resultText.setText("Failed to delete character");
+                }
+            }
+        });
+
+        row.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (selectedRow != null) {
+                    selectedRow.setBackground(ResourceManager.skin.getDrawable("default-round"));
+                }
+                selectedRow = row;
+                selectedRow.setBackground(ResourceManager.skin.getDrawable("selection"));
+            }
+        });
+
+        row.setBackground(ResourceManager.skin.getDrawable("default-round"));
+        profileRows.add(row);
+    }
+
+    void refreshList() {
+        topTable.clear();
+        for (Actor row : profileRows) {
+            topTable.add(row).row();
+        }
     }
 
     private void handleLoadButton() {
         Actor loadButton = createButton("Play");
-
-        bottomTable.add(loadButton);
+//        bottomTable.add(loadButton);
+        controlsTable.add(loadButton);
 
         loadButton.addListener(new ClickListener() {
             @Override
-            public void clicked (InputEvent event, float x, float y) {
-                if (listItems.getSelected() == null) {
+            public void clicked(InputEvent event, float x, float y) {
+                if (selectedRow == null) {
+                    resultText.setText("No profile selected");
                     return;
                 }
 
                 previousScreen.dispose();
-                String username = listItems.getSelected().toString();
+                String username = selectedRow.getName();
                 profileManager.loadProfile(username);
 
-                setScreenWithTransition((BaseScreen)game.getScreen(), new GameScreen(game), new ArrayList<>());
+                setScreenWithTransition((BaseScreen) game.getScreen(), new GameScreen(game), new ArrayList<>());
             }
         });
     }
 
-
     private void createCloudAuthDialog() {
         cloudAuthDialog = new Dialog("Login/Register", ResourceManager.skin);
-
         cloudAuthDialog.setKeepWithinStage(true);
         cloudAuthDialog.setModal(true);
         cloudAuthDialog.setMovable(false);
@@ -166,16 +206,15 @@ public class MenuLoadGameScreen extends BaseScreen {
         cloudAuthDialog.row();
     }
 
-
     private void handleCloudUploadButton() {
-        ImageButton imageButton = createImageButton("cloud_upload", bottomTable);
+        ImageButton imageButton = createImageButton("cloud_upload", controlsTable);
 
         imageButton.addListener(new ClickListener() {
             @Override
-            public void clicked (InputEvent event, float x, float y) {
-                if(!profileManager.getPreferences().contains("cloud_id")){
+            public void clicked(InputEvent event, float x, float y) {
+                if (!profileManager.getPreferences().contains("cloud_id")) {
                     cloudAuthDialog.show(loadStage);
-                }else{
+                } else {
                     boolean status = profileManager.cloudProfilesUpload();
 
                     Dialog dialog = new Dialog("Upload Status", ResourceManager.skin);
@@ -192,14 +231,14 @@ public class MenuLoadGameScreen extends BaseScreen {
     }
 
     private void handleCloudDownloadButton() {
-        ImageButton imageButton = createImageButton("cloud_download", bottomTable);
+        ImageButton imageButton = createImageButton("cloud_download", controlsTable);
 
         imageButton.addListener(new ClickListener() {
             @Override
-            public void clicked (InputEvent event, float x, float y) {
-                if(!profileManager.getPreferences().contains("cloud_id")){
+            public void clicked(InputEvent event, float x, float y) {
+                if (!profileManager.getPreferences().contains("cloud_id")) {
                     cloudAuthDialog.show(loadStage);
-                }else{
+                } else {
                     boolean status = profileManager.cloudProfilesDownload();
                     Dialog dialog = new Dialog("Download Status", ResourceManager.skin);
                     if (status) {
@@ -207,12 +246,12 @@ public class MenuLoadGameScreen extends BaseScreen {
 
                         ArrayList<Player> profiles = profileManager.getProfiles();
 
-                        Array<String> list = new Array<>();
-                        for (Player p: profiles) {
-                            list.add(p.username);
+                        profileRows.clear();
+                        for (Player p : profiles) {
+                            addProfileRow(p.username);
                         }
 
-                        listItems.setItems(list);
+                        refreshList();
 
                     } else {
                         dialog.text("Download failed");
@@ -226,7 +265,7 @@ public class MenuLoadGameScreen extends BaseScreen {
 
     private void handleLoadBackButton() {
         Actor backButton = createButton("Back");
-        bottomTable.add(backButton);
+        controlsTable.add(backButton);
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent even, float x, float y) {
@@ -253,7 +292,6 @@ public class MenuLoadGameScreen extends BaseScreen {
             previousScreen.render(stateTime);
         }
 
-        show();
         loadStage.act(delta);
         loadStage.draw();
     }

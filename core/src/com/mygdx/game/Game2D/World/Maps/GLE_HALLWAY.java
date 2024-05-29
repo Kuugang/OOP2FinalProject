@@ -7,4 +7,9 @@ public class GLE_HALLWAY extends GameMap {
     public GLE_HALLWAY(String mapName) {
         super(mapName);
     }
+
+    @Override
+    public void setNPCS() {
+
+    }
 }

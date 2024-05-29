@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.Game2D.Entities.NPC.NPC;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
+import com.mygdx.game.ScreenConfig;
 
 import java.util.ArrayList;
 
@@ -158,6 +159,14 @@ public class Entity implements InputProcessor {
         return setDialogue(dialogues.get(Math.abs(new RandomXS128().nextInt() % dialogues.size())));
     }
 
+    public void setDirection(Entity.Direction direction){
+        this.direction = direction;
+    }
+
+    public void setSpeed(float speed){
+        this.speed = speed;
+    }
+
     public Entity setDialogue(int index){
         return setDialogue(dialogues.get(index));
     }
@@ -170,6 +179,12 @@ public class Entity implements InputProcessor {
 
         return this;
     }
+
+    public void setPosition(Vector2 position){
+        this.position.set(position);
+        this.boxBody.setTransform(new Vector2(position.x * ScreenConfig.originalTileSize, position.y * ScreenConfig.originalTileSize), 0);
+    }
+
 
     public Vector2 getPosition(){
         return position;

@@ -6,4 +6,9 @@ public class GLE_CR extends GameMap {
     public GLE_CR(String mapName) {
         super(mapName);
     }
+
+    @Override
+    public void setNPCS() {
+
+    }
 }
