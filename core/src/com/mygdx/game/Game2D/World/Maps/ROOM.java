@@ -5,6 +5,7 @@ import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Entities.NPC.MainNPC;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
 import com.mygdx.game.Game2D.Utils.GameQueue;
+import com.mygdx.game.Game2D.Utils.RandomGetter;
 import com.mygdx.game.Game2D.World.GameMap;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class ROOM extends GameMap {
 
     public void setNPCS(){
         MainNPC gymNPC = new MainNPC(100);
-        gymNPC.setTextureAtlas(ResourceManager.getRandomTA_NPC());
+        gymNPC.setTextureAtlas(RandomGetter.getRandomTA_NPC());
         gymNPC.setDialogues(new ArrayList<>(Arrays.asList(
                 "No pain, no gain.",
                 "Feel the burn!",
@@ -39,7 +40,7 @@ public class ROOM extends GameMap {
         gymNPC.setPosition(new Vector2(29, 9));
 
         MainNPC anotherNPC = new MainNPC(100);
-        anotherNPC.setTextureAtlas(ResourceManager.getRandomTA_NPC());
+        anotherNPC.setTextureAtlas(RandomGetter.getRandomTA_NPC());
         anotherNPC.setPosition(new Vector2(13, 9));
         anotherNPC.setDialogues(new ArrayList<>(Arrays.asList(
                 "Sooo Warm...",
