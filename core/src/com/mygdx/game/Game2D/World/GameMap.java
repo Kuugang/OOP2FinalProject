@@ -40,12 +40,11 @@ public abstract class GameMap {
     protected int layers;
     TiledMapTileLayer FOREGROUND_LAYER, FOREGROUND_LAYER1;
     public NPCManager npcManager;
-    public ArrayList<NPC> npcs = new ArrayList<>();
     Music mapMusic;
 
     public GameMap(String mapName){
         this.mapName = mapName;
-        npcManager = new NPCManager();
+        npcManager = new NPCManager(this);
     }
 
     public GameMap setMap(String path) {
@@ -212,14 +211,9 @@ public abstract class GameMap {
             tiledMapRenderer.render(new int[]{i});
         }
 
-//        for(NPC n : npcManager.getNPCs()){
-//            n.render();
-//        }
-
-        for(NPC n : npcs){
-            n.render();
+        synchronized (this) {
+            notifyAll();
         }
-
 
         player.render();
 
@@ -227,6 +221,10 @@ public abstract class GameMap {
             if (tiledMap.getLayers().get(i) == FOREGROUND_LAYER || tiledMap.getLayers().get(i) == FOREGROUND_LAYER1) {
                 tiledMapRenderer.render(new int[]{i});
             }
+        }
+
+        for(NPC n : npcManager.getNPCs()){
+            n.render();
         }
 
         if(this instanceof Minigame){

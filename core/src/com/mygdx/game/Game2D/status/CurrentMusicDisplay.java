@@ -30,7 +30,8 @@ public class CurrentMusicDisplay {
         defaultWidth = 200;
         defaultHeight = 50;
 
-        NinePatch ninePatch = new NinePatch(ResourceManager.getInstance().UI.findRegion("UI_Flat_Button_Large_Lock_01a1"));
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("atlas/UI/UI.atlas"));
+        NinePatch ninePatch = new NinePatch(atlas.findRegion("UI_Flat_Button_Large_Lock_01a1"));
         NinePatchDrawable backgroundDrawable = new NinePatchDrawable(ninePatch);
 
         NinePatch musicNotes = new NinePatch(ResourceManager.getInstance().UI.findRegion("music_notes"));

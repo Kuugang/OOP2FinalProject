@@ -3,6 +3,7 @@ package com.mygdx.game.Game2D.Manager;
 import com.mygdx.game.Game2D.Algorithms.Algorithm;
 import com.mygdx.game.Game2D.Entities.NPC.NPC;
 import com.mygdx.game.Game2D.Threads.NPCRunnable;
+import com.mygdx.game.Game2D.World.GameMap;
 
 import java.util.ArrayList;
 
@@ -12,11 +13,11 @@ import java.util.ArrayList;
  */
 public class NPCManager {
     private final NPCRunnable[] activeNPCRunnable;
-    public NPCManager() {
+    public NPCManager(GameMap gameMap) {
         activeNPCRunnable = new NPCRunnable[Runtime.getRuntime().availableProcessors()];
 
         for(int i = 0; i < activeNPCRunnable.length; i++)
-            activeNPCRunnable[i] = new NPCRunnable();
+            activeNPCRunnable[i] = new NPCRunnable(gameMap);
     }
 
     public NPCManager addNPC(NPC npc) {

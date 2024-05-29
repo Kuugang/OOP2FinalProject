@@ -34,7 +34,7 @@ public class Entity implements InputProcessor {
     public State state = State.IDLE;
 
     public Body boxBody;
-    public FixtureDef fixtureDef;
+    public FixtureDef fixtureDef = new FixtureDef();
     protected ArrayList<String> dialogues;
 
     public Entity(){
@@ -77,12 +77,16 @@ public class Entity implements InputProcessor {
         return state;
     }
 
-    private float timePerCharacter = 0.5f; // Time (in seconds) between each character display
+    private float timePerCharacter = 0.1f; // Time (in seconds) between each character display
     private float elapsedTime = 0f;
     private int charactersToDisplay = 0;
     private String dialogue;
     public boolean finishedDialogue = true;
 
+    private Direction defaultDirection;
+    private boolean defaultDirectionSet = false;
+    private boolean previousSetToStay;
+    private boolean setPreviousToStay = false;
 
     public void doDialogue(){
         if(!finishedDialogue) {
@@ -116,13 +120,24 @@ public class Entity implements InputProcessor {
                     charactersToDisplay = dialogue.length();
 
                 if(this instanceof NPC) {
+                    if(!defaultDirectionSet) {
+                        defaultDirection = direction;
+                        defaultDirectionSet = true;
+                    }
+                    if(!setPreviousToStay) {
+                        setPreviousToStay = true;
+                        previousSetToStay = ((NPC)this).setToStay;
+                    }
                     ((NPC)this).setToStay = true;
                     redirection((NPC) this);
                 }
             }else {
                 finishedDialogue = true;
                 if(this instanceof NPC){
-                    ((NPC) this).setToStay = false;
+                    ((NPC) this).setToStay = previousSetToStay;
+                    direction = defaultDirection;
+
+                    setPreviousToStay = defaultDirectionSet = false;
                 }
             }
 

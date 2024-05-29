@@ -6,7 +6,6 @@ import com.badlogic.gdx.assets.loaders.MusicLoader;
 import com.badlogic.gdx.assets.loaders.TextureLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -15,8 +14,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
@@ -259,4 +258,32 @@ public class ResourceManager {
 
         pixel10.dispose();
     }
+
+    public static String getRandomTA_NPC(){
+        RandomXS128 randomXS128 = new RandomXS128();
+        return switch (Math.abs(randomXS128.nextInt() % TextureAtlasNPC.values().length)) {
+            case 0 -> TextureAtlasNPC.NPC1.getPath();
+            case 1 -> TextureAtlasNPC.NPC2.getPath();
+            case 2 -> TextureAtlasNPC.NPC3.getPath();
+            case 3 -> TextureAtlasNPC.NPC4.getPath();
+            case 4 -> TextureAtlasNPC.NPC5.getPath();
+            case 5 -> TextureAtlasNPC.NPC6.getPath();
+            case 6 -> TextureAtlasNPC.NPC7.getPath();
+            case 7 -> TextureAtlasNPC.NPC8.getPath();
+            case 8 -> TextureAtlasNPC.NPC9.getPath();
+            case 9 -> TextureAtlasNPC.NPC10.getPath();
+            case 10 -> TextureAtlasNPC.NPC11.getPath();
+            case 11 -> TextureAtlasNPC.NPC12.getPath();
+            case 12 -> TextureAtlasNPC.NPC13.getPath();
+            case 13 -> TextureAtlasNPC.NPC14.getPath();
+            case 14 -> TextureAtlasNPC.NPC15.getPath();
+            case 15 -> TextureAtlasNPC.NPC16.getPath();
+            case 16 -> TextureAtlasNPC.NPC17.getPath();
+            case 17 -> TextureAtlasNPC.NPC18.getPath();
+            case 18 -> TextureAtlasNPC.NPC19.getPath();
+            case 19 -> TextureAtlasNPC.NPC20.getPath();
+            default -> null;
+        };
+    }
+
 }

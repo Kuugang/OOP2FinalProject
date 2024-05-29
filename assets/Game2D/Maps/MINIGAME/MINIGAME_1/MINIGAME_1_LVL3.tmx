@@ -96,12 +96,6 @@
   <object id="3" x="224.125" y="1278.38" width="355.583" height="1.5"/>
   <object id="4" x="0" y="0" width="768" height="95"/>
   <object id="6" x="576" y="96" width="192" height="192"/>
-  <object id="9" x="398" y="918.75" width="6.25" height="7"/>
-  <object id="10" x="397.818" y="1078.91" width="6.18182" height="6.72727"/>
-  <object id="11" x="398.182" y="1239.27" width="6.18182" height="6.36364"/>
-  <object id="12" x="397.273" y="759.455" width="7.09091" height="6.54545"/>
-  <object id="13" x="397.091" y="599.091" width="7.45455" height="6.90909"/>
-  <object id="14" x="397.273" y="439.091" width="7.09091" height="6.90909"/>
  </objectgroup>
  <objectgroup id="3" name="EXIT_LAYER">
   <object id="8" x="224" y="288" width="352" height="32">

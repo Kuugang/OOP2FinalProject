@@ -13,6 +13,8 @@ import com.mygdx.game.Game2D.Screens.GameScreen;
 import com.mygdx.game.Game2D.World.CollisionType;
 import com.mygdx.game.ScreenConfig;
 
+import java.util.ArrayList;
+
 import static com.mygdx.game.Game2D.Game2D.batch;
 import static com.mygdx.game.Game2D.Screens.GameScreen.gameState;
 import static com.mygdx.game.Game2D.Screens.GameScreen.world;
@@ -30,13 +32,28 @@ public abstract class NPC extends Entity {
     int length; //Length in seconds in which the entity do a movement
     int movementCounter; //A counter for fixing NPC movement when encountering a collision
     public boolean setToStay = false;
+    private Direction previousDirection;
 
     public NPC(int length){
         state = State.WALKING;
-        direction = Direction.DOWN;
         movementCounter = 0;
         this.length = length;
-        textureAtlas = new TextureAtlas(Gdx.files.internal("atlas/leo.atlas"));
+
+        position = new Vector2((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
+
+        speed = 150F;
+
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(8 * ScreenConfig.tileSize, 8 * ScreenConfig.tileSize);
+        boxBody = world.createBody(bodyDef);
+        boxBody.setLinearDamping(50f);
+
+        direction = Direction.UP;
+    }
+
+    public void setTextureAtlas(String path){
+        textureAtlas = new TextureAtlas(Gdx.files.internal(path));
 
         upAnimation = new Animation<>(0.10f, textureAtlas.findRegions("move_up"));
         downAnimation = new Animation<>(0.10f, textureAtlas.findRegions("move_down"));
@@ -61,15 +78,6 @@ public abstract class NPC extends Entity {
         frame = idleDownAnimation.getKeyFrame(0);
 
         sprite = new Sprite(rightAnimation.getKeyFrame(0));
-        position = new Vector2((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
-
-        speed = 150F;
-
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(8 * ScreenConfig.tileSize, 8 * ScreenConfig.tileSize);
-        boxBody = world.createBody(bodyDef);
-        boxBody.setLinearDamping(50f);
 
         PolygonShape dynamicBox = new PolygonShape();
         dynamicBox.setAsBox(sprite.getWidth() / 3, sprite.getHeight() / 8);
@@ -81,25 +89,23 @@ public abstract class NPC extends Entity {
 
         Fixture fixture = boxBody.createFixture(fixtureDef);
         fixture.setUserData(this);
-
-        direction = Direction.UP;
     }
 
     public void move(){
-        if(movementCounter >= length)
+        if(movementCounter >= length && !setToStay)
             newMovement();
 
         state = State.WALKING;
-        if(direction == Direction.UP){
+        if(direction == Direction.UP && !setToStay){
             boxBody.applyLinearImpulse(new Vector2(0, speed / 2), boxBody.getWorldCenter(), true);
             direction = Direction.UP;
-        }else if(direction == Direction.DOWN){
+        }else if(direction == Direction.DOWN && !setToStay){
             boxBody.applyLinearImpulse(new Vector2(0, -speed / 2), boxBody.getWorldCenter(), true);
             direction = Direction.DOWN;
-        }else if(direction == Direction.LEFT){
+        }else if(direction == Direction.LEFT && !setToStay){
             boxBody.applyLinearImpulse(new Vector2(-speed / 2, 0), boxBody.getWorldCenter(), true);
             direction = Direction.LEFT;
-        }else if(direction == Direction.RIGHT){
+        }else if(direction == Direction.RIGHT && !setToStay){
             boxBody.applyLinearImpulse(new Vector2(speed / 2, 0), boxBody.getWorldCenter(), true);
             direction = Direction.RIGHT;
         }else
@@ -125,14 +131,24 @@ public abstract class NPC extends Entity {
         }
 
         state = (direction == Direction.STAY ? State.IDLE : State.WALKING);
+        if(direction == Direction.STAY)
+            previousDirection = currentDirection;
 
         movementCounter = 0;
     }
 
+    public void setDialogues(ArrayList<String> dialogues){
+        super.dialogues = dialogues;
+    }
 
     public void setToStay(){
         movementCounter = 0;
         setToStay = true;
+    }
+
+    public void setToStay(Direction direction){
+        this.direction = direction;
+        setToStay();
     }
 
     public NPC render(){
@@ -145,11 +161,9 @@ public abstract class NPC extends Entity {
         sprite.setPosition(boxBody.getPosition().x - sprite.getWidth() / 2, boxBody.getPosition().y -
                 sprite.getHeight() / 7);
 
-//        animationStateTime += Gdx.graphics.getDeltaTime() /
-//                ((float) Gdx.graphics.getFramesPerSecond() / ((float) Gdx.graphics.getFramesPerSecond() / 10));
         animationStateTime += Gdx.graphics.getDeltaTime();
 
-        if(state == State.WALKING && !setToStay)
+        if(state == State.WALKING)
             animation(upAnimation, downAnimation, leftAnimation, rightAnimation);
         else
             animation(idleUpAnimation, idleDownAnimation, idleLeftAnimation, idleRightAnimation);
@@ -165,12 +179,22 @@ public abstract class NPC extends Entity {
 
     private NPC animation(Animation<TextureRegion> upAnimation, Animation<TextureRegion> downAnimation,
                                Animation<TextureRegion> leftAnimation, Animation<TextureRegion> rightAnimation) {
-        switch (direction) {
+        if(direction != Direction.STAY)
+            animation2(upAnimation, downAnimation, leftAnimation, rightAnimation, direction);
+        else {
+            animation2(upAnimation, downAnimation, leftAnimation, rightAnimation, previousDirection);
+        }
+        return this;
+    }
+
+    private void animation2(Animation<TextureRegion> upAnimation, Animation<TextureRegion> downAnimation,
+                            Animation<TextureRegion> leftAnimation, Animation<TextureRegion> rightAnimation,
+                            Direction previousDirection) {
+        switch (previousDirection) {
             case UP -> frame = upAnimation.getKeyFrame(animationStateTime, true);
             case DOWN -> frame = downAnimation.getKeyFrame(animationStateTime, true);
             case LEFT -> frame = leftAnimation.getKeyFrame(animationStateTime, true);
             case RIGHT -> frame = rightAnimation.getKeyFrame(animationStateTime, true);
         }
-        return this;
     }
 }

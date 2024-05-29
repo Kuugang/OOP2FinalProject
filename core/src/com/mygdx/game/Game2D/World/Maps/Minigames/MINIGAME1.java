@@ -1,12 +1,14 @@
 package com.mygdx.game.Game2D.World.Maps.Minigames;
 
+import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Game2D.Entities.NPC.NPC;
 import com.mygdx.game.Game2D.Entities.NPC.NPCMinigame1;
+import com.mygdx.game.Game2D.Manager.ResourceManager;
+import com.mygdx.game.Game2D.Utils.GameQueue;
 import com.mygdx.game.Game2D.World.GameMap;
 import com.mygdx.game.Game2D.World.Minigame;
 
-import static com.mygdx.game.Game2D.Screens.GameScreen.player;
-
+import static com.mygdx.game.Game2D.Screens.GameScreen.world;
 
 public class MINIGAME1 extends GameMap implements Minigame {
     public static int health = 10;
@@ -15,27 +17,23 @@ public class MINIGAME1 extends GameMap implements Minigame {
         super(mapName);
         this.level = level;
     }
-
+    
     @Override
     public void setNPCS() {
-        npcs.add(new NPCMinigame1(1000, level));
-        npcs.add(new NPCMinigame1(1000, level));
-        npcs.add(new NPCMinigame1(1000, level));
-        npcs.add(new NPCMinigame1(1000, level));
-        npcs.add(new NPCMinigame1(1000, level));
-        npcs.add(new NPCMinigame1(1000, level));
-        npcs.add(new NPCMinigame1(1000, level));
-        npcs.add(new NPCMinigame1(1000, level));
-        npcs.add(new NPCMinigame1(1000, level));
-        npcs.add(new NPCMinigame1(1000, level));
-        npcs.add(new NPCMinigame1(1000, level));
-        npcs.add(new NPCMinigame1(1000, level));
-        npcs.add(new NPCMinigame1(1000, level));
-        npcs.add(new NPCMinigame1(1000, level));
+        new Thread(() -> {
+            for(int i = 0; i < 50; i++) {
+                NPCMinigame1 npcMinigame1 = new NPCMinigame1(1000, level);
 
-        npcs.forEach(npc -> {
-            bodies.add(npc.boxBody);
-        });
+                try {
+                    Thread.sleep(500);
+                }catch (InterruptedException ignored){}
+
+                Gdx.app.postRunnable(() -> npcMinigame1.setTextureAtlas(ResourceManager.getRandomTA_NPC()));
+                GameQueue.add(() -> bodies.add(npcMinigame1.boxBody));
+
+                npcManager.addNPC(npcMinigame1);
+            }
+        }).start();
     }
 
     @Override
@@ -45,7 +43,7 @@ public class MINIGAME1 extends GameMap implements Minigame {
 
     @Override
     public void minigame() {
-        npcs.forEach(NPC::update);
+        npcManager.getNPCs().forEach(NPC::update);
         if(health <= 0){
             onGameOver();
         }
