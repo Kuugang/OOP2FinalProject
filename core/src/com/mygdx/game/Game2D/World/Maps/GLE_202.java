@@ -1,6 +1,7 @@
 package com.mygdx.game.Game2D.World.Maps;
 
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Game2D.Dialogues.Dialogues;
 import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Entities.NPC.NPC1;
 import com.mygdx.game.Game2D.Manager.ResourceManager;
@@ -57,60 +58,14 @@ public class GLE_202 extends GameMap {
         npc2.setTextureAtlas(ResourceManager.getRandomTA_NPC());
         npc2.setToStay(Entity.Direction.UP);
         npc2.setPosition(new Vector2(2, 8));
-        npc2.setDialogues(new ArrayList<>(
-                Arrays.asList(
-                        "Don't you have something better to do?",
-                        "I don't have time for this right now.",
-                        "Why are you even here?",
-                        "Leave me alone.",
-                        "I don't want to talk to you.",
-                        "Go bother someone else.",
-                        "I have nothing to say to you.",
-                        "You’re not worth my time.",
-                        "Just go away.",
-                        "Stop wasting my time.",
-                        "I can't deal with you right now.",
-                        "What do you want this time?",
-                        "I don’t care about your problems.",
-                        "Can’t you take a hint?",
-                        "Do you ever get tired of being annoying?",
-                        "Your presence is not welcome here.",
-                        "Why don't you just disappear?",
-                        "I have more important things to do.",
-                        "Talking to you is pointless.",
-                        "I’m not interested in anything you have to say.",
-                        "Why do you always have to make things worse?"
-                        )
-                )
-        );
+        npc2.setDialogues(new ArrayList<>(Dialogues.dialogues1));
         npcManager.addNPC(npc2);
 
         NPC1 npc3 = new NPC1(100);
         npc3.setTextureAtlas(ResourceManager.getRandomTA_NPC());
         npc3.setToStay(Entity.Direction.LEFT);
         npc3.setPosition(new Vector2(20, 9));
-        npc3.setDialogues(new ArrayList<>(Arrays.asList(
-                "Hey, it's great to see you!",
-                "How have you been?",
-                "What’s up?",
-                "Long time no see!",
-                "I've been thinking about you.",
-                "You always brighten my day.",
-                "Do you have a minute to chat?",
-                "I was hoping to run into you.",
-                "Let's catch up!",
-                "What's new with you?",
-                "I'm so glad you're here.",
-                "You always know how to make me smile.",
-                "What’s been going on?",
-                "Want to grab a coffee?",
-                "I've missed our conversations.",
-                "You have the best stories.",
-                "How's everything going on your end?",
-                "Tell me about your day.",
-                "I could use your advice on something.",
-                "It's always a pleasure talking to you."
-        )));
+        npc3.setDialogues(Dialogues.dialogues2);
         npcManager.addNPC(npc3);
 
 
