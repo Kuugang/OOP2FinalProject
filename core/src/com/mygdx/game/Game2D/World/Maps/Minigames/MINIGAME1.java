@@ -22,16 +22,15 @@ public class MINIGAME1 extends GameMap implements Minigame {
     public void setNPCS() {
         new Thread(() -> {
             for(int i = 0; i < 25; i++) {
-                GameQueue.add(() -> {
-                    NPCMinigame1 npcMinigame1 = new NPCMinigame1(1000, level);
-                    Gdx.app.postRunnable(() -> npcMinigame1.setTextureAtlas(RandomGetter.getRandomTA_NPC()));
+                NPCMinigame1 npcMinigame1 = new NPCMinigame1(1000, level);
+                Gdx.app.postRunnable(() -> npcMinigame1.setTextureAtlas(RandomGetter.getRandomTA_NPC()));
 
-                    npcManager.addNPC(npcMinigame1);
-                    bodies.add(npcMinigame1.boxBody);
-                });
                 try {
                     Thread.sleep(500);
                 }catch (InterruptedException ignored){}
+
+                npcManager.addNPC(npcMinigame1);
+                GameQueue.add(() -> bodies.add(npcMinigame1.boxBody));
             }
         }).start();
     }
