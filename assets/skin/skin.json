@@ -6,6 +6,12 @@ com.badlogic.gdx.graphics.g2d.BitmapFont: {
 		markupEnabled: false
 		flip: false
 	}
+	pixel: {
+		file: pixel.fnt
+		scaledSize: -1
+		markupEnabled: false
+		flip: false
+	}
 }
 com.badlogic.gdx.graphics.Color: {
 	RGBA_0_0_0_255: {
@@ -23,7 +29,8 @@ com.badlogic.gdx.graphics.Color: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default: {
-		font: default
+		font: pixel
+		fontColor: RGBA_255_255_255_255
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
@@ -36,17 +43,18 @@ com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
 	default-horizontal: {
-		background: load_profiles_bg
+		background: Slider
+		knob: knob
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	default: {
-		font: default
+		font: pixel
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
 	default: {
-		font: default
+		font: pixel
 		fontColor: RGBA_255_255_255_255
 		background: load_profiles_bg
 	}

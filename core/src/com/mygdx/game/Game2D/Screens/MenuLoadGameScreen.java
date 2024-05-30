@@ -20,6 +20,7 @@ import com.mygdx.game.Game2D.Screens.transition.effects.TransitionEffect;
 import java.util.ArrayList;
 
 import static com.mygdx.game.Game2D.Game2D.profileManager;
+import static com.mygdx.game.Game2D.Game2D.resourceManager;
 import static com.mygdx.game.Game2D.Screens.GameScreen.player;
 
 public class MenuLoadGameScreen extends BaseScreen {
@@ -41,7 +42,6 @@ public class MenuLoadGameScreen extends BaseScreen {
     public MenuLoadGameScreen(Game2D game, BaseScreen previousScreen, ResourceManager resourceManager) {
         super(game);
         this.previousScreen = previousScreen;
-        resourceManager.setMenuLoadGameScreen(true);
 
         loadTable = createTable();
 
@@ -360,6 +360,5 @@ public class MenuLoadGameScreen extends BaseScreen {
 
     @Override
     public void hide() {
-        resourceManager.setMenuLoadGameScreen(false);
     }
 }

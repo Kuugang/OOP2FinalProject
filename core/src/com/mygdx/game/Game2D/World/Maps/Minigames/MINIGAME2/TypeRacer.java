@@ -71,7 +71,6 @@ public class TypeRacer extends Game implements InputProcessor, Screen {
 
     public void initializeStage() {
         batch = new SpriteBatch();
-        ResourceManager resourceManager = new ResourceManager();
         uifont = new BitmapFont();
         font = ResourceManager.pixel10;
         lives = 3;

@@ -32,7 +32,7 @@ public class ROOM extends GameMap {
         anotherNPC.setDialogues(new ArrayList<>(Arrays.asList(
                 "Sooo Warm...",
                 "Hopefully it will be rainy day soon",
-                "Zed gamay oten",
+                "Zed dakog PERSONALITY",
                 "Goodluck on your studies"
         )));
         anotherNPC.setToStay(Entity.Direction.UP);

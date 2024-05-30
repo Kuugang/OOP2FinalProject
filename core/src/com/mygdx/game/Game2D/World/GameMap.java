@@ -21,8 +21,10 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Game2D.Entities.Entity;
 import com.mygdx.game.Game2D.Entities.NPC.NPC;
+import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Manager.AudioManager;
 import com.mygdx.game.Game2D.Manager.NPCManager;
+import com.mygdx.game.Game2D.Manager.ResourceManager;
 import com.mygdx.game.Game2D.Screens.GameScreen;
 import com.mygdx.game.Game2D.Utils.GameQueue;
 import com.mygdx.game.Game2D.World.Maps.Minigames.MINIGAME2.TypeRacer;
@@ -50,13 +52,16 @@ public abstract class GameMap {
     public NPCManager npcManager;
     Music mapMusic;
 
+    TmxMapLoader tmxMapLoader;
+    public ArrayList<NPC> npcs = new ArrayList<>();
     public GameMap(String mapName) {
         this.mapName = mapName;
         npcManager = new NPCManager(this);
+        tmxMapLoader = new TmxMapLoader();
     }
 
     public GameMap setMap(String path) {
-        this.tiledMap = new TmxMapLoader().load(path);
+        this.tiledMap = ResourceManager.assetManager.get(path);
         layers = tiledMap.getLayers().getCount();
         FOREGROUND_LAYER = (TiledMapTileLayer) tiledMap.getLayers().get("FOREGROUND_LAYER");
         FOREGROUND_LAYER1 = (TiledMapTileLayer) tiledMap.getLayers().get("FOREGROUND_LAYER1");
@@ -100,6 +105,7 @@ public abstract class GameMap {
         setExits();
         setInteractable();
         setNPCS();
+        playMusic();
     }
 
 
@@ -290,16 +296,20 @@ public abstract class GameMap {
             notifyAll();
         }
 
+        for (NPC n : npcManager.getNPCs()) {
+            n.render();
+        }
+
+        for (NPC n : npcs) {
+            n.render();
+        }
+
         player.render();
 
         for (int i = 0; i < layers; i++) {
             if (tiledMap.getLayers().get(i) == FOREGROUND_LAYER || tiledMap.getLayers().get(i) == FOREGROUND_LAYER1) {
                 tiledMapRenderer.render(new int[]{i});
             }
-        }
-
-        for (NPC n : npcManager.getNPCs()) {
-            n.render();
         }
 
         if (this instanceof Minigame) {

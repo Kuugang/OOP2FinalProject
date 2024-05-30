@@ -17,7 +17,6 @@ public class DialogueScreen extends BaseScreen{
     public DialogueScreen(Game2D game, BaseScreen previousScreen, ResourceManager resourceManager) {
         super(game);
 
-        resourceManager.setMenuNewGameScreen(true);
     }
 
     public void createDialogue(String dialogue){

@@ -76,7 +76,7 @@
  <objectgroup id="2" name="EXIT_LAYER">
   <object id="10" x="127.818" y="704" width="3.27273" height="63.4545">
    <properties>
-    <property name="nextMap" value="HIS_HOUSE"/>
+    <property name="nextMap" value="ROOM"/>
     <property name="playerDirection" value="UP"/>
     <property name="playerX" type="float" value="14"/>
     <property name="playerY" type="float" value="1.5"/>
@@ -103,7 +103,7 @@
   </object>
   <object id="33" x="32" y="896" width="3.66667" height="57.6667">
    <properties>
-    <property name="nextMap" value="HIS_HOUSE"/>
+    <property name="nextMap" value="ROOM"/>
     <property name="playerDirection" value="UP"/>
     <property name="playerX" type="float" value="14"/>
     <property name="playerY" type="float" value="1.5"/>

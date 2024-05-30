@@ -80,7 +80,8 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
         if (gameState == GameState.PAUSED) {
             pauseScreen.getStage().act(delta);
             pauseScreen.getStage().draw();
-
+            player.playerHUD.render(delta);
+            currentMusicDisplay.render(delta);
             return;
         }
 
@@ -103,7 +104,7 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
         camera.update();
 
         currentMusicDisplay.render(delta);
-        debugRenderer.render(world, camera.combined);
+//        debugRenderer.render(world, camera.combined);
     }
 
     @Override

@@ -35,12 +35,11 @@ public class NGE_HALL extends GameMap {
 
             GameQueue.add(() -> bodies.add(npc.boxBody));
 
-            /*
-            * MainNPC mainNPC = new MainNPC(Math.abs(randomXS128.nextInt(100, 500)));
+            MainNPC mainNPC = new MainNPC(Math.abs(randomXS128.nextInt(100, 500)));
             mainNPC.setTextureAtlas(RandomGetter.getRandomTA_NPC());
             mainNPC.setDialogues(RandomGetter.getRandomDialogues());
             mainNPC.setPosition(new Vector2(Math.abs(randomXS128.nextInt(0, 100)),
-                    Math.abs(randomXS128.nextInt(0, 65))));*/
+                    Math.abs(randomXS128.nextInt(0, 65))));
         }
     }
 }

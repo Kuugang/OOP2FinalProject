@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Game2D.Game2D;
 import com.mygdx.game.Game2D.Screens.transition.effects.FadeOutTransitionEffect;
 import com.mygdx.game.Game2D.Screens.transition.effects.TransitionEffect;
@@ -47,7 +46,7 @@ public class MenuScreen extends BaseScreen {
 
                 setScreenWithTransition(
                         (BaseScreen)game.getScreen(),
-                        new MenuNewGameScreen(game, (BaseScreen)game.getScreen(), resourceManager),
+                        new MenuNewGameScreen(game, (BaseScreen)game.getScreen(), Game2D.resourceManager),
                         effects
                 );
             }
@@ -88,7 +87,7 @@ public class MenuScreen extends BaseScreen {
         loadButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent even, float x, float y) {
-                setScreenWithTransition((BaseScreen) game.getScreen(), new MenuLoadGameScreen(game, (BaseScreen) game.getScreen(), resourceManager), new ArrayList<>());
+                setScreenWithTransition((BaseScreen) game.getScreen(), new MenuLoadGameScreen(game, (BaseScreen) game.getScreen(), Game2D.resourceManager), new ArrayList<>());
             }
         });
     }
@@ -97,7 +96,7 @@ public class MenuScreen extends BaseScreen {
     public void show() {
         menuStage.addActor(menuTable);
         Gdx.input.setInputProcessor(menuStage);
-        Gdx.graphics.setCursor(Gdx.graphics.newCursor(resourceManager.cursor, 0, 0));
+        Gdx.graphics.setCursor(Gdx.graphics.newCursor(Game2D.resourceManager.cursor, 0, 0));
 
 //        notify(AudioObserver.AudioCommand.MUSIC_LOAD, MENU_THEME);
 //        notify(AudioObserver.AudioCommand.MUSIC_PLAY_LOOP, MENU_THEME);

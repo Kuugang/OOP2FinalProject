@@ -38,12 +38,11 @@ public class MenuNewGameScreen extends BaseScreen {
         super(game);
         this.previousScreen = previousScreen;
 
-        resourceManager.setMenuNewGameScreen(true);
 
         Label profileName = new Label("Enter Profile Name: ", ResourceManager.skin);
+        profileName.setFontScale(1.5f);
         usernameText = new TextField("Leo", ResourceManager.skin);
         usernameText.setMaxLength(20);
-
         usernameText.setWidth(200);
         usernameText.setHeight(10);
 
@@ -57,7 +56,6 @@ public class MenuNewGameScreen extends BaseScreen {
         menuNewGameTable = createTable();
         menuNewGameTable.setFillParent(true);
         menuNewGameTable.add(profileName).center();
-//        menuNewGameTable.add(usernameText).center();
         menuNewGameTable.add(usernameText);
 
         menuNewGameTable.row();
@@ -169,6 +167,5 @@ public class MenuNewGameScreen extends BaseScreen {
 
     @Override
     public void hide() {
-        resourceManager.setMenuNewGameScreen(false);
     }
 }

@@ -17,6 +17,8 @@ public class AudioManager {
     public CurrentMusicDisplay currentMusicDisplay;
     public ArrayList<Music> fillers;
     Queue<Music> fillersQueue = new LinkedList<Music>();
+    public float musicVolume = 100F;
+    public float soundVolume = 100F;
 
     private AudioManager() {
         sounds = new HashMap<>();
@@ -74,7 +76,8 @@ public class AudioManager {
     public void playSound(String name) {
         Sound sound = sounds.get(name);
         if (sound != null) {
-            sound.play();
+            long soundId = sound.play();
+            sound.setVolume(soundId, soundVolume);
         }
     }
 
@@ -84,6 +87,7 @@ public class AudioManager {
             if (currentMusic != null) currentMusic.stop();
             currentMusic = music;
             currentMusic.play();
+            currentMusic.setVolume(musicVolume);
             currentMusicDisplay.updateMusicLabel(name);
             currentMusicDisplay.startScrolling();
         }
@@ -101,6 +105,7 @@ public class AudioManager {
     public void stopMusic() {
         if (currentMusic != null) {
             currentMusic.stop();
+            handleMusicCompletion(currentMusic);
         }
     }
 
@@ -136,12 +141,10 @@ public class AudioManager {
         return currentMusicDisplay;
     }
 
-
     private void handleMusicCompletion(Music music) {
         Gdx.app.log("AudioManager", "Music completed: " + getMusicTitle(music));
 
-        if (!fillersQueue.isEmpty() && !music.isLooping()) {
-            // Get the next music in the queue
+        if (!fillersQueue.isEmpty()) {
             Music nextMusic = fillersQueue.poll(); // Retrieve and remove the head of the queue
             if (nextMusic != null) {
                 playMusic(nextMusic);

@@ -31,7 +31,6 @@ import java.util.List;
 
 public class BaseScreen implements Screen{
     protected final Game2D game;
-    protected ResourceManager resourceManager;
     protected OrthographicCamera gameCam;
     protected OrthographicCamera battleCam;
     protected Viewport viewport;
@@ -40,7 +39,6 @@ public class BaseScreen implements Screen{
 
     public BaseScreen(Game2D game) {
         this.game = game;
-        this.resourceManager = Game2D.resourceManager;
         this.stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight())); // Initialize the stage
 
         currentMusicDisplay = AudioManager.getInstance().getCurrentMusicDisplay();

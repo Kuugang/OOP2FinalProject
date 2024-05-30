@@ -14,6 +14,6 @@ public class DesktopLauncher {
 		config.setTitle("2D Game");
 		config.setWindowedMode(ScreenConfig.screenWidth - ScreenConfig.screenWidth / 4, ScreenConfig.screenHeight - ScreenConfig.screenHeight / 4);
 
-		new Lwjgl3Application(new TypeRacer(new Game2D()), config);
+		new Lwjgl3Application(new Game2D(), config);
 	}
 }

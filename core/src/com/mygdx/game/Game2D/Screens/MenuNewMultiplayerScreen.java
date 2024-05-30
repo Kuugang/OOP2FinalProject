@@ -30,7 +30,6 @@ public class MenuNewMultiplayerScreen extends BaseScreen {
         super(game);
         this.previousScreen = previousScreen;
 
-        resourceManager.setMenuNewGameScreen(true);
 
         Label IPAdressLabel = new Label("Enter IP Address: ", ResourceManager.skin);
         IPAddressText = new TextField("127.0.0.1", ResourceManager.skin);
@@ -138,6 +137,5 @@ public class MenuNewMultiplayerScreen extends BaseScreen {
 
     @Override
     public void hide() {
-        resourceManager.setMenuNewGameScreen(false);
     }
 }

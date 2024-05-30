@@ -22,6 +22,46 @@ atlasData: {
 			type: NINE_PATCH
 			hidden: false
 		}
+		{
+			file: C:/Users/kuugang/Downloads/Slider.9.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: Slider
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: NINE_PATCH
+			hidden: false
+		}
+		{
+			file: C:/Users/kuugang/Downloads/knob.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: knob
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
 	]
 	fontDrawables: [
 		{
@@ -35,6 +75,26 @@ atlasData: {
 			tint: null
 			tintName: null
 			name: default
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: FONT
+			hidden: false
+		}
+		{
+			file: C:/Users/kuugang/Documents/OOP2FinalProject/assets/fonts/pixel.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: pixel
 			tiled: false
 			minWidth: -1
 			minHeight: -1
@@ -78,6 +138,14 @@ jsonData: {
 			scaling: -1
 			file: C:/Users/kuugang/Documents/OOP2FinalProject/assets/data/default.fnt
 		}
+		{
+			class: com.ray3k.skincomposer.data.FontData
+			name: pixel
+			flip: false
+			markupEnabled: false
+			scaling: -1
+			file: C:/Users/kuugang/Documents/OOP2FinalProject/assets/fonts/pixel.fnt
+		}
 	]
 	freeTypeFonts: []
 	classStyleMap: {
@@ -91,7 +159,7 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: default
+						value: pixel
 					}
 					fontColor: {
 						type: com.badlogic.gdx.graphics.Color
@@ -585,7 +653,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: background
 						optional: false
-						value: load_profiles_bg
+						value: Slider
 					}
 					disabledBackground: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
@@ -597,7 +665,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: knob
 						optional: true
-						value: null
+						value: knob
 					}
 					disabledKnob: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
@@ -749,7 +817,7 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: default
+						value: pixel
 					}
 					fontColor: {
 						type: com.badlogic.gdx.graphics.Color
@@ -1461,13 +1529,13 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: default
+						value: pixel
 					}
 					fontColor: {
 						type: com.badlogic.gdx.graphics.Color
 						name: fontColor
 						optional: true
-						value: null
+						value: RGBA_255_255_255_255
 					}
 					background: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
@@ -1670,6 +1738,13 @@ preferences: {
 	id: {
 		class: java.lang.Integer
 		value: 716777159
+	}
+	preview-bg-color: {
+		class: com.badlogic.gdx.graphics.Color
+		r: 1
+		g: 1
+		b: 1
+		a: 1
 	}
 	last-import-export-path: {
 		class: java.lang.String

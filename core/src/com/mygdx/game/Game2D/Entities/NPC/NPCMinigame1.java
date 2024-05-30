@@ -57,24 +57,24 @@ public class NPCMinigame1 extends NPC {
     @Override
     public void update() {
         move();
-        float speedLowerBound = 0;
-        float speedUpperBound = 0;
-
-        if(level == 1){
-            speedLowerBound = 140;
-            speedUpperBound = 180;
-        }
-
-        if(level == 2){
-            speedLowerBound = 180;
-            speedUpperBound = 220;
-        }
-
-        if(level == 3){
-            speedLowerBound = 120;
-            speedUpperBound = 260;
-        }
-
-        setSpeed(random.nextFloat(speedUpperBound - speedLowerBound + 1) + speedLowerBound);
+//        float speedLowerBound = 0;
+//        float speedUpperBound = 0;
+//
+//        if(level == 1){
+//            speedLowerBound = 140;
+//            speedUpperBound = 180;
+//        }
+//
+//        if(level == 2){
+//            speedLowerBound = 180;
+//            speedUpperBound = 220;
+//        }
+//
+//        if(level == 3){
+//            speedLowerBound = 120;
+//            speedUpperBound = 260;
+//        }
+//
+//        setSpeed(random.nextFloat(speedUpperBound - speedLowerBound + 1) + speedLowerBound);
     }
 }
