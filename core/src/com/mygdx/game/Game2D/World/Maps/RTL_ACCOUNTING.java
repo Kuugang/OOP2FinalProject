@@ -20,7 +20,7 @@ public class RTL_ACCOUNTING extends GameMap {
 
     @Override
     public void setNPCS() {
-        RandomXS128 randomXS128 = new RandomXS128();
+/*        RandomXS128 randomXS128 = new RandomXS128();
         for(int i = 0; i < 50; i++){
             MainNPC mainNPC = new MainNPC(Math.abs(randomXS128.nextInt(100, 500)));
             mainNPC.setTextureAtlas(RandomGetter.getRandomTA_NPC());
@@ -31,9 +31,8 @@ public class RTL_ACCOUNTING extends GameMap {
             npcManager.addNPC(mainNPC);
 
             GameQueue.add(() -> bodies.add(mainNPC.boxBody));
-        }
+        }*/
 
-        /*
         RandomXS128 randomXS128 = new RandomXS128();
         for(int i = 0; i < 5; i++){
             MainNPC mainNPC = new MainNPC(Math.abs(randomXS128.nextInt(100, 500)));
@@ -45,6 +44,5 @@ public class RTL_ACCOUNTING extends GameMap {
 
             GameQueue.add(() -> bodies.add(mainNPC.boxBody));
         }
-         */
     }
 }
