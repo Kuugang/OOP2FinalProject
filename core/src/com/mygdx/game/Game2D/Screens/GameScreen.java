@@ -90,7 +90,7 @@ public class GameScreen extends BaseScreen implements ApplicationListener {
         camera.zoom = 0.5F;
 
         //PHYSICS
-        world.step(1/10f, 6, 2);
+        world.step(1/120f, 6, 2);
 
         GameQueue.run();
 
