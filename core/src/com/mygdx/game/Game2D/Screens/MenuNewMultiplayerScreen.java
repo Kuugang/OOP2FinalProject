@@ -69,29 +69,29 @@ public class MenuNewMultiplayerScreen extends BaseScreen {
         playButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent even, float x, float y) {
-
-                String ipAddress = IPAddressText.getText();
-                String username = usernameText.getText();
-
-                if(ipAddress.trim().isEmpty() || username.trim().isEmpty()){
-                    System.out.println("INVALID INPUTS");
-                    return;
-                }
-
-                previousScreen.dispose();
-
-                game.setGameClient(new GameClient(ipAddress));
-                game.getGameClient().start();
-                World.isMultiplayer = true;
-
-                ArrayList<TransitionEffect> effects = new ArrayList<>();
-                effects.add(new FadeOutTransitionEffect(1F));
-
-                setScreenWithTransition(
-                    (BaseScreen) game.getScreen(),
-                    new GameScreen(game),
-                    effects
-                );
+//
+//                String ipAddress = IPAddressText.getText();
+//                String username = usernameText.getText();
+//
+//                if(ipAddress.trim().isEmpty() || username.trim().isEmpty()){
+//                    System.out.println("INVALID INPUTS");
+//                    return;
+//                }
+//
+//                previousScreen.dispose();
+//
+//                game.setGameClient(new GameClient(ipAddress));
+//                game.getGameClient().start();
+//                World.isMultiplayer = true;
+//
+//                ArrayList<TransitionEffect> effects = new ArrayList<>();
+//                effects.add(new FadeOutTransitionEffect(1F));
+//
+//                setScreenWithTransition(
+//                    (BaseScreen) game.getScreen(),
+//                    new GameScreen(game),
+//                    effects
+//                );
             }
         });
     }

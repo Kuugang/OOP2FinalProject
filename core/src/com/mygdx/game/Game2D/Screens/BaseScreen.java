@@ -40,8 +40,9 @@ public class BaseScreen implements Screen{
     public BaseScreen(Game2D game) {
         this.game = game;
         this.stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight())); // Initialize the stage
-
-        currentMusicDisplay = AudioManager.getInstance().getCurrentMusicDisplay();
+        if(ResourceManager.getInstance().isFinishedLoading){
+            currentMusicDisplay = AudioManager.getInstance().getCurrentMusicDisplay();
+        }
     }
 
     public void setScreenWithTransition(BaseScreen current, BaseScreen next, List<TransitionEffect> transitionEffect) {
@@ -108,36 +109,36 @@ public class BaseScreen implements Screen{
 
 
     public ImageButton createImageButton(String buttonName, Table table) {
-            TextureRegion buttonUp = ResourceManager.getInstance().atlas.findRegion(buttonName);
+        TextureRegion buttonUp = ResourceManager.getInstance().atlas.findRegion(buttonName);
 
-            ImageButton.ImageButtonStyle buttonStyle = new ImageButton.ImageButtonStyle();
-            buttonStyle.imageUp = new TextureRegionDrawable(buttonUp);
+        ImageButton.ImageButtonStyle buttonStyle = new ImageButton.ImageButtonStyle();
+        buttonStyle.imageUp = new TextureRegionDrawable(buttonUp);
 
-            ImageButton button = new ImageButton(buttonStyle);
-            button.setTransform(true);
+        ImageButton button = new ImageButton(buttonStyle);
+        button.setTransform(true);
 
-            button.setOrigin(button.getWidth() / 2, button.getHeight() / 2);
+        button.setOrigin(button.getWidth() / 2, button.getHeight() / 2);
 
-            button.addListener(new InputListener() {
-                @Override
-                public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                    // Hover sound
-                    if (!AudioManager.buttonSound) {
-                        AudioManager.getInstance().playSound("hover");
-                    }
-                    button.setScale(1.1F);
+        button.addListener(new InputListener() {
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                // Hover sound
+                if (!AudioManager.buttonSound) {
+                    AudioManager.getInstance().playSound("hover");
                 }
+                button.setScale(1.1F);
+            }
 
-                @Override
-                public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                    AudioManager.buttonSound = false;
-                    button.setScale(1.0F);
-                }
-            });
+            @Override
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                AudioManager.buttonSound = false;
+                button.setScale(1.0F);
+            }
+        });
 
-            table.add(button).pad(10);
+        table.add(button).pad(10);
 
-            return button;
+        return button;
     }
 
     public Table createTable() {
@@ -164,7 +165,9 @@ public class BaseScreen implements Screen{
         ScreenUtils.clear(0,0,0,1);
         stage.act(delta);
         stage.draw();
-        currentMusicDisplay.render(delta);
+        if(currentMusicDisplay != null){
+            currentMusicDisplay.render(delta);
+        }
     }
 
     @Override

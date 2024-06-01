@@ -14,44 +14,29 @@ import com.mygdx.game.Game2D.World.MapManager;
 public class Game2D extends Game {
     public static SpriteBatch batch;
     public static ShapeRenderer shapeRenderer;
-    public MenuScreen menuScreen;
     public static ProfileManager profileManager;
     public static ResourceManager resourceManager;
-    private GameClient gameClient;
     public static InputManager inputManager;
     public static MapManager mapManager;
     public static Screen previousScreen;
-    public LoadingScreen loadingScreen;
+
     @Override
     public void create() {
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
         profileManager = new ProfileManager();
         inputManager = new InputManager();
+
         resourceManager = ResourceManager.getInstance();
         resourceManager.loadAssets();
 
-//        loadingScreen = new LoadingScreen(this);
-//        super.setScreen(loadingScreen);
-
-        mapManager = new MapManager();
-        AudioManager.getInstance().playMusic("Celeste Original Soundtrack - 02 - First Steps");
-        menuScreen = new MenuScreen(this);
-        this.setScreen(menuScreen);
+        super.setScreen(new LoadingScreen(this));
     }
 
     @Override
     public void render() {
         super.render();
     }
-    public GameClient getGameClient(){
-        return gameClient;
-    }
-
-    public void setGameClient(GameClient gameClient){
-        this.gameClient = gameClient;
-    }
-
     @Override
     public void setScreen(Screen screen) {
         previousScreen = getScreen();

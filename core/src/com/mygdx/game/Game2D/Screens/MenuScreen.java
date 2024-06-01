@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Game2D.Game2D;
+import com.mygdx.game.Game2D.Manager.AudioManager;
 import com.mygdx.game.Game2D.Screens.transition.effects.FadeOutTransitionEffect;
 import com.mygdx.game.Game2D.Screens.transition.effects.TransitionEffect;
 
@@ -34,6 +35,8 @@ public class MenuScreen extends BaseScreen {
         handlePlayButton();
         handleLoadButton();
         handleExitButton();
+
+        AudioManager.getInstance().playMusic("Celeste Original Soundtrack - 02 - First Steps");
     }
 
     private void handlePlayButton() {
@@ -96,10 +99,6 @@ public class MenuScreen extends BaseScreen {
     public void show() {
         menuStage.addActor(menuTable);
         Gdx.input.setInputProcessor(menuStage);
-        Gdx.graphics.setCursor(Gdx.graphics.newCursor(Game2D.resourceManager.cursor, 0, 0));
-
-//        notify(AudioObserver.AudioCommand.MUSIC_LOAD, MENU_THEME);
-//        notify(AudioObserver.AudioCommand.MUSIC_PLAY_LOOP, MENU_THEME);
     }
 
     @Override

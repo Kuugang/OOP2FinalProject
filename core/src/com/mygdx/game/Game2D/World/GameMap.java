@@ -61,7 +61,7 @@ public abstract class GameMap {
     }
 
     public GameMap setMap(String path) {
-        this.tiledMap = ResourceManager.assetManager.get(path);
+        this.tiledMap = ResourceManager.getInstance().assetManager.get(path);
         layers = tiledMap.getLayers().getCount();
         FOREGROUND_LAYER = (TiledMapTileLayer) tiledMap.getLayers().get("FOREGROUND_LAYER");
         FOREGROUND_LAYER1 = (TiledMapTileLayer) tiledMap.getLayers().get("FOREGROUND_LAYER1");

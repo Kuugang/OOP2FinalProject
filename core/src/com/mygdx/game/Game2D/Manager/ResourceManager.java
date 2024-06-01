@@ -19,14 +19,13 @@ import com.mygdx.game.Game2D.World.Maps.Minigames.MINIGAME1;
 
 public class ResourceManager {
     public static ResourceManager instance = null;
-    protected boolean isMenuNewGameScreen;
-    protected boolean isMenuLoadGameScreen;
+    public boolean isFinishedLoading;
     private static InternalFileHandleResolver filePathResolver = new InternalFileHandleResolver();
 
     public Pixmap cursor;
     public static BitmapFont pixel10;
     public static Skin skin;
-    public static final AssetManager assetManager = new AssetManager();
+    public AssetManager assetManager;
     public Animation<TextureRegion> upAnimation;
     public Animation<TextureRegion> downAnimation;
     public Animation<TextureRegion> leftAnimation;
@@ -39,7 +38,8 @@ public class ResourceManager {
     public TextureAtlas playerAtlas;
     TmxMapLoader tmxMapLoader = new TmxMapLoader();
     private ResourceManager() {
-
+        assetManager = new AssetManager();
+        cursor = new Pixmap(Gdx.files.internal("tool/cursor.png"));
     }
 
     public void loadAssets(){
@@ -75,13 +75,11 @@ public class ResourceManager {
         assetManager.load("Game2D/Maps/MINIGAME/MINIGAME_1/MINIGAME_1_LVL1.tmx", TiledMap.class);
         assetManager.load("Game2D/Maps/MINIGAME/MINIGAME_1/MINIGAME_1_LVL2.tmx", TiledMap.class);
         assetManager.load("Game2D/Maps/MINIGAME/MINIGAME_1/MINIGAME_1_LVL3.tmx", TiledMap.class);
-        assetManager.finishLoading();
+    }
 
-        System.out.println("LOADING FINISHED");
-
+    public void initializeResource(){
         atlas = assetManager.get("atlas/UI/UI.atlas", TextureAtlas.class);
         playerAtlas = assetManager.get("atlas/leo.atlas", TextureAtlas.class);
-
 
         upAnimation = new Animation<>(0.10f, playerAtlas.findRegions("move_up"));
         downAnimation = new Animation<>(0.10f, playerAtlas.findRegions("move_down"));
@@ -102,7 +100,6 @@ public class ResourceManager {
         idleLeftAnimation.setPlayMode(Animation.PlayMode.NORMAL);
         idleRightAnimation.setPlayMode(Animation.PlayMode.NORMAL);
 
-        cursor = assetManager.get("tool/cursor.png", Pixmap.class);
         pixel10 = assetManager.get("fonts/pixel.fnt", BitmapFont.class);
         skin = assetManager.get("skin/skin.json", Skin.class);
     }
@@ -134,7 +131,7 @@ public class ResourceManager {
         pixel10.dispose();
     }
 
-    public static float getProgress() {
+    public float getProgress() {
         return assetManager.getProgress();
     }
 }
